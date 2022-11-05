@@ -7,10 +7,10 @@ from RoleCards.enum.cardTypeEnum import CardType
 from RoleCards.enum.tierType import TierType
 
 
-class SrAster(SRCard):
+class SRAster(SRCard):
     def __init__(self):
-        super(SrAster, self).__init__()
-        self.cardId = 'SrAster'
+        super(SRAster, self).__init__()
+        self.cardId = 'SRAster'
         self.cardName = '使魔-艾斯特'
         self.nickName = 'SR艾'
         self.role = CardRole.Aster
@@ -28,7 +28,7 @@ class SrAster(SRCard):
     def skill(self, enemy):
         self.skillCount = 0
 
-        buff = Buff('SrAster_skill', 0.25, 4, BuffType.BloodSucking)
+        buff = Buff('SRAster_skill', 0.25, 4, BuffType.BloodSucking)
         self.addBuff(buff)
 
         magnification = self.getMagnification(2.47, 2.96, 3.45)
@@ -47,7 +47,7 @@ class SrAster(SRCard):
     # 有墨菲，攻+10%
     # 队伍艾斯特每1位，自攻+5%(max 3)
     def passive_star_3(self):
-        if super(SrAster, self).passive_star_3():
+        if super(SRAster, self).passive_star_3():
             count = 0
             hasMorvay = False
             for mate in self.teamMate:
@@ -60,25 +60,25 @@ class SrAster(SRCard):
                 count = 3
 
             if hasMorvay:
-                buff = Buff('SrAster_passive_star_3', 0.1, 0, BuffType.AtkIncrease)
+                buff = Buff('SRAster_passive_star_3', 0.1, 0, BuffType.AtkIncrease)
                 buff.isPassive = True
                 self.addBuff(buff)
 
             if count > 0:
-                buff = Buff('SrAster_passive_star_3_2', 0.05 * count, 0, BuffType.AtkIncrease)
+                buff = Buff('SRAster_passive_star_3_2', 0.05 * count, 0, BuffType.AtkIncrease)
                 buff.isPassive = True
                 self.addBuff(buff)
 
     # 普攻+50%
     def passive_star_5(self):
-        if super(SrAster, self).passive_star_5():
-            buff = Buff('SrAster_passive_star_5', 0.5, 0, BuffType.AttackIncrease)
+        if super(SRAster, self).passive_star_5():
+            buff = Buff('SRAster_passive_star_5', 0.5, 0, BuffType.AttackIncrease)
             buff.isPassive = True
             self.addBuff(buff)
 
     # 普攻+20%
     def passive_tier_6(self):
-        if super(SrAster, self).passive_tier_6():
-            buff = Buff('SrAster_passive_tier_6', 0.2, 0, BuffType.AttackIncrease)
+        if super(SRAster, self).passive_tier_6():
+            buff = Buff('SRAster_passive_tier_6', 0.2, 0, BuffType.AttackIncrease)
             buff.isPassive = True
             self.addBuff(buff)
