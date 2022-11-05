@@ -1,4 +1,5 @@
 from RoleCards.enum.cardRarityEnum import CardRarity
+from RoleCards.enum.tierType import TierType
 from card import ICard
 
 
@@ -6,6 +7,7 @@ class RCard(ICard):
     def __init__(self):
         super(RCard, self).__init__()
         self.rarity = CardRarity.R
+        self.tierType = TierType.RandN
 
     # 潜能3被动
     def passive_tier_3(self):

@@ -1,5 +1,6 @@
 from RoleCards.buff.buff import Buff
 from RoleCards.common.card import roundDown
+from RoleCards.common.rCard import RCard
 from RoleCards.common.srCard import SRCard
 from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
@@ -8,20 +9,19 @@ from RoleCards.enum.cardTypeEnum import CardType
 from RoleCards.enum.tierType import TierType
 
 
-class ShadowSerpent(SRCard):
+class RYakumo(RCard):
     def __init__(self):
-        super(ShadowSerpent, self).__init__()
-        self.cardId = 'ShadowSerpent'
-        self.cardName = '隐异之蛇'
-        self.nickName = '奶八'
+        super(RYakumo, self).__init__()
+        self.cardId = 'RYakumo'
+        self.cardName = '模范青年'
+        self.nickName = 'R八'
         self.role = CardRole.Yakumo
-        self.type = CardType.Fire
+        self.type = CardType.Wood
         self.occupation = CardOccupation.Healer
-        self.tierType = TierType.Balance
         self.skillCD = 3
 
-        self.lv60s5Hp = 6155
-        self.lv60s5Atk = 1636
+        self.lv60s5Hp = 5301
+        self.lv60s5Atk = 1352
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
@@ -43,7 +43,7 @@ class ShadowSerpent(SRCard):
         for role in self.teamMate:
             tempHeal = role.increaseBeHeal(heal)
             role.beHealed(tempHeal, True)
-            buff = Buff('ShadowSerpent_skill', hotHeal, 2, BuffType.Hot)
+            buff = Buff('RYakumo_skill', hotHeal, 2, BuffType.Hot)
             role.addBuff(buff, self)
 
         return 0
@@ -64,22 +64,22 @@ class ShadowSerpent(SRCard):
 
     # 造成回复量+25%
     def passive_star_3(self):
-        if super(ShadowSerpent, self).passive_star_3():
-            buff = Buff('ShadowSerpent_passive_star_3', 0.25, 0, BuffType.HealIncrease)
+        if super(RYakumo, self).passive_star_3():
+            buff = Buff('RYakumo_passive_star_3', 0.25, 0, BuffType.HealIncrease)
             buff.isPassive = True
             self.addBuff(buff)
 
     # 全体最大HP+6%
     def passive_star_5(self):
-        if super(ShadowSerpent, self).passive_star_5():
+        if super(RYakumo, self).passive_star_5():
             for role in self.teamMate:
-                buff = Buff('ShadowSerpent_passive_star_5', 0.06, 0, BuffType.HpIncrease)
+                buff = Buff('RYakumo_passive_star_5', 0.06, 0, BuffType.HpIncrease)
                 buff.isPassive = True
                 role.addBuff(buff,self)
 
     # 攻+10%
-    def passive_tier_6(self):
-        if super(ShadowSerpent, self).passive_tier_6():
-            buff = Buff('ShadowSerpent_passive_tier_6', 0.1, 0, BuffType.AtkIncrease)
+    def passive_tier_3(self):
+        if super(RYakumo, self).passive_tier_3():
+            buff = Buff('RYakumo_passive_tier_3', 0.1, 0, BuffType.AtkIncrease)
             buff.isPassive = True
             self.addBuff(buff)

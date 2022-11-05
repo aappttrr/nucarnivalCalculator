@@ -2,27 +2,14 @@ from openpyxl.worksheet.worksheet import Worksheet
 
 from Nucarnival.cardHelper import CardHelper
 from Nucarnival.nucarnivalHelper import NucarnivalHelper
-from RoleCards.cards.blade.explosiveRecall import ExplosiveRecall
-from RoleCards.cards.edmond.knightlyNight import KnightlyNight
-from RoleCards.cards.edmond.sweetAroma import SweetAroma
-from RoleCards.cards.garu.howlingCyclone import HowlingCyclone
-from RoleCards.cards.kuya.lakesideSpark import LakesideSpark
 from RoleCards.cards.monster.commonMonster import CommonMonster
 from RoleCards.cards.monster.tempTeamMate import TempTeamMate
-from RoleCards.cards.olivine.aquaBloom import AquaBloom
-from RoleCards.cards.olivine.manOfGod import ManOfGod
-from RoleCards.cards.olivine.radiantAdmiral import RadiantAdmiral
 from RoleCards.cards.quincy.ancientCeremony import AncientCeremony
 from RoleCards.cards.quincy.distantPromise import DistantPromise
-from RoleCards.cards.yakumo.homecoming import Homecoming
-from RoleCards.cards.yakumo.oceanBreeze import OceanBreeze
 from RoleCards.common.card import ICard
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
-from RoleCards.enum.cardTypeEnum import CardType
 from openpyxl.workbook import Workbook
-
-from tkinter import filedialog
 
 
 # 模拟角色单人13回合作战能力
@@ -62,7 +49,6 @@ def simulation1(cardHelper: CardHelper, helper: NucarnivalHelper):
             row += 1
             # 3星6潜
             simulation(helper, ws, x, row, 3, 6)
-
 
     wb.save('C:\\fhs\\python\\计算结果2.xls')
 

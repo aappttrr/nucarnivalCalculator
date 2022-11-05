@@ -9,6 +9,8 @@ def getTierData(tierType: TierType, tier, isAtk=True):
             return getDefenseTypeTierData(tier, isAtk)
         case TierType.Balance:
             return getBalanceTypeTierData(tier, isAtk)
+        case TierType.RandN:
+            return getRandNTypeTierData(tier, isAtk)
     return 0
 
 
@@ -214,3 +216,43 @@ def getBalanceTypeTierData(tier, isAtk=True):
                 return 0.94
         case 12:
             return 1
+
+def getRandNTypeTierData(tier, isAtk=True):
+    if tier < 0:
+        tier = 0
+    elif tier > 6:
+        tier = 6
+
+    match tier:
+        case 0:
+            return 0
+        case 1:
+            if isAtk:
+                return 0.17
+            else:
+                return 0
+        case 2:
+            if isAtk:
+                return 0.17
+            else:
+                return 0.17
+        case 3:
+            if isAtk:
+                return 0.23
+            else:
+                return 0.26
+        case 4:
+            if isAtk:
+                return 0.41
+            else:
+                return 0.26
+        case 5:
+            if isAtk:
+                return 0.41
+            else:
+                return 0.41
+        case 6:
+            if isAtk:
+                return 0.5
+            else:
+                return 0.5

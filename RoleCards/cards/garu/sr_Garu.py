@@ -7,10 +7,10 @@ from RoleCards.enum.cardTypeEnum import CardType
 from RoleCards.enum.tierType import TierType
 
 
-class WildWolf(SRCard):
+class SRGaru(SRCard):
     def __init__(self):
-        super(WildWolf, self).__init__()
-        self.cardId = 'WildWolf'
+        super(SRGaru, self).__init__()
+        self.cardId = 'SRGaru'
         self.cardName = '流浪小狼'
         self.nickName = 'SR狼'
         self.role = CardRole.Garu
@@ -29,7 +29,7 @@ class WildWolf(SRCard):
     def skill(self, enemy):
         self.skillCount = 0
         for monster in self.enemies:
-            buff = Buff('WildWolf_skill', 0.08, 1, BuffType.BeDamageIncrease)
+            buff = Buff('SRGaru_skill', 0.08, 1, BuffType.BeDamageIncrease)
             monster.addBuff(buff, self)
 
         magnification = self.getMagnification(1.24, 1.48, 1.73)
@@ -42,7 +42,7 @@ class WildWolf(SRCard):
     def attack(self, enemy):
         self.skillCount = 0
         for monster in self.enemies:
-            buff = Buff('WildWolf_attack', 0.04, 2, BuffType.BeDamageIncrease)
+            buff = Buff('SRGaru_attack', 0.04, 2, BuffType.BeDamageIncrease)
             monster.addBuff(buff, self)
 
         currentAtk = self.getCurrentAtk()
@@ -51,16 +51,16 @@ class WildWolf(SRCard):
         return damage
 
     def nextRound(self):
-        super(WildWolf, self).nextRound()
+        super(SRGaru, self).nextRound()
         # 每回合攻+4%（max 10）
-        if self.passive_star_5() and self.calBuffCount('WildWolf_passive_star_5') < 10:
-            buff = Buff('WildWolf_passive_star_5', 0.04, 0, BuffType.AtkIncrease)
+        if self.passive_star_5() and self.calBuffCount('SRGaru_passive_star_5') < 10:
+            buff = Buff('SRGaru_passive_star_5', 0.04, 0, BuffType.AtkIncrease)
             buff.isPassive = True
             self.addBuff(buff)
 
     # 队伍可尔每1位，自攻+8%(max 3)
     def passive_star_3(self):
-        if super(WildWolf, self).passive_star_3():
+        if super(SRGaru, self).passive_star_3():
             count = 0
             for mate in self.teamMate:
                 if mate.role == CardRole.Garu:
@@ -70,17 +70,17 @@ class WildWolf(SRCard):
                 count = 3
 
             if count > 0:
-                buff = Buff('WildWolf_passive_star_3', 0.08 * count, 0, BuffType.AtkIncrease)
+                buff = Buff('SRGaru_passive_star_3', 0.08 * count, 0, BuffType.AtkIncrease)
                 buff.isPassive = True
                 self.addBuff(buff)
 
     # 每回合攻+4%（max 10）
     def passive_star_5(self):
-        return super(WildWolf, self).passive_star_5()
+        return super(SRGaru, self).passive_star_5()
 
     # 攻击力增加10%（被动）
     def passive_tier_6(self):
-        if super(WildWolf, self).passive_tier_6():
-            buff = Buff('WildWolf_passive_tier_6', 0.1, 0, BuffType.AtkIncrease)
+        if super(SRGaru, self).passive_tier_6():
+            buff = Buff('SRGaru_passive_tier_6', 0.1, 0, BuffType.AtkIncrease)
             buff.isPassive = True
             self.addBuff(buff)

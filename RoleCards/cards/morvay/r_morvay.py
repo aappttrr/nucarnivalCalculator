@@ -1,6 +1,6 @@
 from RoleCards.buff.buff import Buff
 from RoleCards.common.card import roundDown
-from RoleCards.common.srCard import SRCard
+from RoleCards.common.rCard import RCard
 from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
@@ -8,20 +8,19 @@ from RoleCards.enum.cardTypeEnum import CardType
 from RoleCards.enum.tierType import TierType
 
 
-class FamiliarMorvay(SRCard):
+class RMorvay(RCard):
     def __init__(self):
-        super(FamiliarMorvay, self).__init__()
-        self.cardId = 'FamiliarMorvay'
-        self.cardName = '使魔-墨菲'
-        self.nickName = 'SR墨'
+        super(RMorvay, self).__init__()
+        self.cardId = 'RMorvay'
+        self.cardName = '淫魔'
+        self.nickName = 'R墨'
         self.role = CardRole.Morvay
-        self.type = CardType.Fire
+        self.type = CardType.Dark
         self.occupation = CardOccupation.Guardian
-        self.tierType = TierType.Defense
         self.skillCD = 3
 
-        self.lv60s5Hp = 9606
-        self.lv60s5Atk = 1031
+        self.lv60s5Hp = 8147
+        self.lv60s5Atk = 889
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
@@ -38,13 +37,13 @@ class FamiliarMorvay(SRCard):
         shield = roundDown(shield)
         shield = self.increaseShield(shield)
 
-        buff = Buff('FamiliarMorvay_skill', shield, 1, BuffType.Shield)
+        buff = Buff('RMorvay_skill', shield, 1, BuffType.Shield)
         self.addBuff(buff)
 
-        buff2 = Buff('FamiliarMorvay_skill_2', 0.1, 1, BuffType.DefenseDamageReduction)
+        buff2 = Buff('RMorvay_skill_2', 0.1, 1, BuffType.DefenseDamageReduction)
         self.addBuff(buff2)
 
-        buff3 = Buff('FamiliarMorvay_skill_3', 0, 1, BuffType.Taunt)
+        buff3 = Buff('RMorvay_skill_3', 0, 1, BuffType.Taunt)
         self.addBuff(buff3)
 
         self.defense = True
@@ -63,7 +62,7 @@ class FamiliarMorvay(SRCard):
     # 有艾斯特，最大HP+13%
     # 守护<=1，受伤-10%
     def passive_star_3(self):
-        if super(FamiliarMorvay, self).passive_star_3():
+        if super(RMorvay, self).passive_star_3():
             count = 0
             hasAster = False
             for role in self.teamMate:
@@ -73,25 +72,25 @@ class FamiliarMorvay(SRCard):
                     count += 1
 
             if hasAster:
-                buff = Buff('FamiliarMorvay_passive_star_3', 0.13, 0, BuffType.HpIncrease)
+                buff = Buff('RMorvay_passive_star_3', 0.13, 0, BuffType.HpIncrease)
                 buff.isPassive = True
                 self.addBuff(buff)
 
             if count <= 1:
-                buff = Buff('FamiliarMorvay_passive_star_3_2', -0.1, 0, BuffType.BeDamageIncrease)
+                buff = Buff('RMorvay_passive_star_3_2', -0.1, 0, BuffType.BeDamageIncrease)
                 buff.isPassive = True
                 self.addBuff(buff)
 
     # 受伤-10%
     def passive_star_5(self):
-        if super(FamiliarMorvay, self).passive_star_5():
-            buff = Buff('FamiliarMorvay_passive_star_5', -0.1, 0, BuffType.BeDamageIncrease)
+        if super(RMorvay, self).passive_star_5():
+            buff = Buff('RMorvay_passive_star_5', -0.1, 0, BuffType.BeDamageIncrease)
             buff.isPassive = True
             self.addBuff(buff)
 
     # 受回复量+20%
-    def passive_tier_6(self):
-        if super(FamiliarMorvay, self).passive_tier_6():
-            buff = Buff('FamiliarMorvay_passive_tier_6', 0.2, 0, BuffType.BeHealIncrease)
+    def passive_tier_3(self):
+        if super(RMorvay, self).passive_tier_3():
+            buff = Buff('RMorvay_passive_tier_3', 0.2, 0, BuffType.BeHealIncrease)
             buff.isPassive = True
             self.addBuff(buff)

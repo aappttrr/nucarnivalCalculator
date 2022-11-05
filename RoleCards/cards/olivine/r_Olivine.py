@@ -1,5 +1,6 @@
 from RoleCards.buff.buff import Buff
 from RoleCards.common.card import roundDown
+from RoleCards.common.rCard import RCard
 from RoleCards.common.srCard import SRCard
 from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
@@ -8,20 +9,19 @@ from RoleCards.enum.cardTypeEnum import CardType
 from RoleCards.enum.tierType import TierType
 
 
-class ManOfGod(SRCard):
+class ROlivine(RCard):
     def __init__(self):
-        super(ManOfGod, self).__init__()
-        self.cardId = 'ManOfGod'
-        self.cardName = '圣职祭司'
-        self.nickName = 'SR奥'
+        super(ROlivine, self).__init__()
+        self.cardId = 'ROlivine'
+        self.cardName = '教团祭司'
+        self.nickName = 'R奥'
         self.role = CardRole.Olivine
-        self.type = CardType.Light
+        self.type = CardType.Wood
         self.occupation = CardOccupation.Support
-        self.tierType = TierType.Defense
         self.skillCD = 4
 
-        self.lv60s5Hp = 7827
-        self.lv60s5Atk = 1280
+        self.lv60s5Hp = 6653
+        self.lv60s5Atk = 1067
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
@@ -34,7 +34,7 @@ class ManOfGod(SRCard):
         actualDamageIncrease = roundDown(actualDamageIncrease)
 
         for role in self.teamMate:
-            buff = Buff('ManOfGod_skill', actualDamageIncrease, 2, BuffType.AtkIncreaseByActualValue)
+            buff = Buff('ROlivine_skill', actualDamageIncrease, 2, BuffType.AtkIncreaseByActualValue)
             role.addBuff(buff, self)
         return 0
 
@@ -44,31 +44,31 @@ class ManOfGod(SRCard):
         actualDamageIncrease = roundDown(actualDamageIncrease)
 
         for role in self.teamMate:
-            buff = Buff('ManOfGod_attack', actualDamageIncrease, 1, BuffType.AtkIncreaseByActualValue)
+            buff = Buff('ROlivine_attack', actualDamageIncrease, 1, BuffType.AtkIncreaseByActualValue)
             role.addBuff(buff, self)
         return 0
 
     # 全体攻击力+8%
     def passive_star_3(self):
-        if super(ManOfGod, self).passive_star_3():
+        if super(ROlivine, self).passive_star_3():
             for role in self.teamMate:
-                buff = Buff('ManOfGod_passive_star_3', 0.08, 0, BuffType.AtkIncrease)
+                buff = Buff('ROlivine_passive_star_3', 0.08, 0, BuffType.AtkIncrease)
                 buff.isPassive = True
                 role.addBuff(buff, self)
 
     # 全体攻击者攻击力+12%
     def passive_star_5(self):
-        if super(ManOfGod, self).passive_star_5():
+        if super(ROlivine, self).passive_star_5():
             for role in self.teamMate:
                 if role.occupation == CardOccupation.Striker:
-                    buff = Buff('ManOfGod_passive_star_5', 0.12, 0, BuffType.AtkIncrease)
+                    buff = Buff('ROlivine_passive_star_5', 0.12, 0, BuffType.AtkIncrease)
                     buff.isPassive = True
                     role.addBuff(buff, self)
 
     # 全体攻击力+3%
-    def passive_tier_6(self):
-        if super(ManOfGod, self).passive_tier_6():
+    def passive_tier_3(self):
+        if super(ROlivine, self).passive_tier_3():
             for role in self.teamMate:
-                buff = Buff('ManOfGod_passive_tier_6', 0.03, 0, BuffType.AtkIncrease)
+                buff = Buff('ROlivine_passive_tier_3', 0.03, 0, BuffType.AtkIncrease)
                 buff.isPassive = True
                 role.addBuff(buff, self)
