@@ -120,10 +120,10 @@ class ICard:
         self.atk = 1
 
         # 蜜话等级(0-5)
-        self.bond = 5
+        self.bond = 0
 
         # 潜能(0-12)
-        self.tier = 12
+        self.tier = 0
 
         # 潜能类型
         self.tierType: TierType = None
@@ -149,6 +149,9 @@ class ICard:
 
         # 当前是否正在防御
         self.defense = False
+
+        # 使用期望数值
+        self.useExpectedValue = True
 
     def clearUp(self):
         self.skillCount = 0
@@ -178,8 +181,9 @@ class ICard:
         self.tier = _tier
 
     def calHpAtk(self):
-        self.atk = self.cal(self.lv60s5Atk, True)
-        self.hp = self.cal(self.lv60s5Hp, False)
+        if self.useExpectedValue:
+            self.atk = self.cal(self.lv60s5Atk, True)
+            self.hp = self.cal(self.lv60s5Hp, False)
 
     def calMaxHp(self):
         maxHp = self.hp

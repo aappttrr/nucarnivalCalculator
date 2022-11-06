@@ -1,12 +1,26 @@
-from flask import Flask, render_template
+import sys
 
-app = Flask(__name__)
+from PyQt5 import QtCore
+from PyQt5.QtWidgets import QMainWindow, QApplication
+
+from RoleCards.common.cardModel import CardTableModel
+from UiDesign.nucarnivalCalculatorUi import Ui_MainWindow
 
 
-@app.route('/nucarnival/calculator')
-def index():
-    return render_template('calculatorIndex.html')
+
+class MainWindow(QMainWindow):
+    def __init__(self):
+        super(MainWindow, self).__init__()
+        self.ui = Ui_MainWindow()
+        self.ui.setupUi(self)
+        self.setWindowFlag(QtCore.Qt.FramelessWindowHint)
+        self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+        self.ui.exitButton.click()
+        self.ui.cardListTable.setModel(CardTableModel())
+        self.show()
 
 
 if __name__ == '__main__':
-    app.run(port=8090)
+    app = QApplication(sys.argv)
+    win = MainWindow()
+    sys.exit(app.exec_())

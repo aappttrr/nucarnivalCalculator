@@ -1,6 +1,6 @@
+from RoleCards.common.card import ICard
 from RoleCards.enum.cardRarityEnum import CardRarity
 from RoleCards.enum.tierType import TierType
-from card import ICard
 
 
 class RCard(ICard):
