@@ -7,6 +7,13 @@ class SRCard(ICard):
         super(SRCard, self).__init__()
         self.rarity = CardRarity.SR
 
+    def setProperties(self, _lv, _star, _bond, _tier):
+        super(SRCard, self).setProperties(_lv, _star, _bond, _tier)
+        if self.tier < 0:
+            self.tier = 0
+        elif self.tier >= 13:
+            self.tier = 12
+
     # 潜能6被动
     def passive_tier_6(self):
         if self.tier >= 6:

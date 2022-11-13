@@ -1,3 +1,5 @@
+import io
+
 from openpyxl import Workbook
 
 from RoleCards.common.card import ICard, roundDown
@@ -17,6 +19,7 @@ class NucarnivalHelper:
         self.turnDamageRecord = {}
         self.currentTurn = 0
         self.totalDamage = 0
+        self.output = io.StringIO()
 
     def clearUp(self):
         self.team: list[ICard] = []
@@ -45,6 +48,10 @@ class NucarnivalHelper:
         tempDamageRecord[role] = damage
         self.turnDamageRecord[self.currentTurn] = tempDamageRecord
 
+    def recordBattleMsg(self, msg: str):
+        self.output.seek(0, 2)
+        self.output.write(msg + '\n')
+
     # 战斗开始
     # 双方清除旧buff、添加队友和敌方信息
     # 激活双方buff
@@ -52,6 +59,8 @@ class NucarnivalHelper:
     # 敌方行动：防御/普攻/必杀 -> 结算dot ->结算hot
     # 我方全部阵亡/敌方全部阵亡-> 退出战斗
     def battleStart(self, printInfo=False):
+        self.output.close()
+        self.output = io.StringIO()
         for role in self.team:
             role.teamMate = self.team
             role.enemies = self.monsters
@@ -69,6 +78,11 @@ class NucarnivalHelper:
         elif self.maxTurn < 1:
             self.maxTurn = 1
 
+        msg = '-----------开始------------'
+        self.recordBattleMsg(msg)
+        if printInfo:
+            print(msg)
+
         for turn in range(0, self.maxTurn):
             self.currentTurn = turn
             if turn == 0:
@@ -82,8 +96,10 @@ class NucarnivalHelper:
                     tempMonster.calMaxHp()
                 continue
 
+            msg = '---------第{0}回合---------'.format(turn)
+            self.recordBattleMsg(msg)
             if printInfo:
-                print('---------第{0}回合---------'.format(turn))
+                print(msg)
 
             # 我方行动
             self.action(turn, self.team, self.monsters, printInfo, False)
@@ -109,16 +125,22 @@ class NucarnivalHelper:
             for monster in self.monsters:
                 monster.nextRound()
 
+        msg = '-----------结束------------'
+        self.recordBattleMsg(msg)
         if printInfo:
-            print('-----------结束------------')
+            print(msg)
         self.totalDamage = 0
         for role in self.team:
             if role in self.damageRecord:
                 self.totalDamage += self.damageRecord[role]
+                msg = '总{}回合，{} 总伤害为：{}'.format(turn, role.cardInfo(False), self.damageRecord[role])
+                self.recordBattleMsg(msg)
                 if printInfo:
-                    print('总{}回合，{} 总伤害为：{}'.format(turn, role.cardInfo(False), self.damageRecord[role]))
+                    print(msg)
+        msg = '总{}回合，整个队伍伤害：{}'.format(turn, self.totalDamage)
+        self.recordBattleMsg(msg)
         if printInfo:
-            print('总{}回合，整个队伍伤害：{}'.format(turn, self.totalDamage))
+            print(msg)
 
     # 行动
     # 防御/普攻/必杀
@@ -128,8 +150,10 @@ class NucarnivalHelper:
         if turn in self.defenseTurn and isEnemy is False :
             for role in cardList:
                 role.defense = True
+                msg = role.cardInfo(False) + '  防御'
+                self.recordBattleMsg(msg)
                 if printInfo and isEnemy is False:
-                    print(role.cardInfo(False) + '  防御')
+                    print(msg)
         else:
             for role in cardList:
                 isAttack = True
@@ -168,8 +192,10 @@ class NucarnivalHelper:
                     totalDamage += dotDamage
                     if isEnemy:
                         self.recordDamage(source, dotDamage)
+                    msg = '{}造成了持续伤害：{}'.format(source.cardInfo(False), dotDamage)
+                    self.recordBattleMsg(msg)
                     if printInfo and isEnemy is True:
-                        print('{}造成了持续伤害：{}'.format(source.cardInfo(False), dotDamage))
+                        print(msg)
                 role.beAttacked(totalDamage, False)
 
         # 结算hot
@@ -180,9 +206,10 @@ class NucarnivalHelper:
                 for source in hotHeals:
                     hotHeal = hotHeals[source]
                     totalHeal += hotHeal
+                    msg = '{}受到了来自{}的持续治疗：{}'.format(role.cardInfo(False), source.cardInfo(False), hotHeal)
+                    self.recordBattleMsg(msg)
                     if printInfo and isEnemy is False:
-                        print(
-                            '{}受到了来自{}的持续治疗：{}'.format(role.cardInfo(False), source.cardInfo(False), hotHeal))
+                        print(msg)
                 role.beHealed(totalHeal, False)
 
     # 反击
@@ -194,8 +221,10 @@ class NucarnivalHelper:
                 if damage > 0:
                     if isEnemy is False:
                         self.recordDamage(role, damage)
+                    msg = role.cardInfo(False) + '  反击造成伤害：' + str(damage)
+                    self.recordBattleMsg(msg)
                     if printInfo and isEnemy is False:
-                        print(role.cardInfo(False) + '  反击造成伤害：' + str(damage))
+                        print(msg)
 
     def doCounter(self, role: ICard,monster:ICard, cardList2: list[ICard] = []):
         totalDamage = 0
@@ -252,8 +281,10 @@ class NucarnivalHelper:
         damageStr = str(damage)
         if fuDamage > 0:
             damageStr = '(' + str(damage) + ',' + str(fuDamage) + ') = ' + str(totalDamage)
+        msg = role.cardInfo(False) + '  必杀造成伤害：' + damageStr
+        self.recordBattleMsg(msg)
         if printInfo and isEnemy is False:
-            print(role.cardInfo(False) + '  必杀造成伤害：' + damageStr)
+            print(msg)
         role.skillAfter(monster)
         return totalDamage
 
@@ -269,8 +300,10 @@ class NucarnivalHelper:
         if fuDamage > 0:
             damageStr = '(' + str(damage) + ',' + str(fuDamage) + ') = ' + str(totalDamage)
 
+        msg = role.cardInfo(False) + '  普攻造成伤害：' + damageStr
+        self.recordBattleMsg(msg)
         if printInfo and isEnemy is False:
-            print(role.cardInfo(False) + '  普攻造成伤害：' + damageStr)
+            print(msg)
 
         role.attackAfter(monster)
         return totalDamage

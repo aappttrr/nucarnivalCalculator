@@ -2,6 +2,7 @@ from openpyxl.worksheet.worksheet import Worksheet
 
 from Nucarnival.cardHelper import CardHelper
 from Nucarnival.nucarnivalHelper import NucarnivalHelper
+from RoleCards.cards.garu.howlingCyclone import HowlingCyclone
 from RoleCards.cards.monster.commonMonster import CommonMonster
 from RoleCards.cards.monster.tempTeamMate import TempTeamMate
 from RoleCards.cards.quincy.ancientCeremony import AncientCeremony
@@ -179,20 +180,26 @@ if __name__ == '__main__':
     yk = DistantPromise()
     yk.setProperties(60, 3, 5, 12)
     yk.calHpAtk()
+    yk.cardDetail()
+
+    gl = HowlingCyclone()
+    gl.setProperties(4, 1, 0, 0)
+    gl.calHpAtk()
+    gl.cardDetail()
 
     pK = AncientCeremony()
     pK.setProperties(60, 3, 5, 12)
     pK.calHpAtk()
-
+    pK.cardInfo()
     #
-    _helper.clearUp()
-    # _helper.team.append(hO)
-    # _helper.team.append(xO)
-    _helper.team.append(pK)
-    # _helper.team.append(pB)
-    similationTeamMate(_helper, pK)
-    _helper.monsters.append(CommonMonster())
-    _helper.maxTurn = 13
-
-    _helper.battleStart(True)
+    # _helper.clearUp()
+    # # _helper.team.append(hO)
+    # # _helper.team.append(xO)
+    # _helper.team.append(pK)
+    # # _helper.team.append(pB)
+    # similationTeamMate(_helper, pK)
+    # _helper.monsters.append(CommonMonster())
+    # _helper.maxTurn = 13
+    #
+    # _helper.battleStart(True)
     # _helper.exportExcel('计算结果','E:\\新世界\\计算结果.xls')

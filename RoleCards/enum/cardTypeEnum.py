@@ -21,12 +21,6 @@ class CardType(enum.Enum):
         return self._des
 
     def isRestrained(self, para):
-        if self == CardType.Light and para == CardType.Dark:
-            return True
-
-        if self == CardType.Dark and para == CardType.Light:
-            return True
-
         if self == CardType.Fire and para == CardType.Wood:
             return True
 
@@ -36,4 +30,17 @@ class CardType(enum.Enum):
         if self == CardType.Wood and para == CardType.Water:
             return True
 
+        return False
+
+    def isBeRestrained(self, para):
+        if self == CardType.Light and para == CardType.Dark:
+            return True
+        if self == CardType.Dark and para == CardType.Light:
+            return True
+        if self == CardType.Fire and para == CardType.Water:
+            return True
+        if self == CardType.Water and para == CardType.Wood:
+            return True
+        if self == CardType.Wood and para == CardType.Fire:
+            return True
         return False

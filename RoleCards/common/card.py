@@ -167,6 +167,18 @@ class ICard:
         self.star = _star
         self.bond = _bond
         self.tier = _tier
+        if self.lv <= 0:
+            self.lv = 1
+        elif self.lv >= 61:
+            self.lv = 60
+        if self.star <= 0:
+            self.star = 1
+        elif self.star >= 6:
+            self.star = 5
+        if self.bond < 0:
+            self.bond = 0
+        elif self.bond >= 6:
+            self.bond = 5
 
     def setLv(self, _lv):
         self.lv = _lv
@@ -180,8 +192,8 @@ class ICard:
     def setTier(self, _tier):
         self.tier = _tier
 
-    def calHpAtk(self):
-        if self.useExpectedValue:
+    def calHpAtk(self, ignore=False):
+        if self.useExpectedValue or ignore:
             self.atk = self.cal(self.lv60s5Atk, True)
             self.hp = self.cal(self.lv60s5Hp, False)
 
@@ -461,10 +473,10 @@ class ICard:
             result = roundDown(result)
 
         # 属性克制
-        if enemy.type is not None and enemy.type.isRestrained(self.type):
+        if enemy.type is not None and self.type.isBeRestrained(enemy.type):
             result = result * 1.2
             result = roundDown(result)
-        elif self.type is not None and self.type.isRestrained(enemy.type):
+        elif enemy.type is not None and self.type.isRestrained(enemy.type):
             result = result * 0.8
             result = roundDown(result)
 

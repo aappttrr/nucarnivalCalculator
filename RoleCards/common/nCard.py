@@ -7,6 +7,13 @@ class NCard(ICard):
         super(NCard, self).__init__()
         self.rarity = CardRarity.N
 
+    def setProperties(self, _lv, _star, _bond, _tier):
+        super(NCard, self).setProperties(_lv, _star, _bond, _tier)
+        if self.tier < 0:
+            self.tier = 0
+        elif self.tier >= 7:
+            self.tier = 6
+
     # 潜能3被动
     def passive_tier_3(self):
         if self.tier >= 3:

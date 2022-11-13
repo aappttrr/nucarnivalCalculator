@@ -5,9 +5,9 @@ from Nucarnival.cardHelper import CardHelper
 
 
 class CardTableModel(QAbstractTableModel):
-    def __init__(self):
+    def __init__(self, _cardHelper: CardHelper):
         super(CardTableModel, self).__init__()
-        self.cardHelper = CardHelper()
+        self.cardHelper = _cardHelper
 
     def rowCount(self, parent):
         return len(self.cardHelper.cardList)
@@ -75,4 +75,4 @@ class CardTableModel(QAbstractTableModel):
                     displayValue = '蜜话'
             return displayValue
         else:
-            return super(CardTableModel, self).headerData(section,orientation,role)
+            return super(CardTableModel, self).headerData(section, orientation, role)

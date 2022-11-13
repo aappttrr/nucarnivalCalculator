@@ -217,6 +217,7 @@ def getBalanceTypeTierData(tier, isAtk=True):
         case 12:
             return 1
 
+
 def getRandNTypeTierData(tier, isAtk=True):
     if tier < 0:
         tier = 0
@@ -250,7 +251,7 @@ def getRandNTypeTierData(tier, isAtk=True):
             if isAtk:
                 return 0.41
             else:
-                return 0.41
+                return 0.44
         case 6:
             if isAtk:
                 return 0.5

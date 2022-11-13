@@ -9,6 +9,13 @@ class RCard(ICard):
         self.rarity = CardRarity.R
         self.tierType = TierType.RandN
 
+    def setProperties(self, _lv, _star, _bond, _tier):
+        super(RCard, self).setProperties(_lv, _star, _bond, _tier)
+        if self.tier < 0:
+            self.tier = 0
+        elif self.tier >= 7:
+            self.tier = 6
+
     # 潜能3被动
     def passive_tier_3(self):
         if self.tier >= 3:
