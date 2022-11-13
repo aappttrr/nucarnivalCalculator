@@ -11,9 +11,9 @@ class NucarnivalHelper:
     def __init__(self):
         self.team: list[ICard] = []
         self.monsters: list[ICard] = []
-        self.forcedCDAlignment: ICard = None
         self.maxTurn = 50
-        self.defenseTurn: list[int] = []
+        self.defenseTurn = {}
+        self.skillTurn = {}
         self.damageRecord = {}
         self.counterRecord = {}
         self.turnDamageRecord = {}
@@ -24,14 +24,19 @@ class NucarnivalHelper:
     def clearUp(self):
         self.team: list[ICard] = []
         self.monsters: list[ICard] = []
-        self.forcedCDAlignment: ICard = None
+        self.clearUpBattleResult()
+
+    def clearUpBattleResult(self):
         self.maxTurn = 50
-        self.defenseTurn: list[int] = []
+        self.defenseTurn = {}
+        self.skillTurn = {}
         self.damageRecord = {}
         self.counterRecord = {}
         self.turnDamageRecord = {}
         self.currentTurn = 0
         self.totalDamage = 0
+        self.output.close()
+        self.output = io.StringIO()
 
     def recordDamage(self, role: ICard, damage):
         record = damage
@@ -59,8 +64,6 @@ class NucarnivalHelper:
     # 敌方行动：防御/普攻/必杀 -> 结算dot ->结算hot
     # 我方全部阵亡/敌方全部阵亡-> 退出战斗
     def battleStart(self, printInfo=False):
-        self.output.close()
-        self.output = io.StringIO()
         for role in self.team:
             role.teamMate = self.team
             role.enemies = self.monsters
@@ -147,39 +150,42 @@ class NucarnivalHelper:
     # 结算dot
     # 结算hot
     def action(self, turn=0, cardList: list[ICard] = [], cardList2: list[ICard] = [], printInfo=False, isEnemy=False):
-        if turn in self.defenseTurn and isEnemy is False :
-            for role in cardList:
+        for role in cardList:
+            if role in self.defenseTurn and turn in self.defenseTurn[role]:
                 role.defense = True
                 msg = role.cardInfo(False) + '  防御'
-                self.recordBattleMsg(msg)
+                if isEnemy is False:
+                    self.recordBattleMsg(msg)
                 if printInfo and isEnemy is False:
                     print(msg)
-        else:
-            for role in cardList:
-                isAttack = True
-                monster = cardList2[0]
-                for card2 in cardList2:
-                    if card2.isTaunt():
-                        monster = card2
-                        break
 
-                if self.forcedCDAlignment is not None:
-                    if self.forcedCDAlignment.canSkill() and role.canSkill():
-                        isAttack = False
-                else:
-                    if role.canSkill():
-                        isAttack = False
+            if role.defense:
+                continue
 
-                if isAttack:
-                    damage = self.doAttack(role, monster, cardList2, printInfo, isEnemy)
-                    role.doBloodSuck(damage)
-                    if isEnemy is False:
-                        self.recordDamage(role, damage)
-                else:
-                    damage = self.doSkill(role, monster, cardList2, printInfo, isEnemy)
-                    role.doBloodSuck(damage)
-                    if isEnemy is False:
-                        self.recordDamage(role, damage)
+            isAttack = True
+            monster = cardList2[0]
+            for card2 in cardList2:
+                if card2.isTaunt():
+                    monster = card2
+                    break
+
+            if role in self.skillTurn:
+                if turn in self.skillTurn[role] and role.canSkill():
+                    isAttack = False
+            else:
+                if role.canSkill():
+                    isAttack = False
+
+            if isAttack:
+                damage = self.doAttack(role, monster, cardList2, printInfo, isEnemy)
+                role.doBloodSuck(damage)
+                if isEnemy is False:
+                    self.recordDamage(role, damage)
+            else:
+                damage = self.doSkill(role, monster, cardList2, printInfo, isEnemy)
+                role.doBloodSuck(damage)
+                if isEnemy is False:
+                    self.recordDamage(role, damage)
 
     def settleDotAndHot(self, cardList: list[ICard] = [], printInfo=False, isEnemy=False):
         # 结算dot
@@ -193,7 +199,8 @@ class NucarnivalHelper:
                     if isEnemy:
                         self.recordDamage(source, dotDamage)
                     msg = '{}造成了持续伤害：{}'.format(source.cardInfo(False), dotDamage)
-                    self.recordBattleMsg(msg)
+                    if isEnemy is False:
+                        self.recordBattleMsg(msg)
                     if printInfo and isEnemy is True:
                         print(msg)
                 role.beAttacked(totalDamage, False)
@@ -207,7 +214,8 @@ class NucarnivalHelper:
                     hotHeal = hotHeals[source]
                     totalHeal += hotHeal
                     msg = '{}受到了来自{}的持续治疗：{}'.format(role.cardInfo(False), source.cardInfo(False), hotHeal)
-                    self.recordBattleMsg(msg)
+                    if isEnemy is False:
+                        self.recordBattleMsg(msg)
                     if printInfo and isEnemy is False:
                         print(msg)
                 role.beHealed(totalHeal, False)
@@ -216,17 +224,18 @@ class NucarnivalHelper:
     def counter(self, cardList: list[ICard] = [], cardList2: list[ICard] = [], printInfo=False, isEnemy=False):
         for role in cardList:
             if role in self.counterRecord and self.counterRecord[role] is not None:
-                damage = self.doCounter(role,self.counterRecord[role], cardList2)
+                damage = self.doCounter(role, self.counterRecord[role], cardList2)
                 role.doBloodSuck(damage)
                 if damage > 0:
                     if isEnemy is False:
                         self.recordDamage(role, damage)
                     msg = role.cardInfo(False) + '  反击造成伤害：' + str(damage)
-                    self.recordBattleMsg(msg)
+                    if isEnemy is False:
+                        self.recordBattleMsg(msg)
                     if printInfo and isEnemy is False:
                         print(msg)
 
-    def doCounter(self, role: ICard,monster:ICard, cardList2: list[ICard] = []):
+    def doCounter(self, role: ICard, monster: ICard, cardList2: list[ICard] = []):
         totalDamage = 0
         currentAtk = role.getCurrentAtk()
         for buff in role.buffs:
@@ -239,7 +248,7 @@ class NucarnivalHelper:
                     counterDamage = currentAtk * buff.value
                 counterDamage = roundDown(counterDamage)
                 counterDamage = role.increaseDamage(counterDamage, buff.seeAsAttack, buff.seeAsSkill)
-                totalDamage += self.groupDamage(counterDamage, role,monster, cardList2, buff.isGroup, buff.seeAsAttack,
+                totalDamage += self.groupDamage(counterDamage, role, monster, cardList2, buff.isGroup, buff.seeAsAttack,
                                                 buff.seeAsSkill)
         return totalDamage
 
@@ -282,7 +291,8 @@ class NucarnivalHelper:
         if fuDamage > 0:
             damageStr = '(' + str(damage) + ',' + str(fuDamage) + ') = ' + str(totalDamage)
         msg = role.cardInfo(False) + '  必杀造成伤害：' + damageStr
-        self.recordBattleMsg(msg)
+        if isEnemy is False:
+            self.recordBattleMsg(msg)
         if printInfo and isEnemy is False:
             print(msg)
         role.skillAfter(monster)
@@ -301,7 +311,8 @@ class NucarnivalHelper:
             damageStr = '(' + str(damage) + ',' + str(fuDamage) + ') = ' + str(totalDamage)
 
         msg = role.cardInfo(False) + '  普攻造成伤害：' + damageStr
-        self.recordBattleMsg(msg)
+        if isEnemy is False:
+            self.recordBattleMsg(msg)
         if printInfo and isEnemy is False:
             print(msg)
 

@@ -18,7 +18,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(1669, 1031)
         MainWindow.setStyleSheet("QLabel,QCheckBox,QLineEdit,QComboBox,QPushButton,QTableView,QTabWidget,\n"
 "QPlainTextEdit{\n"
-"    font-family:\"思源宋体 CN\";\n"
+"    font-family:\"思源宋体 CN\",\"Arial\",\"Times New Roman\";\n"
 "}")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -1317,7 +1317,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.applicationNameLabel.setText(_translate("MainWindow", "Nu:carnival Calculator v1.0"))
+        self.applicationNameLabel.setText(_translate("MainWindow", "Nu:carnival 计算器 v1.0"))
         self.cardListBtn.setText(_translate("MainWindow", "角色列表"))
         self.damageCalculatorBtn.setText(_translate("MainWindow", "伤害计算"))
         self.helpBtn.setText(_translate("MainWindow", "帮助"))

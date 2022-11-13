@@ -1,5 +1,7 @@
 import io
+import os
 import sys
+import tkinter.filedialog
 
 from PyQt5 import QtCore, QtGui
 from PyQt5.QtGui import QIntValidator
@@ -17,6 +19,34 @@ from UiDesign.validator import IntValidator
 cardHelper = CardHelper()
 nucarnivalHelper = NucarnivalHelper()
 nucarnivalHelper.monsters.append(CommonMonster())
+
+
+def exportExcel():
+    filepath = tkinter.filedialog.asksaveasfilename(
+        defaultextension='.xls',
+        filetypes=[('所有文件', '.*'), ('XLS 工作表', '.xls'), ('XLSX 工作表', '.xlsx')],
+        initialdir='C:\\',
+        initialfile='战斗结果.xls',
+        title='导出战斗结果Excel'
+    )
+    filename = os.path.basename(filepath).split('.')[0]
+    # print(filename)
+    # print(filepath)
+    nucarnivalHelper.exportExcel(filename, filepath)
+
+
+def getIntList(pte: str):
+    intList: list[int] = []
+    if pte is None or len(pte) <= 0:
+        return intList
+    for temp in pte.split('\n'):
+        for temp2 in temp.split(' '):
+            try:
+                temp3 = int(temp2)
+                intList.append(temp3)
+            except:
+                print('转Int出错')
+    return intList
 
 
 class MainWindow(QMainWindow):
@@ -67,6 +97,8 @@ class MainWindow(QMainWindow):
         self.ui.team3.clicked.connect(self.clickTeamBtn3)
         self.ui.team4.clicked.connect(self.clickTeamBtn4)
         self.ui.team5.clicked.connect(self.clickTeamBtn5)
+        self.ui.exportExcelBtn.clicked.connect(exportExcel)
+        self.ui.clearBattleSetBtn.clicked.connect(self.clearBattleSet)
 
         self.ui.stackedWidget.setCurrentIndex(0)
         self.ui.tabWidget.setCurrentIndex(0)
@@ -81,6 +113,24 @@ class MainWindow(QMainWindow):
         nucarnivalHelper.battleStart()
         self.ui.battleResultPTE.setPlainText(nucarnivalHelper.output.getvalue())
         self.ui.exportExcelBtn.setEnabled(True)
+        nucarnivalHelper.clearUpBattleResult()
+
+    def clearBattleSet(self):
+        self.currentTeam = None
+        self.ui.addTeamBtn.setEnabled(False)
+        self.ui.removeTeamBtn.setEnabled(False)
+        nucarnivalHelper.team.clear()
+        self.updateTeam()
+        self.ui.defensePTE1.setPlainText('')
+        self.ui.defensePTE2.setPlainText('')
+        self.ui.defensePTE3.setPlainText('')
+        self.ui.defensePTE4.setPlainText('')
+        self.ui.defensePTE5.setPlainText('')
+        self.ui.skillPTE1.setPlainText('')
+        self.ui.skillPTE2.setPlainText('')
+        self.ui.skillPTE3.setPlainText('')
+        self.ui.skillPTE4.setPlainText('')
+        self.ui.skillPTE5.setPlainText('')
 
     def setBattleInfo(self):
         turn = int(self.ui.battleRoundLineEdit.text())
@@ -99,6 +149,46 @@ class MainWindow(QMainWindow):
                 monsterType = CardType.Wood
         for monster in nucarnivalHelper.monsters:
             monster.type = monsterType
+
+        dpte1 = getIntList(self.ui.defensePTE1.toPlainText())
+        spte1 = getIntList(self.ui.skillPTE1.toPlainText())
+        if len(nucarnivalHelper.team) >= 1:
+            if len(dpte1) > 0:
+                nucarnivalHelper.defenseTurn[nucarnivalHelper.team[0]] = dpte1
+            if len(spte1) > 0:
+                nucarnivalHelper.skillTurn[nucarnivalHelper.team[0]] = spte1
+
+        dpte2 = getIntList(self.ui.defensePTE2.toPlainText())
+        spte2 = getIntList(self.ui.skillPTE2.toPlainText())
+        if len(nucarnivalHelper.team) >= 2:
+            if len(dpte2) > 0:
+                nucarnivalHelper.defenseTurn[nucarnivalHelper.team[1]] = dpte2
+            if len(spte2) > 0:
+                nucarnivalHelper.skillTurn[nucarnivalHelper.team[1]] = spte2
+
+        dpte3 = getIntList(self.ui.defensePTE3.toPlainText())
+        spte3 = getIntList(self.ui.skillPTE3.toPlainText())
+        if len(nucarnivalHelper.team) >= 3:
+            if len(dpte3) > 0:
+                nucarnivalHelper.defenseTurn[nucarnivalHelper.team[2]] = dpte3
+            if len(spte3) > 0:
+                nucarnivalHelper.skillTurn[nucarnivalHelper.team[2]] = spte3
+
+        dpte4 = getIntList(self.ui.defensePTE4.toPlainText())
+        spte4 = getIntList(self.ui.skillPTE4.toPlainText())
+        if len(nucarnivalHelper.team) >= 4:
+            if len(dpte4) > 0:
+                nucarnivalHelper.defenseTurn[nucarnivalHelper.team[3]] = dpte4
+            if len(spte4) > 0:
+                nucarnivalHelper.skillTurn[nucarnivalHelper.team[3]] = spte4
+
+        dpte5 = getIntList(self.ui.defensePTE5.toPlainText())
+        spte5 = getIntList(self.ui.skillPTE5.toPlainText())
+        if len(nucarnivalHelper.team) >= 1:
+            if len(dpte5) > 0:
+                nucarnivalHelper.defenseTurn[nucarnivalHelper.team[4]] = dpte5
+            if len(spte5) > 0:
+                nucarnivalHelper.skillTurn[nucarnivalHelper.team[4]] = spte5
 
     def calCard(self):
         uev = self.ui.useExpectedValueCheckBox.isChecked()
@@ -214,8 +304,8 @@ class MainWindow(QMainWindow):
 
     def clickTeamBtn(self, index):
         self.ui.addTeamBtn.setEnabled(False)
-        if index <= len(nucarnivalHelper.team):
-            self.currentTeam = nucarnivalHelper.team[index-1]
+        if index < len(nucarnivalHelper.team):
+            self.currentTeam = nucarnivalHelper.team[index]
             self.ui.removeTeamBtn.setEnabled(True)
         else:
             self.currentTeam = None
