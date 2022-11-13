@@ -68,6 +68,7 @@ class NucarnivalHelper:
             role.teamMate = self.team
             role.enemies = self.monsters
             role.clearUp()
+            role.calHpAtk()
         for monster in self.monsters:
             monster.teamMate = self.monsters
             monster.enemies = self.team

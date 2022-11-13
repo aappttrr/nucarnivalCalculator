@@ -894,7 +894,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 1425, 420))
+        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 87, 87))
         self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
         self.verticalLayout_18 = QtWidgets.QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_18.setContentsMargins(0, 0, 0, 0)
@@ -1309,7 +1309,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(4)
         self.tabWidget.setCurrentIndex(2)
         self.exitButton.clicked.connect(MainWindow.close)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -1317,7 +1317,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.applicationNameLabel.setText(_translate("MainWindow", "Nu:carnival 计算器 v1.0"))
+        self.applicationNameLabel.setText(_translate("MainWindow", "Nu:carnival 计算器"))
         self.cardListBtn.setText(_translate("MainWindow", "角色列表"))
         self.damageCalculatorBtn.setText(_translate("MainWindow", "伤害计算"))
         self.helpBtn.setText(_translate("MainWindow", "帮助"))
@@ -1391,7 +1391,9 @@ class Ui_MainWindow(object):
         self.label_21.setText(_translate("MainWindow", "必杀回合："))
         self.skillPTE5.setToolTip(_translate("MainWindow", "输入需要释放必杀的回合数，用空格或回车分隔"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.battleSetTab), _translate("MainWindow", "战斗设置"))
-        self.helpPTE.setPlainText(_translate("MainWindow", "设置属性：\n"
+        self.helpPTE.setPlainText(_translate("MainWindow", "当前版本：v1.0-20221113\n"
+"\n"
+"设置属性：\n"
 "        ①在卡牌列表中可以设置每个卡牌的基础属性。\n"
 "        ②如果勾选了“使用期望数值”，在每次计算伤害前会根据等级、星级、蜜话、潜能计算得出期望HP和ATK（可能存在误差）。\n"
 "        ③星级、潜能将会影响该卡牌的技能倍率、被动是否触发，请一定要设置准确！\n"
@@ -1428,8 +1430,9 @@ class Ui_MainWindow(object):
 "        反击/追击伤害 = 基础攻击力/实时攻击力 * 倍率 * 普攻/必杀加成 * 伤害加成\n"
 "        最终反击/追击伤害 = 反击/追击伤害 * 敌方受普攻/必杀加成 * 敌方受伤害加成 * 属性压制\n"
 "    "))
-        self.updateLogPTE.setPlainText(_translate("MainWindow", "------------------\n"
+        self.updateLogPTE.setPlainText(_translate("MainWindow", "------------------------------------2022.11.13------------------------------------\n"
 "v1.0：\n"
 "        ①录入所有卡牌数据\n"
 "        ②确定HP、ATK计算公式\n"
-"        ③确定伤害计算公式"))
+"        ③确定伤害计算公式\n"
+"        ④完成基本开发"))
