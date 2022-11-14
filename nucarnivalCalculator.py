@@ -33,8 +33,8 @@ def exportExcel():
         defaultextension='.xls',
         filetypes=[('所有文件', '.*'), ('XLS 工作表', '.xls'), ('XLSX 工作表', '.xlsx')],
         initialdir='C:\\',
-        initialfile='战斗结果.xls',
-        title='导出战斗结果Excel'
+        initialfile='伤害模拟结果.xls',
+        title='导出伤害模拟结果Excel'
     )
     if len(filepath) != 0:
         filename = os.path.basename(filepath).split('.')[0]
@@ -312,17 +312,14 @@ class MainWindow(QMainWindow):
         turn = int(self.ui.battleRoundLineEdit.text())
         nucarnivalHelper.maxTurn = turn
         monsterType = CardType.Light
-        match self.ui.monsterTypeComboBox.currentIndex():
-            case 0:
-                monsterType = CardType.Light
-            case 1:
-                monsterType = CardType.Dark
-            case 2:
-                monsterType = CardType.Fire
-            case 3:
-                monsterType = CardType.Water
-            case 4:
-                monsterType = CardType.Wood
+        if self.ui.monsterTypeRadioBtn_Dark.isChecked():
+            monsterType = CardType.Dark
+        elif self.ui.monsterTypeRadioBtn_Fire.isChecked():
+            monsterType = CardType.Fire
+        elif self.ui.monsterTypeRadioBtn_Water.isChecked():
+            monsterType = CardType.Water
+        elif self.ui.monsterTypeRadioBtn_Wood.isChecked():
+            monsterType = CardType.Wood
         for monster in nucarnivalHelper.monsters:
             monster.type = monsterType
 

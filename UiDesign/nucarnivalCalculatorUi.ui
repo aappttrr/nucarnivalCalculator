@@ -2151,7 +2151,7 @@ QPushButton:focus{
                     <item>
                      <widget class="QTabWidget" name="tabWidget">
                       <property name="currentIndex">
-                       <number>1</number>
+                       <number>2</number>
                       </property>
                       <widget class="QWidget" name="damageCalTab">
                        <property name="accessibleName">
@@ -2937,44 +2937,41 @@ QPushButton:focus{
                             </widget>
                            </item>
                            <item>
-                            <widget class="QComboBox" name="monsterTypeComboBox">
-                             <property name="minimumSize">
-                              <size>
-                               <width>180</width>
-                               <height>0</height>
-                              </size>
+                            <widget class="QRadioButton" name="monsterTypeRadioBtn_Light">
+                             <property name="text">
+                              <string>光</string>
                              </property>
-                             <property name="maximumSize">
-                              <size>
-                               <width>180</width>
-                               <height>16777215</height>
-                              </size>
+                             <property name="checked">
+                              <bool>true</bool>
                              </property>
-                             <item>
-                              <property name="text">
-                               <string>光</string>
-                              </property>
-                             </item>
-                             <item>
-                              <property name="text">
-                               <string>暗</string>
-                              </property>
-                             </item>
-                             <item>
-                              <property name="text">
-                               <string>火</string>
-                              </property>
-                             </item>
-                             <item>
-                              <property name="text">
-                               <string>水</string>
-                              </property>
-                             </item>
-                             <item>
-                              <property name="text">
-                               <string>木</string>
-                              </property>
-                             </item>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QRadioButton" name="monsterTypeRadioBtn_Dark">
+                             <property name="text">
+                              <string>暗</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QRadioButton" name="monsterTypeRadioBtn_Fire">
+                             <property name="text">
+                              <string>火</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QRadioButton" name="monsterTypeRadioBtn_Water">
+                             <property name="text">
+                              <string>水</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QRadioButton" name="monsterTypeRadioBtn_Wood">
+                             <property name="text">
+                              <string>木</string>
+                             </property>
                             </widget>
                            </item>
                            <item>
