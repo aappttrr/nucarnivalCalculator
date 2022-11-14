@@ -15,7 +15,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QLabel,QCheckBox,QLineEdit,QComboBox,QPushButton,QTableView,QTabWidget,
-QPlainTextEdit{
+QPlainTextEdit,QGroupBox,QRadioButton{
 	font-family:&quot;思源宋体 CN&quot;,&quot;Arial&quot;,&quot;Times New Roman&quot;;
 }</string>
   </property>
@@ -399,7 +399,7 @@ QPushButton:focus{
                 </font>
                </property>
                <property name="text">
-                <string>角色列表</string>
+                <string>卡牌列表</string>
                </property>
               </widget>
              </item>
@@ -522,7 +522,7 @@ QFrame,QWidget,QStackedWidget,QTabWidget{
 	background-color: rgb(255, 255, 255);
 }
 QLabel,QCheckBox,QLineEdit,QComboBox,QPushButton,QTableView,QTabWidget,
-QPlainTextEdit{
+QPlainTextEdit,QGroupBox,QRadioButton{
 	font-size: 14pt;
 }</string>
             </property>
@@ -539,7 +539,7 @@ QPlainTextEdit{
                 <string notr="true"/>
                </property>
                <property name="currentIndex">
-                <number>3</number>
+                <number>1</number>
                </property>
                <widget class="QWidget" name="welcomePage">
                 <layout class="QVBoxLayout" name="verticalLayout">
@@ -575,15 +575,7 @@ QPlainTextEdit{
                        <bool>true</bool>
                       </property>
                       <property name="plainText">
-                       <string>
-ヽ(✿ﾟ▽ﾟ)ノ
-        最近特别沉迷新世界所以做了个伤害计算！
-        如果对你有帮助的话，就支持一下吧！
-        有任何问题、Bug都可以给我留言~~
-
-
-B站：纳萨尔
-微博：纳萨尔</string>
+                       <string/>
                       </property>
                      </widget>
                     </item>
@@ -614,6 +606,12 @@ B站：纳萨尔
                      <verstretch>1</verstretch>
                     </sizepolicy>
                    </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>0</height>
+                    </size>
+                   </property>
                    <property name="frameShape">
                     <enum>QFrame::StyledPanel</enum>
                    </property>
@@ -640,6 +638,12 @@ B站：纳萨尔
                         <horstretch>1</horstretch>
                         <verstretch>0</verstretch>
                        </sizepolicy>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>0</height>
+                       </size>
                       </property>
                       <property name="frameShape">
                        <enum>QFrame::StyledPanel</enum>
@@ -1344,28 +1348,35 @@ B站：纳萨尔
                    </property>
                    <layout class="QHBoxLayout" name="horizontalLayout_20">
                     <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                     <widget class="QPushButton" name="openFilterBtn">
+                      <property name="text">
+                       <string> 设置过滤选项 </string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                      <widget class="QPushButton" name="calCardBtn">
                       <property name="enabled">
                        <bool>false</bool>
                       </property>
                       <property name="minimumSize">
                        <size>
-                        <width>166</width>
-                        <height>47</height>
+                        <width>0</width>
+                        <height>0</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>166</width>
-                        <height>47</height>
+                        <width>16777215</width>
+                        <height>16777215</height>
                        </size>
                       </property>
                       <property name="text">
-                       <string>计算HP和ATK</string>
+                       <string> 计算HP和ATK </string>
                       </property>
                      </widget>
                     </item>
-                    <item>
+                    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                      <widget class="QPushButton" name="saveCardBtn">
                       <property name="enabled">
                        <bool>false</bool>
@@ -1378,18 +1389,18 @@ B站：纳萨尔
                       </property>
                       <property name="minimumSize">
                        <size>
-                        <width>60</width>
-                        <height>47</height>
+                        <width>0</width>
+                        <height>0</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>60</width>
-                        <height>47</height>
+                        <width>16777215</width>
+                        <height>16777215</height>
                        </size>
                       </property>
                       <property name="text">
-                       <string>保存</string>
+                       <string> 保存 </string>
                       </property>
                      </widget>
                     </item>
@@ -1400,19 +1411,442 @@ B站：纳萨尔
                       </property>
                       <property name="minimumSize">
                        <size>
-                        <width>60</width>
-                        <height>47</height>
+                        <width>0</width>
+                        <height>0</height>
                        </size>
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>60</width>
-                        <height>47</height>
+                        <width>16777215</width>
+                        <height>16777215</height>
                        </size>
                       </property>
                       <property name="text">
-                       <string>重置</string>
+                       <string> 重置 </string>
                       </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QGroupBox" name="filterGroupBox">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="title">
+                    <string>过滤选项</string>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_37">
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QFrame" name="frame_40">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_27">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QLabel" name="label_24">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                           <horstretch>0</horstretch>
+                           <verstretch>0</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="font">
+                          <font>
+                           <family>思源宋体 CN</family>
+                           <pointsize>14</pointsize>
+                           <weight>50</weight>
+                           <italic>false</italic>
+                           <bold>false</bold>
+                          </font>
+                         </property>
+                         <property name="text">
+                          <string>角色：</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QComboBox" name="filterRoleComboBox">
+                         <item>
+                          <property name="text">
+                           <string>全部</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>艾斯特</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>墨菲</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>八云</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>艾德蒙特</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>奥利文</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>昆西</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>玖夜</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>可尔</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>布儡</string>
+                          </property>
+                         </item>
+                         <item>
+                          <property name="text">
+                           <string>啖天</string>
+                          </property>
+                         </item>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="horizontalSpacer_6">
+                         <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>40</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QFrame" name="frame_41">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_28">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QLabel" name="label_25">
+                         <property name="font">
+                          <font>
+                           <family>思源宋体 CN</family>
+                           <pointsize>14</pointsize>
+                           <weight>50</weight>
+                           <italic>false</italic>
+                           <bold>false</bold>
+                          </font>
+                         </property>
+                         <property name="text">
+                          <string>稀有度：</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="filterRarityRadioBtn_All">
+                         <property name="text">
+                          <string>全部</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="filterRarityRadioBtn_SSR">
+                         <property name="text">
+                          <string>SSR</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="filterRarityRadioBtn_SR">
+                         <property name="text">
+                          <string>SR</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="filterRarityRadioBtn_R">
+                         <property name="text">
+                          <string>R</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="filterRarityRadioBtn_N">
+                         <property name="text">
+                          <string>N</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="horizontalSpacer_7">
+                         <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>40</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QFrame" name="frame_42">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_29">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QLabel" name="label_26">
+                         <property name="font">
+                          <font>
+                           <family>思源宋体 CN</family>
+                           <pointsize>14</pointsize>
+                           <weight>50</weight>
+                           <italic>false</italic>
+                           <bold>false</bold>
+                          </font>
+                         </property>
+                         <property name="text">
+                          <string>类型：</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="filterTypeRadioBtn_All">
+                         <property name="text">
+                          <string>全部</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="filterTypeRadioBtn_Lignt">
+                         <property name="text">
+                          <string>光</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="filterTypeRadioBtn_Dark">
+                         <property name="text">
+                          <string>暗</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="filterTypeRadioBtn_Fire">
+                         <property name="text">
+                          <string>火</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="filterTypeRadioBtn_Water">
+                         <property name="text">
+                          <string>水</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="filterTypeRadioBtn_Wood">
+                         <property name="text">
+                          <string>木</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="horizontalSpacer_8">
+                         <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>40</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QFrame" name="frame_39">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_26">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QLabel" name="label_23">
+                         <property name="font">
+                          <font>
+                           <family>思源宋体 CN</family>
+                           <pointsize>14</pointsize>
+                           <weight>50</weight>
+                           <italic>false</italic>
+                           <bold>false</bold>
+                          </font>
+                         </property>
+                         <property name="text">
+                          <string>定位：</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="filterOccRadioBtn_All">
+                         <property name="text">
+                          <string>全部</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="filterOccRadioBtn_Healer">
+                         <property name="text">
+                          <string>治愈</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="filterOccRadioBtn_Support">
+                         <property name="text">
+                          <string>辅助</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="filterOccRadioBtn_Striker">
+                         <property name="text">
+                          <string>攻击</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="filterOccRadioBtn_Guardian">
+                         <property name="text">
+                          <string>守护</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QRadioButton" name="filterOccRadioBtn_Saboteur">
+                         <property name="text">
+                          <string>妨碍</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="horizontalSpacer_9">
+                         <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>40</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                      </layout>
                      </widget>
                     </item>
                    </layout>
@@ -1717,7 +2151,7 @@ QPushButton:focus{
                     <item>
                      <widget class="QTabWidget" name="tabWidget">
                       <property name="currentIndex">
-                       <number>2</number>
+                       <number>1</number>
                       </property>
                       <widget class="QWidget" name="damageCalTab">
                        <property name="accessibleName">
@@ -1775,18 +2209,18 @@ QPushButton:focus{
                              </property>
                              <property name="minimumSize">
                               <size>
-                               <width>103</width>
-                               <height>47</height>
+                               <width>0</width>
+                               <height>0</height>
                               </size>
                              </property>
                              <property name="maximumSize">
                               <size>
-                               <width>103</width>
-                               <height>47</height>
+                               <width>16777215</width>
+                               <height>16777215</height>
                               </size>
                              </property>
                              <property name="text">
-                              <string>计算</string>
+                              <string> 计算 </string>
                              </property>
                             </widget>
                            </item>
@@ -1797,18 +2231,18 @@ QPushButton:focus{
                              </property>
                              <property name="minimumSize">
                               <size>
-                               <width>124</width>
-                               <height>47</height>
+                               <width>0</width>
+                               <height>0</height>
                               </size>
                              </property>
                              <property name="maximumSize">
                               <size>
-                               <width>124</width>
-                               <height>47</height>
+                               <width>16777215</width>
+                               <height>16777215</height>
                               </size>
                              </property>
                              <property name="text">
-                              <string>导出excel</string>
+                              <string> 导出excel </string>
                              </property>
                             </widget>
                            </item>
@@ -1852,8 +2286,8 @@ QPushButton:focus{
                                <rect>
                                 <x>0</x>
                                 <y>0</y>
-                                <width>87</width>
-                                <height>87</height>
+                                <width>1425</width>
+                                <height>430</height>
                                </rect>
                               </property>
                               <layout class="QVBoxLayout" name="verticalLayout_18">
@@ -1922,18 +2356,13 @@ QPushButton:focus{
                            <enum>QFrame::Raised</enum>
                           </property>
                           <layout class="QHBoxLayout" name="horizontalLayout_25">
-                           <property name="leftMargin">
-                            <number>11</number>
-                           </property>
-                           <property name="topMargin">
-                            <number>11</number>
-                           </property>
-                           <property name="rightMargin">
-                            <number>11</number>
-                           </property>
-                           <property name="bottomMargin">
-                            <number>11</number>
-                           </property>
+                           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                            <widget class="QPushButton" name="openFilterBtn_2">
+                             <property name="text">
+                              <string> 设置过滤选项 </string>
+                             </property>
+                            </widget>
+                           </item>
                            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                             <widget class="QPushButton" name="addTeamBtn">
                              <property name="enabled">
@@ -1941,18 +2370,18 @@ QPushButton:focus{
                              </property>
                              <property name="minimumSize">
                               <size>
-                               <width>106</width>
-                               <height>47</height>
+                               <width>0</width>
+                               <height>0</height>
                               </size>
                              </property>
                              <property name="maximumSize">
                               <size>
-                               <width>106</width>
-                               <height>47</height>
+                               <width>16777215</width>
+                               <height>16777215</height>
                               </size>
                              </property>
                              <property name="text">
-                              <string>加入队伍</string>
+                              <string> 加入队伍 </string>
                              </property>
                             </widget>
                            </item>
@@ -1963,19 +2392,436 @@ QPushButton:focus{
                              </property>
                              <property name="minimumSize">
                               <size>
-                               <width>106</width>
-                               <height>47</height>
+                               <width>0</width>
+                               <height>0</height>
                               </size>
                              </property>
                              <property name="maximumSize">
                               <size>
-                               <width>106</width>
-                               <height>47</height>
+                               <width>16777215</width>
+                               <height>16777215</height>
                               </size>
                              </property>
                              <property name="text">
-                              <string>移出队伍</string>
+                              <string> 移出队伍 </string>
                              </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </widget>
+                        </item>
+                        <item>
+                         <widget class="QGroupBox" name="filterGroupBox2">
+                          <property name="title">
+                           <string>过滤选项</string>
+                          </property>
+                          <layout class="QVBoxLayout" name="verticalLayout_38">
+                           <property name="leftMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="topMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="rightMargin">
+                            <number>0</number>
+                           </property>
+                           <property name="bottomMargin">
+                            <number>0</number>
+                           </property>
+                           <item>
+                            <widget class="QFrame" name="frame_45">
+                             <property name="frameShape">
+                              <enum>QFrame::StyledPanel</enum>
+                             </property>
+                             <property name="frameShadow">
+                              <enum>QFrame::Raised</enum>
+                             </property>
+                             <layout class="QHBoxLayout" name="horizontalLayout_32">
+                              <property name="leftMargin">
+                               <number>0</number>
+                              </property>
+                              <property name="topMargin">
+                               <number>0</number>
+                              </property>
+                              <property name="rightMargin">
+                               <number>0</number>
+                              </property>
+                              <property name="bottomMargin">
+                               <number>0</number>
+                              </property>
+                              <item>
+                               <widget class="QLabel" name="label_29">
+                                <property name="sizePolicy">
+                                 <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                                  <horstretch>0</horstretch>
+                                  <verstretch>0</verstretch>
+                                 </sizepolicy>
+                                </property>
+                                <property name="font">
+                                 <font>
+                                  <family>思源宋体 CN</family>
+                                  <pointsize>14</pointsize>
+                                  <weight>50</weight>
+                                  <italic>false</italic>
+                                  <bold>false</bold>
+                                 </font>
+                                </property>
+                                <property name="text">
+                                 <string>角色：</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QComboBox" name="filterRoleComboBox_2">
+                                <item>
+                                 <property name="text">
+                                  <string>全部</string>
+                                 </property>
+                                </item>
+                                <item>
+                                 <property name="text">
+                                  <string>艾斯特</string>
+                                 </property>
+                                </item>
+                                <item>
+                                 <property name="text">
+                                  <string>墨菲</string>
+                                 </property>
+                                </item>
+                                <item>
+                                 <property name="text">
+                                  <string>八云</string>
+                                 </property>
+                                </item>
+                                <item>
+                                 <property name="text">
+                                  <string>艾德蒙特</string>
+                                 </property>
+                                </item>
+                                <item>
+                                 <property name="text">
+                                  <string>奥利文</string>
+                                 </property>
+                                </item>
+                                <item>
+                                 <property name="text">
+                                  <string>昆西</string>
+                                 </property>
+                                </item>
+                                <item>
+                                 <property name="text">
+                                  <string>玖夜</string>
+                                 </property>
+                                </item>
+                                <item>
+                                 <property name="text">
+                                  <string>可尔</string>
+                                 </property>
+                                </item>
+                                <item>
+                                 <property name="text">
+                                  <string>布儡</string>
+                                 </property>
+                                </item>
+                                <item>
+                                 <property name="text">
+                                  <string>啖天</string>
+                                 </property>
+                                </item>
+                               </widget>
+                              </item>
+                              <item>
+                               <spacer name="horizontalSpacer_12">
+                                <property name="orientation">
+                                 <enum>Qt::Horizontal</enum>
+                                </property>
+                                <property name="sizeHint" stdset="0">
+                                 <size>
+                                  <width>40</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                               </spacer>
+                              </item>
+                             </layout>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QFrame" name="frame_44">
+                             <property name="frameShape">
+                              <enum>QFrame::StyledPanel</enum>
+                             </property>
+                             <property name="frameShadow">
+                              <enum>QFrame::Raised</enum>
+                             </property>
+                             <layout class="QHBoxLayout" name="horizontalLayout_31">
+                              <property name="leftMargin">
+                               <number>0</number>
+                              </property>
+                              <property name="topMargin">
+                               <number>0</number>
+                              </property>
+                              <property name="rightMargin">
+                               <number>0</number>
+                              </property>
+                              <property name="bottomMargin">
+                               <number>0</number>
+                              </property>
+                              <item>
+                               <widget class="QLabel" name="label_28">
+                                <property name="font">
+                                 <font>
+                                  <family>思源宋体 CN</family>
+                                  <pointsize>14</pointsize>
+                                  <weight>50</weight>
+                                  <italic>false</italic>
+                                  <bold>false</bold>
+                                 </font>
+                                </property>
+                                <property name="text">
+                                 <string>稀有度：</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QRadioButton" name="filterRarityRadioBtn_All_2">
+                                <property name="text">
+                                 <string>全部</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QRadioButton" name="filterRarityRadioBtn_SSR_2">
+                                <property name="text">
+                                 <string>SSR</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QRadioButton" name="filterRarityRadioBtn_SR_2">
+                                <property name="text">
+                                 <string>SR</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QRadioButton" name="filterRarityRadioBtn_R_2">
+                                <property name="text">
+                                 <string>R</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QRadioButton" name="filterRarityRadioBtn_N_2">
+                                <property name="text">
+                                 <string>N</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <spacer name="horizontalSpacer_11">
+                                <property name="orientation">
+                                 <enum>Qt::Horizontal</enum>
+                                </property>
+                                <property name="sizeHint" stdset="0">
+                                 <size>
+                                  <width>40</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                               </spacer>
+                              </item>
+                             </layout>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QFrame" name="frame_46">
+                             <property name="frameShape">
+                              <enum>QFrame::StyledPanel</enum>
+                             </property>
+                             <property name="frameShadow">
+                              <enum>QFrame::Raised</enum>
+                             </property>
+                             <layout class="QHBoxLayout" name="horizontalLayout_33">
+                              <property name="leftMargin">
+                               <number>0</number>
+                              </property>
+                              <property name="topMargin">
+                               <number>0</number>
+                              </property>
+                              <property name="rightMargin">
+                               <number>0</number>
+                              </property>
+                              <property name="bottomMargin">
+                               <number>0</number>
+                              </property>
+                              <item>
+                               <widget class="QLabel" name="label_30">
+                                <property name="font">
+                                 <font>
+                                  <family>思源宋体 CN</family>
+                                  <pointsize>14</pointsize>
+                                  <weight>50</weight>
+                                  <italic>false</italic>
+                                  <bold>false</bold>
+                                 </font>
+                                </property>
+                                <property name="text">
+                                 <string>类型：</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QRadioButton" name="filterTypeRadioBtn_All_2">
+                                <property name="text">
+                                 <string>全部</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QRadioButton" name="filterTypeRadioBtn_Lignt_2">
+                                <property name="text">
+                                 <string>光</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QRadioButton" name="filterTypeRadioBtn_Dark_2">
+                                <property name="text">
+                                 <string>暗</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QRadioButton" name="filterTypeRadioBtn_Fire_2">
+                                <property name="text">
+                                 <string>火</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QRadioButton" name="filterTypeRadioBtn_Water_2">
+                                <property name="text">
+                                 <string>水</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QRadioButton" name="filterTypeRadioBtn_Wood_2">
+                                <property name="text">
+                                 <string>木</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <spacer name="horizontalSpacer_13">
+                                <property name="orientation">
+                                 <enum>Qt::Horizontal</enum>
+                                </property>
+                                <property name="sizeHint" stdset="0">
+                                 <size>
+                                  <width>40</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                               </spacer>
+                              </item>
+                             </layout>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QFrame" name="frame_43">
+                             <property name="frameShape">
+                              <enum>QFrame::StyledPanel</enum>
+                             </property>
+                             <property name="frameShadow">
+                              <enum>QFrame::Raised</enum>
+                             </property>
+                             <layout class="QHBoxLayout" name="horizontalLayout_30">
+                              <property name="leftMargin">
+                               <number>0</number>
+                              </property>
+                              <property name="topMargin">
+                               <number>0</number>
+                              </property>
+                              <property name="rightMargin">
+                               <number>0</number>
+                              </property>
+                              <property name="bottomMargin">
+                               <number>0</number>
+                              </property>
+                              <item>
+                               <widget class="QLabel" name="label_27">
+                                <property name="font">
+                                 <font>
+                                  <family>思源宋体 CN</family>
+                                  <pointsize>14</pointsize>
+                                  <weight>50</weight>
+                                  <italic>false</italic>
+                                  <bold>false</bold>
+                                 </font>
+                                </property>
+                                <property name="text">
+                                 <string>定位：</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QRadioButton" name="filterOccRadioBtn_All_2">
+                                <property name="text">
+                                 <string>全部</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QRadioButton" name="filterOccRadioBtn_Healer_2">
+                                <property name="text">
+                                 <string>治愈</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QRadioButton" name="filterOccRadioBtn_Support_2">
+                                <property name="text">
+                                 <string>辅助</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QRadioButton" name="filterOccRadioBtn_Striker_2">
+                                <property name="text">
+                                 <string>攻击</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QRadioButton" name="filterOccRadioBtn_Guardian_2">
+                                <property name="text">
+                                 <string>守护</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <widget class="QRadioButton" name="filterOccRadioBtn_Saboteur_2">
+                                <property name="text">
+                                 <string>妨碍</string>
+                                </property>
+                               </widget>
+                              </item>
+                              <item>
+                               <spacer name="horizontalSpacer_10">
+                                <property name="orientation">
+                                 <enum>Qt::Horizontal</enum>
+                                </property>
+                                <property name="sizeHint" stdset="0">
+                                 <size>
+                                  <width>40</width>
+                                  <height>20</height>
+                                 </size>
+                                </property>
+                               </spacer>
+                              </item>
+                             </layout>
                             </widget>
                            </item>
                           </layout>
@@ -2148,18 +2994,18 @@ QPushButton:focus{
                             <widget class="QPushButton" name="clearBattleSetBtn">
                              <property name="minimumSize">
                               <size>
-                               <width>60</width>
-                               <height>47</height>
+                               <width>0</width>
+                               <height>0</height>
                               </size>
                              </property>
                              <property name="maximumSize">
                               <size>
-                               <width>60</width>
-                               <height>47</height>
+                               <width>16777215</width>
+                               <height>16777215</height>
                               </size>
                              </property>
                              <property name="text">
-                              <string>清空</string>
+                              <string> 清空 </string>
                              </property>
                             </widget>
                            </item>
@@ -2916,45 +3762,7 @@ QPushButton:focus{
                        <bool>true</bool>
                       </property>
                       <property name="plainText">
-                       <string>当前版本：v1.0-20221113
-
-设置属性：
-        ①在卡牌列表中可以设置每个卡牌的基础属性。
-        ②如果勾选了“使用期望数值”，在每次计算伤害前会根据等级、星级、蜜话、潜能计算得出期望HP和ATK（可能存在误差）。
-        ③星级、潜能将会影响该卡牌的技能倍率、被动是否触发，请一定要设置准确！
-
-伤害计算：
-        ①在卡牌列表中选择1-5个卡牌作为当前出战卡牌（不可重复）。
-        ②在战斗设置中设置战斗回合数（1-50），默认为13
-        ③在不设置对轴、防御的情况下会模拟自动战斗，会严格按照队伍卡牌顺序行动，自动释放必杀技。
-        ④对轴功能，在战斗设置中设置释放必杀技的回合数，除设置以外的回合数将不会释放必杀技，仍会按照卡牌顺序行动，仍需要计算必杀技cd。
-        ⑤防御功能，在战斗设置中可设置防御的回合数，除设置以外的回合数将会执行攻击（普通攻击/必杀技），在同一回合同时设置了防御和对轴，会优先执行防御请注意！
-
-HP、ATK计算公式：
-        期望数据 = 基础数据 * 蜜话加成 * 潜能加成 / 星级削减 / 等级削减（全部计算完后向上取整）
-
-        基础数据：回廊中60级5星0潜能0蜜话的数据
-        蜜话加成：分别是5%，10%，20%，30%，50%
-        潜能加成：根据角色潜能类型有所不同，这里不全部列举，一般分为攻击型、防御型、平衡型、NR型
-        星级削减：x星数据 = x+1星数据 / （1 + /（5+x））
-        等级削减：x级数据 = x+1级数据/ 1.05
-
-伤害计算公式：
-        根据技能描述选择基础攻击力/实时攻击力，每一次加成后伤害数值向下取整
-
-        实时攻击力 = 基础攻击力 * 攻击力加成 + 以具体数值进行加成的攻击力（例如增益提供的攻击力加成）
-
-        普攻/必杀伤害 = 基础攻击力/实时攻击力 * 倍率 * 普攻/必杀加成 * 伤害加成
-        最终普攻/必杀伤害 = 普攻/必杀伤害 * 敌方受普攻/必杀加成 * 敌方受伤害加成 * 属性压制
-
-        DOT是锁面板技能，在挂buff的那一刻就确定了DOT伤害（HOT也一样），并且DOT没有属性压制
-        DOT伤害 = 基础攻击力/实时攻击力 * 倍率 * 持续伤害加成 * 伤害加成
-        最终DOT伤害 = DOT伤害 * （敌方受持续伤害加成+敌方受伤害加成）【这里非常特殊是加算，不排除是bug】
-
-        反击和追击比较特殊，其可能会被视为普攻也可能会被视为必杀，所以如果视为普攻则会吃到普攻加成，视为必杀则会吃到必杀加成【例如普团的追击曾经无法吃到普攻加成，后来又改成能吃到；而花昆和布儡的反击则可以吃到必杀加成】
-        反击/追击伤害 = 基础攻击力/实时攻击力 * 倍率 * 普攻/必杀加成 * 伤害加成
-        最终反击/追击伤害 = 反击/追击伤害 * 敌方受普攻/必杀加成 * 敌方受伤害加成 * 属性压制
-	</string>
+                       <string/>
                       </property>
                      </widget>
                     </item>
@@ -2995,12 +3803,7 @@ HP、ATK计算公式：
                        <bool>true</bool>
                       </property>
                       <property name="plainText">
-                       <string>------------------------------------2022.11.13------------------------------------
-v1.0：
-        ①录入所有卡牌数据
-        ②确定HP、ATK计算公式
-        ③确定伤害计算公式
-        ④完成基本开发</string>
+                       <string/>
                       </property>
                      </widget>
                     </item>
