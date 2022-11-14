@@ -4,14 +4,19 @@ import sys
 import tkinter.filedialog
 
 from PyQt5 import QtCore, QtGui
+from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import QMainWindow, QApplication
 
 from Nucarnival.cardHelper import CardHelper
 from Nucarnival.nucarnivalHelper import NucarnivalHelper
+from Resource.pteResource import getWelcomeContent, getHelpContent, getUpdateLogContent
 from RoleCards.cards.monster.commonMonster import CommonMonster
 from RoleCards.common.card import ICard
 from RoleCards.common.cardModel import CardTableModel
+from RoleCards.common.filterCardModel import FilterCardModel
+from RoleCards.enum.cardRarityEnum import CardRarity
+from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
 from UiDesign.nucarnivalCalculatorUi import Ui_MainWindow
 from UiDesign.validator import IntValidator
@@ -59,7 +64,33 @@ class MainWindow(QMainWindow):
         self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
         self.currentCard: ICard = None
         self.currentTeam: ICard = None
+        self.filterModel = FilterCardModel()
+        self.filterModel.setSourceModel(CardTableModel(cardHelper))
+        self.filterModel.setDynamicSortFilter(True)
+        self.filterModel2 = FilterCardModel()
+        self.filterModel2.setSourceModel(CardTableModel(cardHelper))
+        self.filterModel2.setDynamicSortFilter(True)
 
+        self.bindValidator()
+        self.bindFun()
+        self.initWindowData()
+
+        self.show()
+
+    # 初始化窗口的基础数据
+    def initWindowData(self):
+        _translate = QtCore.QCoreApplication.translate
+        self.ui.welcomePTE.setPlainText(_translate("MainWindow", getWelcomeContent()))
+        self.ui.helpPTE.setPlainText(_translate("MainWindow", getHelpContent()))
+        self.ui.updateLogPTE.setPlainText(_translate("MainWindow", getUpdateLogContent()))
+        self.ui.stackedWidget.setCurrentIndex(0)
+        self.ui.tabWidget.setCurrentIndex(0)
+
+        self.ui.cardListTable.setModel(self.filterModel)
+        self.ui.cardListTable2.setModel(self.filterModel2)
+
+    # 绑定各种验证器
+    def bindValidator(self):
         intValidator = QIntValidator()
         self.ui.hpLineEdit.setValidator(intValidator)
         self.ui.atkLineEdit.setValidator(intValidator)
@@ -79,6 +110,8 @@ class MainWindow(QMainWindow):
         roundValidator = IntValidator(1, 50)
         self.ui.battleRoundLineEdit.setValidator(roundValidator)
 
+    # 绑定各种方法
+    def bindFun(self):
         self.ui.idButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0))
         self.ui.cardListBtn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(1))
         self.ui.damageCalculatorBtn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(2))
@@ -99,14 +132,6 @@ class MainWindow(QMainWindow):
         self.ui.team5.clicked.connect(self.clickTeamBtn5)
         self.ui.exportExcelBtn.clicked.connect(exportExcel)
         self.ui.clearBattleSetBtn.clicked.connect(self.clearBattleSet)
-
-        self.ui.stackedWidget.setCurrentIndex(0)
-        self.ui.tabWidget.setCurrentIndex(0)
-
-        self.ui.cardListTable.setModel(CardTableModel(cardHelper))
-        self.ui.cardListTable2.setModel(CardTableModel(cardHelper))
-
-        self.show()
 
     def calDamage(self):
         self.setBattleInfo()

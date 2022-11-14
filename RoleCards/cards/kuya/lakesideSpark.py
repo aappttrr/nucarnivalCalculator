@@ -22,6 +22,8 @@ class LakesideSpark(SSRCard):
 
         self.lv60s5Hp = 8218
         self.lv60s5Atk = 1921
+        self.hp = self.lv60s5Hp
+        self.atk = self.lv60s5Atk
 
     # 攻击力133%/157%/182%治疗
     # 我方全体吸血效果15%（4）
