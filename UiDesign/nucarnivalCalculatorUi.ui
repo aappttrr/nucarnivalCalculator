@@ -539,7 +539,7 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                 <string notr="true"/>
                </property>
                <property name="currentIndex">
-                <number>2</number>
+                <number>1</number>
                </property>
                <widget class="QWidget" name="welcomePage">
                 <layout class="QVBoxLayout" name="verticalLayout">
@@ -1497,63 +1497,7 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                         </widget>
                        </item>
                        <item>
-                        <widget class="QComboBox" name="filterRoleComboBox">
-                         <item>
-                          <property name="text">
-                           <string>全部</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>艾斯特</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>墨菲</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>八云</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>艾德蒙特</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>奥利文</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>昆西</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>玖夜</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>可尔</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>布儡</string>
-                          </property>
-                         </item>
-                         <item>
-                          <property name="text">
-                           <string>啖天</string>
-                          </property>
-                         </item>
-                        </widget>
+                        <widget class="QComboBox" name="filterRoleComboBox"/>
                        </item>
                        <item>
                         <spacer name="horizontalSpacer_6">
@@ -2151,7 +2095,7 @@ QPushButton:focus{
                     <item>
                      <widget class="QTabWidget" name="tabWidget">
                       <property name="currentIndex">
-                       <number>2</number>
+                       <number>1</number>
                       </property>
                       <widget class="QWidget" name="damageCalTab">
                        <property name="accessibleName">
@@ -2286,8 +2230,8 @@ QPushButton:focus{
                                <rect>
                                 <x>0</x>
                                 <y>0</y>
-                                <width>1425</width>
-                                <height>430</height>
+                                <width>87</width>
+                                <height>87</height>
                                </rect>
                               </property>
                               <layout class="QVBoxLayout" name="verticalLayout_18">
@@ -2472,63 +2416,7 @@ QPushButton:focus{
                                </widget>
                               </item>
                               <item>
-                               <widget class="QComboBox" name="filterRoleComboBox_2">
-                                <item>
-                                 <property name="text">
-                                  <string>全部</string>
-                                 </property>
-                                </item>
-                                <item>
-                                 <property name="text">
-                                  <string>艾斯特</string>
-                                 </property>
-                                </item>
-                                <item>
-                                 <property name="text">
-                                  <string>墨菲</string>
-                                 </property>
-                                </item>
-                                <item>
-                                 <property name="text">
-                                  <string>八云</string>
-                                 </property>
-                                </item>
-                                <item>
-                                 <property name="text">
-                                  <string>艾德蒙特</string>
-                                 </property>
-                                </item>
-                                <item>
-                                 <property name="text">
-                                  <string>奥利文</string>
-                                 </property>
-                                </item>
-                                <item>
-                                 <property name="text">
-                                  <string>昆西</string>
-                                 </property>
-                                </item>
-                                <item>
-                                 <property name="text">
-                                  <string>玖夜</string>
-                                 </property>
-                                </item>
-                                <item>
-                                 <property name="text">
-                                  <string>可尔</string>
-                                 </property>
-                                </item>
-                                <item>
-                                 <property name="text">
-                                  <string>布儡</string>
-                                 </property>
-                                </item>
-                                <item>
-                                 <property name="text">
-                                  <string>啖天</string>
-                                 </property>
-                                </item>
-                               </widget>
+                               <widget class="QComboBox" name="filterRoleComboBox_2"/>
                               </item>
                               <item>
                                <spacer name="horizontalSpacer_12">
