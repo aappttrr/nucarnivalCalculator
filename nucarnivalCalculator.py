@@ -55,7 +55,7 @@ def getIntList(pte: str):
     return intList
 
 
-def setFilterRoleTemp(index: int,fm: FilterCardModel):
+def setFilterRoleTemp(index: int, fm: FilterCardModel):
     if fm is not None:
         match index:
             case 0:
@@ -181,6 +181,13 @@ class MainWindow(QMainWindow):
         self.ui.filterRoleComboBox_2.addItem(_translate("MainWindow", CardRole.Blade.value), CardRole.Blade)
         self.ui.filterRoleComboBox_2.addItem(_translate("MainWindow", CardRole.Dante.value), CardRole.Dante)
 
+        for i in reversed(range(1, 61)):
+            self.ui.lvComboBox.addItem(_translate("MainWindow", str(i)), i)
+        for i in range(0, 6):
+            self.ui.bondComboBox.addItem(_translate("MainWindow", str(i)), i)
+        for i in range(1, 6):
+            self.ui.starComboBox.addItem(_translate("MainWindow", str(i)), i)
+
         self.ui.cardListTable.setModel(self.filterModel)
         self.ui.cardListTable2.setModel(self.filterModel2)
         self.ui.filterGroupBox.hide()
@@ -191,21 +198,6 @@ class MainWindow(QMainWindow):
         intValidator = QIntValidator()
         self.ui.hpLineEdit.setValidator(intValidator)
         self.ui.atkLineEdit.setValidator(intValidator)
-
-        lvValidator = IntValidator(1, 60)
-        self.ui.lvLineEdit.setValidator(lvValidator)
-
-        tierValidator = IntValidator(0, 12)
-        self.ui.tierLineEdit.setValidator(tierValidator)
-
-        starValidator = IntValidator(1, 5)
-        self.ui.starLineEdit.setValidator(starValidator)
-
-        bondValidator = IntValidator(0, 5)
-        self.ui.bondLineEdit.setValidator(bondValidator)
-
-        roundValidator = IntValidator(1, 50)
-        self.ui.battleRoundLineEdit.setValidator(roundValidator)
 
     # 绑定各种方法
     def bindFun(self):
@@ -390,10 +382,10 @@ class MainWindow(QMainWindow):
 
     def calCard(self):
         uev = self.ui.useExpectedValueCheckBox.isChecked()
-        lv = self.ui.lvLineEdit.text()
-        bond = self.ui.bondLineEdit.text()
-        star = self.ui.starLineEdit.text()
-        tier = self.ui.tierLineEdit.text()
+        lv = 60 - self.ui.lvComboBox.currentIndex()
+        bond = self.ui.bondComboBox.currentIndex()
+        star = self.ui.starComboBox.currentIndex() + 1
+        tier = self.ui.tierComboBox.currentIndex()
         if self.currentCard is not None:
             self.currentCard.setProperties(int(lv), int(star), int(bond), int(tier))
             self.currentCard.useExpectedValue = uev
@@ -413,10 +405,10 @@ class MainWindow(QMainWindow):
         hp = self.ui.hpLineEdit.text()
         atk = self.ui.atkLineEdit.text()
         uev = self.ui.useExpectedValueCheckBox.isChecked()
-        lv = self.ui.lvLineEdit.text()
-        bond = self.ui.bondLineEdit.text()
-        star = self.ui.starLineEdit.text()
-        tier = self.ui.tierLineEdit.text()
+        lv = 60 - self.ui.lvComboBox.currentIndex()
+        bond = self.ui.bondComboBox.currentIndex()
+        star = self.ui.starComboBox.currentIndex() + 1
+        tier = self.ui.tierComboBox.currentIndex()
         if self.currentCard is not None:
             self.currentCard.setProperties(int(lv), int(star), int(bond), int(tier))
             self.currentCard.useExpectedValue = uev
@@ -434,24 +426,33 @@ class MainWindow(QMainWindow):
             self.ui.hpLineEdit.setText(str(self.currentCard.hp))
             self.ui.atkLineEdit.setText(str(self.currentCard.atk))
             self.ui.useExpectedValueCheckBox.setChecked(self.currentCard.useExpectedValue)
-            self.ui.lvLineEdit.setText(str(self.currentCard.lv))
-            self.ui.bondLineEdit.setText(str(self.currentCard.bond))
-            self.ui.tierLineEdit.setText(str(self.currentCard.tier))
-            self.ui.starLineEdit.setText(str(self.currentCard.star))
+            self.ui.lvComboBox.setCurrentIndex(60 - self.currentCard.lv)
+            self.ui.bondComboBox.setCurrentIndex(self.currentCard.bond)
+            self.ui.tierComboBox.setCurrentIndex(self.currentCard.tier)
+            self.ui.starComboBox.setCurrentIndex(self.currentCard.star - 1)
 
     def clickCard(self, index):
         row = index.model().mapToSource(index).row()
         self.currentCard = cardHelper.cardList[row]
+
+        _translate = QtCore.QCoreApplication.translate
+        self.ui.tierComboBox.clear()
+        if self.currentCard.rarity == CardRarity.N or self.currentCard.rarity == CardRarity.R:
+            for i in range(0, 7):
+                self.ui.tierComboBox.addItem(_translate("MainWindow", str(i)), i)
+        else:
+            for i in range(0, 13):
+                self.ui.tierComboBox.addItem(_translate("MainWindow", str(i)), i)
 
         self.showCardInfo()
 
         self.ui.hpLineEdit.setEnabled(True)
         self.ui.atkLineEdit.setEnabled(True)
         self.ui.useExpectedValueCheckBox.setEnabled(True)
-        self.ui.lvLineEdit.setEnabled(True)
-        self.ui.bondLineEdit.setEnabled(True)
-        self.ui.tierLineEdit.setEnabled(True)
-        self.ui.starLineEdit.setEnabled(True)
+        self.ui.lvComboBox.setEnabled(True)
+        self.ui.bondComboBox.setEnabled(True)
+        self.ui.tierComboBox.setEnabled(True)
+        self.ui.starComboBox.setEnabled(True)
         self.ui.calCardBtn.setEnabled(True)
         self.ui.resetCardBtn.setEnabled(True)
         self.ui.saveCardBtn.setEnabled(True)

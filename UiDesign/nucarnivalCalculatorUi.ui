@@ -1138,9 +1138,15 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                            </widget>
                           </item>
                           <item>
-                           <widget class="QLineEdit" name="lvLineEdit">
+                           <widget class="QComboBox" name="lvComboBox">
                             <property name="enabled">
                              <bool>false</bool>
+                            </property>
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
                             </property>
                            </widget>
                           </item>
@@ -1197,9 +1203,15 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                            </widget>
                           </item>
                           <item>
-                           <widget class="QLineEdit" name="tierLineEdit">
+                           <widget class="QComboBox" name="tierComboBox">
                             <property name="enabled">
                              <bool>false</bool>
+                            </property>
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
                             </property>
                            </widget>
                           </item>
@@ -1256,9 +1268,15 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                            </widget>
                           </item>
                           <item>
-                           <widget class="QLineEdit" name="bondLineEdit">
+                           <widget class="QComboBox" name="bondComboBox">
                             <property name="enabled">
                              <bool>false</bool>
+                            </property>
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
                             </property>
                            </widget>
                           </item>
@@ -1315,9 +1333,15 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                            </widget>
                           </item>
                           <item>
-                           <widget class="QLineEdit" name="starLineEdit">
+                           <widget class="QComboBox" name="starComboBox">
                             <property name="enabled">
                              <bool>false</bool>
+                            </property>
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
                             </property>
                            </widget>
                           </item>
