@@ -19,7 +19,9 @@ def getWelcomeContent():
 
 def getHelpContent():
     output = io.StringIO()
-    writeLineString(output, '当前版本：v1.0-20221113')
+    writeLineString(output, '当前版本：v1.0-2022-11-14')
+    writeLineString(output, '有任何问题、Bug都可以给我留言~~')
+    writeLineString(output, 'B站：纳萨尔')
     writeLineString(output, '')
     writeLineString(output, '设置属性：')
     writeWriteSpace(output, 8)
