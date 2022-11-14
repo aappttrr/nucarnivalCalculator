@@ -5,7 +5,7 @@ import tkinter.filedialog
 from functools import partial
 
 from PyQt5 import QtCore, QtGui
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QModelIndex
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import QMainWindow, QApplication
 
@@ -36,10 +36,9 @@ def exportExcel():
         initialfile='战斗结果.xls',
         title='导出战斗结果Excel'
     )
-    filename = os.path.basename(filepath).split('.')[0]
-    # print(filename)
-    # print(filepath)
-    nucarnivalHelper.exportExcel(filename, filepath)
+    if len(filepath) != 0:
+        filename = os.path.basename(filepath).split('.')[0]
+        nucarnivalHelper.exportExcel(filename, filepath)
 
 
 def getIntList(pte: str):
@@ -291,7 +290,6 @@ class MainWindow(QMainWindow):
         nucarnivalHelper.battleStart()
         self.ui.battleResultPTE.setPlainText(nucarnivalHelper.output.getvalue())
         self.ui.exportExcelBtn.setEnabled(True)
-        nucarnivalHelper.clearUpBattleResult()
 
     def clearBattleSet(self):
         self.currentTeam = None
@@ -420,7 +418,7 @@ class MainWindow(QMainWindow):
             self.ui.starLineEdit.setText(str(self.currentCard.star))
 
     def clickCard(self, index):
-        row = index.row()
+        row = index.model().mapToSource(index).row()
         self.currentCard = cardHelper.cardList[row]
 
         self.showCardInfo()
@@ -436,8 +434,8 @@ class MainWindow(QMainWindow):
         self.ui.resetCardBtn.setEnabled(True)
         self.ui.saveCardBtn.setEnabled(True)
 
-    def clickTeamCard(self, index):
-        row = index.row()
+    def clickTeamCard(self, index: QModelIndex):
+        row = index.model().mapToSource(index).row()
         self.currentTeam = cardHelper.cardList[row]
 
         if self.currentTeam in nucarnivalHelper.team:
@@ -508,7 +506,8 @@ class MainWindow(QMainWindow):
             btn.setText("")
 
     def addTeam(self):
-        if len(nucarnivalHelper.team) < 5 and self.currentTeam is not None:
+        if len(nucarnivalHelper.team) < 5 and self.currentTeam is not None \
+                and self.currentTeam not in nucarnivalHelper.team:
             nucarnivalHelper.team.append(self.currentTeam)
         self.updateTeam()
         if 1 <= len(nucarnivalHelper.team) <= 5:

@@ -218,7 +218,7 @@ QLabel, #applicationNameLabel{
                 <enum>Qt::LeftToRight</enum>
                </property>
                <property name="text">
-                <string>Nu:carnival 计算器</string>
+                <string>Nu:carnival 计算工具</string>
                </property>
               </widget>
              </item>
@@ -427,7 +427,7 @@ QPushButton:focus{
                 </font>
                </property>
                <property name="text">
-                <string>伤害计算</string>
+                <string>伤害模拟</string>
                </property>
               </widget>
              </item>
@@ -539,7 +539,7 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                 <string notr="true"/>
                </property>
                <property name="currentIndex">
-                <number>1</number>
+                <number>2</number>
                </property>
                <widget class="QWidget" name="welcomePage">
                 <layout class="QVBoxLayout" name="verticalLayout">
@@ -609,7 +609,7 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                    <property name="minimumSize">
                     <size>
                      <width>0</width>
-                     <height>0</height>
+                     <height>230</height>
                     </size>
                    </property>
                    <property name="frameShape">
@@ -642,7 +642,7 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                       <property name="minimumSize">
                        <size>
                         <width>0</width>
-                        <height>0</height>
+                        <height>180</height>
                        </size>
                       </property>
                       <property name="frameShape">
@@ -1350,7 +1350,7 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                     <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                      <widget class="QPushButton" name="openFilterBtn">
                       <property name="text">
-                       <string> 设置过滤选项 </string>
+                       <string> 过滤选项 </string>
                       </property>
                      </widget>
                     </item>
@@ -1438,7 +1438,7 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                     </sizepolicy>
                    </property>
                    <property name="title">
-                    <string>过滤选项</string>
+                    <string/>
                    </property>
                    <layout class="QVBoxLayout" name="verticalLayout_37">
                     <property name="leftMargin">
@@ -2158,7 +2158,7 @@ QPushButton:focus{
                         <string/>
                        </property>
                        <attribute name="title">
-                        <string>伤害计算</string>
+                        <string>伤害模拟</string>
                        </attribute>
                        <layout class="QVBoxLayout" name="verticalLayout_16">
                         <property name="leftMargin">
@@ -2220,7 +2220,7 @@ QPushButton:focus{
                               </size>
                              </property>
                              <property name="text">
-                              <string> 计算 </string>
+                              <string> 计算模拟结果 </string>
                              </property>
                             </widget>
                            </item>
@@ -2359,7 +2359,7 @@ QPushButton:focus{
                            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
                             <widget class="QPushButton" name="openFilterBtn_2">
                              <property name="text">
-                              <string> 设置过滤选项 </string>
+                              <string> 过滤选项 </string>
                              </property>
                             </widget>
                            </item>
@@ -2413,7 +2413,7 @@ QPushButton:focus{
                         <item>
                          <widget class="QGroupBox" name="filterGroupBox2">
                           <property name="title">
-                           <string>过滤选项</string>
+                           <string/>
                           </property>
                           <layout class="QVBoxLayout" name="verticalLayout_38">
                            <property name="leftMargin">
@@ -2932,7 +2932,7 @@ QPushButton:focus{
                            <item>
                             <widget class="QLabel" name="label_22">
                              <property name="text">
-                              <string>怪物属性：</string>
+                              <string>怪物类型：</string>
                              </property>
                             </widget>
                            </item>
