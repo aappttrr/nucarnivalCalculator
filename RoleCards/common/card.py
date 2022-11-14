@@ -222,7 +222,7 @@ class ICard:
         result = calStar(result, self.star)
         result = calLv(result, self.lv)
         result = roundCeiling(result)
-        return result
+        return int(result)
 
     def setHpAtkDirect(self, _hp, _atk):
         self.hp = _hp
