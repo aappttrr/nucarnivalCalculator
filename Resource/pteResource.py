@@ -19,7 +19,7 @@ def getWelcomeContent():
 
 def getHelpContent():
     output = io.StringIO()
-    writeLineString(output, '当前版本：v1.1-2022-11-14')
+    writeLineString(output, '当前版本：v1.0-2022-11-14')
     writeLineString(output, '有任何问题、Bug都可以给我留言~~')
     writeLineString(output, 'B站：纳萨尔')
     writeLineString(output, '')
@@ -99,33 +99,13 @@ def getHelpContent():
 
 def getUpdateLogContent():
     output = io.StringIO()
-    getUpdateLogContent_1_1(output)
-    writeLineString(output, '')
     getUpdateLogContent_1_0(output)
     return output.getvalue()
 
 
-def getUpdateLogContent_1_1(_output: io.StringIO):
-    writeDashString(_output, 36)
-    writeString(_output, '2022.11.14')
-    writeDashString(_output, 36)
-    writeLineString(_output, '')
-    writeLineString(_output, 'v1.1:')
-    writeWriteSpace(_output, 8)
-    writeLineString(_output, '①优化部分文本')
-    writeWriteSpace(_output, 8)
-    writeLineString(_output, '②修复选择表格返回卡牌对象出错的问题')
-    writeWriteSpace(_output, 8)
-    writeLineString(_output, '③修复可往队伍重复添加相同卡牌的问题')
-    writeWriteSpace(_output, 8)
-    writeLineString(_output, '④修复导出选择文件地址时取消闪退的问题')
-    writeWriteSpace(_output, 8)
-    writeLineString(_output, '⑤修复导出闪退的问题')
-
-
 def getUpdateLogContent_1_0(_output: io.StringIO):
     writeDashString(_output, 36)
-    writeString(_output, '2022.11.13')
+    writeString(_output, '2022.11.14')
     writeDashString(_output, 36)
     writeLineString(_output, '')
     writeLineString(_output, 'v1.0:')
@@ -137,6 +117,8 @@ def getUpdateLogContent_1_0(_output: io.StringIO):
     writeLineString(_output, '③确定伤害计算公式')
     writeWriteSpace(_output, 8)
     writeLineString(_output, '④完成基本开发')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '⑤完成基本功能测试')
 
 
 def writeString(_output: io.StringIO, content: str):
