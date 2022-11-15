@@ -1,0 +1,25 @@
+import enum
+
+
+class PropType(enum.Enum):
+    spiritGem = '蓝钻'
+    sorceryGem = '红钻'
+    essenceContract = '魔力契约（单抽票）'
+    coin = '金币'
+    tinyBoost = '小体力药（10体力）'
+    basicBoost = '中体力药（30体力）'
+    strongBoost = '大体力药（100体力）'
+    basicPotential = '初级潜力道具'
+    intermediatePotential = '中级潜力道具'
+    advancedPotential = '高级潜力道具'
+    advancedUpPotential = '高级潜力道具（合成）'
+    legendaryPotential = '传说潜力道具'
+    smallEssenceVial = '小魔力熏香（1）'
+    middleEssenceVial = '中魔力熏香（5）'
+    bigEssenceVial = '大魔力熏香（10）'
+    expressPass = '速通票'
+    key = '钥匙'
+    basicGift = '初级礼物'
+    intermediateGift = '中级礼物'
+    advancedGift = '高级礼物'
+    ultraGift = '自拍礼物'
