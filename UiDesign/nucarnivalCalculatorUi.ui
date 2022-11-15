@@ -1154,6 +1154,71 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                         </widget>
                        </item>
                        <item>
+                        <widget class="QFrame" name="frame_14">
+                         <property name="sizePolicy">
+                          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
+                           <horstretch>0</horstretch>
+                           <verstretch>1</verstretch>
+                          </sizepolicy>
+                         </property>
+                         <property name="frameShape">
+                          <enum>QFrame::StyledPanel</enum>
+                         </property>
+                         <property name="frameShadow">
+                          <enum>QFrame::Raised</enum>
+                         </property>
+                         <layout class="QHBoxLayout" name="horizontalLayout_19">
+                          <property name="leftMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="topMargin">
+                           <number>0</number>
+                          </property>
+                          <property name="rightMargin">
+                           <number>11</number>
+                          </property>
+                          <property name="bottomMargin">
+                           <number>0</number>
+                          </property>
+                          <item>
+                           <widget class="QLabel" name="label_11">
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                            <property name="font">
+                             <font>
+                              <family>思源宋体 CN</family>
+                              <pointsize>14</pointsize>
+                              <weight>50</weight>
+                              <italic>false</italic>
+                              <bold>false</bold>
+                             </font>
+                            </property>
+                            <property name="text">
+                             <string>星级：</string>
+                            </property>
+                           </widget>
+                          </item>
+                          <item>
+                           <widget class="QComboBox" name="starComboBox">
+                            <property name="enabled">
+                             <bool>false</bool>
+                            </property>
+                            <property name="sizePolicy">
+                             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                              <horstretch>0</horstretch>
+                              <verstretch>0</verstretch>
+                             </sizepolicy>
+                            </property>
+                           </widget>
+                          </item>
+                         </layout>
+                        </widget>
+                       </item>
+                       <item>
                         <widget class="QFrame" name="frame_12">
                          <property name="sizePolicy">
                           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
@@ -1283,71 +1348,6 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                          </layout>
                         </widget>
                        </item>
-                       <item>
-                        <widget class="QFrame" name="frame_14">
-                         <property name="sizePolicy">
-                          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-                           <horstretch>0</horstretch>
-                           <verstretch>1</verstretch>
-                          </sizepolicy>
-                         </property>
-                         <property name="frameShape">
-                          <enum>QFrame::StyledPanel</enum>
-                         </property>
-                         <property name="frameShadow">
-                          <enum>QFrame::Raised</enum>
-                         </property>
-                         <layout class="QHBoxLayout" name="horizontalLayout_19">
-                          <property name="leftMargin">
-                           <number>0</number>
-                          </property>
-                          <property name="topMargin">
-                           <number>0</number>
-                          </property>
-                          <property name="rightMargin">
-                           <number>11</number>
-                          </property>
-                          <property name="bottomMargin">
-                           <number>0</number>
-                          </property>
-                          <item>
-                           <widget class="QLabel" name="label_11">
-                            <property name="sizePolicy">
-                             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                              <horstretch>0</horstretch>
-                              <verstretch>0</verstretch>
-                             </sizepolicy>
-                            </property>
-                            <property name="font">
-                             <font>
-                              <family>思源宋体 CN</family>
-                              <pointsize>14</pointsize>
-                              <weight>50</weight>
-                              <italic>false</italic>
-                              <bold>false</bold>
-                             </font>
-                            </property>
-                            <property name="text">
-                             <string>星级：</string>
-                            </property>
-                           </widget>
-                          </item>
-                          <item>
-                           <widget class="QComboBox" name="starComboBox">
-                            <property name="enabled">
-                             <bool>false</bool>
-                            </property>
-                            <property name="sizePolicy">
-                             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-                              <horstretch>0</horstretch>
-                              <verstretch>0</verstretch>
-                             </sizepolicy>
-                            </property>
-                           </widget>
-                          </item>
-                         </layout>
-                        </widget>
-                       </item>
                       </layout>
                      </widget>
                     </item>
@@ -1401,9 +1401,31 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                      </widget>
                     </item>
                     <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                     <widget class="QPushButton" name="saveCardBtn">
+                     <widget class="QPushButton" name="resetCardBtn">
                       <property name="enabled">
                        <bool>false</bool>
+                      </property>
+                      <property name="minimumSize">
+                       <size>
+                        <width>0</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <property name="text">
+                       <string> 重置 </string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                     <widget class="QPushButton" name="exportCardListBtn">
+                      <property name="enabled">
+                       <bool>true</bool>
                       </property>
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
@@ -1424,29 +1446,14 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                        </size>
                       </property>
                       <property name="text">
-                       <string> 保存 </string>
+                       <string> 导出卡牌数据 </string>
                       </property>
                      </widget>
                     </item>
                     <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
-                     <widget class="QPushButton" name="resetCardBtn">
-                      <property name="enabled">
-                       <bool>false</bool>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>0</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>16777215</width>
-                        <height>16777215</height>
-                       </size>
-                      </property>
+                     <widget class="QPushButton" name="loadCardListBtn">
                       <property name="text">
-                       <string> 重置 </string>
+                       <string> 加载卡牌数据 </string>
                       </property>
                      </widget>
                     </item>
@@ -2254,8 +2261,8 @@ QPushButton:focus{
                                <rect>
                                 <x>0</x>
                                 <y>0</y>
-                                <width>87</width>
-                                <height>87</height>
+                                <width>83</width>
+                                <height>59</height>
                                </rect>
                               </property>
                               <layout class="QVBoxLayout" name="verticalLayout_18">

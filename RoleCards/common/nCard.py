@@ -1,11 +1,13 @@
 from RoleCards.common.card import ICard
 from RoleCards.enum.cardRarityEnum import CardRarity
+from RoleCards.enum.tierType import TierType
 
 
 class NCard(ICard):
     def __init__(self):
         super(NCard, self).__init__()
         self.rarity = CardRarity.N
+        self.tierType = TierType.RandN
 
     def setProperties(self, _lv, _star, _bond, _tier):
         super(NCard, self).setProperties(_lv, _star, _bond, _tier)

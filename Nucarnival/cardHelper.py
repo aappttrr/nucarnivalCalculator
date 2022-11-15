@@ -226,14 +226,14 @@ class CardHelper:
 
                 if len(xmlCardId) == 0:
                     continue
-
+                roles = self.filterCard(xmlCardId)
+                if roles is None or len(roles) <= 0:
+                    continue
                 try:
                     hp = xmlCard.getElementsByTagName('hp')[0]
                     hp_text = hp.childNodes[0].data
                     hp_int = int(hp_text)
-                    roles = self.filterCard(xmlCardId)
-                    if roles is not None and len(roles) > 0:
-                        roles[0].setHpDirect(hp_int)
+                    roles[0].setHpDirect(hp_int)
                 except:
                     print('转xml出错')
 
@@ -241,9 +241,7 @@ class CardHelper:
                     atk = xmlCard.getElementsByTagName('atk')[0]
                     atk_text = atk.childNodes[0].data
                     atk_int = int(atk_text)
-                    roles = self.filterCard(xmlCardId)
-                    if roles is not None and len(roles) > 0:
-                        roles[0].setAtkDirect(atk_int)
+                    roles[0].setAtkDirect(atk_int)
                 except:
                     print('转xml出错')
 
@@ -251,9 +249,7 @@ class CardHelper:
                     lv = xmlCard.getElementsByTagName('lv')[0]
                     lv_text = lv.childNodes[0].data
                     lv_int = int(lv_text)
-                    roles = self.filterCard(xmlCardId)
-                    if roles is not None and len(roles) > 0:
-                        roles[0].setLv(lv_int)
+                    roles[0].setLv(lv_int)
                 except:
                     print('转xml出错')
 
@@ -261,9 +257,7 @@ class CardHelper:
                     star = xmlCard.getElementsByTagName('star')[0]
                     star_text = star.childNodes[0].data
                     star_int = int(star_text)
-                    roles = self.filterCard(xmlCardId)
-                    if roles is not None and len(roles) > 0:
-                        roles[0].setStar(star_int)
+                    roles[0].setStar(star_int)
                 except:
                     print('转xml出错')
 
@@ -271,9 +265,7 @@ class CardHelper:
                     tier = xmlCard.getElementsByTagName('tier')[0]
                     tier_text = tier.childNodes[0].data
                     tier_int = int(tier_text)
-                    roles = self.filterCard(xmlCardId)
-                    if roles is not None and len(roles) > 0:
-                        roles[0].setTier(tier_int)
+                    roles[0].setTier(tier_int)
                 except:
                     print('转xml出错')
 
@@ -281,11 +273,19 @@ class CardHelper:
                     bond = xmlCard.getElementsByTagName('bond')[0]
                     bond_text = bond.childNodes[0].data
                     bond_int = int(bond_text)
-                    roles = self.filterCard(xmlCardId)
-                    if roles is not None and len(roles) > 0:
-                        roles[0].setBond(bond_int)
+                    roles[0].setBond(bond_int)
                 except:
                     print('转xml出错')
+
+                try:
+                    uve = xmlCard.getElementsByTagName('uve')[0]
+                    uve_text = uve.childNodes[0].data
+                    if uve_text == 'True':
+                        roles[0].useExpectedValue = True
+                    else:
+                        roles[0].useExpectedValue = False
+                except:
+                    print('转bool出错')
         except:
             print('转xml出错')
 
@@ -327,6 +327,11 @@ class CardHelper:
             bond_text = doc.createTextNode(str(role.bond))
             bond.appendChild(bond_text)
             card.appendChild(bond)
+
+            uve = doc.createElement('uve')
+            uve_text = doc.createTextNode(str(role.useExpectedValue))
+            uve.appendChild(uve_text)
+            card.appendChild(uve)
 
         file = open(filepath, 'w')
         doc.writexml(file, indent='\t', newl='\n', addindent='\t', encoding='utf-8')

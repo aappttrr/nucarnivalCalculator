@@ -293,6 +293,9 @@ class MainWindow(QMainWindow):
         self.ui.bondComboBox.currentIndexChanged.connect(self.setBond)
         self.ui.tierComboBox.currentIndexChanged.connect(self.setTier)
         self.ui.starComboBox.currentIndexChanged.connect(self.setStar)
+        self.ui.useExpectedValueCheckBox.clicked.connect(self.setUev)
+        self.ui.exportCardListBtn.clicked.connect(exportCardList)
+        self.ui.loadCardListBtn.clicked.connect(self.loadCardList)
 
     def loadCardList(self):
         filepath = tkinter.filedialog.askopenfilename(
@@ -307,13 +310,17 @@ class MainWindow(QMainWindow):
             self.ui.cardListTable2.update()
             self.showCardInfo()
 
+    def setUev(self, checked: bool):
+        if self.currentCard is not None:
+            self.currentCard.useExpectedValue = checked
+
     def setHp(self, text: str):
         if self.currentCard is not None:
             try:
                 _hp = int(text)
                 self.currentCard.setHpDirect(_hp)
             except:
-                print('转Int出错')
+                print('设置hp 转Int出错')
             self.ui.cardListTable.update()
 
     def setAtk(self, text: str):
@@ -322,7 +329,7 @@ class MainWindow(QMainWindow):
                 _atk = int(text)
                 self.currentCard.setAtkDirect(_atk)
             except:
-                print('转Int出错')
+                print('设置atk 转Int出错')
             self.ui.cardListTable.update()
 
     def setLv(self, index: int):
@@ -447,6 +454,11 @@ class MainWindow(QMainWindow):
     def showCardInfo(self):
         self.ui.hpLineEdit.textChanged.disconnect()
         self.ui.atkLineEdit.textChanged.disconnect()
+        self.ui.lvComboBox.currentIndexChanged.disconnect()
+        self.ui.bondComboBox.currentIndexChanged.disconnect()
+        self.ui.tierComboBox.currentIndexChanged.disconnect()
+        self.ui.starComboBox.currentIndexChanged.disconnect()
+        self.ui.useExpectedValueCheckBox.clicked.disconnect()
         if self.currentCard is not None:
             self.ui.nameLineEdit.setText(self.currentCard.cardName)
             self.ui.roleLineEdit.setText(self.currentCard.role.value)
@@ -462,12 +474,18 @@ class MainWindow(QMainWindow):
             self.ui.starComboBox.setCurrentIndex(self.currentCard.star - 1)
         self.ui.hpLineEdit.textChanged.connect(self.setHp)
         self.ui.atkLineEdit.textChanged.connect(self.setAtk)
+        self.ui.lvComboBox.currentIndexChanged.connect(self.setLv)
+        self.ui.bondComboBox.currentIndexChanged.connect(self.setBond)
+        self.ui.tierComboBox.currentIndexChanged.connect(self.setTier)
+        self.ui.starComboBox.currentIndexChanged.connect(self.setStar)
+        self.ui.useExpectedValueCheckBox.clicked.connect(self.setUev)
 
     def clickCard(self, index):
         row = index.model().mapToSource(index).row()
         self.currentCard = cardHelper.cardList[row]
 
         _translate = QtCore.QCoreApplication.translate
+        self.ui.tierComboBox.disconnect()
         self.ui.tierComboBox.clear()
         if self.currentCard.rarity == CardRarity.N or self.currentCard.rarity == CardRarity.R:
             for i in range(0, 7):
@@ -475,7 +493,7 @@ class MainWindow(QMainWindow):
         else:
             for i in range(0, 13):
                 self.ui.tierComboBox.addItem(_translate("MainWindow", str(i)), i)
-
+        self.ui.tierComboBox.currentIndexChanged.connect(self.setTier)
         self.showCardInfo()
 
         self.ui.hpLineEdit.setEnabled(True)
