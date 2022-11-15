@@ -68,11 +68,11 @@ ROUND_05UP（如果向零舍入后的最后一位数字为0或5，则远离零�
 
 
 def roundCeiling(value=0):
-    return float(Decimal(value).quantize(Decimal("1."), rounding='ROUND_CEILING'))
+    return int(Decimal(value).quantize(Decimal("1."), rounding='ROUND_CEILING'))
 
 
 def roundDown(value=0):
-    return float(Decimal(value).quantize(Decimal("1."), rounding='ROUND_DOWN'))
+    return int(Decimal(value).quantize(Decimal("1."), rounding='ROUND_DOWN'))
 
 
 class ICard:
@@ -222,10 +222,16 @@ class ICard:
         result = calStar(result, self.star)
         result = calLv(result, self.lv)
         result = roundCeiling(result)
-        return int(result)
+        return result
 
     def setHpAtkDirect(self, _hp, _atk):
         self.hp = _hp
+        self.atk = _atk
+
+    def setHpDirect(self, _hp,):
+        self.hp = _hp
+
+    def setAtkDirect(self,_atk):
         self.atk = _atk
 
     def getMagnification(self, _s1, _s2, _s4):

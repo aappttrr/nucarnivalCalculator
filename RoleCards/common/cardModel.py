@@ -13,7 +13,7 @@ class CardTableModel(QAbstractTableModel):
         return len(self.cardHelper.cardList)
 
     def columnCount(self, parent):
-        return 11
+        return 12
 
     def data(self, index, role):
         row = index.row()
@@ -40,10 +40,12 @@ class CardTableModel(QAbstractTableModel):
                 case 7:
                     displayValue = card.atk
                 case 8:
-                    displayValue = card.star
+                    displayValue = card.lv
                 case 9:
-                    displayValue = card.tier
+                    displayValue = card.star
                 case 10:
+                    displayValue = card.tier
+                case 11:
                     displayValue = card.bond
             return displayValue
 
@@ -68,10 +70,12 @@ class CardTableModel(QAbstractTableModel):
                 case 7:
                     displayValue = 'Atk'
                 case 8:
-                    displayValue = '星级'
+                    displayValue = '等级'
                 case 9:
-                    displayValue = '潜能'
+                    displayValue = '星级'
                 case 10:
+                    displayValue = '潜力'
+                case 11:
                     displayValue = '蜜话'
             return displayValue
         else:

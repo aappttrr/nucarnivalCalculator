@@ -175,22 +175,25 @@ if __name__ == '__main__':
     _helper = NucarnivalHelper()
 
     _cardHelper = CardHelper()
+
+    # _cardHelper.exportCardList('C:\\fhs\\python\\test.xml')
+    _cardHelper.loadCardList('C:\\fhs\\python\\test.xml')
     # simulation1(_cardHelper, _helper)
 
-    yk = DistantPromise()
-    yk.setProperties(60, 3, 5, 12)
-    yk.calHpAtk()
-    yk.cardDetail()
-
-    gl = HowlingCyclone()
-    gl.setProperties(4, 1, 0, 0)
-    gl.calHpAtk()
-    gl.cardDetail()
-
-    pK = AncientCeremony()
-    pK.setProperties(60, 3, 5, 12)
-    pK.calHpAtk()
-    pK.cardInfo()
+    # yk = DistantPromise()
+    # yk.setProperties(60, 3, 5, 12)
+    # yk.calHpAtk()
+    # yk.cardDetail()
+    #
+    # gl = HowlingCyclone()
+    # gl.setProperties(4, 1, 0, 0)
+    # gl.calHpAtk()
+    # gl.cardDetail()
+    #
+    # pK = AncientCeremony()
+    # pK.setProperties(60, 3, 5, 12)
+    # pK.calHpAtk()
+    # pK.cardInfo()
     #
     # _helper.clearUp()
     # # _helper.team.append(hO)

@@ -31,7 +31,7 @@ nucarnivalHelper.monsters.append(CommonMonster())
 def exportExcel():
     filepath = tkinter.filedialog.asksaveasfilename(
         defaultextension='.xls',
-        filetypes=[('所有文件', '.*'), ('XLS 工作表', '.xls'), ('XLSX 工作表', '.xlsx')],
+        filetypes=[('XLS 工作表', '.xls'), ('XLSX 工作表', '.xlsx'), ('所有文件', '.*')],
         initialdir='C:\\',
         initialfile='伤害模拟结果.xls',
         title='导出伤害模拟结果Excel'
@@ -39,6 +39,18 @@ def exportExcel():
     if len(filepath) != 0:
         filename = os.path.basename(filepath).split('.')[0]
         nucarnivalHelper.exportExcel(filename, filepath)
+
+
+def exportCardList():
+    filepath = tkinter.filedialog.asksaveasfilename(
+        defaultextension='.xml',
+        filetypes=[('XML 文件', '.xml'), ('所有文件', '.*')],
+        initialdir='C:\\',
+        initialfile='卡牌数据.xml',
+        title='导出卡牌数据XML'
+    )
+    if len(filepath) != 0:
+        cardHelper.exportCardList(filepath)
 
 
 def getIntList(pte: str):
@@ -53,33 +65,6 @@ def getIntList(pte: str):
             except:
                 print('转Int出错')
     return intList
-
-
-def setFilterRoleTemp(index: int, fm: FilterCardModel):
-    if fm is not None:
-        match index:
-            case 0:
-                fm.setFilterCardRole(None)
-            case 1:
-                fm.setFilterCardRole(CardRole.Aster)
-            case 2:
-                fm.setFilterCardRole(CardRole.Morvay)
-            case 3:
-                fm.setFilterCardRole(CardRole.Yakumo)
-            case 4:
-                fm.setFilterCardRole(CardRole.Edmond)
-            case 5:
-                fm.setFilterCardRole(CardRole.Olivine)
-            case 6:
-                fm.setFilterCardRole(CardRole.Quincy)
-            case 7:
-                fm.setFilterCardRole(CardRole.Kuya)
-            case 8:
-                fm.setFilterCardRole(CardRole.Garu)
-            case 9:
-                fm.setFilterCardRole(CardRole.Blade)
-            case 10:
-                fm.setFilterCardRole(CardRole.Dante)
 
 
 def setFilterRole(fm: FilterCardModel, index: int):
@@ -152,6 +137,7 @@ class MainWindow(QMainWindow):
     # 初始化窗口的基础数据
     def initWindowData(self):
         _translate = QtCore.QCoreApplication.translate
+        self.setWindowTitle(_translate("MainWindow", 'Nu:carnival计算工具'))
         self.ui.welcomePTE.setPlainText(_translate("MainWindow", getWelcomeContent()))
         self.ui.helpPTE.setPlainText(_translate("MainWindow", getHelpContent()))
         self.ui.updateLogPTE.setPlainText(_translate("MainWindow", getUpdateLogContent()))
@@ -214,7 +200,6 @@ class MainWindow(QMainWindow):
             if self.ui.filterGroupBox2.isHidden() else self.ui.filterGroupBox2.hide())
         self.ui.cardListTable.clicked.connect(self.clickCard)
         self.ui.calCardBtn.clicked.connect(self.calCard)
-        self.ui.saveCardBtn.clicked.connect(self.saveCard)
         self.ui.resetCardBtn.clicked.connect(self.resetCard)
         self.ui.cardListTable2.clicked.connect(self.clickTeamCard)
         self.ui.calDamageBtn.clicked.connect(self.calDamage)
@@ -301,6 +286,64 @@ class MainWindow(QMainWindow):
             partial(setFilterType, self.filterModel2, CardType.Water))
         self.ui.filterTypeRadioBtn_Wood_2.clicked.connect(
             partial(setFilterType, self.filterModel2, CardType.Wood))
+
+        self.ui.hpLineEdit.textChanged.connect(self.setHp)
+        self.ui.atkLineEdit.textChanged.connect(self.setAtk)
+        self.ui.lvComboBox.currentIndexChanged.connect(self.setLv)
+        self.ui.bondComboBox.currentIndexChanged.connect(self.setBond)
+        self.ui.tierComboBox.currentIndexChanged.connect(self.setTier)
+        self.ui.starComboBox.currentIndexChanged.connect(self.setStar)
+
+    def loadCardList(self):
+        filepath = tkinter.filedialog.askopenfilename(
+            defaultextension='.xml',
+            filetypes=[('XML 文件', '.xml')],
+            initialdir='C:\\',
+            title='加载卡牌数据XML'
+        )
+        if len(filepath) != 0:
+            cardHelper.loadCardList(filepath)
+            self.ui.cardListTable.update()
+            self.ui.cardListTable2.update()
+            self.showCardInfo()
+
+    def setHp(self, text: str):
+        if self.currentCard is not None:
+            try:
+                _hp = int(text)
+                self.currentCard.setHpDirect(_hp)
+            except:
+                print('转Int出错')
+            self.ui.cardListTable.update()
+
+    def setAtk(self, text: str):
+        if self.currentCard is not None:
+            try:
+                _atk = int(text)
+                self.currentCard.setAtkDirect(_atk)
+            except:
+                print('转Int出错')
+            self.ui.cardListTable.update()
+
+    def setLv(self, index: int):
+        if self.currentCard is not None:
+            self.currentCard.setLv(60 - index)
+            self.ui.cardListTable.update()
+
+    def setBond(self, index: int):
+        if self.currentCard is not None:
+            self.currentCard.setBond(index)
+            self.ui.cardListTable.update()
+
+    def setTier(self, index: int):
+        if self.currentCard is not None:
+            self.currentCard.setTier(index)
+            self.ui.cardListTable.update()
+
+    def setStar(self, index: int):
+        if self.currentCard is not None:
+            self.currentCard.setStar(index + 1)
+            self.ui.cardListTable.update()
 
     def calDamage(self):
         self.setBattleInfo()
@@ -401,22 +444,9 @@ class MainWindow(QMainWindow):
         self.showCardInfo()
         self.ui.cardListTable.update()
 
-    def saveCard(self):
-        hp = self.ui.hpLineEdit.text()
-        atk = self.ui.atkLineEdit.text()
-        uev = self.ui.useExpectedValueCheckBox.isChecked()
-        lv = 60 - self.ui.lvComboBox.currentIndex()
-        bond = self.ui.bondComboBox.currentIndex()
-        star = self.ui.starComboBox.currentIndex() + 1
-        tier = self.ui.tierComboBox.currentIndex()
-        if self.currentCard is not None:
-            self.currentCard.setProperties(int(lv), int(star), int(bond), int(tier))
-            self.currentCard.useExpectedValue = uev
-            self.currentCard.setHpAtkDirect(int(hp), int(atk))
-        self.showCardInfo()
-        self.ui.cardListTable.update()
-
     def showCardInfo(self):
+        self.ui.hpLineEdit.textChanged.disconnect()
+        self.ui.atkLineEdit.textChanged.disconnect()
         if self.currentCard is not None:
             self.ui.nameLineEdit.setText(self.currentCard.cardName)
             self.ui.roleLineEdit.setText(self.currentCard.role.value)
@@ -430,6 +460,8 @@ class MainWindow(QMainWindow):
             self.ui.bondComboBox.setCurrentIndex(self.currentCard.bond)
             self.ui.tierComboBox.setCurrentIndex(self.currentCard.tier)
             self.ui.starComboBox.setCurrentIndex(self.currentCard.star - 1)
+        self.ui.hpLineEdit.textChanged.connect(self.setHp)
+        self.ui.atkLineEdit.textChanged.connect(self.setAtk)
 
     def clickCard(self, index):
         row = index.model().mapToSource(index).row()
@@ -455,7 +487,6 @@ class MainWindow(QMainWindow):
         self.ui.starComboBox.setEnabled(True)
         self.ui.calCardBtn.setEnabled(True)
         self.ui.resetCardBtn.setEnabled(True)
-        self.ui.saveCardBtn.setEnabled(True)
 
     def clickTeamCard(self, index: QModelIndex):
         row = index.model().mapToSource(index).row()

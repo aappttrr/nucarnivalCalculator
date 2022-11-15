@@ -52,6 +52,9 @@ from RoleCards.cards.yakumo.oceanBreeze import OceanBreeze
 from RoleCards.cards.yakumo.r_Yakumo import RYakumo
 from RoleCards.cards.yakumo.sr_Yakumo import SRYakumo
 from RoleCards.common.card import ICard
+import xml.dom.minidom
+from xml.dom.minidom import parse
+from xml.dom.minidom import Document
 
 
 class CardHelper:
@@ -200,5 +203,131 @@ class CardHelper:
         self.cardList.append(nBL)
         self.cardList.append(nDT)
 
-    def filterCard(self, _cardName):
-        return [x for x in self.cardList if x.cardName == _cardName]
+    def filterCard(self, _cardId):
+        return [x for x in self.cardList if x.cardId == _cardId]
+
+    def loadCardList(self, filepath: str):
+        try:
+            doc = xml.dom.minidom.parse(filepath)
+            if doc is None:
+                return False
+            root = doc.documentElement
+            if root is None:
+                return False
+
+            xmlCards = root.getElementsByTagName('card')
+            if xmlCards is None:
+                return False
+
+            for xmlCard in xmlCards:
+                xmlCardId = ''
+                if xmlCard.hasAttribute('id'):
+                    xmlCardId = xmlCard.getAttribute('id')
+
+                if len(xmlCardId) == 0:
+                    continue
+
+                try:
+                    hp = xmlCard.getElementsByTagName('hp')[0]
+                    hp_text = hp.childNodes[0].data
+                    hp_int = int(hp_text)
+                    roles = self.filterCard(xmlCardId)
+                    if roles is not None and len(roles) > 0:
+                        roles[0].setHpDirect(hp_int)
+                except:
+                    print('转xml出错')
+
+                try:
+                    atk = xmlCard.getElementsByTagName('atk')[0]
+                    atk_text = atk.childNodes[0].data
+                    atk_int = int(atk_text)
+                    roles = self.filterCard(xmlCardId)
+                    if roles is not None and len(roles) > 0:
+                        roles[0].setAtkDirect(atk_int)
+                except:
+                    print('转xml出错')
+
+                try:
+                    lv = xmlCard.getElementsByTagName('lv')[0]
+                    lv_text = lv.childNodes[0].data
+                    lv_int = int(lv_text)
+                    roles = self.filterCard(xmlCardId)
+                    if roles is not None and len(roles) > 0:
+                        roles[0].setLv(lv_int)
+                except:
+                    print('转xml出错')
+
+                try:
+                    star = xmlCard.getElementsByTagName('star')[0]
+                    star_text = star.childNodes[0].data
+                    star_int = int(star_text)
+                    roles = self.filterCard(xmlCardId)
+                    if roles is not None and len(roles) > 0:
+                        roles[0].setStar(star_int)
+                except:
+                    print('转xml出错')
+
+                try:
+                    tier = xmlCard.getElementsByTagName('tier')[0]
+                    tier_text = tier.childNodes[0].data
+                    tier_int = int(tier_text)
+                    roles = self.filterCard(xmlCardId)
+                    if roles is not None and len(roles) > 0:
+                        roles[0].setTier(tier_int)
+                except:
+                    print('转xml出错')
+
+                try:
+                    bond = xmlCard.getElementsByTagName('bond')[0]
+                    bond_text = bond.childNodes[0].data
+                    bond_int = int(bond_text)
+                    roles = self.filterCard(xmlCardId)
+                    if roles is not None and len(roles) > 0:
+                        roles[0].setBond(bond_int)
+                except:
+                    print('转xml出错')
+        except:
+            print('转xml出错')
+
+    def exportCardList(self, filepath: str):
+        doc = Document()  # 创建DOM文档对象
+        root = doc.createElement('CardList')  # 创建根元素
+        doc.appendChild(root)
+        for role in self.cardList:
+            card = doc.createElement('card')
+            root.appendChild(card)
+            card.setAttribute('id', role.cardId)
+
+            hp = doc.createElement('hp')
+            hp_text = doc.createTextNode(str(role.hp))
+            hp.appendChild(hp_text)
+            card.appendChild(hp)
+
+            atk = doc.createElement('atk')
+            atk_text = doc.createTextNode(str(role.atk))
+            atk.appendChild(atk_text)
+            card.appendChild(atk)
+
+            lv = doc.createElement('lv')
+            lv_text = doc.createTextNode(str(role.lv))
+            lv.appendChild(lv_text)
+            card.appendChild(lv)
+
+            star = doc.createElement('star')
+            star_text = doc.createTextNode(str(role.star))
+            star.appendChild(star_text)
+            card.appendChild(star)
+
+            tier = doc.createElement('tier')
+            tier_text = doc.createTextNode(str(role.tier))
+            tier.appendChild(tier_text)
+            card.appendChild(tier)
+
+            bond = doc.createElement('bond')
+            bond_text = doc.createTextNode(str(role.bond))
+            bond.appendChild(bond_text)
+            card.appendChild(bond)
+
+        file = open(filepath, 'w')
+        doc.writexml(file, indent='\t', newl='\n', addindent='\t', encoding='utf-8')
+        file.close()
