@@ -1,7 +1,11 @@
 from openpyxl.worksheet.worksheet import Worksheet
 
 from Nucarnival.cardHelper import CardHelper
+from Nucarnival.costPerformanceHelper import CostPerformanceHelper
 from Nucarnival.nucarnivalHelper import NucarnivalHelper
+from Props.currencyType import CurrencyType
+from Props.gameProp import GameProp
+from Props.propTypeEnum import PropType
 from RoleCards.cards.garu.howlingCyclone import HowlingCyclone
 from RoleCards.cards.monster.commonMonster import CommonMonster
 from RoleCards.cards.monster.tempTeamMate import TempTeamMate
@@ -14,7 +18,7 @@ from openpyxl.workbook import Workbook
 
 
 # 模拟角色单人13回合作战能力
-def simulation1(cardHelper: CardHelper, helper: NucarnivalHelper):
+def simulation1(cardHelper: CardHelper, helper: NucarnivalHelper, needTeamMate: bool, calGroupRole: bool):
     wb = Workbook()
 
     ws = wb.create_sheet('计算结果', 0)
@@ -32,40 +36,39 @@ def simulation1(cardHelper: CardHelper, helper: NucarnivalHelper):
 
     row = 1
     for x in cardHelper.cardList:
-        if (x.occupation == CardOccupation.Support and x.cardName != '诡夜疾风') or x.occupation == CardOccupation.Healer:
+        if (
+                x.occupation == CardOccupation.Support and x.cardName != '诡夜疾风') or x.occupation == CardOccupation.Healer:
             continue
-        if x.isGroup is False:
+        if x.isGroup == calGroupRole:
             row += 1
             # 5星满潜
-            simulation(helper, ws, x, row, 5, 12)
+            simulation(helper, needTeamMate, ws, x, row, 5, 12)
 
             row += 1
             # 5星6潜
-            simulation(helper, ws, x, row, 5, 6)
+            simulation(helper, needTeamMate, ws, x, row, 5, 6)
 
             row += 1
             # 3星满潜
-            simulation(helper, ws, x, row, 3, 12)
+            simulation(helper, needTeamMate, ws, x, row, 3, 12)
 
             row += 1
             # 3星6潜
-            simulation(helper, ws, x, row, 3, 6)
+            simulation(helper, needTeamMate, ws, x, row, 3, 6)
 
     wb.save('C:\\fhs\\python\\计算结果2.xls')
 
 
 # 进行模拟
-def simulation(helper: NucarnivalHelper, ws: Worksheet, x: ICard, row, _star, _tier):
+def simulation(helper: NucarnivalHelper, needTeamMate: bool, ws: Worksheet, x: ICard, row, _star, _tier):
     x.setProperties(60, _star, 5, _tier)
     x.calHpAtk()
     export(ws, x, row)
 
     helper.clearUp()
-    similationTeamMate(helper, x)
-    # srO = ManOfGod()
-    # srO.setProperties(60, 5, 5, 12)
-    # srO.calHpAtk()
-    # helper.team.append(srO)
+    if needTeamMate:
+        similationTeamMate(helper, x)
+
     helper.team.append(x)
     helper.monsters.append(CommonMonster())
     helper.maxTurn = 13
@@ -78,7 +81,7 @@ def export(ws: Worksheet, x: ICard, row):
     ws.cell(row, 1, x.cardName)
     ws.cell(row, 2, x.nickName)
     ws.cell(row, 3, x.role.value)
-    ws.cell(row, 4, x.type.typeName)
+    ws.cell(row, 4, x.cardType.typeName)
     ws.cell(row, 5, x.occupation.occupationName)
     ws.cell(row, 6, x.star)
     ws.cell(row, 7, x.tier)
@@ -176,33 +179,12 @@ if __name__ == '__main__':
 
     _cardHelper = CardHelper()
 
-    # _cardHelper.exportCardList('C:\\fhs\\python\\test.xml')
-    _cardHelper.loadCardList('C:\\fhs\\python\\test.xml')
-    # simulation1(_cardHelper, _helper)
+    # simulation1(_cardHelper, _helper, False, False)
 
-    # yk = DistantPromise()
-    # yk.setProperties(60, 3, 5, 12)
-    # yk.calHpAtk()
-    # yk.cardDetail()
-    #
-    # gl = HowlingCyclone()
-    # gl.setProperties(4, 1, 0, 0)
-    # gl.calHpAtk()
-    # gl.cardDetail()
-    #
-    # pK = AncientCeremony()
-    # pK.setProperties(60, 3, 5, 12)
-    # pK.calHpAtk()
-    # pK.cardInfo()
-    #
-    # _helper.clearUp()
-    # # _helper.team.append(hO)
-    # # _helper.team.append(xO)
-    # _helper.team.append(pK)
-    # # _helper.team.append(pB)
-    # similationTeamMate(_helper, pK)
-    # _helper.monsters.append(CommonMonster())
-    # _helper.maxTurn = 13
-    #
-    # _helper.battleStart(True)
-    # _helper.exportExcel('计算结果','E:\\新世界\\计算结果.xls')
+    _costHelper = CostPerformanceHelper()
+    _costHelper.price = 374
+    _costHelper.currencyType = CurrencyType.eCoin
+    _costHelper.seeSorceryGemAsContract = True
+    _costHelper.gamePropList.append(GameProp(PropType.basicBoost, 20))
+    _costHelper.gamePropList.append(GameProp(PropType.sorceryGem, 6))
+    print(str(_costHelper.calCostPerformance(False)))
