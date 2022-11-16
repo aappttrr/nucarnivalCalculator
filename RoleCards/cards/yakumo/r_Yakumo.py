@@ -16,7 +16,7 @@ class RYakumo(RCard):
         self.cardName = '模范青年'
         self.nickName = 'R八'
         self.role = CardRole.Yakumo
-        self.type = CardType.Wood
+        self.cardType = CardType.Wood
         self.occupation = CardOccupation.Healer
         self.skillCD = 3
 

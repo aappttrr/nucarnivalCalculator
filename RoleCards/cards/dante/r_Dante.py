@@ -13,7 +13,7 @@ class RDante(RCard):
         self.cardName = '世袭少主'
         self.nickName = 'R啖'
         self.role = CardRole.Dante
-        self.type = CardType.Dark
+        self.cardType = CardType.Dark
         self.occupation = CardOccupation.Striker
         self.skillCD = 3
 

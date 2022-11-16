@@ -14,7 +14,7 @@ class SRKuya(SRCard):
         self.cardName = '诡秘妖狐'
         self.nickName = 'SR狐'
         self.role = CardRole.Kuya
-        self.type = CardType.Dark
+        self.cardType = CardType.Dark
         self.occupation = CardOccupation.Saboteur
         self.tierType = TierType.Defense
         self.skillCD = 4

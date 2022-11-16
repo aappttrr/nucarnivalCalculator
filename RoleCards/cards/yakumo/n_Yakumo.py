@@ -17,7 +17,7 @@ class NYakumo(NCard):
         self.cardName = '弱气青年'
         self.nickName = 'N八'
         self.role = CardRole.Yakumo
-        self.type = CardType.Light
+        self.cardType = CardType.Light
         self.occupation = CardOccupation.Healer
         self.skillCD = 3
 

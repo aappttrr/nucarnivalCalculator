@@ -13,7 +13,7 @@ class NAster(NCard):
         self.cardName = '王国首富'
         self.nickName = 'N艾'
         self.role = CardRole.Aster
-        self.type = CardType.Fire
+        self.cardType = CardType.Fire
         self.occupation = CardOccupation.Striker
         self.skillCD = 4
 

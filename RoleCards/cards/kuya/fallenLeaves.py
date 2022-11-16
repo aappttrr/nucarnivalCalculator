@@ -14,7 +14,7 @@ class FallenLeaves(SSRCard):
         self.cardName = '化形宴，飘落叶'
         self.nickName = '普狐'
         self.role = CardRole.Kuya
-        self.type = CardType.Dark
+        self.cardType = CardType.Dark
         self.occupation = CardOccupation.Saboteur
         self.tierType = TierType.Balance
         self.isGroup = True

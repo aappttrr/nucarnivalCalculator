@@ -17,7 +17,7 @@ class NOlivine(NCard):
         self.cardName = '圣职者'
         self.nickName = 'N奥'
         self.role = CardRole.Olivine
-        self.type = CardType.Dark
+        self.cardType = CardType.Dark
         self.occupation = CardOccupation.Support
         self.skillCD = 4
 

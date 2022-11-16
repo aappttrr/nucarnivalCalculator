@@ -13,7 +13,7 @@ class NBlade(NCard):
         self.cardName = '纯真傀儡'
         self.nickName = 'N布'
         self.role = CardRole.Blade
-        self.type = CardType.Wood
+        self.cardType = CardType.Wood
         self.occupation = CardOccupation.Striker
         self.skillCD = 4
         self.isGroup = True

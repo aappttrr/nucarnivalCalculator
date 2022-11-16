@@ -17,7 +17,7 @@ class KnightlyNight(SSRCard):
         self.cardName = '爵士册封之夜'
         self.nickName = '普团/水团'
         self.role = CardRole.Edmond
-        self.type = CardType.Water
+        self.cardType = CardType.Water
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 3

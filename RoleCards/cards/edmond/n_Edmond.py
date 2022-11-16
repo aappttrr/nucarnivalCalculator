@@ -13,7 +13,7 @@ class NEdmond(NCard):
         self.cardName = '贵族青年'
         self.nickName = 'N团'
         self.role = CardRole.Edmond
-        self.type = CardType.Dark
+        self.cardType = CardType.Dark
         self.occupation = CardOccupation.Striker
         self.skillCD = 3
 

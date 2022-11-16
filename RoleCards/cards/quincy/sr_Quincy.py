@@ -14,7 +14,7 @@ class SRQuincy(SRCard):
         self.cardName = '古森守护者'
         self.nickName = 'SR昆'
         self.role = CardRole.Quincy
-        self.type = CardType.Wood
+        self.cardType = CardType.Wood
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 6

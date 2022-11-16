@@ -15,7 +15,7 @@ class WhiteLover(SSRCard):
         self.cardName = '白色恋人'
         self.nickName = '白团'
         self.role = CardRole.Edmond
-        self.type = CardType.Light
+        self.cardType = CardType.Light
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 3

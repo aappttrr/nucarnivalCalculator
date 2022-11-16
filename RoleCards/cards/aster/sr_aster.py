@@ -14,7 +14,7 @@ class SRAster(SRCard):
         self.cardName = '使魔-艾斯特'
         self.nickName = 'SR艾'
         self.role = CardRole.Aster
-        self.type = CardType.Water
+        self.cardType = CardType.Water
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Balance
         self.skillCD = 4

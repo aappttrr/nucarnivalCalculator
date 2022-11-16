@@ -14,7 +14,7 @@ class SRBlade(SRCard):
         self.cardName = '魔人偶'
         self.nickName = 'SR布'
         self.role = CardRole.Blade
-        self.type = CardType.Light
+        self.cardType = CardType.Light
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 4

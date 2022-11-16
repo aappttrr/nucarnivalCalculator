@@ -14,7 +14,7 @@ class SRGaru(SRCard):
         self.cardName = '流浪小狼'
         self.nickName = 'SR狼'
         self.role = CardRole.Garu
-        self.type = CardType.Dark
+        self.cardType = CardType.Dark
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 4

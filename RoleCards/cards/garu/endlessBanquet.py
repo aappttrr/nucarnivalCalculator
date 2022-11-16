@@ -14,7 +14,7 @@ class EndlessBanquet(SSRCard):
         self.cardName = '华宴夜未央'
         self.nickName = '光狼'
         self.role = CardRole.Garu
-        self.type = CardType.Light
+        self.cardType = CardType.Light
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 3

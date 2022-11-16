@@ -18,7 +18,7 @@ class Homecoming(SSRCard):
         self.cardName = '回到故乡的那日'
         self.nickName = '普八/火八'
         self.role = CardRole.Yakumo
-        self.type = CardType.Fire
+        self.cardType = CardType.Fire
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 4

@@ -14,7 +14,7 @@ class MastersGift(SSRCard):
         self.cardName = '来自主人的新礼物'
         self.nickName = '普狼'
         self.role = CardRole.Garu
-        self.type = CardType.Dark
+        self.cardType = CardType.Dark
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.isGroup = True

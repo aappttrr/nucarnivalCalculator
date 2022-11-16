@@ -13,7 +13,7 @@ class RGaru(RCard):
         self.cardName = '人类征服'
         self.nickName = 'R狼'
         self.role = CardRole.Garu
-        self.type = CardType.Light
+        self.cardType = CardType.Light
         self.occupation = CardOccupation.Striker
         self.skillCD = 4
         self.isGroup = True

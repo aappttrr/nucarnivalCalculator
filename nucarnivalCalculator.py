@@ -37,8 +37,7 @@ def exportExcel():
         title='导出伤害模拟结果Excel'
     )
     if len(filepath) != 0:
-        filename = os.path.basename(filepath).split('.')[0]
-        nucarnivalHelper.exportExcel(filename, filepath)
+        nucarnivalHelper.exportExcel(filepath)
 
 
 def exportCardList():
@@ -388,7 +387,7 @@ class MainWindow(QMainWindow):
         elif self.ui.monsterTypeRadioBtn_Wood.isChecked():
             monsterType = CardType.Wood
         for monster in nucarnivalHelper.monsters:
-            monster.type = monsterType
+            monster.cardType = monsterType
 
         dpte1 = getIntList(self.ui.defensePTE1.toPlainText())
         spte1 = getIntList(self.ui.skillPTE1.toPlainText())
@@ -586,11 +585,14 @@ class MainWindow(QMainWindow):
             self.ui.calDamageBtn.setEnabled(True)
 
     def removeTeam(self):
-        if self.currentTeam is not None:
+        if self.currentTeam is not None and self.currentTeam in nucarnivalHelper.team:
             nucarnivalHelper.team.remove(self.currentTeam)
         self.updateTeam()
         if len(nucarnivalHelper.team) == 0:
             self.ui.calDamageBtn.setEnabled(False)
+        self.currentTeam = None
+        self.ui.removeTeamBtn.setEnabled(False)
+
 
     # 拖拽∶
     def mousePressEvent(self, event):

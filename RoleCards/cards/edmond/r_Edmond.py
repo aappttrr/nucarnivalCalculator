@@ -13,7 +13,7 @@ class REdmond(RCard):
         self.cardName = '骑士'
         self.nickName = 'R团'
         self.role = CardRole.Edmond
-        self.type = CardType.Fire
+        self.cardType = CardType.Fire
         self.occupation = CardOccupation.Striker
         self.skillCD = 3
 

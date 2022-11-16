@@ -15,7 +15,7 @@ class RadiantAdmiral(SSRCard):
         self.cardName = '闪耀领航'
         self.nickName = '暗奥/夏奥'
         self.role = CardRole.Olivine
-        self.type = CardType.Dark
+        self.cardType = CardType.Dark
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 4

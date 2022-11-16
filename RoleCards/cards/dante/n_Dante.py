@@ -13,7 +13,7 @@ class NDante(NCard):
         self.cardName = '治理者'
         self.nickName = 'N啖'
         self.role = CardRole.Dante
-        self.type = CardType.Light
+        self.cardType = CardType.Light
         self.occupation = CardOccupation.Striker
         self.skillCD = 3
 

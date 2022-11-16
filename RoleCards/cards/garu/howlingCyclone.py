@@ -15,7 +15,7 @@ class HowlingCyclone(SSRCard):
         self.cardName = '诡夜疾风'
         self.nickName = '瓜狼'
         self.role = CardRole.Garu
-        self.type = CardType.Light
+        self.cardType = CardType.Light
         self.occupation = CardOccupation.Support
         self.tierType = TierType.Balance
         self.skillCD = 4

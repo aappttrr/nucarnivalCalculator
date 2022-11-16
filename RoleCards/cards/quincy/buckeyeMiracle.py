@@ -15,7 +15,7 @@ class BuckeyeMiracle(SSRCard):
         self.cardName = '七叶之花的奇迹'
         self.nickName = '盾昆/花昆'
         self.role = CardRole.Quincy
-        self.type = CardType.Wood
+        self.cardType = CardType.Wood
         self.occupation = CardOccupation.Guardian
         self.tierType = TierType.Defense
         self.skillCD = 4

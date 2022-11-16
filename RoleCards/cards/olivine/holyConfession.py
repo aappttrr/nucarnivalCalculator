@@ -15,7 +15,7 @@ class HolyConfession(SSRCard):
         self.cardName = '向纯洁象征告解'
         self.nickName = '奶奥'
         self.role = CardRole.Olivine
-        self.type = CardType.Light
+        self.cardType = CardType.Light
         self.occupation = CardOccupation.Healer
         self.tierType = TierType.Defense
         self.skillCD = 4

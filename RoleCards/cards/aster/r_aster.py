@@ -13,7 +13,7 @@ class RAster(RCard):
         self.cardName = '吸血鬼'
         self.nickName = 'R艾'
         self.role = CardRole.Aster
-        self.type = CardType.Dark
+        self.cardType = CardType.Dark
         self.occupation = CardOccupation.Striker
         self.skillCD = 4
 

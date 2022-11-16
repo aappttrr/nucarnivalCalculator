@@ -16,7 +16,7 @@ class NQuincy(NCard):
         self.cardName = '边境者'
         self.nickName = 'N昆'
         self.role = CardRole.Quincy
-        self.type = CardType.Light
+        self.cardType = CardType.Light
         self.occupation = CardOccupation.Striker
         self.skillCD = 6
 

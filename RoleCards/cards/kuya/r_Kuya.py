@@ -13,7 +13,7 @@ class RKuya(RCard):
         self.cardName = '化形妖狐'
         self.nickName = 'R狐'
         self.role = CardRole.Kuya
-        self.type = CardType.Fire
+        self.cardType = CardType.Fire
         self.occupation = CardOccupation.Saboteur
         self.skillCD = 4
 

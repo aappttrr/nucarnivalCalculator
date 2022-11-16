@@ -15,7 +15,7 @@ class CrimsonPhantom(SSRCard):
         self.cardName = '殷红魅影'
         self.nickName = '盾八/伯爵八'
         self.role = CardRole.Yakumo
-        self.type = CardType.Fire
+        self.cardType = CardType.Fire
         self.occupation = CardOccupation.Guardian
         self.tierType = TierType.Defense
         self.skillCD = 3

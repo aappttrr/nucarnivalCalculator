@@ -14,7 +14,7 @@ class EternalHanabi(SSRCard):
         self.cardName = '永不消散的焰火'
         self.nickName = '水啖'
         self.role = CardRole.Dante
-        self.type = CardType.Water
+        self.cardType = CardType.Water
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 3

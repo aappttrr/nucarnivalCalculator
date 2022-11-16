@@ -13,7 +13,7 @@ class RBlade(RCard):
         self.cardName = '谜样人形'
         self.nickName = 'R布'
         self.role = CardRole.Blade
-        self.type = CardType.Water
+        self.cardType = CardType.Water
         self.occupation = CardOccupation.Striker
         self.skillCD = 4
         self.isGroup = True

@@ -14,7 +14,7 @@ class SRDante(SRCard):
         self.cardName = '太阳城主'
         self.nickName = 'SR啖'
         self.role = CardRole.Dante
-        self.type = CardType.Fire
+        self.cardType = CardType.Fire
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 3

@@ -14,7 +14,7 @@ class NMorvay(NCard):
         self.cardName = '情报专家'
         self.nickName = 'N墨'
         self.role = CardRole.Morvay
-        self.type = CardType.Water
+        self.cardType = CardType.Water
         self.occupation = CardOccupation.Guardian
         self.skillCD = 3
 

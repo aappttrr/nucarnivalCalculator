@@ -93,7 +93,7 @@ class ICard:
         self.rarity: CardRarity = None
 
         # 属性
-        self.type: CardType = None
+        self.cardType: CardType = None
 
         # 职业定位
         self.occupation: CardOccupation = None
@@ -479,10 +479,10 @@ class ICard:
             result = roundDown(result)
 
         # 属性克制
-        if enemy.type is not None and self.type.isBeRestrained(enemy.type):
+        if enemy.cardType is not None and self.cardType.isBeRestrained(enemy.cardType):
             result = result * 1.2
             result = roundDown(result)
-        elif enemy.type is not None and self.type.isRestrained(enemy.type):
+        elif enemy.cardType is not None and self.cardType.isRestrained(enemy.cardType):
             result = result * 0.8
             result = roundDown(result)
 

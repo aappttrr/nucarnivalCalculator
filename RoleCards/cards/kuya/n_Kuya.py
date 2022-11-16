@@ -13,7 +13,7 @@ class NKuya(NCard):
         self.cardName = '妖狐'
         self.nickName = 'N狐'
         self.role = CardRole.Kuya
-        self.type = CardType.Wood
+        self.cardType = CardType.Wood
         self.occupation = CardOccupation.Saboteur
         self.skillCD = 4
 

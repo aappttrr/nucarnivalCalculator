@@ -14,7 +14,7 @@ class CocoaLiqueur(SSRCard):
         self.cardName = '酒心可可'
         self.nickName = '白八/暗八'
         self.role = CardRole.Yakumo
-        self.type = CardType.Dark
+        self.cardType = CardType.Dark
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 3

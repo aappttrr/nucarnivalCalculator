@@ -16,7 +16,7 @@ class KitsuneDream(SSRCard):
         self.cardName = '狐火映追忆'
         self.nickName = '火狐'
         self.role = CardRole.Kuya
-        self.type = CardType.Fire
+        self.cardType = CardType.Fire
         self.occupation = CardOccupation.Saboteur
         self.tierType = TierType.Balance
         self.skillCD = 3

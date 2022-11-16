@@ -15,7 +15,7 @@ class LakesideSpark(SSRCard):
         self.cardName = '穿梭盘月之煦'
         self.nickName = '奶狐'
         self.role = CardRole.Kuya
-        self.type = CardType.Dark
+        self.cardType = CardType.Dark
         self.occupation = CardOccupation.Healer
         self.tierType = TierType.Defense
         self.skillCD = 4

@@ -16,7 +16,7 @@ class ROlivine(RCard):
         self.cardName = '教团祭司'
         self.nickName = 'R奥'
         self.role = CardRole.Olivine
-        self.type = CardType.Wood
+        self.cardType = CardType.Wood
         self.occupation = CardOccupation.Support
         self.skillCD = 4
 

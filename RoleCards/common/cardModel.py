@@ -32,7 +32,7 @@ class CardTableModel(QAbstractTableModel):
                 case 3:
                     displayValue = card.rarity.value
                 case 4:
-                    displayValue = card.type.typeName
+                    displayValue = card.cardType.typeName
                 case 5:
                     displayValue = card.occupation.occupationName
                 case 6:

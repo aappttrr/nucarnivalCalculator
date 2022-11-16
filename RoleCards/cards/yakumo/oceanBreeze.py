@@ -15,7 +15,7 @@ class OceanBreeze(SSRCard):
         self.cardName = '倾听海风'
         self.nickName = '夏八'
         self.role = CardRole.Yakumo
-        self.type = CardType.Wood
+        self.cardType = CardType.Wood
         self.occupation = CardOccupation.Support
         self.tierType = TierType.Balance
         self.skillCD = 4

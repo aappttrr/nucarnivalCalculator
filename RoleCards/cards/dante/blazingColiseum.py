@@ -15,7 +15,7 @@ class BlazingColiseum(SSRCard):
         self.cardName = '赛兽场上的暖阳'
         self.nickName = '普啖'
         self.role = CardRole.Dante
-        self.type = CardType.Fire
+        self.cardType = CardType.Fire
         self.occupation = CardOccupation.Guardian
         self.tierType = TierType.Defense
         self.skillCD = 4

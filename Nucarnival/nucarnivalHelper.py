@@ -24,12 +24,12 @@ class NucarnivalHelper:
     def clearUp(self):
         self.team: list[ICard] = []
         self.monsters: list[ICard] = []
-        self.clearUpBattleResult()
-
-    def clearUpBattleResult(self):
         self.maxTurn = 50
         self.defenseTurn = {}
         self.skillTurn = {}
+        self.clearUpBattleResult()
+
+    def clearUpBattleResult(self):
         self.damageRecord = {}
         self.counterRecord = {}
         self.turnDamageRecord = {}
@@ -64,6 +64,7 @@ class NucarnivalHelper:
     # 敌方行动：防御/普攻/必杀 -> 结算dot ->结算hot
     # 我方全部阵亡/敌方全部阵亡-> 退出战斗
     def battleStart(self, printInfo=False):
+        self.clearUpBattleResult()
         for role in self.team:
             role.teamMate = self.team
             role.enemies = self.monsters
@@ -74,8 +75,6 @@ class NucarnivalHelper:
             monster.enemies = self.team
             monster.clearUp()
 
-        self.damageRecord.clear()
-        self.turnDamageRecord.clear()
         self.maxTurn += 1
         if self.maxTurn > 50:
             self.maxTurn = 50
@@ -375,11 +374,10 @@ class NucarnivalHelper:
                 self.counterRecord[monster] = role
         return totalDamage
 
-    def exportExcel(self, fileName, filePath):
+    def exportExcel(self, filePath):
         wb = Workbook()
 
-        ws = wb.create_sheet(fileName, 0)
-
+        ws = wb.create_sheet('伤害模拟结果', 0)
         for i in range(0, len(self.team)):
             role = self.team[i]
             row = i + 2
@@ -410,3 +408,4 @@ class NucarnivalHelper:
         ws.cell(len(self.team) + 2, self.maxTurn + 1, self.totalDamage)
 
         wb.save(filePath)
+        wb.close()

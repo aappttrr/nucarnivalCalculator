@@ -14,7 +14,7 @@ class SREdmond(SRCard):
         self.cardName = '骑士副团长'
         self.nickName = 'SR团'
         self.role = CardRole.Edmond
-        self.type = CardType.Water
+        self.cardType = CardType.Water
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Balance
         self.skillCD = 3

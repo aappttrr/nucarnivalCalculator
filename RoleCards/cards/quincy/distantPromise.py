@@ -15,7 +15,7 @@ class DistantPromise(SSRCard):
         self.cardName = '追逐悠远之约'
         self.nickName = '月昆'
         self.role = CardRole.Quincy
-        self.type = CardType.Dark
+        self.cardType = CardType.Dark
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 4

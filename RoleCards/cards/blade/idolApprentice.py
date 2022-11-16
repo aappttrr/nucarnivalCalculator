@@ -15,7 +15,7 @@ class IdolApprentice(SSRCard):
         self.cardName = '偶像实习'
         self.nickName = '夏布'
         self.role = CardRole.Blade
-        self.type = CardType.Water
+        self.cardType = CardType.Water
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 3

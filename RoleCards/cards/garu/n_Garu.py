@@ -13,7 +13,7 @@ class NGaru(NCard):
         self.cardName = '幼狼'
         self.nickName = 'N狼'
         self.role = CardRole.Garu
-        self.type = CardType.Water
+        self.cardType = CardType.Water
         self.occupation = CardOccupation.Striker
         self.skillCD = 4
         self.isGroup = True

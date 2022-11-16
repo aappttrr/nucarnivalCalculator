@@ -15,7 +15,7 @@ class SRYakumo(SRCard):
         self.cardName = '隐异之蛇'
         self.nickName = '奶八/SR八'
         self.role = CardRole.Yakumo
-        self.type = CardType.Fire
+        self.cardType = CardType.Fire
         self.occupation = CardOccupation.Healer
         self.tierType = TierType.Balance
         self.skillCD = 3

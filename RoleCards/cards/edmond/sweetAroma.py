@@ -15,7 +15,7 @@ class SweetAroma(SSRCard):
         self.cardName = '初露芬芳的甜味'
         self.nickName = '火团'
         self.role = CardRole.Edmond
-        self.type = CardType.Fire
+        self.cardType = CardType.Fire
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 3

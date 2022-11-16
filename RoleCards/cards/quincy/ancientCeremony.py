@@ -14,7 +14,7 @@ class AncientCeremony(SSRCard):
         self.cardName = '古老祭祀的赌约'
         self.nickName = '普昆'
         self.role = CardRole.Quincy
-        self.type = CardType.Wood
+        self.cardType = CardType.Wood
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 6

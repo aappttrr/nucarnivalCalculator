@@ -15,7 +15,7 @@ class SRMorvay(SRCard):
         self.cardName = '使魔-墨菲'
         self.nickName = 'SR墨'
         self.role = CardRole.Morvay
-        self.type = CardType.Fire
+        self.cardType = CardType.Fire
         self.occupation = CardOccupation.Guardian
         self.tierType = TierType.Defense
         self.skillCD = 3

@@ -15,7 +15,7 @@ class RMorvay(RCard):
         self.cardName = '淫魔'
         self.nickName = 'R墨'
         self.role = CardRole.Morvay
-        self.type = CardType.Dark
+        self.cardType = CardType.Dark
         self.occupation = CardOccupation.Guardian
         self.skillCD = 3
 

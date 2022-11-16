@@ -15,7 +15,7 @@ class RQuincy(RCard):
         self.cardName = '隐居者'
         self.nickName = 'R昆'
         self.role = CardRole.Quincy
-        self.type = CardType.Water
+        self.cardType = CardType.Water
         self.occupation = CardOccupation.Striker
         self.skillCD = 6
 

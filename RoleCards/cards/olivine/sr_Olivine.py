@@ -15,7 +15,7 @@ class SROlivine(SRCard):
         self.cardName = '圣职祭司'
         self.nickName = 'SR奥'
         self.role = CardRole.Olivine
-        self.type = CardType.Light
+        self.cardType = CardType.Light
         self.occupation = CardOccupation.Support
         self.tierType = TierType.Defense
         self.skillCD = 4

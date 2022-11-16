@@ -15,7 +15,7 @@ class AquaBloom(SSRCard):
         self.cardName = '翠灿之水的花使'
         self.nickName = '花奥'
         self.role = CardRole.Olivine
-        self.type = CardType.Water
+        self.cardType = CardType.Water
         self.occupation = CardOccupation.Support
         self.tierType = TierType.Balance
         self.skillCD = 4
