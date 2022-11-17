@@ -539,7 +539,7 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                 <string notr="true"/>
                </property>
                <property name="currentIndex">
-                <number>1</number>
+                <number>2</number>
                </property>
                <widget class="QWidget" name="welcomePage">
                 <layout class="QVBoxLayout" name="verticalLayout">
@@ -1059,6 +1059,9 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                             <property name="enabled">
                              <bool>false</bool>
                             </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;勾选后每次伤害模拟之前都会根据等级、星级、潜力、蜜话计算出期望的HP和ATK&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
                             <property name="text">
                              <string>使用期望数值</string>
                             </property>
@@ -1213,6 +1216,9 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                               <verstretch>0</verstretch>
                              </sizepolicy>
                             </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;卡牌的星级，会影响被动技能&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                            </property>
                            </widget>
                           </item>
                          </layout>
@@ -1277,6 +1283,9 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                               <horstretch>0</horstretch>
                               <verstretch>0</verstretch>
                              </sizepolicy>
+                            </property>
+                            <property name="toolTip">
+                             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;卡牌的潜力等级，6潜是点满6级潜力，会影响被动技能&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                             </property>
                            </widget>
                           </item>
@@ -1588,6 +1597,9 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                          <property name="text">
                           <string>全部</string>
                          </property>
+                         <property name="checked">
+                          <bool>true</bool>
+                         </property>
                         </widget>
                        </item>
                        <item>
@@ -1675,6 +1687,9 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                         <widget class="QRadioButton" name="filterTypeRadioBtn_All">
                          <property name="text">
                           <string>全部</string>
+                         </property>
+                         <property name="checked">
+                          <bool>true</bool>
                          </property>
                         </widget>
                        </item>
@@ -1770,6 +1785,9 @@ QPlainTextEdit,QGroupBox,QRadioButton{
                         <widget class="QRadioButton" name="filterOccRadioBtn_All">
                          <property name="text">
                           <string>全部</string>
+                         </property>
+                         <property name="checked">
+                          <bool>true</bool>
                          </property>
                         </widget>
                        </item>
@@ -2126,7 +2144,7 @@ QPushButton:focus{
                     <item>
                      <widget class="QTabWidget" name="tabWidget">
                       <property name="currentIndex">
-                       <number>1</number>
+                       <number>2</number>
                       </property>
                       <widget class="QWidget" name="damageCalTab">
                        <property name="accessibleName">
@@ -2261,8 +2279,8 @@ QPushButton:focus{
                                <rect>
                                 <x>0</x>
                                 <y>0</y>
-                                <width>83</width>
-                                <height>59</height>
+                                <width>87</width>
+                                <height>87</height>
                                </rect>
                               </property>
                               <layout class="QVBoxLayout" name="verticalLayout_18">
@@ -2507,6 +2525,9 @@ QPushButton:focus{
                                 <property name="text">
                                  <string>全部</string>
                                 </property>
+                                <property name="checked">
+                                 <bool>true</bool>
+                                </property>
                                </widget>
                               </item>
                               <item>
@@ -2594,6 +2615,9 @@ QPushButton:focus{
                                <widget class="QRadioButton" name="filterTypeRadioBtn_All_2">
                                 <property name="text">
                                  <string>全部</string>
+                                </property>
+                                <property name="checked">
+                                 <bool>true</bool>
                                 </property>
                                </widget>
                               </item>
@@ -2689,6 +2713,9 @@ QPushButton:focus{
                                <widget class="QRadioButton" name="filterOccRadioBtn_All_2">
                                 <property name="text">
                                  <string>全部</string>
+                                </property>
+                                <property name="checked">
+                                 <bool>true</bool>
                                 </property>
                                </widget>
                               </item>
@@ -3044,7 +3071,7 @@ QPushButton:focus{
                                  <item>
                                   <widget class="QPlainTextEdit" name="defensePTE1">
                                    <property name="toolTip">
-                                    <string>输入需要防御的回合数，用空格或回车分隔</string>
+                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入需要防御的回合数，用空格或回车分隔&lt;/p&gt;&lt;p&gt;例如：1 2 3&lt;/p&gt;&lt;p&gt;4 5 6&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                    </property>
                                   </widget>
                                  </item>
@@ -3091,7 +3118,7 @@ QPushButton:focus{
                                  <item>
                                   <widget class="QPlainTextEdit" name="skillPTE1">
                                    <property name="toolTip">
-                                    <string>输入需要释放必杀的回合数，用空格或回车分隔</string>
+                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入需要必杀的回合数，用空格或回车分隔&lt;/p&gt;&lt;p&gt;例如：1 2 3&lt;/p&gt;&lt;p&gt;4 5 6&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                    </property>
                                   </widget>
                                  </item>
@@ -3174,7 +3201,7 @@ QPushButton:focus{
                                  <item>
                                   <widget class="QPlainTextEdit" name="defensePTE2">
                                    <property name="toolTip">
-                                    <string>输入需要防御的回合数，用空格或回车分隔</string>
+                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入需要防御的回合数，用空格或回车分隔&lt;/p&gt;&lt;p&gt;例如：1 2 3&lt;/p&gt;&lt;p&gt;4 5 6&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                    </property>
                                   </widget>
                                  </item>
@@ -3221,7 +3248,7 @@ QPushButton:focus{
                                  <item>
                                   <widget class="QPlainTextEdit" name="skillPTE2">
                                    <property name="toolTip">
-                                    <string>输入需要释放必杀的回合数，用空格或回车分隔</string>
+                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入需要必杀的回合数，用空格或回车分隔&lt;/p&gt;&lt;p&gt;例如：1 2 3&lt;/p&gt;&lt;p&gt;4 5 6&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                    </property>
                                   </widget>
                                  </item>
@@ -3304,7 +3331,7 @@ QPushButton:focus{
                                  <item>
                                   <widget class="QPlainTextEdit" name="defensePTE3">
                                    <property name="toolTip">
-                                    <string>输入需要防御的回合数，用空格或回车分隔</string>
+                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入需要防御的回合数，用空格或回车分隔&lt;/p&gt;&lt;p&gt;例如：1 2 3&lt;/p&gt;&lt;p&gt;4 5 6&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                    </property>
                                   </widget>
                                  </item>
@@ -3351,7 +3378,7 @@ QPushButton:focus{
                                  <item>
                                   <widget class="QPlainTextEdit" name="skillPTE3">
                                    <property name="toolTip">
-                                    <string>输入需要释放必杀的回合数，用空格或回车分隔</string>
+                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入需要必杀的回合数，用空格或回车分隔&lt;/p&gt;&lt;p&gt;例如：1 2 3&lt;/p&gt;&lt;p&gt;4 5 6&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                    </property>
                                   </widget>
                                  </item>
@@ -3434,7 +3461,7 @@ QPushButton:focus{
                                  <item>
                                   <widget class="QPlainTextEdit" name="defensePTE4">
                                    <property name="toolTip">
-                                    <string>输入需要防御的回合数，用空格或回车分隔</string>
+                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入需要防御的回合数，用空格或回车分隔&lt;/p&gt;&lt;p&gt;例如：1 2 3&lt;/p&gt;&lt;p&gt;4 5 6&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                    </property>
                                   </widget>
                                  </item>
@@ -3481,7 +3508,7 @@ QPushButton:focus{
                                  <item>
                                   <widget class="QPlainTextEdit" name="skillPTE4">
                                    <property name="toolTip">
-                                    <string>输入需要释放必杀的回合数，用空格或回车分隔</string>
+                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入需要必杀的回合数，用空格或回车分隔&lt;/p&gt;&lt;p&gt;例如：1 2 3&lt;/p&gt;&lt;p&gt;4 5 6&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                    </property>
                                   </widget>
                                  </item>
@@ -3564,7 +3591,7 @@ QPushButton:focus{
                                  <item>
                                   <widget class="QPlainTextEdit" name="defensePTE5">
                                    <property name="toolTip">
-                                    <string>输入需要防御的回合数，用空格或回车分隔</string>
+                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入需要防御的回合数，用空格或回车分隔&lt;/p&gt;&lt;p&gt;例如：1 2 3&lt;/p&gt;&lt;p&gt;4 5 6&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                    </property>
                                   </widget>
                                  </item>
@@ -3611,7 +3638,7 @@ QPushButton:focus{
                                  <item>
                                   <widget class="QPlainTextEdit" name="skillPTE5">
                                    <property name="toolTip">
-                                    <string>输入需要释放必杀的回合数，用空格或回车分隔</string>
+                                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;输入需要必杀的回合数，用空格或回车分隔&lt;/p&gt;&lt;p&gt;例如：1 2 3&lt;/p&gt;&lt;p&gt;4 5 6&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                                    </property>
                                   </widget>
                                  </item>
