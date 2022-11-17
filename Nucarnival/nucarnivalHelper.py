@@ -1,6 +1,7 @@
 import io
 
 from openpyxl import Workbook
+from openpyxl.worksheet.worksheet import Worksheet
 
 from RoleCards.common.card import ICard, roundDown
 from RoleCards.enum.buffTypeEnum import BuffType
@@ -20,6 +21,10 @@ class NucarnivalHelper:
         self.currentTurn = 0
         self.totalDamage = 0
         self.output = io.StringIO()
+        self.wb: Workbook = None
+        self.ws: Worksheet = None
+        self.markBattleResult = False
+        self.sheetCount = 0
 
     def clearUp(self):
         self.team: list[ICard] = []
@@ -37,6 +42,16 @@ class NucarnivalHelper:
         self.totalDamage = 0
         self.output.close()
         self.output = io.StringIO()
+        self.sheetCount += 1
+        if self.wb is not None and self.ws is not None and self.markBattleResult is False:
+            self.wb.remove_sheet(self.ws)
+            self.sheetCount -= 1
+        if self.wb is None:
+            self.wb = Workbook()
+            removeSheet = self.wb.get_sheet_by_name('Sheet')
+            if removeSheet is not None:
+                self.wb.remove_sheet(removeSheet)
+        self.ws = self.wb.create_sheet('伤害模拟结果' + str(self.sheetCount), 0)
 
     def recordDamage(self, role: ICard, damage):
         record = damage
@@ -65,6 +80,7 @@ class NucarnivalHelper:
     # 我方全部阵亡/敌方全部阵亡-> 退出战斗
     def battleStart(self, printInfo=False):
         self.clearUpBattleResult()
+
         for role in self.team:
             role.teamMate = self.team
             role.enemies = self.monsters
@@ -74,6 +90,8 @@ class NucarnivalHelper:
             monster.teamMate = self.monsters
             monster.enemies = self.team
             monster.clearUp()
+        row = self.writeCardInfoInExcel()
+        row += 1
 
         self.maxTurn += 1
         if self.maxTurn > 50:
@@ -100,31 +118,44 @@ class NucarnivalHelper:
                 continue
 
             msg = '---------第{0}回合---------'.format(turn)
+            self.ws.cell(row, turn + 1, '第{0}回合'.format(turn))
             self.recordBattleMsg(msg)
             if printInfo:
                 print(msg)
 
             # 我方行动
-            self.action(turn, self.team, self.monsters, printInfo, False)
+            self.action(turn, self.team, self.monsters, row, printInfo, False)
 
-            self.settleDotAndHot(self.team, printInfo, False)
+            self.settleDotAndHot(self.team, row, printInfo, False)
 
-            self.counter(self.monsters, self.team, printInfo, True)
+            self.counter(self.monsters, self.team, row, printInfo, True)
 
             self.counterRecord.clear()
 
             # 敌方行动
-            self.action(turn, self.monsters, self.team, printInfo, True)
+            self.action(turn, self.monsters, self.team, row, printInfo, True)
 
-            self.settleDotAndHot(self.monsters, printInfo, True)
+            self.settleDotAndHot(self.monsters, row, turn, printInfo, True)
 
-            self.counter(self.team, self.monsters, printInfo, False)
+            self.counter(self.team, self.monsters, row, turn, printInfo, False)
 
             self.counterRecord.clear()
 
             # 下个回合
+            tempRow = row + 1
             for role in self.team:
                 role.nextRound()
+                if turn in self.turnDamageRecord:
+                    tempDamageRecord = self.turnDamageRecord[turn]
+                    if role in tempDamageRecord:
+                        record = tempDamageRecord[role]
+                        cellMsg = self.ws.cell(tempRow, turn + 1).value
+                        if cellMsg is None:
+                            cellMsg = '回合总伤害：' + str(record)
+                        else:
+                            cellMsg += '\n回合总伤害：' + str(record)
+                        self.ws.cell(tempRow, turn + 1, cellMsg)
+                tempRow += 1
             for monster in self.monsters:
                 monster.nextRound()
 
@@ -133,14 +164,20 @@ class NucarnivalHelper:
         if printInfo:
             print(msg)
         self.totalDamage = 0
+        self.ws.cell(row, turn + 2, '总伤害')
+        temp = 1
         for role in self.team:
+            self.ws.cell(row + temp, 1, role.cardInfo(False))
             if role in self.damageRecord:
                 self.totalDamage += self.damageRecord[role]
                 msg = '总{}回合，{} 总伤害为：{}'.format(turn, role.cardInfo(False), self.damageRecord[role])
                 self.recordBattleMsg(msg)
+                self.ws.cell(row + temp, turn + 2, str(self.damageRecord[role]))
                 if printInfo:
                     print(msg)
+            temp += 1
         msg = '总{}回合，整个队伍伤害：{}'.format(turn, self.totalDamage)
+        self.ws.cell(row + temp, turn + 2, str(self.totalDamage))
         self.recordBattleMsg(msg)
         if printInfo:
             print(msg)
@@ -149,12 +186,15 @@ class NucarnivalHelper:
     # 防御/普攻/必杀
     # 结算dot
     # 结算hot
-    def action(self, turn=0, cardList: list[ICard] = [], cardList2: list[ICard] = [], printInfo=False, isEnemy=False):
+    def action(self, turn=0, cardList: list[ICard] = [], cardList2: list[ICard] = [], defaultRow=0, printInfo=False,
+               isEnemy=False):
+        row = defaultRow + 1
         for role in cardList:
             if role in self.defenseTurn and turn in self.defenseTurn[role]:
                 role.defense = True
                 msg = role.cardInfo(False) + '  防御'
                 if isEnemy is False:
+                    self.ws.cell(row, turn + 1, '防御')
                     self.recordBattleMsg(msg)
                 if printInfo and isEnemy is False:
                     print(msg)
@@ -177,17 +217,18 @@ class NucarnivalHelper:
                     isAttack = False
 
             if isAttack:
-                damage = self.doAttack(role, monster, cardList2, printInfo, isEnemy)
+                damage = self.doAttack(role, monster, cardList2, row, turn, printInfo, isEnemy)
                 role.doBloodSuck(damage)
                 if isEnemy is False:
                     self.recordDamage(role, damage)
             else:
-                damage = self.doSkill(role, monster, cardList2, printInfo, isEnemy)
+                damage = self.doSkill(role, monster, cardList2, row, turn, printInfo, isEnemy)
                 role.doBloodSuck(damage)
                 if isEnemy is False:
                     self.recordDamage(role, damage)
+            row += 1
 
-    def settleDotAndHot(self, cardList: list[ICard] = [], printInfo=False, isEnemy=False):
+    def settleDotAndHot(self, cardList: list[ICard] = [], defaultRow=0, turn=0, printInfo=False, isEnemy=False):
         # 结算dot
         for role in cardList:
             dotDamages = role.settleDot()
@@ -197,11 +238,19 @@ class NucarnivalHelper:
                     dotDamage = dotDamages[source]
                     totalDamage += dotDamage
                     if isEnemy:
+                        if source in self.team:
+                            row = self.team.index(source) + defaultRow + 1
+                            cellMsg = self.ws.cell(row, turn + 1).value
+                            if cellMsg is None:
+                                cellMsg = '持续伤害：' + str(dotDamage)
+                            else:
+                                cellMsg += '\n持续伤害：' + str(dotDamage)
+                            self.ws.cell(row, turn + 1, cellMsg)
                         self.recordDamage(source, dotDamage)
                     msg = '{}造成了持续伤害：{}'.format(source.cardInfo(False), dotDamage)
-                    if isEnemy is False:
+                    if isEnemy:
                         self.recordBattleMsg(msg)
-                    if printInfo and isEnemy is True:
+                    if printInfo and isEnemy:
                         print(msg)
                 role.beAttacked(totalDamage, False)
 
@@ -221,19 +270,28 @@ class NucarnivalHelper:
                 role.beHealed(totalHeal, False)
 
     # 反击
-    def counter(self, cardList: list[ICard] = [], cardList2: list[ICard] = [], printInfo=False, isEnemy=False):
+    def counter(self, cardList: list[ICard] = [], cardList2: list[ICard] = [], defaultRow=0, turn=0, printInfo=False,
+                isEnemy=False):
+        row = defaultRow + 1
         for role in cardList:
             if role in self.counterRecord and self.counterRecord[role] is not None:
                 damage = self.doCounter(role, self.counterRecord[role], cardList2)
                 role.doBloodSuck(damage)
                 if damage > 0:
                     if isEnemy is False:
+                        cellMsg = self.ws.cell(row, turn + 1).value
+                        if cellMsg is None:
+                            cellMsg = '反击：' + str(damage)
+                        else:
+                            cellMsg += '\n反击：' + str(damage)
+                        self.ws.cell(row, turn + 1, cellMsg)
                         self.recordDamage(role, damage)
                     msg = role.cardInfo(False) + '  反击造成伤害：' + str(damage)
                     if isEnemy is False:
                         self.recordBattleMsg(msg)
                     if printInfo and isEnemy is False:
                         print(msg)
+            row += 1
 
     def doCounter(self, role: ICard, monster: ICard, cardList2: list[ICard] = []):
         totalDamage = 0
@@ -279,7 +337,8 @@ class NucarnivalHelper:
         return totalDamage
 
     # 必杀
-    def doSkill(self, role: ICard, monster: ICard, cardList2: list[ICard] = [], printInfo=False, isEnemy=False):
+    def doSkill(self, role: ICard, monster: ICard, cardList2: list[ICard] = [], row=0, turn=0, printInfo=False,
+                isEnemy=False):
         role.skillCount = 0
         damage = role.skill(monster)
         totalDamage = self.groupDamage(damage, role, monster, cardList2, role.isGroup, False, True, True)
@@ -292,6 +351,12 @@ class NucarnivalHelper:
             damageStr = '(' + str(damage) + ',' + str(fuDamage) + ') = ' + str(totalDamage)
         msg = role.cardInfo(False) + '  必杀造成伤害：' + damageStr
         if isEnemy is False:
+            cellMsg = self.ws.cell(row, turn + 1).value
+            if cellMsg is None:
+                cellMsg = '必杀：' + damageStr
+            else:
+                cellMsg += '\n必杀：' + damageStr
+            self.ws.cell(row, turn + 1, cellMsg)
             self.recordBattleMsg(msg)
         if printInfo and isEnemy is False:
             print(msg)
@@ -299,7 +364,8 @@ class NucarnivalHelper:
         return totalDamage
 
     # 普攻
-    def doAttack(self, role: ICard, monster: ICard, cardList2: list[ICard] = [], printInfo=False, isEnemy=False):
+    def doAttack(self, role: ICard, monster: ICard, cardList2: list[ICard] = [], row=0, turn=0, printInfo=False,
+                 isEnemy=False):
         damage = role.attack(monster)
         totalDamage = self.groupDamage(damage, role, monster, cardList2, role.isGroup, True, False, True)
 
@@ -312,6 +378,12 @@ class NucarnivalHelper:
 
         msg = role.cardInfo(False) + '  普攻造成伤害：' + damageStr
         if isEnemy is False:
+            cellMsg = self.ws.cell(row, turn + 1).value
+            if cellMsg is None:
+                cellMsg = '普攻：' + damageStr
+            else:
+                cellMsg += '\n普攻：' + damageStr
+            self.ws.cell(row, turn + 1, cellMsg)
             self.recordBattleMsg(msg)
         if printInfo and isEnemy is False:
             print(msg)
@@ -374,38 +446,36 @@ class NucarnivalHelper:
                 self.counterRecord[monster] = role
         return totalDamage
 
+    def writeCardInfoInExcel(self):
+        self.ws.cell(1, 1, '名称')
+        self.ws.cell(1, 2, '昵称')
+        self.ws.cell(1, 3, '角色')
+        self.ws.cell(1, 4, '属性')
+        self.ws.cell(1, 5, '定位')
+        self.ws.cell(1, 6, 'Hp')
+        self.ws.cell(1, 7, 'Atk')
+        self.ws.cell(1, 8, '等级')
+        self.ws.cell(1, 9, '星级')
+        self.ws.cell(1, 10, '潜能')
+        self.ws.cell(1, 11, '蜜话')
+
+        row = 2
+        for role in self.team:
+            self.ws.cell(row, 1, role.cardName)
+            self.ws.cell(row, 2, role.nickName)
+            self.ws.cell(row, 3, role.role.value)
+            self.ws.cell(row, 4, role.cardType.typeName)
+            self.ws.cell(row, 5, role.occupation.occupationName)
+            self.ws.cell(row, 6, role.hp)
+            self.ws.cell(row, 7, role.atk)
+            self.ws.cell(row, 8, role.lv)
+            self.ws.cell(row, 9, role.star)
+            self.ws.cell(row, 10, role.tier)
+            self.ws.cell(row, 11, role.bond)
+            row += 1
+        return row
+
     def exportExcel(self, filePath):
-        wb = Workbook()
-
-        ws = wb.create_sheet('伤害模拟结果', 0)
-        for i in range(0, len(self.team)):
-            role = self.team[i]
-            row = i + 2
-            ws.cell(row, 1, role.cardInfo(False))
-            ws.cell(row, self.maxTurn + 1, self.damageRecord[role])
-
-        for j in range(1, self.maxTurn):
-            column = j + 1
-            ws.cell(1, column, '第{}回合'.format(j))
-
-            turnDamage = 0
-            for i in range(0, len(self.team)):
-                role = self.team[i]
-                row = i + 2
-
-                record = 0
-                if j in self.turnDamageRecord:
-                    tempDamageRecord = self.turnDamageRecord[j]
-                    if role in tempDamageRecord:
-                        record += tempDamageRecord[role]
-                turnDamage += record
-                ws.cell(row, column, record)
-
-            ws.cell(len(self.team) + 2, column, turnDamage)
-
-        ws.cell(1, self.maxTurn + 1, '总计')
-        ws.cell(len(self.team) + 2, 1, '全队伤害')
-        ws.cell(len(self.team) + 2, self.maxTurn + 1, self.totalDamage)
-
-        wb.save(filePath)
-        wb.close()
+        self.wb.save(filePath)
+        self.wb.close()
+        self.wb = None

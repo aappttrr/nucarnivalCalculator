@@ -135,6 +135,7 @@ class CostPerformanceHelper:
         self.sorcererMojo: int = 1
         self.price = 0
         self.currencyType: CurrencyType = CurrencyType.eCoin
+        self.countVial = False
 
     def calCostPerformance(self, basicSeeSorceryGemAsContract):
         if len(self.gamePropList) == 0 or self.price == 0:
