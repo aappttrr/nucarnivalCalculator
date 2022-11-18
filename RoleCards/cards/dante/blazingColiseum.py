@@ -75,7 +75,7 @@ class BlazingColiseum(SSRCard):
                 count = 3
 
             if count > 0:
-                buff = Buff('BlazingColiseum_passive_star_3', 0.08 * count, 0, BuffType.ShieldIncrease)
+                buff = Buff('BlazingColiseum_passive_star_3', 0.08 * count, 0, BuffType.ShieldEffectIncrease)
                 buff.isPassive = True
                 self.addBuff(buff)
 

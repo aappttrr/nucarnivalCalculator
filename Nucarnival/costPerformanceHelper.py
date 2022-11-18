@@ -129,13 +129,21 @@ def converSpiritGemToECoin(spiritGem, seeAsContract):
 
 
 class CostPerformanceHelper:
-    def __init__(self):
+    def __init__(self, name=''):
+        self.giftPackName = name
         self.gamePropList: list[GameProp] = []
         self.seeSorceryGemAsContract = False
         self.sorcererMojo: int = 1
         self.price = 0
         self.currencyType: CurrencyType = CurrencyType.eCoin
         self.countVial = False
+
+    def addGameProp(self, _gp:GameProp):
+        self.gamePropList.append(_gp)
+
+    def removeGameProp(self, _gp:GameProp):
+        if _gp in self.gamePropList:
+            self.gamePropList.remove(_gp)
 
     def calCostPerformance(self, basicSeeSorceryGemAsContract):
         if len(self.gamePropList) == 0 or self.price == 0:

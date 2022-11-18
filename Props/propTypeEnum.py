@@ -23,3 +23,8 @@ class PropType(enum.Enum):
     intermediateGift = '中级礼物'
     advancedGift = '高级礼物'
     ultraGift = '回忆图画'
+    holyWater_S = '小型祝福药水'
+    holyWater_M = '中型祝福药水'
+    holyWater_L = '大型祝福药水'
+    holyWater_XL = '特大型祝福药水'
+    SR_Fragment = 'SR碎片'

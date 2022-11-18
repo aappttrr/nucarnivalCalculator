@@ -26,6 +26,8 @@ class BuffType(enum.Enum):
     ShieldIncrease = '造成护盾增加'
     HealIncrease = '造成回复量增加'
 
+    ShieldEffectIncrease = '护盾效果增加'
+
     BeHealIncrease = '受到回复量增加'
     BeShieldIncrease = '受到护盾效果增加'
     BeAttackIncrease = '受到普攻伤害增加'
