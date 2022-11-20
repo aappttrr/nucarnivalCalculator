@@ -11,6 +11,7 @@ class NCard(ICard):
 
     def setProperties(self, _lv, _star, _bond, _tier):
         super(NCard, self).setProperties(_lv, _star, _bond, _tier)
+        self.bond = 0
         if self.tier < 0:
             self.tier = 0
         elif self.tier >= 7:

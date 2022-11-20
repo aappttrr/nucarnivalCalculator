@@ -2,16 +2,9 @@ from openpyxl.comments import Comment
 from openpyxl.worksheet.worksheet import Worksheet
 
 from Nucarnival.cardHelper import CardHelper
-from Nucarnival.costPerformanceHelper import CostPerformanceHelper
 from Nucarnival.nucarnivalHelper import NucarnivalHelper
-from Props.currencyType import CurrencyType
-from Props.gameProp import GameProp
-from Props.propTypeEnum import PropType
-from RoleCards.cards.garu.howlingCyclone import HowlingCyclone
 from RoleCards.cards.monster.commonMonster import CommonMonster
 from RoleCards.cards.monster.tempTeamMate import TempTeamMate
-from RoleCards.cards.quincy.ancientCeremony import AncientCeremony
-from RoleCards.cards.quincy.distantPromise import DistantPromise
 from RoleCards.common.card import ICard
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRarityEnum import CardRarity
@@ -26,10 +19,11 @@ from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivene
 def simulation2(filePath, cardHelper: CardHelper, helper: NucarnivalHelper, calGroupRole: bool):
     wb = Workbook()
 
+    column = 15
     ws = wb.create_sheet('伤害模拟结果', 0)
     ws2 = wb.create_sheet('伤害模拟结果_ssr5星', 0)
-    ws.merge_cells(None, 1, 1, 1, 12)
-    ws2.merge_cells(None, 1, 1, 1, 12)
+    ws.merge_cells(None, 1, 1, 1, column)
+    ws2.merge_cells(None, 1, 1, 1, column)
     title = ''
     if calGroupRole:
         title = '单人13回合期望伤害模拟_群体'
@@ -78,10 +72,11 @@ def simulation2(filePath, cardHelper: CardHelper, helper: NucarnivalHelper, calG
 def simulation1(filePath, cardHelper: CardHelper, helper: NucarnivalHelper, needTeamMate: bool, calGroupRole: bool):
     wb = Workbook()
 
+    column = 15
     ws = wb.create_sheet('伤害模拟结果', 0)
     ws2 = wb.create_sheet('伤害模拟结果_ssr5星', 0)
-    ws.merge_cells(None, 1, 1, 1, 12)
-    ws2.merge_cells(None, 1, 1, 1, 12)
+    ws.merge_cells(None, 1, 1, 1, column)
+    ws2.merge_cells(None, 1, 1, 1, column)
     title = ''
     if needTeamMate and calGroupRole:
         title = '单人13回合期望伤害模拟_群体_配置虚拟队友被动吃满（例如：实战难以满足的3个艾斯特）'
@@ -137,29 +132,31 @@ def simulation(helper: NucarnivalHelper, needTeamMate: bool, ws: Worksheet, x: I
     helper.maxTurn = 13
     helper.battleStart(False)
     damage = helper.damageRecord[x]
-    ws.cell(row, 12, damage)
+    column = 14
+    ws.cell(row, column, damage)
+    column += 1
     if x.rarity == CardRarity.SSR and x.star == 5:
         if damage >= 300000:
-            ws.cell(row, 13, 'T0')
+            ws.cell(row, column, 'T0')
         elif 275000 <= damage < 300000:
-            ws.cell(row, 13, 'T1')
+            ws.cell(row, column, 'T1')
         elif 250000 <= damage < 275000:
-            ws.cell(row, 13, 'T2')
+            ws.cell(row, column, 'T2')
         elif 200000 <= damage < 250000:
-            ws.cell(row, 13, 'T3')
+            ws.cell(row, column, 'T3')
         else:
-            ws.cell(row, 13, 'T4')
+            ws.cell(row, column, 'T4')
     else:
         if damage >= 200000:
-            ws.cell(row, 13, 'T0')
+            ws.cell(row, column, 'T0')
         elif 175000 <= damage < 200000:
-            ws.cell(row, 13, 'T1')
+            ws.cell(row, column, 'T1')
         elif 150000 <= damage < 175000:
-            ws.cell(row, 13, 'T2')
+            ws.cell(row, column, 'T2')
         elif 100000 <= damage < 150000:
-            ws.cell(row, 13, 'T3')
+            ws.cell(row, column, 'T3')
         else:
-            ws.cell(row, 13, 'T4')
+            ws.cell(row, column, 'T4')
 
 
 
@@ -168,31 +165,35 @@ def simulation(helper: NucarnivalHelper, needTeamMate: bool, ws: Worksheet, x: I
 def export(ws: Worksheet, x: ICard, row):
     ws.cell(row, 1, x.cardName)
     ws.cell(row, 2, x.nickName)
-    ws.cell(row, 3, x.rarity.value)
-    ws.cell(row, 4, x.role.value)
+    ws.cell(row, 3, x.role.value)
+    ws.cell(row, 4, x.rarity.value)
     ws.cell(row, 5, x.cardType.typeName)
     ws.cell(row, 6, x.occupation.occupationName)
-    ws.cell(row, 7, x.star)
-    ws.cell(row, 8, x.tier)
-    ws.cell(row, 9, x.hp)
-    ws.cell(row, 10, x.atk)
-    ws.cell(row, 11, x.ped.value)
+    ws.cell(row, 7, x.lv)
+    ws.cell(row, 8, x.star)
+    ws.cell(row, 9, x.tier)
+    ws.cell(row, 10, x.bond)
+    ws.cell(row, 11, x.hp)
+    ws.cell(row, 12, x.atk)
+    ws.cell(row, 13, x.ped.value)
 
 
 def exportTitle(ws: Worksheet,row):
     ws.cell(row, 1, '卡')
     ws.cell(row, 2, '昵称')
-    ws.cell(row, 3, '稀有度')
-    ws.cell(row, 4, '角色')
-    ws.cell(row, 5, '属性')
+    ws.cell(row, 3, '角色')
+    ws.cell(row, 4, '稀有度')
+    ws.cell(row, 5, '类型')
     ws.cell(row, 6, '定位')
-    ws.cell(row, 7, '星级')
-    ws.cell(row, 8, '潜能')
-    ws.cell(row, 9, 'Hp')
-    ws.cell(row, 10, 'Atk')
-    ws.cell(row, 11, '三星被动实战吃满难易程度')
-    ws.cell(row, 12, '13回合单人输出')
-    ws.cell(row, 13, '梯度')
+    ws.cell(row, 7, '等级')
+    ws.cell(row, 8, '星级')
+    ws.cell(row, 9, '潜力')
+    ws.cell(row, 10, '蜜话')
+    ws.cell(row, 11, 'Hp')
+    ws.cell(row, 12, 'Atk')
+    ws.cell(row, 13, '三星被动实战吃满难易程度')
+    ws.cell(row, 14, '13回合单人输出')
+    ws.cell(row, 15, '梯度')
 
 
 # 配置模拟队友

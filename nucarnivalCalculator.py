@@ -492,6 +492,10 @@ class MainWindow(QMainWindow):
         else:
             for i in range(0, 13):
                 self.ui.tierComboBox.addItem(_translate("MainWindow", str(i)), i)
+        if self.currentCard.rarity == CardRarity.N:
+            self.ui.bondComboBox.setEnabled(False)
+        else:
+            self.ui.bondComboBox.setEnabled(True)
         self.ui.tierComboBox.currentIndexChanged.connect(self.setTier)
         self.showCardInfo()
 
@@ -499,7 +503,6 @@ class MainWindow(QMainWindow):
         self.ui.atkLineEdit.setEnabled(True)
         self.ui.useExpectedValueCheckBox.setEnabled(True)
         self.ui.lvComboBox.setEnabled(True)
-        self.ui.bondComboBox.setEnabled(True)
         self.ui.tierComboBox.setEnabled(True)
         self.ui.starComboBox.setEnabled(True)
         self.ui.calCardBtn.setEnabled(True)
