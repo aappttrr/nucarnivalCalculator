@@ -7,6 +7,7 @@ from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
 from RoleCards.enum.conditionTypeEnum import ConditionType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 from RoleCards.enum.tierType import TierType
 
 
@@ -22,6 +23,7 @@ class Homecoming(SSRCard):
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 4
+        self.ped = PassiveEffectivenessDifficulty.medium
 
         self.lv60s5Hp = 7507
         self.lv60s5Atk = 2099

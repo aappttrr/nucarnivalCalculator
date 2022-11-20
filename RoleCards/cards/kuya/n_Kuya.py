@@ -4,6 +4,7 @@ from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 
 
 class NKuya(NCard):
@@ -16,6 +17,7 @@ class NKuya(NCard):
         self.cardType = CardType.Wood
         self.occupation = CardOccupation.Saboteur
         self.skillCD = 4
+        self.ped = PassiveEffectivenessDifficulty.difficult
 
         self.lv60s5Hp = 4660
         self.lv60s5Atk = 1102

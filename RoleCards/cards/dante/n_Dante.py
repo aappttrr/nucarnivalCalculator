@@ -4,6 +4,7 @@ from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 
 
 class NDante(NCard):
@@ -16,6 +17,7 @@ class NDante(NCard):
         self.cardType = CardType.Light
         self.occupation = CardOccupation.Striker
         self.skillCD = 3
+        self.ped = PassiveEffectivenessDifficulty.veryDifficult
 
         self.lv60s5Hp = 4482
         self.lv60s5Atk = 1174

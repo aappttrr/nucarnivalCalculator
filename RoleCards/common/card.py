@@ -8,6 +8,7 @@ from RoleCards.enum.cardRarityEnum import CardRarity
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
 from RoleCards.enum.conditionTypeEnum import ConditionType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 from RoleCards.enum.tierType import TierType
 from RoleCards.tier.tierData import getTierData
 
@@ -152,6 +153,9 @@ class ICard:
 
         # 使用期望数值
         self.useExpectedValue = True
+
+        # 被动吃满难易程度
+        self.ped: PassiveEffectivenessDifficulty = None
 
     def clearUp(self):
         self.skillCount = 0
@@ -479,12 +483,13 @@ class ICard:
             result = roundDown(result)
 
         # 属性克制
-        if enemy.cardType is not None and self.cardType.isBeRestrained(enemy.cardType):
-            result = result * 1.2
-            result = roundDown(result)
-        elif enemy.cardType is not None and self.cardType.isRestrained(enemy.cardType):
-            result = result * 0.8
-            result = roundDown(result)
+        if enemy.cardType is not None and self.cardType is not None:
+            if self.cardType.isBeRestrained(enemy.cardType):
+                result = result * 1.2
+                result = roundDown(result)
+            elif self.cardType.isRestrained(enemy.cardType):
+                result = result * 0.8
+                result = roundDown(result)
 
         if result < 0:
             result = 0

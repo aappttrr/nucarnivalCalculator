@@ -6,6 +6,7 @@ from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 from RoleCards.enum.tierType import TierType
 
 
@@ -19,6 +20,7 @@ class RYakumo(RCard):
         self.cardType = CardType.Wood
         self.occupation = CardOccupation.Healer
         self.skillCD = 3
+        self.ped = PassiveEffectivenessDifficulty.veryEasy
 
         self.lv60s5Hp = 5301
         self.lv60s5Atk = 1352

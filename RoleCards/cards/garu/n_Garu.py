@@ -4,6 +4,7 @@ from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 
 
 class NGaru(NCard):
@@ -17,6 +18,7 @@ class NGaru(NCard):
         self.occupation = CardOccupation.Striker
         self.skillCD = 4
         self.isGroup = True
+        self.ped = PassiveEffectivenessDifficulty.difficult
 
         self.lv60s5Hp = 4198
         self.lv60s5Atk = 1245

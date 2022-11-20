@@ -46,12 +46,13 @@ class NucarnivalHelper:
         if self.wb is not None and self.ws is not None and self.markBattleResult is False:
             self.wb.remove_sheet(self.ws)
             self.sheetCount -= 1
+            self.ws = None
         if self.wb is None:
             self.wb = Workbook()
-            removeSheet = self.wb.get_sheet_by_name('Sheet')
-            if removeSheet is not None:
-                self.wb.remove_sheet(removeSheet)
-        self.ws = self.wb.create_sheet('伤害模拟结果' + str(self.sheetCount), 0)
+            self.ws = self.wb.active
+            self.ws.title = '伤害模拟结果' + str(self.sheetCount)
+        if self.ws is None:
+            self.ws = self.wb.create_sheet('伤害模拟结果' + str(self.sheetCount), 0)
 
     def recordDamage(self, role: ICard, damage):
         record = damage
@@ -461,6 +462,8 @@ class NucarnivalHelper:
 
         row = 2
         for role in self.team:
+            if role.cardName == '临时队友':
+                continue
             self.ws.cell(row, 1, role.cardName)
             self.ws.cell(row, 2, role.nickName)
             self.ws.cell(row, 3, role.role.value)

@@ -5,6 +5,7 @@ from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
 from RoleCards.enum.conditionTypeEnum import ConditionType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 from RoleCards.enum.tierType import TierType
 
 
@@ -19,6 +20,7 @@ class IdolApprentice(SSRCard):
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 3
+        self.ped = PassiveEffectivenessDifficulty.medium
 
         self.lv60s5Hp = 6973
         self.lv60s5Atk = 2241

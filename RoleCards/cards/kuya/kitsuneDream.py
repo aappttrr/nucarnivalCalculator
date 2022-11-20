@@ -6,6 +6,7 @@ from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
 from RoleCards.enum.conditionTypeEnum import ConditionType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 from RoleCards.enum.tierType import TierType
 
 
@@ -20,6 +21,7 @@ class KitsuneDream(SSRCard):
         self.occupation = CardOccupation.Saboteur
         self.tierType = TierType.Balance
         self.skillCD = 3
+        self.ped = PassiveEffectivenessDifficulty.medium
 
         self.lv60s5Hp = 8076
         self.lv60s5Atk = 1956

@@ -1,3 +1,4 @@
+from openpyxl.comments import Comment
 from openpyxl.worksheet.worksheet import Worksheet
 
 from Nucarnival.cardHelper import CardHelper
@@ -13,50 +14,112 @@ from RoleCards.cards.quincy.ancientCeremony import AncientCeremony
 from RoleCards.cards.quincy.distantPromise import DistantPromise
 from RoleCards.common.card import ICard
 from RoleCards.enum.cardOccupationEnum import CardOccupation
+from RoleCards.enum.cardRarityEnum import CardRarity
 from RoleCards.enum.cardRoleEnum import CardRole
 from openpyxl.workbook import Workbook
 
 
-# 模拟角色单人13回合作战能力
-def simulation1(cardHelper: CardHelper, helper: NucarnivalHelper, needTeamMate: bool, calGroupRole: bool):
+# 模拟角色单人13回合作战能力（以被动在实战中能否吃满配置队友
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
+
+
+def simulation2(filePath, cardHelper: CardHelper, helper: NucarnivalHelper, calGroupRole: bool):
     wb = Workbook()
 
-    ws = wb.create_sheet('计算结果', 0)
+    ws = wb.create_sheet('伤害模拟结果', 0)
+    ws2 = wb.create_sheet('伤害模拟结果_ssr5星', 0)
+    ws.merge_cells(None, 1, 1, 1, 12)
+    ws2.merge_cells(None, 1, 1, 1, 12)
+    title = ''
+    if calGroupRole:
+        title = '单人13回合期望伤害模拟_群体'
+    else:
+        title = '单人13回合期望伤害模拟_单体'
+    ws.cell(1, 1, title)
+    ws2.cell(1, 1, title)
+    comment = Comment('如果三星被动实战吃满难易程度是中等及以下，则会配置虚拟队友让其吃满被动；否则将吃不满'
+                      '\n但类似HP>90%的被动则都会吃满', '纳萨尔')
+    ws.cell(1, 1).comment = comment
+    ws2.cell(1, 1).comment = comment
 
-    ws.cell(1, 1, '卡')
-    ws.cell(1, 2, '昵称')
-    ws.cell(1, 3, '角色')
-    ws.cell(1, 4, '属性')
-    ws.cell(1, 5, '定位')
-    ws.cell(1, 6, '星级')
-    ws.cell(1, 7, '潜能')
-    ws.cell(1, 8, 'Hp')
-    ws.cell(1, 9, 'Atk')
-    ws.cell(1, 10, '13回合单人输出')
+    row = 2
+    ssrRow = 2
+    exportTitle(ws, row)
+    exportTitle(ws2, ssrRow)
 
-    row = 1
     for x in cardHelper.cardList:
-        if (
-                x.occupation == CardOccupation.Support and x.cardName != '诡夜疾风') or x.occupation == CardOccupation.Healer:
+        needTeamMate = True
+        if x.ped == PassiveEffectivenessDifficulty.difficult or x.ped == PassiveEffectivenessDifficulty.veryDifficult:
+            needTeamMate = False
+
+        if (x.occupation == CardOccupation.Support and x.cardName != '诡夜疾风') \
+                or x.occupation == CardOccupation.Healer:
             continue
         if x.isGroup == calGroupRole:
             row += 1
-            # 5星满潜
-            simulation(helper, needTeamMate, ws, x, row, 5, 12)
+            if x.rarity == CardRarity.SSR:
+                ssrRow += 1
+                # 5星满潜
+                simulation(helper, needTeamMate, ws2, x, ssrRow, 5, 12)
 
+                # 3星满潜
+                simulation(helper, needTeamMate, ws, x, row, 3, 12)
+            elif x.rarity == CardRarity.SR:
+                # 5星满潜
+                simulation(helper, needTeamMate, ws, x, row, 5, 12)
+            else:
+                # 5星满潜
+                simulation(helper, needTeamMate, ws, x, row, 5, 6)
+
+    wb.save(filePath)
+
+
+# 模拟角色单人13回合作战能力
+def simulation1(filePath, cardHelper: CardHelper, helper: NucarnivalHelper, needTeamMate: bool, calGroupRole: bool):
+    wb = Workbook()
+
+    ws = wb.create_sheet('伤害模拟结果', 0)
+    ws2 = wb.create_sheet('伤害模拟结果_ssr5星', 0)
+    ws.merge_cells(None, 1, 1, 1, 12)
+    ws2.merge_cells(None, 1, 1, 1, 12)
+    title = ''
+    if needTeamMate and calGroupRole:
+        title = '单人13回合期望伤害模拟_群体_配置虚拟队友被动吃满（例如：实战难以满足的3个艾斯特）'
+    elif needTeamMate and calGroupRole is False:
+        title = '单人13回合期望伤害模拟_单体_配置虚拟队友被动吃满（例如：实战难以满足的3个艾斯特）'
+    elif needTeamMate is False and calGroupRole:
+        title = '单人13回合期望伤害模拟_群体_不配置任何队友部分被动无法吃满'
+    elif needTeamMate is False and calGroupRole is False:
+        title = '单人13回合期望伤害模拟_单体_不配置任何队友部分被动无法吃满'
+    ws.cell(1, 1, title)
+    ws2.cell(1, 1, title)
+
+    row = 2
+    ssrRow = 2
+    exportTitle(ws, row)
+    exportTitle(ws2, ssrRow)
+
+    for x in cardHelper.cardList:
+        if (x.occupation == CardOccupation.Support and x.cardName != '诡夜疾风') \
+                or x.occupation == CardOccupation.Healer:
+            continue
+        if x.isGroup == calGroupRole:
             row += 1
-            # 5星6潜
-            simulation(helper, needTeamMate, ws, x, row, 5, 6)
+            if x.rarity == CardRarity.SSR:
+                ssrRow += 1
+                # 5星满潜
+                simulation(helper, needTeamMate, ws2, x, ssrRow, 5, 12)
 
-            row += 1
-            # 3星满潜
-            simulation(helper, needTeamMate, ws, x, row, 3, 12)
+                # 3星满潜
+                simulation(helper, needTeamMate, ws, x, row, 3, 12)
+            elif x.rarity == CardRarity.SR:
+                # 5星满潜
+                simulation(helper, needTeamMate, ws, x, row, 5, 12)
+            else:
+                # 5星满潜
+                simulation(helper, needTeamMate, ws, x, row, 5, 6)
 
-            row += 1
-            # 3星6潜
-            simulation(helper, needTeamMate, ws, x, row, 3, 6)
-
-    wb.save('C:\\fhs\\python\\计算结果2.xls')
+    wb.save(filePath)
 
 
 # 进行模拟
@@ -73,20 +136,63 @@ def simulation(helper: NucarnivalHelper, needTeamMate: bool, ws: Worksheet, x: I
     helper.monsters.append(CommonMonster())
     helper.maxTurn = 13
     helper.battleStart(False)
-    ws.cell(row, 10, helper.damageRecord[x])
+    damage = helper.damageRecord[x]
+    ws.cell(row, 12, damage)
+    if x.rarity == CardRarity.SSR and x.star == 5:
+        if damage >= 300000:
+            ws.cell(row, 13, 'T0')
+        elif 275000 <= damage < 300000:
+            ws.cell(row, 13, 'T1')
+        elif 250000 <= damage < 275000:
+            ws.cell(row, 13, 'T2')
+        elif 200000 <= damage < 250000:
+            ws.cell(row, 13, 'T3')
+        else:
+            ws.cell(row, 13, 'T4')
+    else:
+        if damage >= 200000:
+            ws.cell(row, 13, 'T0')
+        elif 175000 <= damage < 200000:
+            ws.cell(row, 13, 'T1')
+        elif 150000 <= damage < 175000:
+            ws.cell(row, 13, 'T2')
+        elif 100000 <= damage < 150000:
+            ws.cell(row, 13, 'T3')
+        else:
+            ws.cell(row, 13, 'T4')
+
+
 
 
 # 导出
 def export(ws: Worksheet, x: ICard, row):
     ws.cell(row, 1, x.cardName)
     ws.cell(row, 2, x.nickName)
-    ws.cell(row, 3, x.role.value)
-    ws.cell(row, 4, x.cardType.typeName)
-    ws.cell(row, 5, x.occupation.occupationName)
-    ws.cell(row, 6, x.star)
-    ws.cell(row, 7, x.tier)
-    ws.cell(row, 8, x.hp)
-    ws.cell(row, 9, x.atk)
+    ws.cell(row, 3, x.rarity.value)
+    ws.cell(row, 4, x.role.value)
+    ws.cell(row, 5, x.cardType.typeName)
+    ws.cell(row, 6, x.occupation.occupationName)
+    ws.cell(row, 7, x.star)
+    ws.cell(row, 8, x.tier)
+    ws.cell(row, 9, x.hp)
+    ws.cell(row, 10, x.atk)
+    ws.cell(row, 11, x.ped.value)
+
+
+def exportTitle(ws: Worksheet,row):
+    ws.cell(row, 1, '卡')
+    ws.cell(row, 2, '昵称')
+    ws.cell(row, 3, '稀有度')
+    ws.cell(row, 4, '角色')
+    ws.cell(row, 5, '属性')
+    ws.cell(row, 6, '定位')
+    ws.cell(row, 7, '星级')
+    ws.cell(row, 8, '潜能')
+    ws.cell(row, 9, 'Hp')
+    ws.cell(row, 10, 'Atk')
+    ws.cell(row, 11, '三星被动实战吃满难易程度')
+    ws.cell(row, 12, '13回合单人输出')
+    ws.cell(row, 13, '梯度')
 
 
 # 配置模拟队友
@@ -179,12 +285,10 @@ if __name__ == '__main__':
 
     _cardHelper = CardHelper()
 
-    # simulation1(_cardHelper, _helper, False, False)
+    simulation1('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_不配置队友.xls', _cardHelper, _helper, False, False)
+    simulation1('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_配置队友.xls', _cardHelper, _helper, True, False)
+    simulation1('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_不配置队友.xls', _cardHelper, _helper, False, True)
+    simulation1('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_配置队友.xls', _cardHelper, _helper, True, True)
 
-    _costHelper = CostPerformanceHelper()
-    _costHelper.price = 374
-    _costHelper.currencyType = CurrencyType.eCoin
-    _costHelper.seeSorceryGemAsContract = True
-    _costHelper.gamePropList.append(GameProp(PropType.basicBoost, 20))
-    _costHelper.gamePropList.append(GameProp(PropType.sorceryGem, 6))
-    print(str(_costHelper.calCostPerformance(False)))
+    simulation2('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
+    simulation2('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)

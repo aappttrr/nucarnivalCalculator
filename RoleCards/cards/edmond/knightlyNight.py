@@ -7,6 +7,7 @@ from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
 from RoleCards.enum.conditionTypeEnum import ConditionType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 from RoleCards.enum.tierType import TierType
 
 
@@ -21,6 +22,7 @@ class KnightlyNight(SSRCard):
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 3
+        self.ped = PassiveEffectivenessDifficulty.easy
 
         self.lv60s5Hp = 7400
         self.lv60s5Atk = 2134

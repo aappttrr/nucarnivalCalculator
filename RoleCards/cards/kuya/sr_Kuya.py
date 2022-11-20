@@ -4,6 +4,7 @@ from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 from RoleCards.enum.tierType import TierType
 
 
@@ -18,6 +19,7 @@ class SRKuya(SRCard):
         self.occupation = CardOccupation.Saboteur
         self.tierType = TierType.Defense
         self.skillCD = 4
+        self.ped = PassiveEffectivenessDifficulty.difficult
 
         self.lv60s5Hp = 6439
         self.lv60s5Atk = 1565

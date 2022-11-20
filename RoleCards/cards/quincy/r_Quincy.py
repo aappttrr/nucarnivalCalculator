@@ -5,6 +5,7 @@ from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 from RoleCards.enum.tierType import TierType
 
 
@@ -18,6 +19,7 @@ class RQuincy(RCard):
         self.cardType = CardType.Water
         self.occupation = CardOccupation.Striker
         self.skillCD = 6
+        self.ped = PassiveEffectivenessDifficulty.difficult
 
         self.lv60s5Hp = 4874
         self.lv60s5Atk = 1494

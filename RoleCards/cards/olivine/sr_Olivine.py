@@ -5,6 +5,7 @@ from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 from RoleCards.enum.tierType import TierType
 
 
@@ -19,6 +20,7 @@ class SROlivine(SRCard):
         self.occupation = CardOccupation.Support
         self.tierType = TierType.Defense
         self.skillCD = 4
+        self.ped = PassiveEffectivenessDifficulty.veryEasy
 
         self.lv60s5Hp = 7827
         self.lv60s5Atk = 1280

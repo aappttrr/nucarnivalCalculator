@@ -4,6 +4,7 @@ from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 
 
 class REdmond(RCard):
@@ -16,6 +17,7 @@ class REdmond(RCard):
         self.cardType = CardType.Fire
         self.occupation = CardOccupation.Striker
         self.skillCD = 3
+        self.ped = PassiveEffectivenessDifficulty.difficult
 
         self.lv60s5Hp = 5052
         self.lv60s5Atk = 1423

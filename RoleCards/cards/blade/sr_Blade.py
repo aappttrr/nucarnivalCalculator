@@ -4,6 +4,7 @@ from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 from RoleCards.enum.tierType import TierType
 
 
@@ -19,6 +20,7 @@ class SRBlade(SRCard):
         self.tierType = TierType.Attack
         self.skillCD = 4
         self.isGroup = True
+        self.ped = PassiveEffectivenessDifficulty.veryDifficult
 
         self.lv60s5Hp = 6048
         self.lv60s5Atk = 1672

@@ -5,6 +5,7 @@ from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
 from RoleCards.enum.conditionTypeEnum import ConditionType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 from RoleCards.enum.tierType import TierType
 
 
@@ -19,6 +20,7 @@ class CrimsonPhantom(SSRCard):
         self.occupation = CardOccupation.Guardian
         self.tierType = TierType.Defense
         self.skillCD = 3
+        self.ped = PassiveEffectivenessDifficulty.medium
 
         self.lv60s5Hp = 12274
         self.lv60s5Atk = 1316

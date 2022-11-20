@@ -5,6 +5,7 @@ from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 
 
 class NMorvay(NCard):
@@ -17,6 +18,7 @@ class NMorvay(NCard):
         self.cardType = CardType.Water
         self.occupation = CardOccupation.Guardian
         self.skillCD = 3
+        self.ped = PassiveEffectivenessDifficulty.medium
 
         self.lv60s5Hp = 6937
         self.lv60s5Atk = 747

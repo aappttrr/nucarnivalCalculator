@@ -4,6 +4,7 @@ from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 from RoleCards.enum.tierType import TierType
 
 
@@ -19,6 +20,7 @@ class MastersGift(SSRCard):
         self.tierType = TierType.Attack
         self.isGroup = True
         self.skillCD = 4
+        self.ped = PassiveEffectivenessDifficulty.difficult
 
         self.lv60s5Hp = 7258
         self.lv60s5Atk = 2170

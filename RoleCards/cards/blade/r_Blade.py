@@ -4,6 +4,7 @@ from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
+from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 
 
 class RBlade(RCard):
@@ -17,6 +18,7 @@ class RBlade(RCard):
         self.occupation = CardOccupation.Striker
         self.skillCD = 4
         self.isGroup = True
+        self.ped = PassiveEffectivenessDifficulty.veryDifficult
 
         self.lv60s5Hp = 5158
         self.lv60s5Atk = 1387
