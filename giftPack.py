@@ -321,7 +321,7 @@ def activityGiftPacks(gps: list[CostPerformanceHelper]):
     bglb.currencyType = CurrencyType.eCoin
     bglb.price = 1660
     gps.append(bglb)
-    
+
     rwlb = CostPerformanceHelper('晶花原石礼包（幽境幻旅）')
     rwlb.addGameProp(GameProp(PropType.essenceContract, 50))
     rwlb.addGameProp(GameProp(PropType.rawCrystal, 1))
@@ -336,7 +336,7 @@ def sorceryGemGiftPacks(gps: list[CostPerformanceHelper]):
     sglb.currencyType = CurrencyType.eCoin
     sglb.price = 74
     gps.append(sglb)
-    
+
     sglb2 = CostPerformanceHelper('5个魔蕴石')
     sglb2.addGameProp(GameProp(PropType.sorceryGem, 5))
     sglb2.currencyType = CurrencyType.eCoin
@@ -348,39 +348,39 @@ def sorceryGemGiftPacks(gps: list[CostPerformanceHelper]):
     sglb3.currencyType = CurrencyType.eCoin
     sglb3.price = 660
     gps.append(sglb3)
-    
+
     sglb4 = CostPerformanceHelper('20个魔蕴石')
     sglb4.addGameProp(GameProp(PropType.sorceryGem, 20))
     sglb4.currencyType = CurrencyType.eCoin
     sglb4.price = 1465
     gps.append(sglb4)
-    
+
     sglb5 = CostPerformanceHelper('50个魔蕴石')
     sglb5.addGameProp(GameProp(PropType.sorceryGem, 50))
     sglb5.currencyType = CurrencyType.eCoin
     sglb5.price = 3659
     gps.append(sglb5)
-    
+
     sglb6 = CostPerformanceHelper('100个魔蕴石')
     sglb6.addGameProp(GameProp(PropType.sorceryGem, 100))
     sglb6.currencyType = CurrencyType.eCoin
     sglb6.price = 7298
     gps.append(sglb6)
-    
+
     sglb_sp = CostPerformanceHelper('1个魔蕴石（首次）')
     sglb_sp.addGameProp(GameProp(PropType.sorceryGem, 1))
     sglb_sp.addGameProp(GameProp(PropType.spiritGem, 200))
     sglb_sp.currencyType = CurrencyType.eCoin
     sglb_sp.price = 74
     gps.append(sglb_sp)
-    
+
     sglb2_sp = CostPerformanceHelper('5个魔蕴石（首次）')
     sglb2_sp.addGameProp(GameProp(PropType.sorceryGem, 5))
     sglb2_sp.addGameProp(GameProp(PropType.spiritGem, 1000))
     sglb2_sp.currencyType = CurrencyType.eCoin
     sglb2_sp.price = 369
     gps.append(sglb2_sp)
-    
+
     sglb3_sp = CostPerformanceHelper('9个魔蕴石（首次）')
     sglb3_sp.addGameProp(GameProp(PropType.sorceryGem, 9))
     sglb3_sp.addGameProp(GameProp(PropType.spiritGem, 1800))
@@ -431,10 +431,7 @@ def exportGiftPacks(ws, title, gps: list[CostPerformanceHelper], needSort=False)
     ws.cell(row, 7, '最优性价比')
 
     for giftPack in gps:
-        giftPack.seeSorceryGemAsContract = True
-        giftPack.converGamePropList()
-        giftPack.calBasicCostPerformance(False)
-        giftPack.calBestCostPerformance(False)
+        giftPack.calCostPerformance()
 
     if needSort:
         gps.sort(key=lambda x: x.bestCP, reverse=True)
@@ -442,17 +439,18 @@ def exportGiftPacks(ws, title, gps: list[CostPerformanceHelper], needSort=False)
     row += 1
     for giftPack in gps:
         gprow = row
-        rowMap = {}
         for prop in giftPack.gamePropList:
             ws.cell(row, 2, prop.propType.typeName)
             ws.cell(row, 3, prop.number)
-            rowMap[prop] = row
+            result = ''
+            if prop in giftPack.basicCPMap:
+                result = str(giftPack.basicCPMap[prop].number)
+            if prop in giftPack.bestCPMap and prop.propType == PropType.sorceryGem:
+                result += '（' + str(giftPack.bestCPMap[prop].number) + '）'
+            ws.cell(row, 4, result)
             row += 1
         ws.merge_cells(None, gprow, 1, row - 1, 1)
         ws.cell(gprow, 1, giftPack.giftPackName)
-        for prop in giftPack.calMap:
-            if prop in rowMap:
-                ws.cell(rowMap[prop], 4, giftPack.calMap[prop].number)
 
         ws.merge_cells(None, gprow, 5, row - 1, 5)
         ws.cell(gprow, 5, giftPack.price)
@@ -460,7 +458,10 @@ def exportGiftPacks(ws, title, gps: list[CostPerformanceHelper], needSort=False)
         ws.merge_cells(None, gprow, 6, row - 1, 6)
         ws.cell(gprow, 6, str(giftPack.basicCP))
         ws.merge_cells(None, gprow, 7, row - 1, 7)
-        ws.cell(gprow, 7, str(giftPack.bestCP))
+        result = str(giftPack.bestCP)
+        if giftPack.bestCP != giftPack.bestCP2:
+            result += '（' + str(giftPack.bestCP2) + '）'
+        ws.cell(gprow, 7, result)
 
 
 def exportAllGiftPacks(filePath):
@@ -473,16 +474,17 @@ def exportAllGiftPacks(filePath):
     ws.merge_cells(None, 4, 1, 4, 2)
     ws.merge_cells(None, 5, 1, 5, 2)
     ws.merge_cells(None, 6, 1, 6, 2)
-    ws.cell(1, 1, '游戏内各礼包性价比计算（部分物品无法直接购买难以定价，例如角色碎片，这些为0晶灵石）')
+    ws.cell(1, 1, '游戏内各礼包性价比计算')
     ws.cell(2, 1, '所有物品均转为晶灵石后计算（详细请见以下物品转换）')
-    ws.cell(3, 1, '性价比=礼包物品总价值晶灵石/礼包价格直接转换晶灵石')
-    ws.cell(4, 1, '价格直接转换晶灵石取最低，即74 ECoin转换1个魔蕴石')
-    ws.cell(5, 1, '基础性价比=礼包内魔蕴石视为600晶灵石/价格直接转换魔蕴石视为600晶灵石（即74 Ecoin转换600晶灵石）')
-    ws.cell(6, 1, '最优性价比=礼包内魔蕴石视为600晶灵石/价格直接转换魔蕴石视为200晶灵石（即74 Ecoin转换200晶灵石）')
+    ws.cell(3, 1, '部分物品无法直接购买难以定价，例如角色碎片，这些为0晶灵石')
+    ws.cell(4, 1, '性价比=礼包物品总价值晶灵石/ecoin')
+    ws.cell(5, 1, '基础性价比只考虑抽卡（晶灵石/魔蕴石/魔力契约），其他算为0收益')
+    ws.cell(6, 1, '最优性价比考虑所有物品的收益，括号内是魔蕴石转换600晶灵石时的性价比')
 
-    ws.merge_cells(None, 8, 1, 8, 2)
-    ws.cell(8, 1, '物品转换')
-    row = 9
+    row = 7
+    ws.merge_cells(None, row, 1, row, 2)
+    ws.cell(row, 1, '物品转换')
+    row += 1
     for pt in PropTypes():
         ws.cell(row, 1, pt.typeName)
         ws.cell(row, 2, pt.des)

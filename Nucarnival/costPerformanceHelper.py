@@ -1,28 +1,30 @@
-from Props.currencyType import CurrencyType
 from Props.gameProp import GameProp
 from Props.propTypeEnum import PropType
 from decimal import Decimal
 
 
-# 200钻120体力
+# 120体力=200钻
+# 1体力=5/3钻
 def converEnergyToSpiritGem(energy):
-    result = energy / 120 * 200
+    result = energy * 5 / 3
     return round(result)
 
 
-# 50钻14000金币
+# 14000金币=50钻
+# 1金币=1/280钻
 def converCoinToSpiritGem(coin):
-    result = coin / 14000 * 50
+    result = coin / 280
     return round(result)
 
 
-# 1红钻10点蜜话点
-def converVialToSorceryGem(vial, seeAsContract):
-    result = converSorceryGemToSpiritGem(vial / 10, seeAsContract)
+# 10点蜜话点=1红钻=200钻
+# 1点蜜话点=20钻
+def converVialToSorceryGem(vial):
+    result = vial * 20
     return round(result)
 
 
-# 60钻1通关券（和魔法师特权等级有关）
+# 1通关券=60钻（和魔法师特权等级有关）
 def converExpressPassToSorceryGem(_ep, mojo: int):
     discount = 0
     match mojo:
@@ -58,78 +60,75 @@ def converExpressPassToSorceryGem(_ep, mojo: int):
     return round(result)
 
 
-# 1600钻一把钥匙
+# 1把钥匙=1600钻
 def converKeyToSpiritGem(key):
     result = key * 1600
     return round(result)
 
 
-# 5把钥匙合成一把高级钥匙
+# 1把高级钥匙=5把钥匙=8000钻
 def converFancyKeyToSpiritGem(key):
-    result = converKeyToSpiritGem(key) * 5
+    result = key * 8000
     return round(result)
 
 
-# 1个中级礼物近似于2个初级礼物
-def converBasicGiftToSpiritGem(gift, countVial, seeAsContract):
-    if countVial:
-        result = gift * 20 / 12 + converVialToSorceryGem(gift, seeAsContract)
-    else:
-        result = gift * 20 / 12
+# 2个初级礼物近似于1个中级礼物
+# 1个初级礼物=0.5个中级礼物=10/6钻
+def converBasicGiftToSpiritGem(gift):
+    result = gift * 10 / 6
     return round(result)
 
 
-# 20钻6个中级礼物
-def converIntermediateGiftToSpiritGem(gift, countVial, seeAsContract):
-    if countVial:
-        result = gift * 20 / 6 + converVialToSorceryGem(gift, seeAsContract)
-    else:
-        result = gift * 20 / 6
+# 6个中级礼物=20钻
+# 1个中级礼物=10/3钻
+def converIntermediateGiftToSpiritGem(gift):
+    result = gift * 10 / 3
     return round(result)
 
 
-# 30钻3个高级礼物
-def converAdvancedGiftToSpiritGem(gift, countVial, seeAsContract):
-    if countVial:
-        result = gift * 10 + converVialToSorceryGem(gift, seeAsContract)
-    else:
-        result = gift * 10
+# 3个高级礼物=30钻
+# 1个高级礼物=10钻
+def converAdvancedGiftToSpiritGem(gift):
+    result = gift * 10
     return round(result)
 
 
-# 180钻3个回忆图画
+# 3个回忆图画=180钻
+# 1个回忆图画=60钻
 def converUltraGiftToSpiritGem(gift):
     result = gift * 60
     return round(result)
 
 
 # 6个初级潜力道具合成1个中级潜力道具
+# 1个初级潜力道具 =40/6钻=20/3钻
 def converBasicPotentialToSpiritGem(_p):
-    result = converIntermediatePotentialToSpiritGem(_p / 6)
+    result = _p * 20 / 3
     return round(result)
 
 
-# 80钻2个中级潜力道具
+# 2个中级潜力道具=80钻
+# 1个中级潜力道具=40钻
 def converIntermediatePotentialToSpiritGem(_p):
     result = _p * 40
     return round(result)
 
 
-# 80钻1个高级潜力道具
+# 1个高级潜力道具=80钻
 def converAdvancedPotentialToSpiritGem(_p):
     result = _p * 80
     return round(result)
 
 
-# 600钻一个高级合成潜力道具
+# 1个高级合成潜力道具=600钻
 def converAdvancedUpPotentialToSpiritGem(_p):
     result = _p * 600
     return round(result)
 
 
-# 传说潜力道具=2个高级合成+3个中级
+# 传说潜力道具=2个高级合成+3个中级=2*600+3*40钻=1320钻
 def converLegendaryPotentialToSpiritGem(_p):
-    result = converAdvancedUpPotentialToSpiritGem(_p * 2) + converIntermediatePotentialToSpiritGem(_p * 3)
+    result = _p * 1320
     return round(result)
 
 
@@ -142,21 +141,15 @@ def converSorceryGemToSpiritGem(sorceryGem, seeAsContract):
     return round(result)
 
 
-# 74 eCoin=1个魔蕴石
-def converECoinToSpiritGem(ecoin, seeAsContract):
-    result = converSorceryGemToSpiritGem(ecoin / 74, seeAsContract)
+# 1个晶花原石=45红钻=45*200钻=9000钻
+def converRawCrystalToSpiritGem(crystal):
+    result = crystal * 9000
     return round(result)
 
 
-# 45红钻1个晶花原石
-def converRawCrystalToSpiritGem(crystal, seeAsContract):
-    result = converSorceryGemToSpiritGem(45, seeAsContract)
-    return round(result)
-
-
-# 60红钻1个闪耀晶核
-def converCrystalCoreToSpiritGem(crystal, seeAsContract):
-    result = converSorceryGemToSpiritGem(60, seeAsContract)
+# 1个闪耀晶核=60红钻=60*200钻=12000钻
+def converCrystalCoreToSpiritGem(crystal):
+    result = crystal * 12000
     return round(result)
 
 
@@ -178,9 +171,10 @@ def converHolyWaterLToSpiritGem(hw):
     return round(result)
 
 
-# 1红钻25个特大型
-def converHolyWaterXLToSpiritGem(hw, seeAsContract):
-    result = converSorceryGemToSpiritGem(hw / 25, seeAsContract)
+# 25个特大型=1红钻=200钻
+# 1个特大型=8钻
+def converHolyWaterXLToSpiritGem(hw):
+    result = hw * 8
     return round(result)
 
 
@@ -192,14 +186,23 @@ class CostPerformanceHelper:
     def __init__(self, name=''):
         self.giftPackName = name
         self.gamePropList: list[GameProp] = []
-        self.seeSorceryGemAsContract = False
         self.sorcererMojo: int = 5
         self.price = 0
-        self.currencyType: CurrencyType = CurrencyType.eCoin
-        self.countVial = False
-        self.calMap = {}
         self.basicCP = 0
         self.bestCP = 0
+        self.bestCP2 = 0
+        self.basicCPMap = {}
+        self.bestCPMap = {}
+
+    def converGamePropList(self):
+        self.basicCPMap = {}
+        self.bestCPMap = {}
+        for gp in self.gamePropList:
+            newGp = self.convertToSpiritGem(gp, False)
+            self.basicCPMap[gp] = newGp
+            if gp.propType == PropType.sorceryGem:
+                newGp2 = self.convertToSpiritGem(gp, True)
+                self.bestCPMap[gp] = newGp2
 
     def addGameProp(self, _gp: GameProp):
         self.gamePropList.append(_gp)
@@ -208,45 +211,50 @@ class CostPerformanceHelper:
         if _gp in self.gamePropList:
             self.gamePropList.remove(_gp)
 
-    def calBasicCostPerformance(self, doConver=True):
-        self.seeSorceryGemAsContract = True
-        if doConver:
-            self.converGamePropList()
-        self.basicCP = self.calCostPerformance(True)
-
-    def calBestCostPerformance(self, doConver=True):
-        self.seeSorceryGemAsContract = True
-        if doConver:
-            self.converGamePropList()
-        self.bestCP = self.calCostPerformance(False)
-
-    def converGamePropList(self):
-        self.calMap = {}
-        for gp in self.gamePropList:
-            newGp = self.convertToSpiritGem(gp)
-            if newGp is not None:
-                self.calMap[gp] = newGp
-
-    def calCostPerformance(self, basicSeeSorceryGemAsContract):
-        if len(self.gamePropList) == 0 or self.price == 0:
-            return 0
-        if len(self.calMap) == 0:
-            self.converGamePropList()
-
+    def calBasicCostPerformance(self):
         cost = 0
-        for gp in self.calMap:
-            cost += self.calMap[gp].number
-        cp = 0
-        match self.currencyType:
-            case CurrencyType.eCoin:
-                cp = cost / converECoinToSpiritGem(self.price, basicSeeSorceryGemAsContract)
-            case CurrencyType.spiritGem:
-                cp = cost / self.price
-            case CurrencyType.sorceryGem:
-                cp = cost / converSorceryGemToSpiritGem(self.price, basicSeeSorceryGemAsContract)
-        return roundHalfEven(cp)
+        for gp in self.basicCPMap:
+            newGp = None
+            if gp.propType == PropType.sorceryGem \
+                    or gp.propType == PropType.essenceContract or gp.propType == PropType.spiritGem:
+                if gp in self.basicCPMap:
+                    newGp = self.basicCPMap[gp]
+            if newGp is not None:
+                cost += newGp.number
+        cp = cost / self.price
+        self.basicCP = roundHalfEven(cp)
 
-    def convertToSpiritGem(self, _gp: GameProp):
+    def calBestCostPerformance(self):
+        cost = 0
+        for gp in self.basicCPMap:
+            newGp = None
+            if gp in self.basicCPMap:
+                newGp = self.basicCPMap[gp]
+            if newGp is not None:
+                cost += newGp.number
+        cp = cost / self.price
+        self.bestCP = roundHalfEven(cp)
+
+    def calBestCostPerformance2(self):
+        cost = 0
+        for gp in self.basicCPMap:
+            newGp = None
+            if gp.propType == PropType.sorceryGem and gp in self.bestCPMap:
+                newGp = self.bestCPMap[gp]
+            elif gp in self.basicCPMap:
+                newGp = self.basicCPMap[gp]
+            if newGp is not None:
+                cost += newGp.number
+        cp = cost / self.price
+        self.bestCP2 = roundHalfEven(cp)
+
+    def calCostPerformance(self):
+        self.converGamePropList()
+        self.calBasicCostPerformance()
+        self.calBestCostPerformance()
+        self.calBestCostPerformance2()
+
+    def convertToSpiritGem(self, _gp: GameProp, seeSorceryGemAsContract=False):
         if _gp.propType is None:
             return None
         elif _gp.propType == PropType.spiritGem:
@@ -255,7 +263,7 @@ class CostPerformanceHelper:
             match _gp.propType:
                 case PropType.sorceryGem:
                     return GameProp(PropType.spiritGem,
-                                    converSorceryGemToSpiritGem(_gp.number, self.seeSorceryGemAsContract))
+                                    converSorceryGemToSpiritGem(_gp.number, seeSorceryGemAsContract))
                 case PropType.essenceContract:
                     return GameProp(PropType.spiritGem, 600 * _gp.number)
                 case PropType.coin:
@@ -278,13 +286,13 @@ class CostPerformanceHelper:
                     return GameProp(PropType.spiritGem, converLegendaryPotentialToSpiritGem(_gp.number))
                 case PropType.smallEssenceVial:
                     return GameProp(PropType.spiritGem,
-                                    converVialToSorceryGem(_gp.number, self.seeSorceryGemAsContract))
+                                    converVialToSorceryGem(_gp.number))
                 case PropType.middleEssenceVial:
                     return GameProp(PropType.spiritGem,
-                                    converVialToSorceryGem(_gp.number * 5, self.seeSorceryGemAsContract))
+                                    converVialToSorceryGem(_gp.number * 5))
                 case PropType.bigEssenceVial:
                     return GameProp(PropType.spiritGem,
-                                    converVialToSorceryGem(_gp.number * 10, self.seeSorceryGemAsContract))
+                                    converVialToSorceryGem(_gp.number * 10))
                 case PropType.expressPass:
                     return GameProp(PropType.spiritGem, converExpressPassToSorceryGem(_gp.number, self.sorcererMojo))
                 case PropType.key:
@@ -293,24 +301,21 @@ class CostPerformanceHelper:
                     return GameProp(PropType.spiritGem, converFancyKeyToSpiritGem(_gp.number))
                 case PropType.basicGift:
                     return GameProp(PropType.spiritGem,
-                                    converBasicGiftToSpiritGem(_gp.number, self.countVial,
-                                                               self.seeSorceryGemAsContract))
+                                    converBasicGiftToSpiritGem(_gp.number))
                 case PropType.intermediateGift:
                     return GameProp(PropType.spiritGem,
-                                    converIntermediateGiftToSpiritGem(_gp.number, self.countVial,
-                                                                      self.seeSorceryGemAsContract))
+                                    converIntermediateGiftToSpiritGem(_gp.number))
                 case PropType.advancedGift:
                     return GameProp(PropType.spiritGem,
-                                    converAdvancedGiftToSpiritGem(_gp.number, self.countVial,
-                                                                  self.seeSorceryGemAsContract))
+                                    converAdvancedGiftToSpiritGem(_gp.number))
                 case PropType.ultraGift:
                     return GameProp(PropType.spiritGem, converUltraGiftToSpiritGem(_gp.number))
                 case PropType.rawCrystal:
                     return GameProp(PropType.spiritGem,
-                                    converRawCrystalToSpiritGem(_gp.number, self.seeSorceryGemAsContract))
+                                    converRawCrystalToSpiritGem(_gp.number))
                 case PropType.crystalCore:
                     return GameProp(PropType.spiritGem,
-                                    converCrystalCoreToSpiritGem(_gp.number, self.seeSorceryGemAsContract))
+                                    converCrystalCoreToSpiritGem(_gp.number))
                 case PropType.holyWater_S:
                     return GameProp(PropType.spiritGem, converHolyWaterSToSpiritGem(_gp.number))
                 case PropType.holyWater_M:
@@ -319,6 +324,6 @@ class CostPerformanceHelper:
                     return GameProp(PropType.spiritGem, converHolyWaterLToSpiritGem(_gp.number))
                 case PropType.holyWater_XL:
                     return GameProp(PropType.spiritGem,
-                                    converHolyWaterXLToSpiritGem(_gp.number, self.seeSorceryGemAsContract))
+                                    converHolyWaterXLToSpiritGem(_gp.number))
                 case _:
                     return GameProp(PropType.spiritGem, 0)
