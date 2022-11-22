@@ -1,4 +1,5 @@
 import io
+from decimal import Decimal
 
 from openpyxl import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
@@ -6,6 +7,10 @@ from openpyxl.worksheet.worksheet import Worksheet
 from RoleCards.common.card import ICard, roundDown
 from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.conditionTypeEnum import ConditionType
+
+
+def roundHalfEven(value):
+    return float(Decimal(value).quantize(Decimal("0.01"), rounding='ROUND_HALF_EVEN'))
 
 
 class NucarnivalHelper:
@@ -16,6 +21,10 @@ class NucarnivalHelper:
         self.defenseTurn = {}
         self.skillTurn = {}
         self.damageRecord = {}
+        self.damageRecord_attack = {}
+        self.damageRecord_skill = {}
+        self.damageRecord_dot = {}
+        self.damageRecord_counter = {}
         self.counterRecord = {}
         self.turnDamageRecord = {}
         self.currentTurn = 0
@@ -36,6 +45,10 @@ class NucarnivalHelper:
 
     def clearUpBattleResult(self):
         self.damageRecord = {}
+        self.damageRecord_attack = {}
+        self.damageRecord_skill = {}
+        self.damageRecord_dot = {}
+        self.damageRecord_counter = {}
         self.counterRecord = {}
         self.turnDamageRecord = {}
         self.currentTurn = 0
@@ -54,12 +67,34 @@ class NucarnivalHelper:
         if self.ws is None:
             self.ws = self.wb.create_sheet('伤害模拟结果' + str(self.sheetCount), 0)
 
-    def recordDamage(self, role: ICard, damage):
+    def recordDamage(self, role: ICard, damage, damageType:int):
         record = damage
         if role in self.damageRecord:
             oldDamage = self.damageRecord[role]
             record += oldDamage
         self.damageRecord[role] = record
+        record2 = damage
+        match damageType:
+            case 0:
+                if role in self.damageRecord_attack:
+                    oldDamage2 = self.damageRecord_attack[role]
+                    record2 += oldDamage2
+                self.damageRecord_attack[role] = record2
+            case 1:
+                if role in self.damageRecord_skill:
+                    oldDamage2 = self.damageRecord_skill[role]
+                    record2 += oldDamage2
+                self.damageRecord_skill[role] = record2
+            case 2:
+                if role in self.damageRecord_dot:
+                    oldDamage2 = self.damageRecord_dot[role]
+                    record2 += oldDamage2
+                self.damageRecord_dot[role] = record2
+            case 3:
+                if role in self.damageRecord_counter:
+                    oldDamage2 = self.damageRecord_counter[role]
+                    record2 += oldDamage2
+                self.damageRecord_counter[role] = record2
 
         tempDamageRecord = {}
         if self.currentTurn in self.turnDamageRecord:
@@ -166,16 +201,56 @@ class NucarnivalHelper:
             print(msg)
         self.totalDamage = 0
         self.ws.cell(row, turn + 2, '总伤害')
+        self.ws.cell(row, turn + 3, '伤害占比')
         temp = 1
         for role in self.team:
             self.ws.cell(row + temp, 1, role.cardInfo(False))
             if role in self.damageRecord:
                 self.totalDamage += self.damageRecord[role]
                 msg = '总{}回合，{} 总伤害为：{}'.format(turn, role.cardInfo(False), self.damageRecord[role])
+                msg2 = '{}输出占比为：'.format(role.cardInfo(False))
+                msg3 = ''
                 self.recordBattleMsg(msg)
                 self.ws.cell(row + temp, turn + 2, str(self.damageRecord[role]))
+                if self.damageRecord[role] > 0:
+                    if role in self.damageRecord_attack:
+                        if self.damageRecord_attack[role] > 0:
+                            damageProportion = self.damageRecord_attack[role] / self.damageRecord[role] * 100
+                            damageProportion = roundHalfEven(damageProportion)
+                            msg2 += '普攻（' + str(damageProportion) + '%）'
+                            if len(msg3) != 0:
+                                msg3 += '\n'
+                            msg3 += '普攻（' + str(damageProportion) + '%）'
+                    if role in self.damageRecord_skill:
+                        if self.damageRecord_skill[role] > 0:
+                            damageProportion = self.damageRecord_skill[role] / self.damageRecord[role] * 100
+                            damageProportion = roundHalfEven(damageProportion)
+                            msg2 += '必杀（' + str(damageProportion) + '%）'
+                            if len(msg3) != 0:
+                                msg3 += '\n'
+                            msg3 += '必杀（' + str(damageProportion) + '%）'
+                    if role in self.damageRecord_dot:
+                        if self.damageRecord_dot[role] > 0:
+                            damageProportion = self.damageRecord_dot[role] / self.damageRecord[role] * 100
+                            damageProportion = roundHalfEven(damageProportion)
+                            msg2 += '持续伤害（' + str(damageProportion) + '%）'
+                            if len(msg3) != 0:
+                                msg3 += '\n'
+                            msg3 += '持续伤害（' + str(damageProportion) + '%）'
+                    if role in self.damageRecord_counter:
+                        if self.damageRecord_counter[role] > 0:
+                            damageProportion = self.damageRecord_counter[role] / self.damageRecord[role] * 100
+                            damageProportion = roundHalfEven(damageProportion)
+                            msg2 += '反击（' + str(damageProportion) + '%）'
+                            if len(msg3) != 0:
+                                msg3 += '\n'
+                            msg3 += '反击（' + str(damageProportion) + '%）'
+
                 if printInfo:
                     print(msg)
+                    print(msg2)
+                self.ws.cell(row + temp, turn + 3, msg3)
+
             temp += 1
         msg = '总{}回合，整个队伍伤害：{}'.format(turn, self.totalDamage)
         self.ws.cell(row + temp, turn + 2, str(self.totalDamage))
@@ -221,12 +296,12 @@ class NucarnivalHelper:
                 damage = self.doAttack(role, monster, cardList2, row, turn, printInfo, isEnemy)
                 role.doBloodSuck(damage)
                 if isEnemy is False:
-                    self.recordDamage(role, damage)
+                    self.recordDamage(role, damage, 0)
             else:
                 damage = self.doSkill(role, monster, cardList2, row, turn, printInfo, isEnemy)
                 role.doBloodSuck(damage)
                 if isEnemy is False:
-                    self.recordDamage(role, damage)
+                    self.recordDamage(role, damage, 1)
             row += 1
 
     def settleDotAndHot(self, cardList: list[ICard] = [], defaultRow=0, turn=0, printInfo=False, isEnemy=False):
@@ -247,7 +322,7 @@ class NucarnivalHelper:
                             else:
                                 cellMsg += '\n持续伤害：' + str(dotDamage)
                             self.ws.cell(row, turn + 1, cellMsg)
-                        self.recordDamage(source, dotDamage)
+                        self.recordDamage(source, dotDamage, 2)
                     msg = '{}造成了持续伤害：{}'.format(source.cardInfo(False), dotDamage)
                     if isEnemy:
                         self.recordBattleMsg(msg)
@@ -286,7 +361,7 @@ class NucarnivalHelper:
                         else:
                             cellMsg += '\n反击：' + str(damage)
                         self.ws.cell(row, turn + 1, cellMsg)
-                        self.recordDamage(role, damage)
+                        self.recordDamage(role, damage, 3)
                     msg = role.cardInfo(False) + '  反击造成伤害：' + str(damage)
                     if isEnemy is False:
                         self.recordBattleMsg(msg)
