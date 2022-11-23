@@ -1,16 +1,11 @@
 import io
-from decimal import Decimal
-
 from openpyxl import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
 
 from RoleCards.common.card import ICard, roundDown
 from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.conditionTypeEnum import ConditionType
-
-
-def roundHalfEven(value):
-    return float(Decimal(value).quantize(Decimal("0.01"), rounding='ROUND_HALF_EVEN'))
+from Common.ncRound import roundHalfEven
 
 
 class NucarnivalHelper:

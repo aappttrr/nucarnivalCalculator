@@ -1,6 +1,6 @@
 from Props.gameProp import GameProp
 from Props.propTypeEnum import PropType
-from decimal import Decimal
+from Common.ncRound import roundHalfEven
 
 
 # 120体力=200钻
@@ -176,10 +176,6 @@ def converHolyWaterLToSpiritGem(hw):
 def converHolyWaterXLToSpiritGem(hw):
     result = hw * 8
     return round(result)
-
-
-def roundHalfEven(value):
-    return float(Decimal(value).quantize(Decimal("0.01"), rounding='ROUND_HALF_EVEN'))
 
 
 class CostPerformanceHelper:

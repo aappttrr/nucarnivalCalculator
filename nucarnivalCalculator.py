@@ -5,7 +5,7 @@ import tkinter.filedialog
 from functools import partial
 
 from PyQt5 import QtCore, QtGui
-from PyQt5.QtCore import Qt, QModelIndex
+from PyQt5.QtCore import Qt, QModelIndex, QDate
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import QMainWindow, QApplication
 
@@ -183,14 +183,17 @@ class MainWindow(QMainWindow):
         intValidator = QIntValidator()
         self.ui.hpLineEdit.setValidator(intValidator)
         self.ui.atkLineEdit.setValidator(intValidator)
+        self.ui.currentPointLineEdit.setValidator(intValidator)
+        self.ui.targetPointLineEdit.setValidator(intValidator)
 
     # 绑定各种方法
     def bindFun(self):
         self.ui.idButton.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0))
         self.ui.cardListBtn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(1))
         self.ui.damageCalculatorBtn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(2))
-        self.ui.helpBtn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(3))
-        self.ui.updateLogBtn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(4))
+        self.ui.activityCalBtn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(3))
+        self.ui.helpBtn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(4))
+        self.ui.updateLogBtn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(5))
         self.ui.openFilterBtn.clicked.connect(
             lambda: self.ui.filterGroupBox.show()
             if self.ui.filterGroupBox.isHidden() else self.ui.filterGroupBox.hide())
@@ -295,6 +298,12 @@ class MainWindow(QMainWindow):
         self.ui.useExpectedValueCheckBox.clicked.connect(self.setUev)
         self.ui.exportCardListBtn.clicked.connect(exportCardList)
         self.ui.loadCardListBtn.clicked.connect(self.loadCardList)
+
+        self.ui.startDateEdit.dateChanged.connect(self.setStartDate)
+
+    def setStartDate(self, date: QDate):
+        print(type(date.toPyDate()))
+
 
     def loadCardList(self):
         filepath = tkinter.filedialog.askopenfilename(

@@ -1,6 +1,3 @@
-import math
-from decimal import Decimal
-
 from RoleCards.buff.buff import Buff
 from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
@@ -11,6 +8,7 @@ from RoleCards.enum.conditionTypeEnum import ConditionType
 from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 from RoleCards.enum.tierType import TierType
 from RoleCards.tier.tierData import getTierData
+from Common.ncRound import roundDown, roundCeiling
 
 
 def calBond(lv60s5=1, _bond=0):
@@ -55,25 +53,6 @@ def calLv(lv60s5=1, _lv=60):
         result = result / 1.05
         # result = roundCeiling(result)
     return result
-
-
-'''
-ROUND_CEILING（朝向无限），
-ROUND_DOWN（朝向零），
-ROUND_FLOOR（朝向无限），
-ROUND_HALF_DOWN（最接近，领带朝向零），
-ROUND_HALF_EVEN（到最近的，领带到最近的偶数整数），
-ROUND_HALF_UP（最接近零）或ROUND_ UP（远离零）。
-ROUND_05UP（如果向零舍入后的最后一位数字为0或5，则远离零；否则为零）
-'''
-
-
-def roundCeiling(value=0):
-    return int(Decimal(value).quantize(Decimal("1."), rounding='ROUND_CEILING'))
-
-
-def roundDown(value=0):
-    return int(Decimal(value).quantize(Decimal("1."), rounding='ROUND_DOWN'))
 
 
 class ICard:
