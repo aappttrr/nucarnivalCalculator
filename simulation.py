@@ -302,7 +302,7 @@ def similationTeamMate(helper: NucarnivalHelper, x: ICard):
         mate3 = TempTeamMate()
         mate3.role = CardRole.Aster
         helper.team.append(mate3)
-    elif x.cardName == '骑士副团长':
+    elif x.cardName == '骑士副团长' or x.cardName == '专属指导':
         mate = TempTeamMate()
         mate.role = CardRole.Edmond
         helper.team.append(mate)
@@ -322,6 +322,22 @@ if __name__ == '__main__':
     _helper = NucarnivalHelper()
 
     _cardHelper = CardHelper()
+    _cardHelper.cardList[29].setProperties(60, 5, 5, 12)
+    _cardHelper.cardList[27].setProperties(60, 5, 5, 12)
+    _cardHelper.cardList[1].setProperties(60, 3, 5, 12)
+    _cardHelper.cardList[13].setProperties(60, 3, 5, 12)
+    _cardHelper.cardList[24].setProperties(60, 3, 5, 12)
+    _cardHelper.cardList[25].setProperties(60, 5, 5, 12)
+    _cardHelper.cardList[30].setProperties(60, 5, 5, 12)
+    _helper.team.append(_cardHelper.cardList[29])
+    _helper.team.append(_cardHelper.cardList[27])
+    _helper.team.append(_cardHelper.cardList[13])
+    _helper.team.append(_cardHelper.cardList[25])
+    _helper.team.append(_cardHelper.cardList[30])
+    _helper.monsters.append(CommonMonster())
+    _helper.maxTurn = 13
+    _helper.battleStart(True)
+    _helper.exportExcel('C:\\fhs\\python\\模拟.xls')
 
     # simulation1('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_不配置队友.xls', _cardHelper, _helper, False, False)
     # simulation1('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_配置队友.xls', _cardHelper, _helper, True, False)
@@ -330,5 +346,5 @@ if __name__ == '__main__':
 
     # simulation2('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
     # simulation2('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
-    simulation2('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
-    simulation2('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
+    # simulation2('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
+    # simulation2('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)

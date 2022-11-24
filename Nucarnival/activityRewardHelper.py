@@ -12,7 +12,7 @@ class ActivityRewardHelper:
         self.targetPoint: int = 0
         self.startDate: datetime.date = None
         self.endDate: datetime.date = None
-        self.currentDate: datetime.date = None
+        self.fromToday = False
         self.tb = 0
         self.bb = 0
         self.sb = 0
@@ -72,48 +72,9 @@ class ActivityRewardHelper:
         data = {'energy': gemEnergy, 'gem': gem, 'battleCount': dailyBattleCount}
         return data
 
-    def cal(self):
-        days = self.getDays()
-        if days <= 0:
-            return False
-        print('活动持续{}天'.format(days))
-        if self.currentDate > 0:
-            print('目前有{}积分'.format(self.currentPoint))
-
-        dailyEnergy = self.getDailyEnergy()
-        needPoint = self.targetPoint - self.currentPoint
-        totalEnergy = dailyEnergy * days
-        totalEnergy += self.tb * 10
-        totalEnergy += self.bb * 30
-        totalEnergy += self.sb * 100
-        print('日常可用于刷取活动的体力为：{}')
-        print('额外有微型日月精华{}个，初级日月精华{}个，上级日月精华{}个'.format(self.tb, self.bb, self.sb))
-        print('总共可使用的体力为：{}'.format(totalEnergy))
-        print('')
-
-        battleCount1 = roundDown(totalEnergy / self.battleCost)
-        dailyBattleCount1 = roundCeiling(battleCount1 / days)
-        totalPoint = battleCount1 * self.battlePoint + self.currentPoint
-
-        print('不额外获取体力的情况，按照可用体力，一共能刷积分：{}'.format(totalPoint))
-        print('每天需要刷{}次，如果每天刷次数小于10可能会无法完成日常任务（日常任务提供30体力）'.format(dailyBattleCount1))
-
-        battleCount2 = roundCeiling(needPoint / self.battlePoint)
-        dailyBattleCount2 = roundCeiling(battleCount2 / days)
-        needEnergy = battleCount2 * self.battleCost
-        gemEnergy = 0
-        gem = 0
-        if needEnergy > totalEnergy:
-            gemEnergy = needEnergy - totalEnergy
-        if gemEnergy > 0:
-            gem = gemEnergy * 5 / 3
-
-        print('如果需要刷到目标积分{}，则需要额外使用{}体力，共需要{}晶灵石兑换体力'.
-              format(self.targetPoint, gemEnergy, gem))
-        print('每天需要刷{}次，如果每天刷次数小于10可能会无法完成日常任务（日常任务提供30体力）'.format(dailyBattleCount2))
-
     def getDailyEnergy(self):
         dailyEnergy = 12 * 24
+        dailyEnergy += 30
         if self.xyk:
             dailyEnergy += 60
         if self.dyk:
@@ -129,11 +90,12 @@ class ActivityRewardHelper:
         if self.startDate is None or self.endDate is None:
             return days
         try:
-            if self.currentDate is not None and self.currentDate < self.endDate:
-                days = (self.endDate - self.currentDate).days
+            if self.fromToday:
+                days = (self.endDate - datetime.date.today()).days
             else:
-                if self.startDate < self.endDate:
-                    days = (self.endDate - self.startDate).days
+                days = (self.endDate - self.startDate).days
         except:
+            days = 0
+        if days < 0:
             days = 0
         return days

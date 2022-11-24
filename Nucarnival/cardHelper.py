@@ -1,6 +1,7 @@
 from RoleCards.cards.aster.n_aster import NAster
 from RoleCards.cards.aster.r_aster import RAster
 from RoleCards.cards.aster.sr_aster import SRAster
+from RoleCards.cards.blade.lovableEnforcer import LovableEnforcer
 from RoleCards.cards.blade.n_Blade import NBlade
 from RoleCards.cards.blade.r_Blade import RBlade
 from RoleCards.cards.blade.sr_Blade import SRBlade
@@ -11,6 +12,7 @@ from RoleCards.cards.dante.eternalHanabi import EternalHanabi
 from RoleCards.cards.dante.n_Dante import NDante
 from RoleCards.cards.dante.r_Dante import RDante
 from RoleCards.cards.dante.sr_Dante import SRDante
+from RoleCards.cards.edmond.eliteInstructor import EliteInstructor
 from RoleCards.cards.edmond.knightlyNight import KnightlyNight
 from RoleCards.cards.edmond.n_Edmond import NEdmond
 from RoleCards.cards.edmond.r_Edmond import REdmond
@@ -89,6 +91,7 @@ class CardHelper:
         ssrFT = KnightlyNight()
         bqFT = WhiteLover()
         hhFT = SweetAroma()
+        jgFT = EliteInstructor()
 
         # 奥利文
         srO = SROlivine()
@@ -128,6 +131,7 @@ class CardHelper:
         nBL = NBlade()
         ssrBL = ExplosiveRecall()
         xBL = IdolApprentice()
+        npBL = LovableEnforcer()
 
         # 啖天
         srDT = SRDante()
@@ -138,7 +142,7 @@ class CardHelper:
 
         # 根据官方回廊顺序添加卡牌：
         # 艾斯特 墨菲 八云 副团 奥利文 昆西 玖夜 小狼 布儡 蛋总
-        # 普ssr
+        # 普ssr 0
         self.cardList.append(ssrB)
         self.cardList.append(ssrFT)
         self.cardList.append(ssrO)
@@ -148,7 +152,7 @@ class CardHelper:
         self.cardList.append(ssrBL)
         self.cardList.append(ssrDT)
 
-        # 第一轮限定
+        # 第一轮限定 8
         self.cardList.append(bqB)
         self.cardList.append(bqFT)
         self.cardList.append(hO)
@@ -158,18 +162,20 @@ class CardHelper:
         self.cardList.append(xBL)
         self.cardList.append(hhDT)
 
-        # 第二轮限定
+        # 第二轮限定 16
         self.cardList.append(xB)
         self.cardList.append(hhFT)
         self.cardList.append(xO)
         self.cardList.append(yKX)
         self.cardList.append(naiHL)
         self.cardList.append(guaL)
+        self.cardList.append(npBL)
 
-        # 第三轮限定
+        # 第三轮限定 23
         self.cardList.append(dB)
+        self.cardList.append(jgFT)
 
-        # sr
+        # sr 25
         self.cardList.append(srA)
         self.cardList.append(srM)
         self.cardList.append(srB)

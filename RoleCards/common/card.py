@@ -211,10 +211,10 @@ class ICard:
         self.hp = _hp
         self.atk = _atk
 
-    def setHpDirect(self, _hp,):
+    def setHpDirect(self, _hp, ):
         self.hp = _hp
 
-    def setAtkDirect(self,_atk):
+    def setAtkDirect(self, _atk):
         self.atk = _atk
 
     def getMagnification(self, _s1, _s2, _s4):
@@ -345,7 +345,7 @@ class ICard:
 
         return result
 
-    def increaseHeal(self,heal):
+    def increaseHeal(self, heal):
         result = heal
 
         # 由自身提升的造成回复量增加
@@ -437,6 +437,8 @@ class ICard:
         # 由自己提升的受到伤害增加
         damageIncrease = 0
         defenseIncrease = 0.5
+        damageIncreaseByRole = 0
+
         for buff in self.buffs:
             if seeAsAttack and buff.buffType == BuffType.BeAttackIncrease:
                 aIncrease += buff.value
@@ -447,9 +449,11 @@ class ICard:
                 damageIncrease += buff.value
             if buff.buffType == BuffType.DefenseDamageReduction:
                 defenseIncrease += buff.value
+            if buff.buffType == BuffType.BeDamageIncreaseByRole \
+                    and enemy.role == buff.targetRole:
+                damageIncreaseByRole += buff.value
 
-        if self.defense:
-            damageIncrease -= defenseIncrease
+        # damageIncrease += damageIncreaseByRole
 
         if aIncrease != 0:
             result = result * (1 + aIncrease)
@@ -459,6 +463,12 @@ class ICard:
             result = roundDown(result)
         if damageIncrease != 0:
             result = result * (1 + damageIncrease)
+            result = roundDown(result)
+        if damageIncreaseByRole != 0:
+            result = result * (1 + damageIncreaseByRole)
+            result = roundDown(result)
+        if self.defense:
+            result = result * (1 - defenseIncrease)
             result = roundDown(result)
 
         # 属性克制
@@ -609,7 +619,21 @@ class ICard:
             buff.source = self
         self.buffs.append(buff)
 
+    def beAttackedAfter(self, seeAsBeAttacked):
+        newBuffs = {}
+        if seeAsBeAttacked:
+            for buff in self.buffs:
+                if buff.conditionType != ConditionType.WhenBeAttacked:
+                    continue
+                if buff.buffType == BuffType.AddBeDamageIncrease:
+                    newBuff = Buff(buff.buffId, buff.value, buff.addBuffTurn, BuffType.BeDamageIncrease)
+                    newBuffs[newBuff] = buff.source
+        for newBuff in newBuffs:
+            self.addBuff(newBuff, newBuffs[newBuff])
+
     def beAttacked(self, damage, seeAsBeAttacked):
+        if damage <= 0:
+            return 0
         removeBuffs: list[Buff] = []
         result = damage
         for buff in self.buffs:

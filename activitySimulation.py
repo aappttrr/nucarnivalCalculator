@@ -30,7 +30,7 @@ if __name__ == '__main__':
     _helper.endDate = datetime.date(2022, 12, 15)
     days = _helper.getDays()
 
-    _helper.activityRewards.append(ActivityReward(PropType.spiritGem, 500, 10000))
+    # _helper.activityRewards.append(ActivityReward(PropType.spiritGem, 500, 10000))
     _helper.battlePoint = 100
     _helper.battleCost = 30
 

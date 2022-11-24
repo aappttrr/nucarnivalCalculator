@@ -412,14 +412,14 @@ class NucarnivalHelper:
                 isEnemy=False):
         role.skillCount = 0
         damage = role.skill(monster)
-        totalDamage = self.groupDamage(damage, role, monster, cardList2, role.isGroup, False, True, True)
-
+        damage2 = self.groupDamage(damage, role, monster, cardList2, role.isGroup, False, True, True)
+        totalDamage = damage2
         # 必杀时追击
         fuDamage = self.followUp(role, monster, cardList2, False)
         totalDamage += fuDamage
-        damageStr = str(damage)
+        damageStr = str(damage2)
         if fuDamage > 0:
-            damageStr = '(' + str(damage) + ',' + str(fuDamage) + ') = ' + str(totalDamage)
+            damageStr = '(' + str(damage2) + ',' + str(fuDamage) + ') = ' + str(totalDamage)
         msg = role.cardInfo(False) + '  必杀造成伤害：' + damageStr
         if isEnemy is False:
             cellMsg = self.ws.cell(row, turn + 1).value
@@ -432,20 +432,23 @@ class NucarnivalHelper:
         if printInfo and isEnemy is False:
             print(msg)
         role.skillAfter(monster)
+        if totalDamage > 0:
+            monster.beAttackedAfter(True)
         return totalDamage
 
     # 普攻
     def doAttack(self, role: ICard, monster: ICard, cardList2: list[ICard] = [], row=0, turn=0, printInfo=False,
                  isEnemy=False):
         damage = role.attack(monster)
-        totalDamage = self.groupDamage(damage, role, monster, cardList2, role.isGroup, True, False, True)
+        damage2 = self.groupDamage(damage, role, monster, cardList2, role.isGroup, True, False, True)
 
+        totalDamage = damage2
         # 普攻时追击
         fuDamage = self.followUp(role, monster, cardList2, True)
         totalDamage += fuDamage
-        damageStr = str(damage)
+        damageStr = str(damage2)
         if fuDamage > 0:
-            damageStr = '(' + str(damage) + ',' + str(fuDamage) + ') = ' + str(totalDamage)
+            damageStr = '(' + str(damage2) + ',' + str(fuDamage) + ') = ' + str(totalDamage)
 
         msg = role.cardInfo(False) + '  普攻造成伤害：' + damageStr
         if isEnemy is False:
@@ -460,6 +463,8 @@ class NucarnivalHelper:
             print(msg)
 
         role.attackAfter(monster)
+        if totalDamage > 0:
+            monster.beAttackedAfter(True)
         return totalDamage
 
     def groupDamage(self, damage, role: ICard, monster: ICard, cardList2: list[ICard] = [], isGroup=False,
