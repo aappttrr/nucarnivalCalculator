@@ -177,6 +177,7 @@ class MainWindow(QMainWindow):
         self.ui.cardListTable2.setModel(self.filterModel2)
         self.ui.filterGroupBox.hide()
         self.ui.filterGroupBox2.hide()
+        self.ui.activityCalBtn.hide()
 
     # 绑定各种验证器
     def bindValidator(self):
@@ -207,6 +208,8 @@ class MainWindow(QMainWindow):
         self.ui.calDamageBtn.clicked.connect(self.calDamage)
         self.ui.addTeamBtn.clicked.connect(self.addTeam)
         self.ui.removeTeamBtn.clicked.connect(self.removeTeam)
+        self.ui.leftTeamBtn.clicked.connect(self.leftTeam)
+        self.ui.rightTeamBtn.clicked.connect(self.rightTeam)
         self.ui.team1.clicked.connect(partial(self.clickTeamBtn, 0))
         self.ui.team2.clicked.connect(partial(self.clickTeamBtn, 1))
         self.ui.team3.clicked.connect(partial(self.clickTeamBtn, 2))
@@ -303,7 +306,6 @@ class MainWindow(QMainWindow):
 
     def setStartDate(self, date: QDate):
         print(type(date.toPyDate()))
-
 
     def loadCardList(self):
         filepath = tkinter.filedialog.askopenfilename(
@@ -524,11 +526,15 @@ class MainWindow(QMainWindow):
         if self.currentTeam in nucarnivalHelper.team:
             self.ui.addTeamBtn.setEnabled(False)
             self.ui.removeTeamBtn.setEnabled(True)
+            self.ui.leftTeamBtn.setEnabled(True)
+            self.ui.rightTeamBtn.setEnabled(True)
             listIndex = nucarnivalHelper.team.index(self.currentTeam)
             self.focusTeamBtn(listIndex + 1)
         else:
             self.ui.addTeamBtn.setEnabled(True)
             self.ui.removeTeamBtn.setEnabled(False)
+            self.ui.leftTeamBtn.setEnabled(False)
+            self.ui.rightTeamBtn.setEnabled(False)
 
     def focusTeamBtn(self, index):
         btn = None
@@ -551,9 +557,13 @@ class MainWindow(QMainWindow):
         if index < len(nucarnivalHelper.team):
             self.currentTeam = nucarnivalHelper.team[index]
             self.ui.removeTeamBtn.setEnabled(True)
+            self.ui.leftTeamBtn.setEnabled(True)
+            self.ui.rightTeamBtn.setEnabled(True)
         else:
             self.currentTeam = None
             self.ui.removeTeamBtn.setEnabled(False)
+            self.ui.leftTeamBtn.setEnabled(False)
+            self.ui.rightTeamBtn.setEnabled(False)
 
     def updateTeam(self):
         self.updateTeamBtn(1, None)
@@ -605,6 +615,21 @@ class MainWindow(QMainWindow):
         self.currentTeam = None
         self.ui.removeTeamBtn.setEnabled(False)
 
+    def leftTeam(self):
+        if self.currentTeam is not None and self.currentTeam in nucarnivalHelper.team:
+            index = nucarnivalHelper.team.index(self.currentTeam)
+            if 0 < index <= 4:
+                nucarnivalHelper.team.remove(self.currentTeam)
+                nucarnivalHelper.team.insert(index - 1, self.currentTeam)
+                self.updateTeam()
+
+    def rightTeam(self):
+        if self.currentTeam is not None and self.currentTeam in nucarnivalHelper.team:
+            index = nucarnivalHelper.team.index(self.currentTeam)
+            if index < len(nucarnivalHelper.team) - 1 and 0 <= index < 4:
+                nucarnivalHelper.team.remove(self.currentTeam)
+                nucarnivalHelper.team.insert(index + 1, self.currentTeam)
+                self.updateTeam()
 
     # 拖拽∶
     def mousePressEvent(self, event):

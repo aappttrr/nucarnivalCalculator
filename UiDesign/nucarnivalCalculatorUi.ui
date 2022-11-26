@@ -2304,8 +2304,8 @@ QPushButton:focus{
                                <rect>
                                 <x>0</x>
                                 <y>0</y>
-                                <width>83</width>
-                                <height>59</height>
+                                <width>1425</width>
+                                <height>430</height>
                                </rect>
                               </property>
                               <layout class="QVBoxLayout" name="verticalLayout_18">
@@ -2422,6 +2422,26 @@ QPushButton:focus{
                              </property>
                              <property name="text">
                               <string> 移出队伍 </string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                            <widget class="QPushButton" name="leftTeamBtn">
+                             <property name="enabled">
+                              <bool>false</bool>
+                             </property>
+                             <property name="text">
+                              <string> 左移 </string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                            <widget class="QPushButton" name="rightTeamBtn">
+                             <property name="enabled">
+                              <bool>false</bool>
+                             </property>
+                             <property name="text">
+                              <string> 右移 </string>
                              </property>
                             </widget>
                            </item>
