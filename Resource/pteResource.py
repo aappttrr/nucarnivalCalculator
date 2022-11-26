@@ -19,7 +19,7 @@ def getWelcomeContent():
 
 def getHelpContent():
     output = io.StringIO()
-    writeLineString(output, '当前版本：v1.1-2022-11-17')
+    writeLineString(output, '当前版本：v1.2-2022-11-26')
     writeLineString(output, '有任何问题、Bug都可以给我留言~~')
     writeLineString(output, 'B站：纳萨尔')
     writeLineString(output, '')
@@ -99,10 +99,34 @@ def getHelpContent():
 
 def getUpdateLogContent():
     output = io.StringIO()
+    getUpdateLogContent_1_2(output)
+    writeLineString(output, '')
     getUpdateLogContent_1_1(output)
     writeLineString(output, '')
     getUpdateLogContent_1_0(output)
     return output.getvalue()
+
+
+def getUpdateLogContent_1_2(_output: io.StringIO):
+    writeDashString(_output, 36)
+    writeString(_output, '2022.11.26')
+    writeDashString(_output, 36)
+    writeLineString(_output, '')
+    writeLineString(_output, 'v1.2:')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '①增加【专属指导】- 艾德蒙特')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '②增加【守护甜心】- 布儡')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '③优化【被攻击】判定，在一次普攻/必杀中只触发一次，伤害为0时不触发（例如辅助、奶妈）')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '④增加【受某角色伤害提升】buff，设置为独立乘区')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '⑤增加输出占比结果')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '⑥修复N卡可以定义蜜话的问题')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '⑦增加伤害模拟卡牌左移右移的功能')
 
 
 def getUpdateLogContent_1_1(_output: io.StringIO):

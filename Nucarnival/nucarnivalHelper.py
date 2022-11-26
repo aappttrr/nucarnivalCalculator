@@ -215,7 +215,7 @@ class NucarnivalHelper:
                             msg2 += '普攻（' + str(damageProportion) + '%）'
                             if len(msg3) != 0:
                                 msg3 += '\n'
-                            msg3 += '普攻（' + str(damageProportion) + '%）'
+                            msg3 += '普攻占比（' + str(damageProportion) + '%）'
                     if role in self.damageRecord_skill:
                         if self.damageRecord_skill[role] > 0:
                             damageProportion = self.damageRecord_skill[role] / self.damageRecord[role] * 100
@@ -223,7 +223,7 @@ class NucarnivalHelper:
                             msg2 += '必杀（' + str(damageProportion) + '%）'
                             if len(msg3) != 0:
                                 msg3 += '\n'
-                            msg3 += '必杀（' + str(damageProportion) + '%）'
+                            msg3 += '必杀占比（' + str(damageProportion) + '%）'
                     if role in self.damageRecord_dot:
                         if self.damageRecord_dot[role] > 0:
                             damageProportion = self.damageRecord_dot[role] / self.damageRecord[role] * 100
@@ -231,7 +231,7 @@ class NucarnivalHelper:
                             msg2 += '持续伤害（' + str(damageProportion) + '%）'
                             if len(msg3) != 0:
                                 msg3 += '\n'
-                            msg3 += '持续伤害（' + str(damageProportion) + '%）'
+                            msg3 += '持续伤害占比（' + str(damageProportion) + '%）'
                     if role in self.damageRecord_counter:
                         if self.damageRecord_counter[role] > 0:
                             damageProportion = self.damageRecord_counter[role] / self.damageRecord[role] * 100
@@ -239,12 +239,13 @@ class NucarnivalHelper:
                             msg2 += '反击（' + str(damageProportion) + '%）'
                             if len(msg3) != 0:
                                 msg3 += '\n'
-                            msg3 += '反击（' + str(damageProportion) + '%）'
+                            msg3 += '反击占比（' + str(damageProportion) + '%）'
 
                 if printInfo:
                     print(msg)
                     print(msg2)
                 self.ws.cell(row + temp, turn + 3, msg3)
+                self.recordBattleMsg(msg3)
 
             temp += 1
         msg = '总{}回合，整个队伍伤害：{}'.format(turn, self.totalDamage)

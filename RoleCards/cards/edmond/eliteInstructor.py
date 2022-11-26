@@ -14,7 +14,7 @@ class EliteInstructor(SSRCard):
         super(EliteInstructor, self).__init__()
         self.cardId = 'EliteInstructor'
         self.cardName = '专属指导'
-        self.nickName = '教师团'
+        self.nickName = '暗团'
         self.role = CardRole.Edmond
         self.cardType = CardType.Dark
         self.occupation = CardOccupation.Striker
