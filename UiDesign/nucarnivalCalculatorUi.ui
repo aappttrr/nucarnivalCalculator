@@ -21,7 +21,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QLabel,QCheckBox,QLineEdit,QComboBox,QPushButton,QTableView,QTabWidget,
-QPlainTextEdit,QGroupBox,QRadioButton{
+QPlainTextEdit,QGroupBox,QRadioButton,QDateEdit{
 	font-family:&quot;思源宋体 CN&quot;,&quot;Arial&quot;,&quot;Times New Roman&quot;;
 }</string>
   </property>
@@ -547,7 +547,7 @@ QFrame,QWidget,QStackedWidget,QTabWidget{
 	background-color: rgb(255, 255, 255);
 }
 QLabel,QCheckBox,QLineEdit,QComboBox,QPushButton,QTableView,QTabWidget,
-QPlainTextEdit,QGroupBox,QRadioButton{
+QPlainTextEdit,QGroupBox,QRadioButton,QDateEdit{
 	font-size: 14pt;
 }</string>
             </property>
@@ -2304,8 +2304,8 @@ QPushButton:focus{
                                <rect>
                                 <x>0</x>
                                 <y>0</y>
-                                <width>1425</width>
-                                <height>430</height>
+                                <width>85</width>
+                                <height>59</height>
                                </rect>
                               </property>
                               <layout class="QVBoxLayout" name="verticalLayout_18">
@@ -3725,6 +3725,14 @@ QPushButton:focus{
                   <verstretch>5</verstretch>
                  </sizepolicy>
                 </property>
+                <property name="styleSheet">
+                 <string notr="true">QPushButton{
+	border-style: solid;
+  	border-width: 2px;
+	border-color: rgb(80, 30, 46);
+	background-color: rgb(255, 255, 255);
+}</string>
+                </property>
                 <layout class="QVBoxLayout" name="verticalLayout_39">
                  <property name="leftMargin">
                   <number>0</number>
@@ -3793,29 +3801,6 @@ QPushButton:focus{
                         <number>0</number>
                        </property>
                        <item>
-                        <widget class="QLabel" name="label_31">
-                         <property name="text">
-                          <string>活动：</string>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
-                        <widget class="QComboBox" name="activityComboBox">
-                         <property name="minimumSize">
-                          <size>
-                           <width>200</width>
-                           <height>0</height>
-                          </size>
-                         </property>
-                         <property name="maximumSize">
-                          <size>
-                           <width>200</width>
-                           <height>16777215</height>
-                          </size>
-                         </property>
-                        </widget>
-                       </item>
-                       <item>
                         <widget class="QLabel" name="label_32">
                          <property name="text">
                           <string>开始时间：</string>
@@ -3826,7 +3811,7 @@ QPushButton:focus{
                         <widget class="QDateEdit" name="startDateEdit">
                          <property name="minimumSize">
                           <size>
-                           <width>150</width>
+                           <width>200</width>
                            <height>0</height>
                           </size>
                          </property>
@@ -3843,7 +3828,7 @@ QPushButton:focus{
                         <widget class="QDateEdit" name="endDateEdit">
                          <property name="minimumSize">
                           <size>
-                           <width>150</width>
+                           <width>200</width>
                            <height>0</height>
                           </size>
                          </property>
@@ -3955,6 +3940,165 @@ QPushButton:focus{
                      </widget>
                     </item>
                     <item>
+                     <widget class="QFrame" name="frame_54">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_40">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QLabel" name="label_31">
+                         <property name="text">
+                          <string>活动副本体力：</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="battleCostLineEdit">
+                         <property name="maximumSize">
+                          <size>
+                           <width>200</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="label_36">
+                         <property name="text">
+                          <string>一次活动副本积分：</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="battlePointLineEdit">
+                         <property name="maximumSize">
+                          <size>
+                           <width>200</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="horizontalSpacer_17">
+                         <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>40</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QFrame" name="frame_55">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_41">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item>
+                        <widget class="QLabel" name="label_38">
+                         <property name="text">
+                          <string>已有微型日月精华（瓶）：</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="tbLineEdit">
+                         <property name="maximumSize">
+                          <size>
+                           <width>200</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="label_39">
+                         <property name="text">
+                          <string>已有初级日月精华（瓶）：</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="bbLineEdit">
+                         <property name="maximumSize">
+                          <size>
+                           <width>200</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="label_37">
+                         <property name="text">
+                          <string>已有上级日月精华（瓶）：</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLineEdit" name="sbLineEdit">
+                         <property name="maximumSize">
+                          <size>
+                           <width>200</width>
+                           <height>16777215</height>
+                          </size>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <spacer name="horizontalSpacer_18">
+                         <property name="orientation">
+                          <enum>Qt::Horizontal</enum>
+                         </property>
+                         <property name="sizeHint" stdset="0">
+                          <size>
+                           <width>40</width>
+                           <height>20</height>
+                          </size>
+                         </property>
+                        </spacer>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item>
                      <widget class="QFrame" name="frame_50">
                       <property name="sizePolicy">
                        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -3981,6 +4125,20 @@ QPushButton:focus{
                        <property name="bottomMargin">
                         <number>0</number>
                        </property>
+                       <item>
+                        <widget class="QCheckBox" name="dailyMissionCheckBox">
+                         <property name="text">
+                          <string>日常体力</string>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QCheckBox" name="weeklyMissionCheckBox">
+                         <property name="text">
+                          <string>周常体力</string>
+                         </property>
+                        </widget>
+                       </item>
                        <item>
                         <widget class="QCheckBox" name="xykCheckBox">
                          <property name="text">
@@ -4021,6 +4179,37 @@ QPushButton:focus{
                           </size>
                          </property>
                         </spacer>
+                       </item>
+                      </layout>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QFrame" name="frame_56">
+                      <property name="frameShape">
+                       <enum>QFrame::StyledPanel</enum>
+                      </property>
+                      <property name="frameShadow">
+                       <enum>QFrame::Raised</enum>
+                      </property>
+                      <layout class="QHBoxLayout" name="horizontalLayout_42">
+                       <property name="leftMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="rightMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
+                       <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
+                        <widget class="QPushButton" name="calActivityBtn">
+                         <property name="text">
+                          <string> 计算 </string>
+                         </property>
+                        </widget>
                        </item>
                       </layout>
                      </widget>
@@ -4080,7 +4269,11 @@ QPushButton:focus{
                            <number>0</number>
                           </property>
                           <item>
-                           <widget class="QTableView" name="activityRewardTable"/>
+                           <widget class="QPlainTextEdit" name="activityHelpPTE">
+                            <property name="readOnly">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
                           </item>
                          </layout>
                         </widget>
@@ -4113,7 +4306,11 @@ QPushButton:focus{
                            <number>0</number>
                           </property>
                           <item>
-                           <widget class="QPlainTextEdit" name="activityRewardPTE"/>
+                           <widget class="QPlainTextEdit" name="activityResultPTE">
+                            <property name="readOnly">
+                             <bool>true</bool>
+                            </property>
+                           </widget>
                           </item>
                          </layout>
                         </widget>

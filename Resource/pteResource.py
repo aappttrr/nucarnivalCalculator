@@ -159,6 +159,26 @@ def getUpdateLogContent_1_0(_output: io.StringIO):
     writeLineString(_output, '⑤完成基本功能测试')
 
 
+def getActivityHelpContent():
+    output = io.StringIO()
+    writeLineString(output, '请输入开始时间和结束时间、活动副本体力和对应积分、勾选所需选项，并点击计算')
+    writeLineString(output, '')
+    writeLineString(output, '日常、周常任务请自行留意是否可完成')
+    writeLineString(output, '')
+    writeLineString(output, '每天回复12*24=288体力（5分钟1点体力）')
+    writeLineString(output, '')
+    writeLineString(output, '日常任务可获取初级日月精华（30体力）x1')
+    writeLineString(output, '周常任务可获取上级日月精华（100体力）x2，如果勾选了周常任务，且任务持续时间>7，则会算上2x100体力')
+    writeLineString(output, '')
+    writeLineString(output, '小月卡每天初级日月精华（30体力）x2')
+    writeLineString(output, '大月卡每天上级日月精华（100体力）x1')
+    writeLineString(output, '')
+    writeLineString(output, '每日金币副本和每日经验副本各耗费50体力')
+    writeLineString(output, '')
+    writeLineString(output, '碎钻以200钻购买120体力为一组整体，假设需要购买140体力，则是400钻')
+    return output.getvalue()
+
+
 def writeString(_output: io.StringIO, content: str):
     _output.seek(0, 2)
     _output.write(content)

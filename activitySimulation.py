@@ -7,7 +7,8 @@ from Props.propTypeEnum import PropType
 
 
 def simulation(_helper, days, rewardData, title):
-    data = _helper.calNeedEnergy(days)
+    totalEnergy = _helper.calTotalEnergy(days)
+    data = _helper.calNeedEnergy(days, totalEnergy)
     energy = data['energy']
     energy -= rewardData['energy']
     gem = 0

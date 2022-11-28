@@ -1,3 +1,4 @@
+import datetime
 import io
 import os
 import sys
@@ -9,9 +10,10 @@ from PyQt5.QtCore import Qt, QModelIndex, QDate
 from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import QMainWindow, QApplication
 
+from Nucarnival.activityRewardHelper import ActivityRewardHelper
 from Nucarnival.cardHelper import CardHelper
 from Nucarnival.nucarnivalHelper import NucarnivalHelper
-from Resource.pteResource import getWelcomeContent, getHelpContent, getUpdateLogContent
+from Resource.pteResource import getWelcomeContent, getHelpContent, getUpdateLogContent, getActivityHelpContent
 from RoleCards.cards.monster.commonMonster import CommonMonster
 from RoleCards.common.card import ICard
 from RoleCards.common.cardModel import CardTableModel
@@ -26,7 +28,7 @@ from UiDesign.validator import IntValidator
 cardHelper = CardHelper()
 nucarnivalHelper = NucarnivalHelper()
 nucarnivalHelper.monsters.append(CommonMonster())
-
+activityRewardHelper = ActivityRewardHelper()
 
 def exportExcel():
     filepath = tkinter.filedialog.asksaveasfilename(
@@ -140,6 +142,7 @@ class MainWindow(QMainWindow):
         self.ui.welcomePTE.setPlainText(_translate("MainWindow", getWelcomeContent()))
         self.ui.helpPTE.setPlainText(_translate("MainWindow", getHelpContent()))
         self.ui.updateLogPTE.setPlainText(_translate("MainWindow", getUpdateLogContent()))
+        self.ui.activityHelpPTE.setPlainText(_translate("MainWindow", getActivityHelpContent()))
         self.ui.stackedWidget.setCurrentIndex(0)
         self.ui.tabWidget.setCurrentIndex(0)
         self.ui.filterRoleComboBox.addItem(_translate("MainWindow", "全部"))
@@ -177,7 +180,17 @@ class MainWindow(QMainWindow):
         self.ui.cardListTable2.setModel(self.filterModel2)
         self.ui.filterGroupBox.hide()
         self.ui.filterGroupBox2.hide()
-        self.ui.activityCalBtn.hide()
+
+        today = datetime.date.today()
+        self.ui.startDateEdit.setDate(QDate(today.year, today.month, today.day))
+        self.ui.endDateEdit.setDate(QDate(today.year, today.month, today.day))
+        self.ui.battleCostLineEdit.setText('10')
+        self.ui.battlePointLineEdit.setText('30')
+        self.ui.tbLineEdit.setText('0')
+        self.ui.bbLineEdit.setText('0')
+        self.ui.sbLineEdit.setText('0')
+        self.ui.currentPointLineEdit.setText('0')
+        self.ui.targetPointLineEdit.setText('30000')
 
     # 绑定各种验证器
     def bindValidator(self):
@@ -186,6 +199,11 @@ class MainWindow(QMainWindow):
         self.ui.atkLineEdit.setValidator(intValidator)
         self.ui.currentPointLineEdit.setValidator(intValidator)
         self.ui.targetPointLineEdit.setValidator(intValidator)
+        self.ui.tbLineEdit.setValidator(intValidator)
+        self.ui.bbLineEdit.setValidator(intValidator)
+        self.ui.sbLineEdit.setValidator(intValidator)
+        self.ui.battleCostLineEdit.setValidator(intValidator)
+        self.ui.battlePointLineEdit.setValidator(intValidator)
 
     # 绑定各种方法
     def bindFun(self):
@@ -302,10 +320,30 @@ class MainWindow(QMainWindow):
         self.ui.exportCardListBtn.clicked.connect(exportCardList)
         self.ui.loadCardListBtn.clicked.connect(self.loadCardList)
 
-        self.ui.startDateEdit.dateChanged.connect(self.setStartDate)
+        self.ui.calActivityBtn.clicked.connect(self.calActivity)
 
-    def setStartDate(self, date: QDate):
-        print(type(date.toPyDate()))
+    def calActivity(self):
+        activityRewardHelper.startDate = self.ui.startDateEdit.date().toPyDate()
+        activityRewardHelper.endDate = self.ui.endDateEdit.date().toPyDate()
+        try:
+            activityRewardHelper.currentPoint = int(self.ui.currentPointLineEdit.text())
+            activityRewardHelper.targetPoint = int(self.ui.targetPointLineEdit.text())
+            activityRewardHelper.battleCost = int(self.ui.battleCostLineEdit.text())
+            activityRewardHelper.battlePoint = int(self.ui.battlePointLineEdit.text())
+            activityRewardHelper.tb = int(self.ui.tbLineEdit.text())
+            activityRewardHelper.bb = int(self.ui.bbLineEdit.text())
+            activityRewardHelper.sb = int(self.ui.sbLineEdit.text())
+        except:
+            print('计算活动，转Int失败')
+
+        activityRewardHelper.xyk = self.ui.xykCheckBox.isChecked()
+        activityRewardHelper.dyk = self.ui.dykCheckBox.isChecked()
+        activityRewardHelper.coin = self.ui.coinCheckBox.isChecked()
+        activityRewardHelper.holyWater = self.ui.holyWaterCheckBox.isChecked()
+        activityRewardHelper.dailyMission = self.ui.dailyMissionCheckBox.isChecked()
+        activityRewardHelper.weeklyMission = self.ui.weeklyMissionCheckBox.isChecked()
+        activityRewardHelper.simulation()
+        self.ui.activityResultPTE.setPlainText(activityRewardHelper.output.getvalue())
 
     def loadCardList(self):
         filepath = tkinter.filedialog.askopenfilename(
