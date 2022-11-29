@@ -186,7 +186,7 @@ class CardHelper:
         self.cardList.append(srL)
         self.cardList.append(srBL)
         self.cardList.append(srDT)
-        # r
+        # r 35
         self.cardList.append(rA)
         self.cardList.append(rM)
         self.cardList.append(rB)
