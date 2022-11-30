@@ -172,6 +172,71 @@ def getDamageProportion(helper: NucarnivalHelper, x: ICard, totalDamage=1):
     return msg
 
 
+def getRank(x: ICard, damage=0):
+    rank = ''
+    if x.isGroup:
+        if x.rarity == CardRarity.SSR and x.star == 5:
+            if damage >= 150000:
+                rank = 'T0'
+            elif 100000 <= damage < 150000:
+                rank = 'T1'
+            else:
+                rank = 'T2'
+        elif (x.rarity == CardRarity.SSR and x.star == 3) \
+                or (x.rarity == CardRarity.SR and x.star == 5) \
+                or (x.rarity == CardRarity.R and x.star == 5):
+            if damage >= 85000:
+                rank = 'T0'
+            elif 80000 <= damage < 85000:
+                rank = 'T1'
+            else:
+                rank = 'T2'
+        else:
+            if damage >= 30000:
+                rank = 'T0'
+            elif 20000 <= damage < 30000:
+                rank = 'T1'
+            else:
+                rank = 'T2'
+    else:
+        if x.rarity == CardRarity.SSR and x.star == 5:
+            if damage >= 300000:
+                rank = 'T0'
+            elif 275000 <= damage < 300000:
+                rank = 'T1'
+            elif 250000 <= damage < 275000:
+                rank = 'T2'
+            elif 200000 <= damage < 250000:
+                rank = 'T3'
+            else:
+                rank = 'T4'
+        elif (x.rarity == CardRarity.SSR and x.star == 3) \
+                or (x.rarity == CardRarity.SR and x.star == 5) \
+                or (x.rarity == CardRarity.R and x.star == 5):
+            if damage >= 200000:
+                rank = 'T0'
+            elif 175000 <= damage < 200000:
+                rank = 'T1'
+            elif 150000 <= damage < 175000:
+                rank = 'T2'
+            elif 100000 <= damage < 150000:
+                rank = 'T3'
+            else:
+                rank = 'T4'
+        else:
+            if damage >= 100000:
+                rank = 'T0'
+            elif 80000 <= damage < 100000:
+                rank = 'T1'
+            elif 70000 <= damage < 80000:
+                rank = 'T2'
+            elif 65000 <= damage < 70000:
+                rank = 'T3'
+            else:
+                rank = 'T4'
+    return rank
+
+
 def simulation(helper: NucarnivalHelper, needTeamMate: bool, ws: Worksheet, x: ICard, row, _star, _tier):
     x.setProperties(60, _star, 5, _tier)
     x.calHpAtk()
@@ -193,41 +258,7 @@ def simulation(helper: NucarnivalHelper, needTeamMate: bool, ws: Worksheet, x: I
     column += 1
     ws.cell(row, column, getDamageProportion(helper, x, damage))
     column += 1
-    if x.rarity == CardRarity.SSR and x.star == 5:
-        if damage >= 300000:
-            ws.cell(row, column, 'T0')
-        elif 275000 <= damage < 300000:
-            ws.cell(row, column, 'T1')
-        elif 250000 <= damage < 275000:
-            ws.cell(row, column, 'T2')
-        elif 200000 <= damage < 250000:
-            ws.cell(row, column, 'T3')
-        else:
-            ws.cell(row, column, 'T4')
-    elif (x.rarity == CardRarity.SSR and x.star == 3) \
-            or (x.rarity == CardRarity.SR and x.star == 5)\
-            or (x.rarity == CardRarity.R and x.star == 5):
-        if damage >= 200000:
-            ws.cell(row, column, 'T0')
-        elif 175000 <= damage < 200000:
-            ws.cell(row, column, 'T1')
-        elif 150000 <= damage < 175000:
-            ws.cell(row, column, 'T2')
-        elif 100000 <= damage < 150000:
-            ws.cell(row, column, 'T3')
-        else:
-            ws.cell(row, column, 'T4')
-    else:
-        if damage >= 100000:
-            ws.cell(row, column, 'T0')
-        elif 80000 <= damage < 100000:
-            ws.cell(row, column, 'T1')
-        elif 70000 <= damage < 80000:
-            ws.cell(row, column, 'T2')
-        elif 65000 <= damage < 70000:
-            ws.cell(row, column, 'T3')
-        else:
-            ws.cell(row, column, 'T4')
+    ws.cell(row, column, getRank(x, damage))
 
 
 # 导出
