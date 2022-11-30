@@ -91,7 +91,7 @@ class CardHelper:
         ssrFT = KnightlyNight()
         bqFT = WhiteLover()
         hhFT = SweetAroma()
-        jgFT = EliteInstructor()
+        anFT = EliteInstructor()
 
         # 奥利文
         srO = SROlivine()
@@ -173,7 +173,7 @@ class CardHelper:
 
         # 第三轮限定 23
         self.cardList.append(dB)
-        self.cardList.append(jgFT)
+        self.cardList.append(anFT)
 
         # sr 25
         self.cardList.append(srA)

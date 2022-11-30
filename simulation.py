@@ -355,22 +355,36 @@ if __name__ == '__main__':
     _helper = NucarnivalHelper()
 
     _cardHelper = CardHelper()
-    # sr奥
-    # _cardHelper.cardList[29].setProperties(60, 5, 5, 12)
-    # # r奥
-    # _cardHelper.cardList[39].setProperties(60, 5, 5, 12)
-    #
-    # # sr昆
-    # _cardHelper.cardList[30].setProperties(60, 5, 5, 12)
-    # # r昆
-    # _cardHelper.cardList[40].setProperties(60, 5, 5, 6)
 
-    # _helper.skillTurn[_cardHelper.cardList[29]] = [6, 12]
-    # _helper.team.append(_cardHelper.cardList[29])
-    # _helper.team.append(_cardHelper.cardList[30])
-    # _helper.team.append(_cardHelper.cardList[40])
+    # # sr昆 必杀工具人
+    # _cardHelper.cardList[30].setProperties(60, 5, 5, 12)
+    #
+    # # 暗昆 普攻工具人
+    # _cardHelper.cardList[19].setProperties(60, 3, 5, 12)
+    #
+    # # 光狼
+    # _cardHelper.cardList[13].setProperties(60, 3, 5, 12)
+    # # 暗团
+    # _cardHelper.cardList[24].setProperties(60, 3, 5, 12)
+    # # sr蛋
+    # _cardHelper.cardList[34].setProperties(60, 5, 5, 12)
+    # # sr狼
+    # _cardHelper.cardList[32].setProperties(60, 5, 5, 12)
+    #
+    # # 白八
+    # _cardHelper.cardList[8].setProperties(60, 3, 5, 12)
+    # # 水蛋
+    # _cardHelper.cardList[15].setProperties(60, 3, 5, 12)
+    #
+    # # 火团
+    # _cardHelper.cardList[17].setProperties(60, 3, 5, 12)
+    #
+    # # _helper.skillTurn[_cardHelper.cardList[34]] = [5, 9, 13]
+    # _helper.team.append(_cardHelper.cardList[17])
+    # # _helper.team.append(_cardHelper.cardList[26])
+    # _helper.team.append(_cardHelper.cardList[19])
     # _helper.monsters.append(CommonMonster())
-    # _helper.maxTurn = 13
+    # _helper.maxTurn = 14
     # _helper.battleStart(True)
     # _helper.exportExcel('C:\\fhs\\python\\模拟.xls')
 

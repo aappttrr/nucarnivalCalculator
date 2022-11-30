@@ -14,7 +14,7 @@ class DistantPromise(SSRCard):
         super(DistantPromise, self).__init__()
         self.cardId = 'DistantPromise'
         self.cardName = '追逐悠远之约'
-        self.nickName = '月昆'
+        self.nickName = '暗昆/月昆'
         self.role = CardRole.Quincy
         self.cardType = CardType.Dark
         self.occupation = CardOccupation.Striker
