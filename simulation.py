@@ -5,7 +5,7 @@ from Nucarnival.cardHelper import CardHelper
 from Nucarnival.nucarnivalHelper import NucarnivalHelper, roundHalfEven
 from RoleCards.cards.monster.commonMonster import CommonMonster
 from RoleCards.cards.monster.tempTeamMate import TempTeamMate
-from RoleCards.common.card import ICard
+from RoleCards.common.card import ICard, writeCardInfoTitleInExcel
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRarityEnum import CardRarity
 from RoleCards.enum.cardRoleEnum import CardRole
@@ -15,7 +15,7 @@ from openpyxl.workbook import Workbook
 from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 
 
-def simulation2(filePath, cardHelper: CardHelper, helper: NucarnivalHelper, calGroupRole: bool):
+def simulationCombat(filePath, cardHelper: CardHelper, helper: NucarnivalHelper, calGroupRole: bool):
     wb = Workbook()
 
     column = 16
@@ -382,49 +382,120 @@ def similationTeamMate(helper: NucarnivalHelper, x: ICard):
         helper.team.append(mate2)
 
 
+def banguaiSimulation(filepath, cardHelper: CardHelper, helper: NucarnivalHelper):
+    wb = Workbook()
+    ws = wb.active
+    ws.title = '角色属性'
+    writeCardInfoTitleInExcel(ws)
+
+    # sr昆 必杀工具人 30
+    # 暗昆 普攻工具人 19
+    # sr墨菲 26
+
+    # 光狼 13
+    # 暗团 24
+    # sr蛋 34
+    # sr狼 32
+
+    # 白八 8
+    # 水蛋 15
+    # 火团 17
+    cList = [30, 19]
+    banguaiList = [13, 24, 34, 32, 8, 15, 17]
+    skillList = [13, 24, 34, 32, 8, 15]
+    attackList = [13, 24, 34, 32, 17]
+    row = 2
+    for i in cList:
+        role = cardHelper.cardList[i]
+        if role.rarity == CardRarity.SSR:
+            role.setProperties(60, 2, 4, 6)
+        else:
+            role.setProperties(60, 4, 4, 6)
+        role.calHpAtk(True)
+        role.writeCardInfoInExcel(ws, row)
+        row += 1
+
+    for i in banguaiList:
+        role = cardHelper.cardList[i]
+        if role.rarity == CardRarity.SSR:
+            role.setProperties(60, 2, 4, 6)
+        else:
+            role.setProperties(60, 4, 4, 6)
+        role.calHpAtk(True)
+        role.writeCardInfoInExcel(ws, row)
+        row += 1
+
+    ws2 = wb.create_sheet('必杀队伍', 1)
+    row = 0
+
+    helper.maxTurn = 13
+    helper.monsters.append(CommonMonster())
+
+    helper.skillTurn[cardHelper.cardList[32]] = [7, 13]
+
+    helper.team.clear()
+    helper.team.append(cardHelper.cardList[30])
+    helper.battleStart(False)
+    row = saveBattleResult(ws2, helper, row)
+
+    for i in skillList:
+        helper.team.clear()
+        helper.team.append(cardHelper.cardList[i])
+        if i == 24:
+            helper.team.append(cardHelper.cardList[26])
+        helper.team.append(cardHelper.cardList[30])
+        helper.battleStart(False)
+        row = saveBattleResult(ws2, helper, row)
+
+    ws3 = wb.create_sheet('普攻队伍', 2)
+    row = 0
+    helper.skillTurn.clear()
+    helper.maxTurn = 14
+    helper.skillTurn[cardHelper.cardList[34]] = [5, 9, 13]
+    helper.skillTurn[cardHelper.cardList[32]] = [6, 10, 14]
+
+    helper.team.clear()
+    helper.team.append(cardHelper.cardList[19])
+    helper.battleStart(False)
+    row = saveBattleResult(ws3, helper, row)
+    for i in attackList:
+        helper.team.clear()
+        helper.team.append(cardHelper.cardList[i])
+        if i == 24:
+            helper.team.append(cardHelper.cardList[26])
+        helper.team.append(cardHelper.cardList[19])
+        helper.battleStart(False)
+        row = saveBattleResult(ws3, helper, row)
+    wb.save(filepath)
+
+
+def saveBattleResult(targetWs: Worksheet, helper: NucarnivalHelper, row: int):
+    row += 1
+    row2 = len(helper.team) + 3
+    mt = helper.maxTurn
+    for i in range(0, len(helper.team) + 2):
+        for column in range(1, mt + 4):
+            cellValue = helper.ws.cell(row2, column).value
+            if cellValue is not None:
+                targetWs.cell(row, column, cellValue)
+        row2 += 1
+        row += 1
+    return row
+
+
 if __name__ == '__main__':
     _helper = NucarnivalHelper()
 
     _cardHelper = CardHelper()
 
-    # # sr昆 必杀工具人
-    # _cardHelper.cardList[30].setProperties(60, 5, 5, 12)
-    #
-    # # 暗昆 普攻工具人
-    # _cardHelper.cardList[19].setProperties(60, 3, 5, 12)
-    #
-    # # 光狼
-    # _cardHelper.cardList[13].setProperties(60, 3, 5, 12)
-    # # 暗团
-    # _cardHelper.cardList[24].setProperties(60, 3, 5, 12)
-    # # sr蛋
-    # _cardHelper.cardList[34].setProperties(60, 5, 5, 12)
-    # # sr狼
-    # _cardHelper.cardList[32].setProperties(60, 5, 5, 12)
-    #
-    # # 白八
-    # _cardHelper.cardList[8].setProperties(60, 3, 5, 12)
-    # # 水蛋
-    # _cardHelper.cardList[15].setProperties(60, 3, 5, 12)
-    #
-    # # 火团
-    # _cardHelper.cardList[17].setProperties(60, 3, 5, 12)
-    #
-    # # _helper.skillTurn[_cardHelper.cardList[34]] = [5, 9, 13]
-    # _helper.team.append(_cardHelper.cardList[17])
-    # # _helper.team.append(_cardHelper.cardList[26])
-    # _helper.team.append(_cardHelper.cardList[19])
-    # _helper.monsters.append(CommonMonster())
-    # _helper.maxTurn = 14
-    # _helper.battleStart(True)
-    # _helper.exportExcel('C:\\fhs\\python\\模拟.xls')
+    # banguaiSimulation('C:\\fhs\\python\\半拐模拟.xls', _cardHelper, _helper)
 
     # simulation1('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_不配置队友.xls', _cardHelper, _helper, False, False)
     # simulation1('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_配置队友.xls', _cardHelper, _helper, True, False)
     # simulation1('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_不配置队友.xls', _cardHelper, _helper, False, True)
     # simulation1('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_配置队友.xls', _cardHelper, _helper, True, True)
 
-    # simulation2('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
-    # simulation2('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
-    simulation2('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
-    simulation2('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
+    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
+    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
+    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
+    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)

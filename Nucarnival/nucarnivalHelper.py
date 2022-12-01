@@ -2,10 +2,10 @@ import io
 from openpyxl import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
 
-from RoleCards.common.card import ICard, roundDown
+from RoleCards.common.card import ICard, writeCardInfoTitleInExcel
 from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.conditionTypeEnum import ConditionType
-from Common.ncRound import roundHalfEven
+from Common.ncRound import roundHalfEven, roundDown
 
 
 class NucarnivalHelper:
@@ -124,7 +124,6 @@ class NucarnivalHelper:
         row = self.writeCardInfoInExcel()
         row += 1
 
-        self.maxTurn += 1
         if self.maxTurn > 50:
             self.maxTurn = 50
         elif self.maxTurn < 1:
@@ -135,7 +134,7 @@ class NucarnivalHelper:
         if printInfo:
             print(msg)
 
-        for turn in range(0, self.maxTurn):
+        for turn in range(0, self.maxTurn + 1):
             self.currentTurn = turn
             if turn == 0:
                 for role in self.team:
@@ -524,33 +523,13 @@ class NucarnivalHelper:
         return totalDamage
 
     def writeCardInfoInExcel(self):
-        self.ws.cell(1, 1, '名称')
-        self.ws.cell(1, 2, '昵称')
-        self.ws.cell(1, 3, '角色')
-        self.ws.cell(1, 4, '属性')
-        self.ws.cell(1, 5, '定位')
-        self.ws.cell(1, 6, 'Hp')
-        self.ws.cell(1, 7, 'Atk')
-        self.ws.cell(1, 8, '等级')
-        self.ws.cell(1, 9, '星级')
-        self.ws.cell(1, 10, '潜能')
-        self.ws.cell(1, 11, '蜜话')
+        writeCardInfoTitleInExcel(self.ws)
 
         row = 2
         for role in self.team:
             if role.cardName == '临时队友':
                 continue
-            self.ws.cell(row, 1, role.cardName)
-            self.ws.cell(row, 2, role.nickName)
-            self.ws.cell(row, 3, role.role.value)
-            self.ws.cell(row, 4, role.cardType.typeName)
-            self.ws.cell(row, 5, role.occupation.occupationName)
-            self.ws.cell(row, 6, role.hp)
-            self.ws.cell(row, 7, role.atk)
-            self.ws.cell(row, 8, role.lv)
-            self.ws.cell(row, 9, role.star)
-            self.ws.cell(row, 10, role.tier)
-            self.ws.cell(row, 11, role.bond)
+            role.writeCardInfoInExcel(self.ws, row)
             row += 1
         return row
 

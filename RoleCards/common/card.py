@@ -1,3 +1,5 @@
+from openpyxl.worksheet.worksheet import Worksheet
+
 from RoleCards.buff.buff import Buff
 from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
@@ -53,6 +55,20 @@ def calLv(lv60s5=1, _lv=60):
         result = result / 1.05
         # result = roundCeiling(result)
     return result
+
+
+def writeCardInfoTitleInExcel(ws: Worksheet):
+    ws.cell(1, 1, '名称')
+    ws.cell(1, 2, '昵称')
+    ws.cell(1, 3, '角色')
+    ws.cell(1, 4, '属性')
+    ws.cell(1, 5, '定位')
+    ws.cell(1, 6, 'Hp')
+    ws.cell(1, 7, 'Atk')
+    ws.cell(1, 8, '等级')
+    ws.cell(1, 9, '星级')
+    ws.cell(1, 10, '潜能')
+    ws.cell(1, 11, '蜜话')
 
 
 class ICard:
@@ -665,3 +681,16 @@ class ICard:
             if buff.buffId == _buffId:
                 count += 1
         return count
+
+    def writeCardInfoInExcel(self, ws: Worksheet, row: int):
+        ws.cell(row, 1, self.cardName)
+        ws.cell(row, 2, self.nickName)
+        ws.cell(row, 3, self.role.value)
+        ws.cell(row, 4, self.cardType.typeName)
+        ws.cell(row, 5, self.occupation.occupationName)
+        ws.cell(row, 6, self.hp)
+        ws.cell(row, 7, self.atk)
+        ws.cell(row, 8, self.lv)
+        ws.cell(row, 9, self.star)
+        ws.cell(row, 10, self.tier)
+        ws.cell(row, 11, self.bond)
