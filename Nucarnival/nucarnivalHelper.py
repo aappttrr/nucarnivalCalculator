@@ -2,6 +2,7 @@ import io
 from openpyxl import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
 
+from Common.nvEventManager import EventListener, Event, EventType, eventManagerInstance
 from RoleCards.common.card import ICard, writeCardInfoTitleInExcel
 from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.conditionTypeEnum import ConditionType
@@ -29,6 +30,8 @@ class NucarnivalHelper:
         self.ws: Worksheet = None
         self.markBattleResult = False
         self.sheetCount = 0
+        self.battleListener = BattleRecordListener()
+        eventManagerInstance.addListener(self.battleListener)
 
     def clearUp(self):
         self.team: list[ICard] = []
@@ -62,7 +65,7 @@ class NucarnivalHelper:
         if self.ws is None:
             self.ws = self.wb.create_sheet('伤害模拟结果' + str(self.sheetCount), 0)
 
-    def recordDamage(self, role: ICard, damage, damageType:int):
+    def recordDamage(self, role: ICard, damage, damageType: int):
         record = damage
         if role in self.damageRecord:
             oldDamage = self.damageRecord[role]
@@ -252,6 +255,38 @@ class NucarnivalHelper:
         self.recordBattleMsg(msg)
         if printInfo:
             print(msg)
+
+    # 索敌
+    def seizeEnemy(self, role: ICard, enemies: list[ICard]):
+        if role.cardId == 'RadiantAdmiral':
+            if len(enemies) == 1:
+                return enemies[0]
+            elif len(enemies) == 2:
+                temp1 = [enemies[0], enemies[0], enemies[1]]
+                return temp1
+            elif len(enemies) == 3:
+                return enemies
+            elif len(enemies) == 4:
+                temp1 = [enemies[0], enemies[2], enemies[3]]
+                return temp1
+            elif len(enemies) == 5:
+                temp1 = [enemies[0], enemies[2], enemies[4]]
+                return temp1
+        if role.isGroup:
+            return enemies
+        else:
+            enemy = enemies[0]
+            temp1 = [x for x in enemies if x.isTaunt()]
+            if len(temp1) > 0:
+                enemy = temp1[0]
+                for temp in temp1:
+                    if temp.hpCurrent > enemy.hpCurrent:
+                        enemy = temp
+            else:
+                for temp in enemies:
+                    if temp.hpCurrent > enemy.hpCurrent:
+                        enemy = temp
+            return enemy
 
     # 行动
     # 防御/普攻/必杀
@@ -537,3 +572,31 @@ class NucarnivalHelper:
         self.wb.save(filePath)
         self.wb.close()
         self.wb = None
+
+
+class BattleRecordListener(EventListener):
+    def __init__(self):
+        super(BattleRecordListener, self).__init__('战斗数据记录监听器')
+        self.battleRecords = []
+        self.currentTurn = 0
+
+    def cleanUp(self):
+        self.battleRecords = []
+
+    def receiveEvent(self, arg: Event):
+        bs = BattleRecord()
+        bs.turn = self.currentTurn
+        bs.source = arg.data['source']
+        bs.valueType = arg.eventType
+        bs.value = arg.data['value']
+        bs.target = arg.data['target']
+        self.battleRecords.append(bs)
+
+
+class BattleRecord:
+    def __init__(self):
+        self.source: ICard = None
+        self.turn = 0
+        self.valueType: EventType = None
+        self.value = 0
+        self.target: ICard = None

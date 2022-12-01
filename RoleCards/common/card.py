@@ -1,5 +1,6 @@
 from openpyxl.worksheet.worksheet import Worksheet
 
+from Common.nvEventManager import eventManagerInstance, EventType, Event
 from RoleCards.buff.buff import Buff
 from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
@@ -227,11 +228,120 @@ class ICard:
         self.hp = _hp
         self.atk = _atk
 
-    def setHpDirect(self, _hp, ):
+    def setHpDirect(self, _hp):
         self.hp = _hp
 
     def setAtkDirect(self, _atk):
         self.atk = _atk
+
+    def doAttack(self, enemies):
+        damage = self.attack(enemies)
+        if damage > 0:
+            if isinstance(enemies, list):
+                for enemy in enemies:
+                    damage2 = enemy.increaseBeDamage(damage, self, True, False)
+                    event = Event()
+                    event.eventType = EventType.attackDamage
+                    event.data['source'] = self
+                    event.data['value'] = damage2
+                    event.data['target'] = enemy
+                    eventManagerInstance.sendEvent(event)
+            else:
+                damage2 = enemies.increaseBeDamage(damage, self, True, False)
+                event = Event()
+                event.eventType = EventType.attackDamage
+                event.data['source'] = self
+                event.data['value'] = damage2
+                event.data['target'] = enemies
+                eventManagerInstance.sendEvent(event)
+
+        self.followUp(enemies, True)
+
+        heal = self.attackHeal()
+        if heal > 0:
+            for mate in self.teamMate:
+                heal2 = mate.increaseBeHeal(heal)
+                event = Event()
+                event.eventType = EventType.attackHeal
+                event.data['source'] = self
+                event.data['value'] = heal2
+                event.data['target'] = mate
+                eventManagerInstance.sendEvent(event)
+
+        self.skillAfter(enemies)
+
+    def doSkill(self, enemies):
+        damage = self.skill(enemies)
+        if damage > 0:
+            if isinstance(enemies, list):
+                for enemy in enemies:
+                    damage2 = enemy.increaseBeDamage(damage, self, False, True)
+                    event = Event()
+                    event.eventType = EventType.attackDamage
+                    event.data['source'] = self
+                    event.data['value'] = damage2
+                    event.data['target'] = enemy
+                    eventManagerInstance.sendEvent(event)
+            else:
+                damage2 = enemies.increaseBeDamage(damage, self, False, True)
+                event = Event()
+                event.eventType = EventType.attackDamage
+                event.data['source'] = self
+                event.data['value'] = damage2
+                event.data['target'] = enemies
+                eventManagerInstance.sendEvent(event)
+
+        self.followUp(enemies, False)
+
+        heal = self.skillHeal()
+        if heal > 0:
+            for mate in self.teamMate:
+                heal2 = mate.increaseBeHeal(heal)
+                event = Event()
+                event.eventType = EventType.attackHeal
+                event.data['source'] = self
+                event.data['value'] = heal2
+                event.data['target'] = mate
+                eventManagerInstance.sendEvent(event)
+
+        self.attackAfter(enemies)
+
+    def followUp(self, enemies, isAttack: bool):
+        currentAtk = self.getCurrentAtk()
+        for buff in self.buffs:
+            if buff.buffType != BuffType.FollowUpAttack:
+                continue
+
+            doFollowUp = False
+            if isAttack and buff.conditionType == ConditionType.WhenAttack:
+                doFollowUp = True
+            elif isAttack is False and buff.conditionType == ConditionType.WhenSkill:
+                doFollowUp = True
+            if doFollowUp is False:
+                continue
+
+            if buff.useBaseAtk:
+                followUpDamage = self.atk * buff.value
+            else:
+                followUpDamage = currentAtk * buff.value
+            followUpDamage = roundDown(followUpDamage)
+            if isinstance(enemies, list):
+                for enemy in enemies:
+                    damage2 = enemy.increaseBeDamage(followUpDamage, self, buff.seeAsAttack, buff.seeAsSkill)
+                    event = Event()
+                    event.eventType = EventType.attackDamage
+                    event.data['source'] = self
+                    event.data['value'] = damage2
+                    event.data['target'] = enemy
+                    eventManagerInstance.sendEvent(event)
+            else:
+                damage2 = enemies.increaseBeDamage(followUpDamage, self, buff.seeAsAttack, buff.seeAsSkill)
+                event = Event()
+                event.eventType = EventType.attackDamage
+                event.data['source'] = self
+                event.data['value'] = damage2
+                event.data['target'] = enemies
+                eventManagerInstance.sendEvent(event)
 
     def getMagnification(self, _s1, _s2, _s4):
         magnification = _s1
@@ -562,7 +672,10 @@ class ICard:
     # 必杀技
     # 必杀伤害结算：攻击力*倍率*[造成伤害增加*必杀伤害增加(来源于自身)]*[目标受必杀伤害增加*目标受伤害增加*属性克制(1.2/1/0.8)(来源于敌方)]
     def skill(self, enemy):
-        pass
+        return 0
+
+    def skillHeal(self):
+        return 0
 
     def skillAfter(self, enemy):
         pass
@@ -570,7 +683,10 @@ class ICard:
     # 普攻
     # 普攻伤害结算：攻击力*倍率*[造成伤害增加*普攻伤害增加(来源于自身)]*[目标受普攻伤害增加*目标受伤害增加*属性克制(1.2/1/0.8)(来源于敌方)]
     def attack(self, enemy):
-        pass
+        return 0
+
+    def attackHeal(self):
+        return 0
 
     def attackAfter(self, enemy):
         pass
