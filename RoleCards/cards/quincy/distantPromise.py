@@ -31,8 +31,6 @@ class DistantPromise(SSRCard):
     # 攻125%
     # 普攻时追击135%/189%/242%（2）[4]
     def skill(self, enemy):
-        self.skillCount = 0
-
         buff = Buff('DistantPromise_skill', 0.4, 2, BuffType.DamageIncrease)
         self.addBuff(buff)
 

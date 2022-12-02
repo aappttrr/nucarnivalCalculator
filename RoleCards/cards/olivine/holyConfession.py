@@ -31,7 +31,6 @@ class HolyConfession(SSRCard):
     # 攻击力133%/157%/182%全体治疗
     # 攻击力17%/20%/24%hot(4)
     def skillHeal(self, enemy):
-        self.skillCount = 0
         ma = self.getMagnification(1.33, 1.57, 1.82)
         ma2 = self.getMagnification(0.17, 0.2, 0.24)
         currentAtk = self.getCurrentAtk()

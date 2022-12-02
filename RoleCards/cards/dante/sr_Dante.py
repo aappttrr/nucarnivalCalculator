@@ -28,7 +28,6 @@ class SRDante(SRCard):
 
     # 目标受伤+12%（2），攻204%/238%/273%
     def skill(self, enemy):
-        self.skillCount = 0
         buff = Buff('SRDante_skill', 0.12, 2, BuffType.BeDamageIncrease)
         enemy.addBuff(buff, self)
 

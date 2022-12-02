@@ -30,8 +30,6 @@ class SweetAroma(SSRCard):
     # 攻击力204%/238%/273%
     # 目标受普攻伤害+27%（3）
     def skill(self, enemy):
-        self.skillCount = 0
-
         magnification = self.getMagnification(2.04, 2.38, 2.73)
 
         currentAtk = self.getCurrentAtk()

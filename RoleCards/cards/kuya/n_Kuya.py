@@ -26,7 +26,6 @@ class NKuya(NCard):
 
     # 攻247%/296%/345%，目标受回复量-100%（2）
     def skill(self, enemy):
-        self.skillCount = 0
         magnification = self.getMagnification(2.47, 2.96, 3.45)
 
         currentAtk = self.getCurrentAtk()

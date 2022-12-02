@@ -33,8 +33,6 @@ class CrimsonPhantom(SSRCard):
     # 被攻击时，基础攻击力51%/60%/68%反击（2）
     # 转防御
     def skill(self, enemy):
-        self.skillCount = 0
-
         buff = Buff('CrimsonPhantom_skill', 1, 1, BuffType.BloodSucking)
         self.addBuff(buff)
 

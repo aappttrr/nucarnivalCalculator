@@ -29,7 +29,6 @@ class SRBlade(SRCard):
 
     # 攻142%/173%/203%（群）
     def skill(self, enemy):
-        self.skillCount = 0
         magnification = self.getMagnification(1.42, 1.73, 2.03)
         currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, magnification, False, True)

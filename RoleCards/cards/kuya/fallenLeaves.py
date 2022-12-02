@@ -29,8 +29,6 @@ class FallenLeaves(SSRCard):
 
     # 攻124%/148%/173%（群），敌25%麻痹[4]
     def skill(self, enemy):
-        self.skillCount = 0
-
         magnification = self.getMagnification(1.24, 1.48, 1.73)
         currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, magnification, False, True)

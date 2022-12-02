@@ -29,7 +29,6 @@ class AquaBloom(SSRCard):
 
     # 基础攻击力107%/129%/152%，提升全体攻击力（1）
     def skill(self, enemy):
-        self.skillCount = 0
         magnification = self.getMagnification(1.07, 1.29, 1.52)
 
         actualDamageIncrease = self.atk * magnification

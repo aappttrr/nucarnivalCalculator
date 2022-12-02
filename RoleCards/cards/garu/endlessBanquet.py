@@ -29,7 +29,6 @@ class EndlessBanquet(SSRCard):
     # 攻击力204%/238%/273%
     # 目标受到伤害+10%（9）
     def skill(self, enemy):
-        self.skillCount = 0
         magnification = self.getMagnification(2.04, 2.38, 2.73)
         currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, magnification, False, True)
@@ -44,7 +43,7 @@ class EndlessBanquet(SSRCard):
     # 目标受到伤害+2%（7）
     def attack(self, enemy):
         currentAtk = self.getCurrentAtk()
-        damage = self.calDamage(currentAtk, 1, False, True)
+        damage = self.calDamage(currentAtk, 1, True, False)
         return damage
 
     def attackAfter(self, enemy):

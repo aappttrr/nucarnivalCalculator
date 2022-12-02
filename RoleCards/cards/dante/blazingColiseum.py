@@ -30,8 +30,6 @@ class BlazingColiseum(SSRCard):
     # 攻击力100%
     # 最大hp13%/15%/18%护盾(1)
     def skill(self, enemy):
-        self.skillCount = 0
-
         currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, 1, False, True)
 
@@ -53,7 +51,7 @@ class BlazingColiseum(SSRCard):
     def attack(self, enemy):
         currentAtk = self.getCurrentAtk()
 
-        damage = self.calDamage(currentAtk, 0.75, False, True)
+        damage = self.calDamage(currentAtk, 0.75, True, False)
 
         shield = self.maxHp * 0.06
         shield = roundDown(shield)

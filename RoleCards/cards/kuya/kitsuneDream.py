@@ -32,7 +32,6 @@ class KitsuneDream(SSRCard):
     # 目标受dot+10%（max 3）
     # 目标必杀-10%（2）
     def skill(self, enemy):
-        self.skillCount = 0
         magnification = self.getMagnification(1.36, 1.59, 1.82)
         currentAtk = self.getCurrentAtk()
 

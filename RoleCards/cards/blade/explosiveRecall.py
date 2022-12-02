@@ -29,8 +29,6 @@ class ExplosiveRecall(SSRCard):
     # 伤+12.5%(max 2)
     # 攻204%/238%/273%
     def skill(self, enemy):
-        self.skillCount = 0
-
         if self.calBuffCount('ExplosiveRecall_skill') < 2:
             buff = Buff('ExplosiveRecall_skill', 0.125, 0, BuffType.DamageIncrease)
             buff.isPassive = True

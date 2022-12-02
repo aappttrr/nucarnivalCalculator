@@ -29,7 +29,6 @@ class NQuincy(NCard):
 
     # 目标解除防御，攻409%/513%/616%
     def skill(self, enemy):
-        self.skillCount = 0
         enemy.defense = False
 
         magnification = self.getMagnification(4.09, 5.13, 6.16)

@@ -26,7 +26,6 @@ class NEdmond(NCard):
 
     # 攻229%/273%/316%
     def skill(self, enemy):
-        self.skillCount = 0
         magnification = self.getMagnification(2.29, 2.73, 3.16)
         currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, magnification, False, True)

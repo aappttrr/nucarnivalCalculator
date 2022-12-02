@@ -29,7 +29,6 @@ class MastersGift(SSRCard):
 
     # 攻142%/173%/203%（群）[4]
     def skill(self, enemy):
-        self.skillCount = 0
         magnification = self.getMagnification(1.42, 1.73, 2.03)
 
         currentAtk = self.getCurrentAtk()

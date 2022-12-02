@@ -31,8 +31,6 @@ class OceanBreeze(SSRCard):
     # 全体护盾+55%/65%/75%(2)，
     # 全体持续治疗+55%/65%/75%(3)
     def skill(self, enemy, printInfo=False):
-        self.skillCount = 0
-
         ma = self.getMagnification(0.62, 0.74, 0.87)
         ma2 = self.getMagnification(0.55, 0.65, 0.75)
 

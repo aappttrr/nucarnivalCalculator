@@ -34,8 +34,6 @@ class BuckeyeMiracle(SSRCard):
     # 被攻击时，攻击力62%/74%/87%反击（2）
     # 转防御
     def skill(self, enemy):
-        self.skillCount = 0
-
         currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, 1, False, True)
 

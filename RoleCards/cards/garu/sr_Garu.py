@@ -29,7 +29,6 @@ class SRGaru(SRCard):
 
     # 敌全体受伤+8%（1），攻124%/148%/173%（群）
     def skill(self, enemy):
-        self.skillCount = 0
         for monster in self.enemies:
             buff = Buff('SRGaru_skill', 0.08, 1, BuffType.BeDamageIncrease)
             monster.addBuff(buff, self)

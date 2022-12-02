@@ -31,8 +31,6 @@ class WhiteLover(SSRCard):
     # 攻击力64%/77%/90%（群）
     # 攻击力21%/26%/30%持续伤害(群)（3）
     def skill(self, enemy):
-        self.skillCount = 0
-
         ma = self.getMagnification(0.64, 0.77, 0.9)
 
         currentAtk = self.getCurrentAtk()

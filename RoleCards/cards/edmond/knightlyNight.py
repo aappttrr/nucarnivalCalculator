@@ -32,8 +32,6 @@ class KnightlyNight(SSRCard):
     # 攻击力125%造成伤害
     # 普攻时，78%/111%/143%攻击力追击(3)
     def skill(self, enemy):
-        self.skillCount = 0
-
         currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, 1.25, False, True)
 

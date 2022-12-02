@@ -30,8 +30,6 @@ class RadiantAdmiral(SSRCard):
     # 必杀+27%（2）
     # 攻击力107%/132%/156%对1、3、5造成伤害
     def skill(self, enemy):
-        self.skillCount = 0
-
         buff = Buff('RadiantAdmiral_skill', 0.27, 2, BuffType.SkillIncrease)
         self.addBuff(buff)
 

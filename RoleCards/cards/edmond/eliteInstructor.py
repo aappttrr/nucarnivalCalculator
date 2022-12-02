@@ -30,8 +30,6 @@ class EliteInstructor(SSRCard):
     # 目标获得【被攻击时，自身受伤增加3.5%(3)】(3)
     # 攻204%/238%/273%
     def skill(self, enemy):
-        self.skillCount = 0
-
         buff = Buff('EliteInstructor_skill', 0.035, 3, BuffType.AddBeDamageIncrease)
         buff.addBuffTurn = 3
         buff.conditionType = ConditionType.WhenBeAttacked

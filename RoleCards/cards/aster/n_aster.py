@@ -26,8 +26,6 @@ class NAster(NCard):
 
     # 吸血25%（4），攻247%/296%/345%
     def skill(self, enemy):
-        self.skillCount = 0
-
         buff = Buff('NAster_skill', 0.25, 4, BuffType.BloodSucking)
         self.addBuff(buff)
 

@@ -16,8 +16,6 @@ class CommonMonster(NCard):
         self.atk = self.lv60s5Atk
 
     def skill(self, enemy, printInfo=False):
-        self.skillCount = 0
-
         currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, 2,  False, True)
 

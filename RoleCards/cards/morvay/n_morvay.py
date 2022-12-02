@@ -28,8 +28,6 @@ class NMorvay(NCard):
     # 攻100%
     # 最大HP20%/30%/40%护盾（1），防御减伤+10%（1），嘲讽（1），转防御
     def skill(self, enemy):
-        self.skillCount = 0
-
         currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, 1, False, True)
 

@@ -29,8 +29,6 @@ class CocoaLiqueur(SSRCard):
     # 敌受必杀伤 + 27 % (2)
     # 攻204%/238%/273 % [3]
     def skill(self, enemy):
-        self.skillCount = 0
-
         buff = Buff('CocoaLiqueur_skill', 0.27, 2, BuffType.BeSkillIncrease)
         enemy.buffs.append(buff)
 

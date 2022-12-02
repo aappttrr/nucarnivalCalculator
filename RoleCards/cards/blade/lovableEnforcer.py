@@ -30,7 +30,6 @@ class LovableEnforcer(SSRCard):
     # 攻247%/296%/345%
     # 50%沉默
     def skill(self, enemy):
-        self.skillCount = 0
         ma = self.getMagnification(2.47, 2.96, 3.45)
 
         buff = Buff('LovableEnforcer_skill', 0.2, 3, BuffType.DamageIncrease)

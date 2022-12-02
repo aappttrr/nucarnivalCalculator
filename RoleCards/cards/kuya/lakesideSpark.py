@@ -30,8 +30,6 @@ class LakesideSpark(SSRCard):
     # 攻击力133%/157%/182%治疗
     # 我方全体吸血效果15%（4）
     def skillHeal(self, enemy):
-        self.skillCount = 0
-
         ma = self.getMagnification(1.33, 1.57, 1.82)
         currentAtk = self.getCurrentAtk()
 

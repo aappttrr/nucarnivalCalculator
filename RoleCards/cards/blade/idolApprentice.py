@@ -32,8 +32,6 @@ class IdolApprentice(SSRCard):
     # 被攻击时，攻击力49%/65%/81%（群）反击（2）
     # 嘲讽（1），被攻击时解除嘲讽（1）
     def skill(self, enemy, printInfo=False):
-        self.skillCount = 0
-
         currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, 0.5, False, True)
 

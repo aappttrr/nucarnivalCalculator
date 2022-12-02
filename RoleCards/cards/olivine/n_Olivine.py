@@ -30,7 +30,6 @@ class NOlivine(NCard):
 
     # 基础攻击力71%/86%/102%，提升全体攻击力（2）
     def skill(self, enemy):
-        self.skillCount = 0
         magnification = self.getMagnification(0.71, 0.86, 1.02)
 
         actualDamageIncrease = self.atk * magnification

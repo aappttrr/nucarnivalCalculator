@@ -30,8 +30,6 @@ class EternalHanabi(SSRCard):
     # 目标受必杀+27%（1）
     # 攻击力204%/238%/273%
     def skill(self, enemy):
-        self.skillCount = 0
-
         enemy.defense = False
 
         buff = Buff('EternalHanabi_skill', 0.27, 1, BuffType.BeSkillIncrease)

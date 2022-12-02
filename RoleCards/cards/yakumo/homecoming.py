@@ -33,8 +33,6 @@ class Homecoming(SSRCard):
     # 攻击力+25%（3）
     # 攻击力247%/296%/345%造成伤害
     def skill(self, enemy):
-        self.skillCount = 0
-
         buff = Buff('Homecoming_skill', 0.25, 3, BuffType.AtkIncrease)
         self.addBuff(buff)
 

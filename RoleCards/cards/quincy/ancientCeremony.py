@@ -28,8 +28,6 @@ class AncientCeremony(SSRCard):
 
     # 以攻击力434%/546%/657%造成伤害
     def skill(self, enemy):
-        self.skillCount = 0
-
         magnification = self.getMagnification(4.34, 5.46, 6.57)
         currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, magnification, False, True)
