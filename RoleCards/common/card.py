@@ -37,6 +37,14 @@ def calStar(lv60s5=1, _star=5):
     result = lv60s5
     for i in reversed(range(_star, 5)):
         temp = 1 + (1 / (5 + i))
+        # if i == 4:
+        #     temp = 1.111
+        # elif i == 3:
+        #     temp = 1.125
+        # elif i == 2:
+        #     temp = 1.1428
+        # elif i == 1:
+        #     temp = 1.167
         result = result / temp
         # result = roundCeiling(result)
     return result
@@ -240,16 +248,14 @@ class ICard:
             if isinstance(enemies, list):
                 for enemy in enemies:
                     damage2 = enemy.increaseBeDamage(damage, self, True, False)
-                    event = Event()
-                    event.eventType = EventType.attackDamage
+                    event = Event(EventType.attackDamage)
                     event.data['source'] = self
                     event.data['value'] = damage2
                     event.data['target'] = enemy
                     eventManagerInstance.sendEvent(event)
             else:
                 damage2 = enemies.increaseBeDamage(damage, self, True, False)
-                event = Event()
-                event.eventType = EventType.attackDamage
+                event = Event(EventType.attackDamage)
                 event.data['source'] = self
                 event.data['value'] = damage2
                 event.data['target'] = enemies
@@ -257,18 +263,24 @@ class ICard:
 
         self.followUp(enemies, True)
 
-        heal = self.attackHeal()
+        heal = self.attackHeal(enemies)
         if heal > 0:
             for mate in self.teamMate:
                 heal2 = mate.increaseBeHeal(heal)
-                event = Event()
-                event.eventType = EventType.attackHeal
+                event = Event(EventType.attackHeal)
                 event.data['source'] = self
                 event.data['value'] = heal2
                 event.data['target'] = mate
                 eventManagerInstance.sendEvent(event)
 
-        self.skillAfter(enemies)
+        if damage <= 0 and heal <= 0:
+            event = Event(EventType.attack)
+            event.data['source'] = self
+            event.data['value'] = 0
+            event.data['target'] = self
+            eventManagerInstance.sendEvent(event)
+
+        self.attackAfter(enemies)
 
     def doSkill(self, enemies):
         damage = self.skill(enemies)
@@ -276,16 +288,14 @@ class ICard:
             if isinstance(enemies, list):
                 for enemy in enemies:
                     damage2 = enemy.increaseBeDamage(damage, self, False, True)
-                    event = Event()
-                    event.eventType = EventType.attackDamage
+                    event = Event(EventType.skillDamage)
                     event.data['source'] = self
                     event.data['value'] = damage2
                     event.data['target'] = enemy
                     eventManagerInstance.sendEvent(event)
             else:
                 damage2 = enemies.increaseBeDamage(damage, self, False, True)
-                event = Event()
-                event.eventType = EventType.attackDamage
+                event = Event(EventType.skillDamage)
                 event.data['source'] = self
                 event.data['value'] = damage2
                 event.data['target'] = enemies
@@ -293,18 +303,24 @@ class ICard:
 
         self.followUp(enemies, False)
 
-        heal = self.skillHeal()
+        heal = self.skillHeal(enemies)
         if heal > 0:
             for mate in self.teamMate:
                 heal2 = mate.increaseBeHeal(heal)
-                event = Event()
-                event.eventType = EventType.attackHeal
+                event = Event(EventType.skillHeal)
                 event.data['source'] = self
                 event.data['value'] = heal2
                 event.data['target'] = mate
                 eventManagerInstance.sendEvent(event)
 
-        self.attackAfter(enemies)
+        if damage <= 0 and heal <= 0:
+            event = Event(EventType.skill)
+            event.data['source'] = self
+            event.data['value'] = 0
+            event.data['target'] = self
+            eventManagerInstance.sendEvent(event)
+
+        self.skillAfter(enemies)
 
     def followUp(self, enemies, isAttack: bool):
         currentAtk = self.getCurrentAtk()
@@ -321,23 +337,27 @@ class ICard:
                 continue
 
             if buff.useBaseAtk:
-                followUpDamage = self.atk * buff.value
+                buffAtk = self.atk
             else:
-                followUpDamage = currentAtk * buff.value
-            followUpDamage = roundDown(followUpDamage)
+                buffAtk = currentAtk
+            followUpDamage = self.calDamage(buffAtk, buff.value, buff.seeAsAttack, buff.seeAsSkill)
             if isinstance(enemies, list):
                 for enemy in enemies:
                     damage2 = enemy.increaseBeDamage(followUpDamage, self, buff.seeAsAttack, buff.seeAsSkill)
-                    event = Event()
-                    event.eventType = EventType.attackDamage
+                    if isAttack:
+                        event = Event(EventType.attackFollowUp)
+                    else:
+                        event = Event(EventType.skillFollowUp)
                     event.data['source'] = self
                     event.data['value'] = damage2
                     event.data['target'] = enemy
                     eventManagerInstance.sendEvent(event)
             else:
                 damage2 = enemies.increaseBeDamage(followUpDamage, self, buff.seeAsAttack, buff.seeAsSkill)
-                event = Event()
-                event.eventType = EventType.attackDamage
+                if isAttack:
+                    event = Event(EventType.attackFollowUp)
+                else:
+                    event = Event(EventType.skillFollowUp)
                 event.data['source'] = self
                 event.data['value'] = damage2
                 event.data['target'] = enemies
@@ -351,44 +371,119 @@ class ICard:
             magnification = _s2
         return magnification
 
+    #反击
+    def doCounter(self, enemies):
+        currentAtk = self.getCurrentAtk()
+        for buff in self.buffs:
+            if buff.buffType != BuffType.CounterAttack:
+                continue
+
+            if buff.useBaseAtk:
+                buffAtk = self.atk
+            else:
+                buffAtk = currentAtk
+            counterDamage = self.calDamage(buffAtk, buff.value, buff.seeAsAttack, buff.seeAsSkill)
+            if isinstance(enemies, list):
+                for enemy in enemies:
+                    damage2 = enemy.increaseBeDamage(counterDamage, self, buff.seeAsAttack, buff.seeAsSkill)
+                    event = Event(EventType.counter)
+                    event.data['source'] = self
+                    event.data['value'] = damage2
+                    event.data['target'] = enemy
+                    eventManagerInstance.sendEvent(event)
+            else:
+                damage2 = enemies.increaseBeDamage(counterDamage, self, buff.seeAsAttack, buff.seeAsSkill)
+                event = Event(EventType.counter)
+                event.data['source'] = self
+                event.data['value'] = damage2
+                event.data['target'] = enemies
+                eventManagerInstance.sendEvent(event)
+
     # 吸血
     def doBloodSuck(self, damage):
-        for buff in self.buffs:
-            if buff.buffType == BuffType.BloodSucking:
-                heal = damage * buff.value
+        if damage > 0:
+            totalHeal = 0
+            bs = {}
+            for buff in self.buffs:
+                if buff.buffType == BuffType.BloodSucking:
+                    oldBs = 0
+                    if buff.source in bs:
+                        oldBs = bs.get(buff.source)
+                    bs[buff.source] = buff.value + oldBs
+            for temp in bs:
+                if bs[temp] < 0:
+                    continue
+                heal = damage * bs[temp]
+                heal = roundDown(heal)
                 heal = self.increaseHeal(heal)
+                totalHeal += heal
+                if heal > 0:
+                    event = Event(EventType.bloodSucking)
+                    event.data['source'] = self
+                    event.data['value'] = heal
+                    event.data['target'] = self
+                    event.data['custom'] = temp
+                    eventManagerInstance.sendEvent(event)
 
-                self.hpCurrent += heal
+            if totalHeal > 0:
+                self.hpCurrent += totalHeal
                 if self.hpCurrent > self.maxHp:
                     self.hpCurrent = self.maxHp
+
+    def sendShieldEvent(self, shield, target):
+        event = Event(EventType.shield)
+        event.data['source'] = self
+        event.data['value'] = shield
+        event.data['target'] = target
+        eventManagerInstance.sendEvent(event)
 
     # dot伤害结算：攻击力*倍率*[造成伤害增加*持续伤害增加(来源于自身，挂上dot的那一刻已确定该伤害)]*[(目标受持续伤害增加+目标受伤害增加)(来源于敌方，在敌方结算dot时计算)]
     # 结算dot，dot是锁面板技能
     def settleDot(self):
         dotDamages = {}
+        totalDamage = 0
         for buff in self.buffs:
             if buff.buffType == BuffType.Dot:
                 dotDamage = buff.value
                 dotDamage = self.increaseBeDot(dotDamage)
+                totalDamage += dotDamage
                 oldDamage = 0
                 if buff.source in dotDamages:
                     oldDamage = dotDamages.get(buff.source)
                 dotDamages[buff.source] = dotDamage + oldDamage
 
-        return dotDamages
+        self.beAttacked(totalDamage, False)
+
+        for source in dotDamages:
+            event = Event(EventType.dot)
+            event.data['source'] = source
+            event.data['value'] = dotDamages[source]
+            event.data['target'] = self
+            eventManagerInstance.sendEvent(event)
 
     # hot治疗结算：攻击力*倍率*[持续治疗增加(来源于治疗的角色)]*[回复量增加(来源于被治疗的角色)]（不一定对）
     # 结算hot，hot是锁面板技能
     def settleHot(self):
         hotHeals = {}
+        totalHeal = 0
         for buff in self.buffs:
             if buff.buffType == BuffType.Hot:
                 hotHeal = buff.value
                 hotHeal = self.increaseBeHeal(hotHeal)
+                totalHeal += hotHeal
+                oldHeal = 0
                 if buff.source in hotHeals:
-                    hotHeal += hotHeals.get(buff.source)
-                hotHeals[buff.source] = hotHeal
+                    oldHeal = hotHeals.get(buff.source)
+                hotHeals[buff.source] = hotHeal + oldHeal
 
+        self.beHealed(totalHeal, False)
+
+        for source in hotHeals:
+            event = Event(EventType.hot)
+            event.data['source'] = source
+            event.data['value'] = hotHeals[source]
+            event.data['target'] = self
+            eventManagerInstance.sendEvent(event)
         return hotHeals
 
     def getCurrentAtk(self):
@@ -674,7 +769,7 @@ class ICard:
     def skill(self, enemy):
         return 0
 
-    def skillHeal(self):
+    def skillHeal(self, enemy):
         return 0
 
     def skillAfter(self, enemy):
@@ -685,7 +780,7 @@ class ICard:
     def attack(self, enemy):
         return 0
 
-    def attackHeal(self):
+    def attackHeal(self, enemy):
         return 0
 
     def attackAfter(self, enemy):
@@ -784,6 +879,7 @@ class ICard:
             self.buffs.remove(buff)
 
         self.hpCurrent -= result
+        self.beAttackedAfter(seeAsBeAttacked)
         return 0
 
     def beHealed(self, heal, seeAsHeal):

@@ -10,12 +10,11 @@ from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRarityEnum import CardRarity
 from RoleCards.enum.cardRoleEnum import CardRole
 from openpyxl.workbook import Workbook
-
-# 模拟角色单人13回合作战能力（以被动在实战中能否吃满配置队友
 from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 
 
-def simulationCombat(filePath, cardHelper: CardHelper, helper: NucarnivalHelper, calGroupRole: bool):
+def simulationCombat(filePath, cardHelper: CardHelper, helper: NucarnivalHelper, calGroupRole: bool,
+                     forceTeamMate: bool = False):
     wb = Workbook()
 
     column = 16
@@ -57,6 +56,8 @@ def simulationCombat(filePath, cardHelper: CardHelper, helper: NucarnivalHelper,
         needTeamMate = True
         if x.ped == PassiveEffectivenessDifficulty.difficult or x.ped == PassiveEffectivenessDifficulty.veryDifficult:
             needTeamMate = False
+        if forceTeamMate:
+            needTeamMate = True
 
         if x.isGroup == calGroupRole:
             row1 += 1
@@ -87,88 +88,47 @@ def simulationCombat(filePath, cardHelper: CardHelper, helper: NucarnivalHelper,
     wb.save(filePath)
 
 
-# 模拟角色单人13回合作战能力
-def simulation1(filePath, cardHelper: CardHelper, helper: NucarnivalHelper, needTeamMate: bool, calGroupRole: bool):
-    wb = Workbook()
-
-    column = 16
-    ws = wb.create_sheet('伤害模拟结果', 0)
-    ws2 = wb.create_sheet('伤害模拟结果_ssr5星', 0)
-    ws.merge_cells(None, 1, 1, 1, column)
-    ws2.merge_cells(None, 1, 1, 1, column)
-    title = ''
-    if needTeamMate and calGroupRole:
-        title = '单人13回合期望伤害模拟_群体_配置虚拟队友被动吃满（例如：实战难以满足的3个艾斯特）'
-    elif needTeamMate and calGroupRole is False:
-        title = '单人13回合期望伤害模拟_单体_配置虚拟队友被动吃满（例如：实战难以满足的3个艾斯特）'
-    elif needTeamMate is False and calGroupRole:
-        title = '单人13回合期望伤害模拟_群体_不配置任何队友部分被动无法吃满'
-    elif needTeamMate is False and calGroupRole is False:
-        title = '单人13回合期望伤害模拟_单体_不配置任何队友部分被动无法吃满'
-    ws.cell(1, 1, title)
-    ws2.cell(1, 1, title)
-
-    row = 2
-    ssrRow = 2
-    exportTitle(ws, row)
-    exportTitle(ws2, ssrRow)
-
-    for x in cardHelper.cardList:
-        if (x.occupation == CardOccupation.Support and x.cardName != '诡夜疾风') \
-                or x.occupation == CardOccupation.Healer:
-            continue
-        if x.isGroup == calGroupRole:
-            row += 1
-            if x.rarity == CardRarity.SSR:
-                ssrRow += 1
-                # 5星满潜
-                simulation(helper, needTeamMate, ws2, x, ssrRow, 5, 12)
-
-                # 3星满潜
-                simulation(helper, needTeamMate, ws, x, row, 3, 12)
-            elif x.rarity == CardRarity.SR:
-                # 5星满潜
-                simulation(helper, needTeamMate, ws, x, row, 5, 12)
-            else:
-                # 5星满潜
-                simulation(helper, needTeamMate, ws, x, row, 5, 6)
-
-    wb.save(filePath)
-
-
 # 进行模拟
-def getDamageProportion(helper: NucarnivalHelper, x: ICard, totalDamage=1):
+def getDamageProportion(helper: NucarnivalHelper, x: ICard, data):
     msg = ''
+    attackDamage = data['attackDamage']
+    attackFU = data['attackFU']
+    skillDamage = data['skillDamage']
+    skillFU = data['skillFU']
+    dot = data['dot']
+    counter = data['counter']
+    attackHeal = data['attackHeal']
+    skillHeal = data['skillHeal']
+    hot = data['hot']
+    bloodSuck = data['bloodSuck']
+    totalDamage = data['totalDamage']
+    totalHeal = data['totalHeal']
+
     if totalDamage == 0:
         return msg
-    if x in helper.damageRecord_attack:
-        if helper.damageRecord_attack[x] > 0:
-            damageProportion = helper.damageRecord_attack[x] / totalDamage * 100
-            damageProportion = roundHalfEven(damageProportion)
-            if len(msg) != 0:
+    if totalDamage > 0:
+        attack = attackDamage + attackFU
+        skill = skillDamage + skillFU
+        if attack > 0:
+            proportion = roundHalfEven(attack / totalDamage * 100)
+            if len(msg) > 0:
                 msg += '\n'
-            msg += '普攻（' + str(damageProportion) + '%）'
-    if x in helper.damageRecord_skill:
-        if helper.damageRecord_skill[x] > 0:
-            damageProportion = helper.damageRecord_skill[x] / totalDamage * 100
-            damageProportion = roundHalfEven(damageProportion)
-            if len(msg) != 0:
+            msg += '普攻({}%)'.format(proportion)
+        if skill > 0:
+            proportion = roundHalfEven(skill / totalDamage * 100)
+            if len(msg) > 0:
                 msg += '\n'
-            msg += '必杀（' + str(damageProportion) + '%）'
-    if x in helper.damageRecord_dot:
-        if helper.damageRecord_dot[x] > 0:
-            damageProportion = helper.damageRecord_dot[x] / totalDamage * 100
-            damageProportion = roundHalfEven(damageProportion)
-            if len(msg) != 0:
+            msg += '必杀({}%)'.format(proportion)
+        if dot > 0:
+            proportion = roundHalfEven(dot / totalDamage * 100)
+            if len(msg) > 0:
                 msg += '\n'
-            msg += '持续伤害（' + str(damageProportion) + '%）'
-    if x in helper.damageRecord_counter:
-        if helper.damageRecord_counter[x] > 0:
-            damageProportion = helper.damageRecord_counter[x] / totalDamage * 100
-            damageProportion = roundHalfEven(damageProportion)
-            if len(msg) != 0:
+            msg += '持续伤害({}%)'.format(proportion)
+        if counter > 0:
+            proportion = roundHalfEven(counter / totalDamage * 100)
+            if len(msg) > 0:
                 msg += '\n'
-            msg += '反击（' + str(damageProportion) + '%）'
+            msg += '反击({}%)'.format(proportion)
     return msg
 
 
@@ -250,15 +210,13 @@ def simulation(helper: NucarnivalHelper, needTeamMate: bool, ws: Worksheet, x: I
     helper.monsters.append(CommonMonster())
     helper.maxTurn = 13
     helper.battleStart(False)
-    damage = 0
-    if x in helper.damageRecord:
-        damage = helper.damageRecord[x]
+    data = helper.getTotalResult(x)
     column = 14
-    ws.cell(row, column, damage)
+    ws.cell(row, column, data['totalDamage'])
     column += 1
-    ws.cell(row, column, getDamageProportion(helper, x, damage))
+    ws.cell(row, column, getDamageProportion(helper, x, data))
     column += 1
-    ws.cell(row, column, getRank(x, damage))
+    ws.cell(row, column, getRank(x, data['totalDamage']))
 
 
 # 导出
@@ -408,9 +366,9 @@ def banguaiSimulation(filepath, cardHelper: CardHelper, helper: NucarnivalHelper
     for i in cList:
         role = cardHelper.cardList[i]
         if role.rarity == CardRarity.SSR:
-            role.setProperties(60, 2, 4, 6)
+            role.setProperties(60, 3, 5, 12)
         else:
-            role.setProperties(60, 4, 4, 6)
+            role.setProperties(60, 5, 5, 12)
         role.calHpAtk(True)
         role.writeCardInfoInExcel(ws, row)
         row += 1
@@ -418,9 +376,9 @@ def banguaiSimulation(filepath, cardHelper: CardHelper, helper: NucarnivalHelper
     for i in banguaiList:
         role = cardHelper.cardList[i]
         if role.rarity == CardRarity.SSR:
-            role.setProperties(60, 2, 4, 6)
+            role.setProperties(60, 3, 5, 12)
         else:
-            role.setProperties(60, 4, 4, 6)
+            role.setProperties(60, 5, 5, 12)
         role.calHpAtk(True)
         role.writeCardInfoInExcel(ws, row)
         row += 1
@@ -488,14 +446,9 @@ if __name__ == '__main__':
 
     _cardHelper = CardHelper()
 
-    # banguaiSimulation('C:\\fhs\\python\\半拐模拟.xls', _cardHelper, _helper)
-
-    # simulation1('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_不配置队友.xls', _cardHelper, _helper, False, False)
-    # simulation1('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_配置队友.xls', _cardHelper, _helper, True, False)
-    # simulation1('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_不配置队友.xls', _cardHelper, _helper, False, True)
-    # simulation1('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_配置队友.xls', _cardHelper, _helper, True, True)
+    # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
-    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
-    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
+    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True)
+    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)

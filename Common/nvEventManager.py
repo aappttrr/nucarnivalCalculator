@@ -2,9 +2,11 @@ import enum
 
 
 class EventType(enum.Enum):
+    attack = '普攻'
     attackDamage = '普攻-攻击'
     attackFollowUp = '普攻-追击'
     attackHeal = '普攻-治疗'
+    skill = '必杀'
     skillDamage = '必杀-攻击'
     skillFollowUp = '必杀-追击'
     skillHeal = '必杀-治疗'
@@ -13,6 +15,7 @@ class EventType(enum.Enum):
     bloodSucking = '吸血'
     counter = '反击'
     shield = '护盾'
+    defense = '防御'
 
 
 class Event:

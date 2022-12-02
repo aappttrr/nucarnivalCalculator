@@ -8,6 +8,7 @@ class CommonMonster(NCard):
         self.cardId = 'CommonMonster'
         self.cardName = '普通怪'
         self.skillCD = 4
+        self.isGroup = True
 
         self.lv60s5Hp = 10000000
         self.lv60s5Atk = 1

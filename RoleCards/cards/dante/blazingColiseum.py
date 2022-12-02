@@ -44,6 +44,7 @@ class BlazingColiseum(SSRCard):
             tempShield = role.increaseBeShield(shield)
             buff = Buff('BlazingColiseum_skill', tempShield, 1, BuffType.Shield)
             role.addBuff(buff, self)
+            self.sendShieldEvent(tempShield, role)
 
         return damage
 
@@ -62,6 +63,7 @@ class BlazingColiseum(SSRCard):
             tempShield = role.increaseBeShield(shield)
             buff = Buff('BlazingColiseum_attack', tempShield, 1, BuffType.Shield)
             role.addBuff(buff, self)
+            self.sendShieldEvent(tempShield, role)
 
         return damage
 

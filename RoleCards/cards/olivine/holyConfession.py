@@ -1,3 +1,4 @@
+from Common.nvEventManager import Event, EventType, eventManagerInstance
 from RoleCards.buff.buff import Buff
 from RoleCards.common.card import roundDown
 from RoleCards.common.ssrCard import SSRCard
@@ -29,7 +30,7 @@ class HolyConfession(SSRCard):
 
     # 攻击力133%/157%/182%全体治疗
     # 攻击力17%/20%/24%hot(4)
-    def skill(self, enemy, printInfo=False):
+    def skillHeal(self, enemy):
         self.skillCount = 0
         ma = self.getMagnification(1.33, 1.57, 1.82)
         ma2 = self.getMagnification(0.17, 0.2, 0.24)
@@ -43,12 +44,10 @@ class HolyConfession(SSRCard):
         hotHeal = roundDown(hotHeal)
 
         for role in self.teamMate:
-            tempHeal = role.increaseBeHeal(heal)
-            role.beHealed(tempHeal, True)
             buff = Buff('HolyConfession_skill', hotHeal, 4, BuffType.Hot)
             role.addBuff(buff, self)
 
-        return 0
+        return heal
 
     def skillAfter(self, enemy):
         if self.passive_star_3():
@@ -60,10 +59,16 @@ class HolyConfession(SSRCard):
             currentAtk = self.getCurrentAtk()
             heal = currentAtk * 0.75
             heal = roundDown(heal)
-            hpLowestRole.beHealed(heal, True)
+            heal2 = hpLowestRole.increaseBeHeal(heal)
+
+            event = Event(EventType.skillHeal)
+            event.data['source'] = self
+            event.data['value'] = heal2
+            event.data['target'] = hpLowestRole
+            eventManagerInstance.sendEvent(event)
 
     # 攻击力25%hot(3)
-    def attack(self, enemy, printInfo=False):
+    def attackHeal(self, enemy, printInfo=False):
         currentAtk = self.getCurrentAtk()
         hotHeal = currentAtk * 0.25
         hotHeal = roundDown(hotHeal)
@@ -84,7 +89,13 @@ class HolyConfession(SSRCard):
             currentAtk = self.getCurrentAtk()
             heal = currentAtk * 0.75
             heal = roundDown(heal)
-            hpLowestRole.beHealed(heal, True)
+            heal2 = hpLowestRole.increaseBeHeal(heal)
+
+            event = Event(EventType.attackHeal)
+            event.data['source'] = self
+            event.data['value'] = heal2
+            event.data['target'] = hpLowestRole
+            eventManagerInstance.sendEvent(event)
 
     # 攻击时，以攻击力75%对Hp最低者进行治疗
     def passive_star_3(self):

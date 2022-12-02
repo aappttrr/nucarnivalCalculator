@@ -42,6 +42,7 @@ class SRMorvay(SRCard):
 
         buff = Buff('SRMorvay_skill', shield, 1, BuffType.Shield)
         self.addBuff(buff)
+        self.sendShieldEvent(shield, self)
 
         buff2 = Buff('SRMorvay_skill_2', 0.1, 1, BuffType.DefenseDamageReduction)
         self.addBuff(buff2)
