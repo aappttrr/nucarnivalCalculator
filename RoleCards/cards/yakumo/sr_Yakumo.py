@@ -40,6 +40,7 @@ class SRYakumo(SRCard):
 
         hotHeal = currentAtk * ma_hot
         hotHeal = roundDown(hotHeal)
+        hotHeal = self.increaseHot(hotHeal)
 
         for role in self.teamMate:
             buff = Buff('SRYakumo_skill', hotHeal, 2, BuffType.Hot)

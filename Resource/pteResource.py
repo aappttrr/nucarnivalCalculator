@@ -75,7 +75,8 @@ def getHelpContent():
     writeWriteSpace(output, 8)
     writeLineString(output, '普攻/必杀伤害 = 基础攻击力/实时攻击力 * 倍率 * 普攻/必杀加成 * 伤害加成')
     writeWriteSpace(output, 8)
-    writeLineString(output, '最终普攻/必杀伤害 = 普攻/必杀伤害 * 敌方受普攻/必杀加成 * 敌方受伤害加成 * 属性压制')
+    writeLineString(output, '最终普攻/必杀伤害 = 普攻/必杀伤害 * 敌方受普攻/必杀加成 * 敌方受伤害加成 * 属性压制 '
+                            '* 敌方受特定角色伤害加成（未验证是否为单独乘区）')
     writeLineString(output, '')
     writeWriteSpace(output, 8)
     writeLineString(output, 'DOT是锁面板技能，在挂buff的那一刻就确定了DOT伤害（HOT也一样），并且DOT没有属性压制')
@@ -83,7 +84,8 @@ def getHelpContent():
     writeLineString(output, 'DOT伤害 = 基础攻击力/实时攻击力 * 倍率 * 持续伤害加成 * 伤害加成')
     writeWriteSpace(output, 8)
     writeLineString(output,
-                    '最终DOT伤害 = DOT伤害 * （敌方受持续伤害加成+敌方受伤害加成）【这里非常特殊是加算，不排除是bug】')
+                    '最终DOT伤害 = DOT伤害 * （敌方受持续伤害加成+敌方受伤害加成）【这里非常特殊是加算，不排除是bug】'
+                    '* 敌方受特定角色伤害加成（未验证是否为单独乘区）')
     writeLineString(output, '')
     writeWriteSpace(output, 8)
     writeLineString(output,
@@ -93,7 +95,22 @@ def getHelpContent():
     writeWriteSpace(output, 8)
     writeLineString(output, '反击/追击伤害 = 基础攻击力/实时攻击力 * 倍率 * 普攻/必杀加成 * 伤害加成')
     writeWriteSpace(output, 8)
-    writeLineString(output, '最终反击/追击伤害 = 反击/追击伤害 * 敌方受普攻/必杀加成 * 敌方受伤害加成 * 属性压制')
+    writeLineString(output, '最终反击/追击伤害 = 反击/追击伤害 * 敌方受普攻/必杀加成 * 敌方受伤害加成 * 属性压制 '
+                            '* 敌方受特定角色伤害加成（未验证是否为单独乘区）')
+    writeLineString(output, '')
+    writeWriteSpace(output, 8)
+    writeLineString(output, '治疗量 = 基础攻击力/实时攻击力 * 倍率 * 造成回复量加成')
+    writeWriteSpace(output, 8)
+    writeLineString(output, '最终治疗量 = 治疗量 * 受回复量加成')
+    writeWriteSpace(output, 8)
+    writeLineString(output, 'Hot量 = 基础攻击力/实时攻击力 * 倍率 * 造成回复量加成 * 持续治疗量加成')
+    writeWriteSpace(output, 8)
+    writeLineString(output, '最终Hot量 = Hot * 受回复量加成 * 受持续治疗量加成【夏八】')
+    writeLineString(output, '')
+    writeWriteSpace(output, 8)
+    writeLineString(output, '护盾 = 最大HP * 倍率 * 造成护盾加成 * 护盾效果加成【三星普啖和三星水啖，未验证是否为乘算】')
+    writeWriteSpace(output, 8)
+    writeLineString(output, '最终护盾 = 护盾 * 受护盾效果加成【夏八】')
     return output.getvalue()
 
 

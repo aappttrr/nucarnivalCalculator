@@ -28,8 +28,8 @@ class OceanBreeze(SSRCard):
         self.atk = self.lv60s5Atk
 
     # 自基攻62%/74%/87%，全体攻击力增加（2）
-    # 全体护盾+55%/65%/75%(2)，
-    # 全体持续治疗+55%/65%/75%(3)
+    # 全体受到护盾+55%/65%/75%(2)，
+    # 全体受到持续治疗+55%/65%/75%(3)
     def skill(self, enemy, printInfo=False):
         ma = self.getMagnification(0.62, 0.74, 0.87)
         ma2 = self.getMagnification(0.55, 0.65, 0.75)
@@ -44,7 +44,7 @@ class OceanBreeze(SSRCard):
             buff2 = Buff('OceanBreeze_skill_2', ma2, 2, BuffType.BeShieldIncrease)
             role.addBuff(buff2, self)
 
-            buff3 = Buff('OceanBreeze_skill_3', ma2, 3, BuffType.HotIncrease)
+            buff3 = Buff('OceanBreeze_skill_3', ma2, 3, BuffType.BeHotIncrease)
             role.addBuff(buff3, self)
 
         return 0

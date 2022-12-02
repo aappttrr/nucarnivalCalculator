@@ -41,6 +41,7 @@ class HolyConfession(SSRCard):
 
         hotHeal = currentAtk * ma2
         hotHeal = roundDown(hotHeal)
+        hotHeal = self.increaseHot(hotHeal)
 
         for role in self.teamMate:
             buff = Buff('HolyConfession_skill', hotHeal, 4, BuffType.Hot)
@@ -58,6 +59,7 @@ class HolyConfession(SSRCard):
             currentAtk = self.getCurrentAtk()
             heal = currentAtk * 0.75
             heal = roundDown(heal)
+            heal = self.increaseHeal(heal)
             heal2 = hpLowestRole.increaseBeHeal(heal)
 
             event = Event(EventType.skillHeal)
@@ -71,6 +73,7 @@ class HolyConfession(SSRCard):
         currentAtk = self.getCurrentAtk()
         hotHeal = currentAtk * 0.25
         hotHeal = roundDown(hotHeal)
+        hotHeal = self.increaseHot(hotHeal)
 
         for role in self.teamMate:
             buff = Buff('HolyConfession_attack', hotHeal, 3, BuffType.Hot)
@@ -88,6 +91,7 @@ class HolyConfession(SSRCard):
             currentAtk = self.getCurrentAtk()
             heal = currentAtk * 0.75
             heal = roundDown(heal)
+            heal = self.increaseHeal(heal)
             heal2 = hpLowestRole.increaseBeHeal(heal)
 
             event = Event(EventType.attackHeal)

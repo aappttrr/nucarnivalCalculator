@@ -469,7 +469,7 @@ class ICard:
         for buff in self.buffs:
             if buff.buffType == BuffType.Hot:
                 hotHeal = buff.value
-                hotHeal = self.increaseBeHeal(hotHeal)
+                hotHeal = self.increaseBeHot(hotHeal)
                 totalHeal += hotHeal
                 oldHeal = 0
                 if buff.source in hotHeals:
@@ -586,7 +586,7 @@ class ICard:
     def increaseBeHeal(self, heal):
         result = heal
 
-        # 由自身提升的受回复量增加
+        # 由自身提升的持续治疗增加
         healIncrease = 0
 
         for buff in self.buffs:
@@ -603,13 +603,45 @@ class ICard:
     def increaseHot(self, heal):
         result = heal
 
-        # 由自身提升的受持续治疗增加
+        # 由自身提升的持续治疗增加
+        hotIncrease = 0
+        # 由自身提升的造成回复量增加
         healIncrease = 0
 
         for buff in self.buffs:
             if buff.buffType == BuffType.HotIncrease:
-                healIncrease += buff.value
+                hotIncrease += buff.value
+            if buff.buffType == BuffType.HealIncrease:
+                hotIncrease += buff.value
 
+        if hotIncrease != 0:
+            result = result * (1 + hotIncrease)
+            result = roundDown(result)
+        if healIncrease != 0:
+            result = result * (1 + healIncrease)
+            result = roundDown(result)
+
+        if result < 0:
+            result = 0
+        return result
+
+    def increaseBeHot(self, heal):
+        result = heal
+
+        # 由自身提升的受持续治疗增加
+        hotIncrease = 0
+        # 由自身提升的受回复量增加
+        healIncrease = 0
+
+        for buff in self.buffs:
+            if buff.buffType == BuffType.BeHotIncrease:
+                hotIncrease += buff.value
+            if buff.buffType == BuffType.BeHealIncrease:
+                hotIncrease += buff.value
+
+        if hotIncrease != 0:
+            result = result * (1 + hotIncrease)
+            result = roundDown(result)
         if healIncrease != 0:
             result = result * (1 + healIncrease)
             result = roundDown(result)
