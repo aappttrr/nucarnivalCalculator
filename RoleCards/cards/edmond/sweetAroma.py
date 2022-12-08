@@ -29,20 +29,17 @@ class SweetAroma(SSRCard):
 
     # 攻击力204%/238%/273%
     # 目标受普攻伤害+27%（3）
-    def skill(self, enemy):
+    def skill(self, enemies, currentAtk):
         magnification = self.getMagnification(2.04, 2.38, 2.73)
-
-        currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, magnification, False, True)
         return damage
 
-    def skillAfter(self, enemy):
+    def skillAfter(self, enemies):
         buff = Buff('SweetAroma_skill', 0.27, 3, BuffType.BeAttackIncrease)
-        enemy.addBuff(buff, self)
+        enemies.addBuff(buff, self)
 
     # 攻击力125%
-    def attack(self, enemy):
-        currentAtk = self.getCurrentAtk()
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1.25, True, False)
         return damage
 

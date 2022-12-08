@@ -29,22 +29,19 @@ class EliteInstructor(SSRCard):
 
     # 目标获得【被攻击时，自身受伤增加3.5%(3)】(3)
     # 攻204%/238%/273%
-    def skill(self, enemy):
+    def skillBefore(self, enemies):
         buff = Buff('EliteInstructor_skill', 0.035, 3, BuffType.AddBeDamageIncrease)
         buff.addBuffTurn = 3
         buff.conditionType = ConditionType.WhenBeAttacked
-        enemy.addBuff(buff, self)
+        enemies.addBuff(buff, self)
 
+    def skill(self, enemies, currentAtk):
         ma = self.getMagnification(2.04, 2.38, 2.73)
-        currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, ma, False, True)
-
         return damage
 
     # 攻击力125%造成伤害
-    def attack(self, enemy):
-        currentAtk = self.getCurrentAtk()
-
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1.25, True, False)
         return damage
 

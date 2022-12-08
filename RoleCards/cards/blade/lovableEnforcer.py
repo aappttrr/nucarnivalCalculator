@@ -29,40 +29,36 @@ class LovableEnforcer(SSRCard):
     # 自伤+20%（3）
     # 攻247%/296%/345%
     # 50%沉默
-    def skill(self, enemy):
-        ma = self.getMagnification(2.47, 2.96, 3.45)
-
+    def skillBefore(self, enemies):
         buff = Buff('LovableEnforcer_skill', 0.2, 3, BuffType.DamageIncrease)
         self.addBuff(buff)
 
-        currentAtk = self.getCurrentAtk()
+    def skill(self, enemies, currentAtk):
+        ma = self.getMagnification(2.47, 2.96, 3.45)
         damage = self.calDamage(currentAtk, ma, False, True)
-
         return damage
 
-    def skillAfter(self, enemy):
-        if self.passive_star_5() and enemy.calBuffCount('LovableEnforcer_passive_star_5') < 5:
+    def skillAfter(self, enemies):
+        if self.passive_star_5() and enemies.calBuffCount('LovableEnforcer_passive_star_5') < 5:
             buff2 = Buff('LovableEnforcer_passive_star_5', 0.05, 0, BuffType.BeDamageIncreaseByRole)
             buff2.targetRole = CardRole.Blade
             buff2.isPassive = True
-            enemy.addBuff(buff2, self)
+            enemies.addBuff(buff2, self)
 
     # 攻100%
     # 目标伤害-10%（1）
-    def attack(self, enemy):
-        currentAtk = self.getCurrentAtk()
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1, True, False)
-        buff = Buff('LovableEnforcer_attack', -0.1, 1, BuffType.DamageIncrease)
-        enemy.addBuff(buff, self)
-
         return damage
 
-    def attackAfter(self, enemy):
-        if self.passive_star_5() and enemy.calBuffCount('LovableEnforcer_passive_star_5') < 5:
+    def attackAfter(self, enemies):
+        buff = Buff('LovableEnforcer_attack', -0.1, 1, BuffType.DamageIncrease)
+        enemies.addBuff(buff, self)
+        if self.passive_star_5() and enemies.calBuffCount('LovableEnforcer_passive_star_5') < 5:
             buff2 = Buff('LovableEnforcer_passive_star_5', 0.05, 0, BuffType.BeDamageIncreaseByRole)
             buff2.targetRole = CardRole.Blade
             buff2.isPassive = True
-            enemy.addBuff(buff2, self)
+            enemies.addBuff(buff2, self)
 
     # 每Wave第一回合，全体沉默几率+25%
     def passive_star_3(self):

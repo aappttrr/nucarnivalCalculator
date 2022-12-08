@@ -29,31 +29,29 @@ class LakesideSpark(SSRCard):
 
     # 攻击力133%/157%/182%治疗
     # 我方全体吸血效果15%（4）
-    def skillHeal(self, enemy):
+    def skillHeal(self, enemies, currentAtk):
         ma = self.getMagnification(1.33, 1.57, 1.82)
-        currentAtk = self.getCurrentAtk()
-
         heal = currentAtk * ma
         heal = roundDown(heal)
         heal = self.increaseHeal(heal)
+        return heal
+
+    def skillAfter(self, enemies):
         for role in self.teamMate:
             buff = Buff('LakesideSpark_skill', 0.15, 4, BuffType.BloodSucking)
             role.addBuff(buff, self)
 
-        return heal
-
     # 攻击力68%治疗
     # 我方全体吸血效果15%（1）
-    def attackHeal(self, enemy):
-        currentAtk = self.getCurrentAtk()
-
+    def attackHeal(self, enemies, currentAtk):
         heal = currentAtk * 0.68
         heal = roundDown(heal)
+        return heal
+
+    def attackAfter(self, enemies):
         for role in self.teamMate:
             buff = Buff('LakesideSpark_attack', 0.15, 1, BuffType.BloodSucking)
             role.addBuff(buff, self)
-
-        return heal
 
     # 攻击力+25%
     # 妨碍角色攻击力+12%

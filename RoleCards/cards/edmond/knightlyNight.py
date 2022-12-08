@@ -31,10 +31,11 @@ class KnightlyNight(SSRCard):
 
     # 攻击力125%造成伤害
     # 普攻时，78%/111%/143%攻击力追击(3)
-    def skill(self, enemy):
-        currentAtk = self.getCurrentAtk()
+    def skill(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1.25, False, True)
+        return damage
 
+    def skillAfter(self, enemies):
         ma = self.getMagnification(0.78, 1.11, 1.43)
         buff = Buff('KnightlyNight_skill', ma, 3, BuffType.FollowUpAttack)
         buff.useBaseAtk = False
@@ -42,12 +43,8 @@ class KnightlyNight(SSRCard):
         buff.conditionType = ConditionType.WhenAttack
         self.addBuff(buff)
 
-        return damage
-
     # 攻击力125%造成伤害
-    def attack(self, enemy):
-        currentAtk = self.getCurrentAtk()
-
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1.25, True, False)
         return damage
 

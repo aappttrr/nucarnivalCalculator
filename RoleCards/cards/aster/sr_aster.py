@@ -27,21 +27,18 @@ class SRAster(SRCard):
         self.atk = self.lv60s5Atk
 
     # 吸血25%（4），攻247%/296%/345%
-    def skill(self, enemy):
+    def skillBefore(self, enemies):
         buff = Buff('SRAster_skill', 0.25, 4, BuffType.BloodSucking)
         self.addBuff(buff)
 
+    def skill(self, enemies, currentAtk):
         magnification = self.getMagnification(2.47, 2.96, 3.45)
-        currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, magnification, False, True)
-
         return damage
 
     # 攻125%
-    def attack(self, enemy):
-        currentAtk = self.getCurrentAtk()
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1.25, True, False)
-
         return damage
 
     # 有墨菲，攻+10%

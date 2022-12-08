@@ -30,10 +30,8 @@ class WhiteLover(SSRCard):
 
     # 攻击力64%/77%/90%（群）
     # 攻击力21%/26%/30%持续伤害(群)（3）
-    def skill(self, enemy):
+    def skill(self, enemies, currentAtk):
         ma = self.getMagnification(0.64, 0.77, 0.9)
-
-        currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, ma, False, True)
 
         ma_dot = self.getMagnification(0.21, 0.26, 0.3)
@@ -43,13 +41,11 @@ class WhiteLover(SSRCard):
         for monster in self.enemies:
             buff = Buff('WhiteLover_skill', dotDamage, 3, BuffType.Dot)
             monster.addBuff(buff, self)
-
         return damage
 
     # 攻击力63%（群）
-    def attack(self, enemy):
-        currentAtk = self.getCurrentAtk()
-        damage = self.calDamage(currentAtk, 0.63, True,False)
+    def attack(self, enemies, currentAtk):
+        damage = self.calDamage(currentAtk, 0.63, True, False)
         return damage
 
     # 八云在场，攻击力+27%

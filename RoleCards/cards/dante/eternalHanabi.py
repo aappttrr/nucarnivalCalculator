@@ -29,33 +29,28 @@ class EternalHanabi(SSRCard):
     # 目标解除防御
     # 目标受必杀+27%（1）
     # 攻击力204%/238%/273%
-    def skill(self, enemy):
-        enemy.defense = False
-
+    def skillBefore(self, enemies):
+        enemies.defense = False
         buff = Buff('EternalHanabi_skill', 0.27, 1, BuffType.BeSkillIncrease)
-        enemy.addBuff(buff, self)
+        enemies.addBuff(buff, self)
 
-        currentAtk = self.getCurrentAtk()
-
+    def skill(self, enemies, currentAtk):
         ma = self.getMagnification(2.04, 2.38, 2.73)
         damage = self.calDamage(currentAtk, ma, False, True)
-
         return damage
 
-    def skillAfter(self, enemy):
+    def skillAfter(self, enemies):
         if self.star >= 3:
             for role in self.teamMate:
                 buff = Buff('EternalHanabi_passive_star_3', 0.05, 5, BuffType.ShieldIncrease)
                 role.addBuff(buff, self)
 
     # 攻击力125%
-    def attack(self, enemy):
-        currentAtk = self.getCurrentAtk()
-
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1.25, True, False)
         return damage
 
-    def attackAfter(self, enemy):
+    def attackAfter(self, enemies):
         if self.star >= 3:
             for role in self.teamMate:
                 buff = Buff('EternalHanabi_passive_star_3', 0.05, 5, BuffType.ShieldIncrease)

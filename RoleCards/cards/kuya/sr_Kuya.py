@@ -26,27 +26,26 @@ class SRKuya(SRCard):
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
-    # 攻247%/296%/345%，目标受回复量-100%（2）
-    def skill(self, enemy):
+    # 攻247%/296%/345%
+    # 目标受回复量-100%（2）
+    def skill(self, enemies, currentAtk):
         magnification = self.getMagnification(2.47, 2.96, 3.45)
-
-        currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, magnification, False, True)
         return damage
 
-    def skillAfter(self, enemy):
+    def skillAfter(self, enemies):
         buff = Buff('SRKuya_skill', -1, 2, BuffType.BeHealIncrease)
-        enemy.addBuff(buff, self)
+        enemies.addBuff(buff, self)
 
-    # 攻100%，目标受回复量-50%（1）
-    def attack(self, enemy):
-        currentAtk = self.getCurrentAtk()
+    # 攻100%
+    # 目标受回复量-50%（1）
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1, True, False)
         return damage
 
-    def attackAfter(self, enemy):
+    def attackAfter(self, enemies):
         buff = Buff('SRKuya_attack', -0.5, 1, BuffType.BeHealIncrease)
-        enemy.addBuff(buff, self)
+        enemies.addBuff(buff, self)
 
     # 队伍玖夜每1位，自攻+8%(max 3)
     def passive_star_3(self):

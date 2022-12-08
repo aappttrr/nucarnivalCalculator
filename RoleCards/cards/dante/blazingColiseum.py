@@ -29,10 +29,11 @@ class BlazingColiseum(SSRCard):
 
     # 攻击力100%
     # 最大hp13%/15%/18%护盾(1)
-    def skill(self, enemy):
-        currentAtk = self.getCurrentAtk()
+    def skill(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1, False, True)
+        return damage
 
+    def skillAfter(self, enemies):
         ma = self.getMagnification(0.13, 0.15, 0.18)
         shield = self.maxHp * ma
         shield = roundDown(shield)
@@ -44,15 +45,13 @@ class BlazingColiseum(SSRCard):
             role.addBuff(buff, self)
             self.sendShieldEvent(tempShield, role)
 
-        return damage
-
     # 攻击力75%
     # 最大hp6%护盾(1)
-    def attack(self, enemy):
-        currentAtk = self.getCurrentAtk()
-
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 0.75, True, False)
+        return damage
 
+    def attackAfter(self, enemies):
         shield = self.maxHp * 0.06
         shield = roundDown(shield)
         shield = self.increaseShield(shield)
@@ -62,8 +61,6 @@ class BlazingColiseum(SSRCard):
             buff = Buff('BlazingColiseum_attack', tempShield, 1, BuffType.Shield)
             role.addBuff(buff, self)
             self.sendShieldEvent(tempShield, role)
-
-        return damage
 
     # 队伍啖天每1位，护盾效果+8%(max 3)
     def passive_star_3(self):

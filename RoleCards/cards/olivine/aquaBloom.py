@@ -28,7 +28,7 @@ class AquaBloom(SSRCard):
         self.atk = self.lv60s5Atk
 
     # 基础攻击力107%/129%/152%，提升全体攻击力（1）
-    def skill(self, enemy):
+    def skill(self, enemies, currentAtk):
         magnification = self.getMagnification(1.07, 1.29, 1.52)
 
         actualDamageIncrease = self.atk * magnification
@@ -37,18 +37,16 @@ class AquaBloom(SSRCard):
         for role in self.teamMate:
             buff = Buff('AquaBloom_skill', actualDamageIncrease, 1, BuffType.AtkIncreaseByActualValue)
             role.addBuff(buff, self)
-
         return 0
 
     # 基础攻击力30%，提升全体攻击力（1）
-    def attack(self, enemy):
+    def attack(self, enemies, currentAtk):
         actualDamageIncrease = self.atk * 0.3
         actualDamageIncrease = roundDown(actualDamageIncrease)
 
         for role in self.teamMate:
             buff = Buff('AquaBloom_attack', actualDamageIncrease, 1, BuffType.AtkIncreaseByActualValue)
             role.addBuff(buff, self)
-
         return 0
 
     # 全体必杀+12%
