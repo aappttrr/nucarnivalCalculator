@@ -28,22 +28,19 @@ class ExplosiveRecall(SSRCard):
 
     # 伤+12.5%(max 2)
     # 攻204%/238%/273%
-    def skill(self, enemy):
+    def skillBefore(self, enemies):
         if self.calBuffCount('ExplosiveRecall_skill') < 2:
             buff = Buff('ExplosiveRecall_skill', 0.125, 0, BuffType.DamageIncrease)
             buff.isPassive = True
             self.addBuff(buff)
 
+    def skill(self, enemies, currentAtk):
         magnification = self.getMagnification(2.04, 2.38, 2.73)
-        currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, magnification, False, True)
-
         return damage
 
     # 攻125%
-    def attack(self, enemy):
-        currentAtk = self.getCurrentAtk()
-
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1.25, True, False)
         return damage
 

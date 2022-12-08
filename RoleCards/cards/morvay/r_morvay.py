@@ -28,10 +28,11 @@ class RMorvay(RCard):
 
     # 攻100%
     # 最大HP20%/30%/40%护盾（1），防御减伤+10%（1），嘲讽（1），转防御
-    def skill(self, enemy):
-        currentAtk = self.getCurrentAtk()
+    def skill(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1, False, True)
+        return damage
 
+    def skillAfter(self, enemies):
         ma = self.getMagnification(0.2, 0.3, 0.4)
         shield = self.maxHp * ma
         shield = roundDown(shield)
@@ -49,16 +50,13 @@ class RMorvay(RCard):
 
         self.defense = True
 
-        return damage
-
     # 攻100%，转防御
-    def attack(self, enemy):
-        currentAtk = self.getCurrentAtk()
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1, True, False)
-
-        self.defense = True
-
         return damage
+
+    def attackAfter(self, enemies):
+        self.defense = True
 
     # 有艾斯特，最大HP+13%
     # 守护<=1，受伤-10%

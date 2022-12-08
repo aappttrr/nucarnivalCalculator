@@ -26,18 +26,14 @@ class RBlade(RCard):
         self.atk = self.lv60s5Atk
 
     # 攻142%/173%/203%（群）
-    def skill(self, enemy):
+    def skill(self, enemies, currentAtk):
         magnification = self.getMagnification(1.42, 1.73, 2.03)
-        currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, magnification, False, True)
-
         return damage
 
     # 攻63%（群）
-    def attack(self, enemy):
-        currentAtk = self.getCurrentAtk()
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 0.63, True, False)
-
         return damage
 
     # 队伍布儡每1位，自攻+8%(max 3)

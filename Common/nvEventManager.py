@@ -16,6 +16,8 @@ class EventType(enum.Enum):
     counter = '反击'
     shield = '护盾'
     defense = '防御'
+    actionAtk = '行动时的实时攻击力'
+    turnAtk = '我方行动结束时的实时攻击力'
 
 
 class Event:

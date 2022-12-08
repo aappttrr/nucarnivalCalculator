@@ -27,18 +27,14 @@ class SREdmond(SRCard):
         self.atk = self.lv60s5Atk
 
     # 攻229%/273%/316%
-    def skill(self, enemy):
+    def skill(self, enemies, currentAtk):
         magnification = self.getMagnification(2.29, 2.73, 3.16)
-        currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, magnification, False, True)
-
         return damage
 
     # 攻125%
-    def attack(self, enemy):
-        currentAtk = self.getCurrentAtk()
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1.25, True, False)
-
         return damage
 
     # 队伍艾德蒙特每1位，自攻+8%(max 3)

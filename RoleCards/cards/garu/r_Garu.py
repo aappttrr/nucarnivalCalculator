@@ -25,27 +25,27 @@ class RGaru(RCard):
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
-    # 敌全体受伤+8%（1），攻124%/148%/173%（群）
-    def skill(self, enemy):
-        for monster in self.enemies:
+    # 敌全体受伤+8%（1）
+    # 攻124%/148%/173%（群）
+    def skillBefore(self, enemies):
+        for monster in enemies:
             buff = Buff('RGaru_skill', 0.08, 1, BuffType.BeDamageIncrease)
             monster.addBuff(buff, self)
 
+    def skill(self, enemies, currentAtk):
         magnification = self.getMagnification(1.24, 1.48, 1.73)
-        currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, magnification, False, True)
-
         return damage
 
-    # 敌全体受伤+4%（2），攻50%（群）
-    def attack(self, enemy):
-        for monster in self.enemies:
+    # 敌全体受伤+4%（2）
+    # 攻50%（群）
+    def attackBefore(self, enemies):
+        for monster in enemies:
             buff = Buff('RGaru_attack', 0.04, 2, BuffType.BeDamageIncrease)
             monster.addBuff(buff, self)
 
-        currentAtk = self.getCurrentAtk()
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 0.5, True, False)
-
         return damage
 
     def nextRound(self):

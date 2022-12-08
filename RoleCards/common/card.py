@@ -243,7 +243,15 @@ class ICard:
         self.atk = _atk
 
     def doAttack(self, enemies):
-        damage = self.attack(enemies)
+        self.attackBefore(enemies)
+        currentAtk = self.getCurrentAtk()
+        event1 = Event(EventType.actionAtk)
+        event1.data['source'] = self
+        event1.data['value'] = currentAtk
+        event1.data['target'] = self
+        eventManagerInstance.sendEvent(event1)
+
+        damage = self.attack(enemies, currentAtk)
         if damage > 0:
             if isinstance(enemies, list):
                 for enemy in enemies:
@@ -261,9 +269,9 @@ class ICard:
                 event.data['target'] = enemies
                 eventManagerInstance.sendEvent(event)
 
-        self.followUp(enemies, True)
+        self.followUp(enemies, currentAtk, True)
 
-        heal = self.attackHeal(enemies)
+        heal = self.attackHeal(enemies, currentAtk)
         if heal > 0:
             for mate in self.teamMate:
                 heal2 = mate.increaseBeHeal(heal)
@@ -283,7 +291,14 @@ class ICard:
         self.attackAfter(enemies)
 
     def doSkill(self, enemies):
-        damage = self.skill(enemies)
+        self.skillBefore(enemies)
+        currentAtk = self.getCurrentAtk()
+        event1 = Event(EventType.actionAtk)
+        event1.data['source'] = self
+        event1.data['value'] = currentAtk
+        event1.data['target'] = self
+        eventManagerInstance.sendEvent(event1)
+        damage = self.skill(enemies, currentAtk)
         if damage > 0:
             if isinstance(enemies, list):
                 for enemy in enemies:
@@ -301,9 +316,9 @@ class ICard:
                 event.data['target'] = enemies
                 eventManagerInstance.sendEvent(event)
 
-        self.followUp(enemies, False)
+        self.followUp(enemies, currentAtk, False)
 
-        heal = self.skillHeal(enemies)
+        heal = self.skillHeal(enemies, currentAtk)
         if heal > 0:
             for mate in self.teamMate:
                 heal2 = mate.increaseBeHeal(heal)
@@ -322,8 +337,7 @@ class ICard:
 
         self.skillAfter(enemies)
 
-    def followUp(self, enemies, isAttack: bool):
-        currentAtk = self.getCurrentAtk()
+    def followUp(self, enemies, currentAtk, isAttack: bool):
         for buff in self.buffs:
             if buff.buffType != BuffType.FollowUpAttack:
                 continue
@@ -371,7 +385,7 @@ class ICard:
             magnification = _s2
         return magnification
 
-    #反击
+    # 反击
     def doCounter(self, enemies):
         currentAtk = self.getCurrentAtk()
         for buff in self.buffs:
@@ -706,8 +720,6 @@ class ICard:
                     and enemy.role == buff.targetRole:
                 damageIncreaseByRole += buff.value
 
-        # damageIncrease += damageIncreaseByRole
-
         if aIncrease != 0:
             result = result * (1 + aIncrease)
             result = roundDown(result)
@@ -796,26 +808,32 @@ class ICard:
         if disTaunt and tauntBuff is not None:
             self.buffs.remove(tauntBuff)
 
+    def skillBefore(self, enemies):
+        pass
+
     # 必杀技
     # 必杀伤害结算：攻击力*倍率*[造成伤害增加*必杀伤害增加(来源于自身)]*[目标受必杀伤害增加*目标受伤害增加*属性克制(1.2/1/0.8)(来源于敌方)]
-    def skill(self, enemy):
+    def skill(self, enemies, currentAtk):
         return 0
 
-    def skillHeal(self, enemy):
+    def skillHeal(self, enemies, currentAtk):
         return 0
 
-    def skillAfter(self, enemy):
+    def skillAfter(self, enemies):
+        pass
+
+    def attackBefore(self, enemies):
         pass
 
     # 普攻
     # 普攻伤害结算：攻击力*倍率*[造成伤害增加*普攻伤害增加(来源于自身)]*[目标受普攻伤害增加*目标受伤害增加*属性克制(1.2/1/0.8)(来源于敌方)]
-    def attack(self, enemy):
+    def attack(self, enemies, currentAtk):
         return 0
 
-    def attackHeal(self, enemy):
+    def attackHeal(self, enemies, currentAtk):
         return 0
 
-    def attackAfter(self, enemy):
+    def attackAfter(self, enemies):
         pass
 
     # 3星被动

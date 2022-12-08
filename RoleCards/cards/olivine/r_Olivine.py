@@ -28,7 +28,7 @@ class ROlivine(RCard):
         self.atk = self.lv60s5Atk
 
     # 基础攻击力71%/86%/102%，提升全体攻击力（2）
-    def skill(self, enemy):
+    def skill(self, enemies, currentAtk):
         magnification = self.getMagnification(0.71, 0.86, 1.02)
 
         actualDamageIncrease = self.atk * magnification
@@ -40,7 +40,7 @@ class ROlivine(RCard):
         return 0
 
     # 基础攻击力30%，提升全体攻击力（1）
-    def attack(self, enemy):
+    def attack(self, enemies, currentAtk):
         actualDamageIncrease = self.atk * 0.3
         actualDamageIncrease = roundDown(actualDamageIncrease)
 

@@ -29,19 +29,17 @@ class RadiantAdmiral(SSRCard):
 
     # 必杀+27%（2）
     # 攻击力107%/132%/156%对1、3、5造成伤害
-    def skill(self, enemy):
+    def skillBefore(self, enemies):
         buff = Buff('RadiantAdmiral_skill', 0.27, 2, BuffType.SkillIncrease)
         self.addBuff(buff)
 
+    def skill(self, enemies, currentAtk):
         ma = self.getMagnification(1.07, 1.32, 1.56)
-        currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, ma, False, True)
-
         return damage
 
     # 攻击力50%对1、3、5造成伤害
-    def attack(self, enemy):
-        currentAtk = self.getCurrentAtk()
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 0.5, True, False)
         return damage
 

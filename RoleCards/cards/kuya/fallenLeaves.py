@@ -27,30 +27,33 @@ class FallenLeaves(SSRCard):
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
-    # 攻124%/148%/173%（群），敌25%麻痹[4]
-    def skill(self, enemy):
+    # 攻124%/148%/173%（群）
+    # 敌25%麻痹[4]
+    def skill(self, enemies, currentAtk):
         magnification = self.getMagnification(1.24, 1.48, 1.73)
         currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, magnification, False, True)
         return damage
 
-    def skillAfter(self, enemy):
-        for monster in self.enemies:
-            if self.passive_star_5() and monster.calBuffCount('FallenLeaves_passive_star_5') < 1:
+    def skillAfter(self, enemies):
+        for enemy in self.enemies:
+            if self.passive_star_5() and enemy.calBuffCount('FallenLeaves_passive_star_5') < 1:
                 buff = Buff('FallenLeaves_passive_star_5', -0.15, 0, BuffType.AtkIncrease)
                 buff.isPassive = True
-                monster.addBuff(buff, self)
+                enemy.addBuff(buff, self)
 
-    # 攻50%（群），敌回复量-50%
-    def attack(self, enemy):
+    # 攻50%（群）
+    # 敌回复量-50%
+    def attack(self, enemies, currentAtk):
         currentAtk = self.getCurrentAtk()
-
         damage = self.calDamage(currentAtk, 0.5, True, False)
-        for monster in self.enemies:
+        return damage
+
+    def attackAfter(self, enemies):
+        for monster in enemies:
             buff = Buff('FallenLeaves_attack', -0.5, 0, BuffType.BeHealIncrease)
             buff.isPassive = True
             monster.addBuff(buff, self)
-        return damage
 
     # 队伍玖夜每1位，自攻+8%(max 3)
     def passive_star_3(self):

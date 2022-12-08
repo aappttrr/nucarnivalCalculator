@@ -33,10 +33,11 @@ class BuckeyeMiracle(SSRCard):
     # 受必杀伤害-40%（2）
     # 被攻击时，攻击力62%/74%/87%反击（2）
     # 转防御
-    def skill(self, enemy):
-        currentAtk = self.getCurrentAtk()
+    def skill(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1, False, True)
+        return damage
 
+    def skillAfter(self, enemies):
         ma_buff = self.getMagnification(0.62, 0.74, 0.87)
         buff = Buff('BuckeyeMiracle_skill', ma_buff, 2, BuffType.CounterAttack)
         buff.conditionType = ConditionType.WhenBeAttacked
@@ -52,16 +53,14 @@ class BuckeyeMiracle(SSRCard):
 
         self.defense = True
 
-        return damage
-
     # 攻击力100%
     # 转防御
-    def attack(self, enemy):
-        currentAtk = self.getCurrentAtk()
-
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1, True, False)
-        self.defense = True
         return damage
+
+    def attackAfter(self, enemies):
+        self.defense = True
 
     # 第一回合，自身必杀技冷却时间-4
     # 辅助>=1，造成伤害+18%

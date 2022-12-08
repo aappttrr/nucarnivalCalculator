@@ -24,22 +24,23 @@ class NDante(NCard):
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
-    # 目标受伤+12%（2），攻204%/238%/273%
-    def skill(self, enemy):
+    # 目标受伤+12%（2）
+    # 攻204%/238%/273%
+    def skillBefore(self, enemies):
         buff = Buff('NDante_skill', 0.12, 2, BuffType.BeDamageIncrease)
-        enemy.addBuff(buff, self)
+        enemies.addBuff(buff, self)
 
+    def skill(self, enemies, currentAtk):
         magnification = self.getMagnification(2.04, 2.38, 2.73)
-
-        currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, magnification, False, True)
         return damage
 
-    # 解除目标防御，攻100%
-    def attack(self, enemy):
-        enemy.defense = False
+    def attackBefore(self, enemies):
+        enemies.defense = False
 
-        currentAtk = self.getCurrentAtk()
+    # 解除目标防御
+    # 攻100%
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1, True, False)
         return damage
 

@@ -31,40 +31,36 @@ class KitsuneDream(SSRCard):
     # 攻击力136%/159%/182%挂dot（3）
     # 目标受dot+10%（max 3）
     # 目标必杀-10%（2）
-    def skill(self, enemy):
+    def skill(self, enemies, currentAtk):
         magnification = self.getMagnification(1.36, 1.59, 1.82)
-        currentAtk = self.getCurrentAtk()
-
         dotDamage = currentAtk * magnification
         dotDamage = roundDown(dotDamage)
         dotDamage = self.increaseDot(dotDamage)
 
         buff = Buff('KitsuneDream_skill', dotDamage, 3, BuffType.Dot)
-        enemy.addBuff(buff, self)
+        enemies.addBuff(buff, self)
         return 0
 
-    def skillAfter(self, enemy):
-        if enemy.calBuffCount('KitsuneDream_skill_2') < 3:
+    def skillAfter(self, enemies):
+        if enemies.calBuffCount('KitsuneDream_skill_2') < 3:
             buff2 = Buff('KitsuneDream_skill_2', 0.1, 0, BuffType.BeDotIncrease)
             buff2.isPassive = True
-            enemy.addBuff(buff2, self)
+            enemies.addBuff(buff2, self)
 
-            buff3 = Buff('KitsuneDream_skill_3', -0.1, 2, BuffType.SkillIncrease)
-            enemy.addBuff(buff3, self)
+        buff3 = Buff('KitsuneDream_skill_3', -0.1, 2, BuffType.SkillIncrease)
+        enemies.addBuff(buff3, self)
         if self.passive_star_5():
             buff4 = Buff('KitsuneDream_passive_star_5', -0.15, 3, BuffType.AtkIncrease)
-            enemy.addBuff(buff4, self)
+            enemies.addBuff(buff4, self)
 
     # 攻击力50%挂dot（4）
-    def attack(self, enemy):
-        currentAtk = self.getCurrentAtk()
-
+    def attack(self, enemies, currentAtk):
         dotDamage = currentAtk * 0.5
         dotDamage = roundDown(dotDamage)
         dotDamage = self.increaseDot(dotDamage)
 
         buff = Buff('KitsuneDream_attack', dotDamage, 4, BuffType.Dot)
-        enemy.addBuff(buff, self)
+        enemies.addBuff(buff, self)
         return 0
 
     # hp>75%,攻击力+27%
