@@ -889,6 +889,8 @@ class ICard:
                     newBuffs[newBuff] = buff.source
         for newBuff in newBuffs:
             self.addBuff(newBuff, newBuffs[newBuff])
+        if seeAsBeAttacked:
+            self.disTauntWhenBeAttacked()
 
     def beAttacked(self, damage, seeAsBeAttacked):
         if damage <= 0:
