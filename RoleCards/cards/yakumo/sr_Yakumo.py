@@ -29,10 +29,9 @@ class SRYakumo(SRCard):
 
     # 攻133%/157%/182%全体治
     # 攻34%/41%/47%全体hot(2)
-    def skillHeal(self, enemy):
+    def skillHeal(self, enemies, currentAtk):
         ma = self.getMagnification(1.33, 1.57, 1.82)
         ma_hot = self.getMagnification(0.34, 0.41, 0.47)
-        currentAtk = self.getCurrentAtk()
 
         heal = currentAtk * ma
         heal = roundDown(heal)
@@ -49,13 +48,10 @@ class SRYakumo(SRCard):
         return heal
 
     # 攻75%全体治
-    def attackHeal(self, enemy):
-        currentAtk = self.getCurrentAtk()
-
+    def attackHeal(self, enemies, currentAtk):
         heal = currentAtk * 0.75
         heal = roundDown(heal)
         heal = self.increaseHeal(heal)
-
         return heal
 
     # 造成回复量+25%

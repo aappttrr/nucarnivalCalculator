@@ -32,23 +32,22 @@ class Homecoming(SSRCard):
 
     # 攻击力+25%（3）
     # 攻击力247%/296%/345%造成伤害
-    def skill(self, enemy):
+    def skillBefore(self, enemies):
         buff = Buff('Homecoming_skill', 0.25, 3, BuffType.AtkIncrease)
         self.addBuff(buff)
 
+    def skill(self, enemies, currentAtk):
         magnification = self.getMagnification(2.47, 2.96, 3.45)
-        currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, magnification, False, True)
-
         return damage
 
     # 攻击力+10%（3）
     # 攻击力100%造成伤害
-    def attack(self, enemy):
+    def attackBefore(self, enemies):
         buff = Buff('Homecoming_attack', 0.1, 3, BuffType.AtkIncrease)
         self.addBuff(buff)
 
-        currentAtk = self.getCurrentAtk()
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1, True, False)
         return damage
 

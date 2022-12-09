@@ -19,7 +19,7 @@ def getWelcomeContent():
 
 def getHelpContent():
     output = io.StringIO()
-    writeLineString(output, '当前版本：v1.2-2022-11-26')
+    writeLineString(output, '当前版本：v2.0-2022-12-9')
     writeLineString(output, '有任何问题、Bug都可以给我留言~~')
     writeLineString(output, 'B站：纳萨尔')
     writeLineString(output, '')
@@ -37,7 +37,7 @@ def getHelpContent():
     writeWriteSpace(output, 8)
     writeLineString(output, '①在卡牌列表中选择1-5个卡牌作为当前出战卡牌（不可重复）。')
     writeWriteSpace(output, 8)
-    writeLineString(output, '②在战斗设置中设置战斗回合数（1-50），默认为13')
+    writeLineString(output, '②在战斗设置中设置战斗回合数（1-50），默认为13。默认怪物是群攻，所以夏布的反击是能吃满的。')
     writeWriteSpace(output, 8)
     writeLineString(output, '③在不设置对轴、防御的情况下会模拟自动战斗，会严格按照队伍卡牌顺序行动，自动释放必杀技。')
     writeWriteSpace(output, 8)
@@ -46,6 +46,22 @@ def getHelpContent():
     writeWriteSpace(output, 8)
     writeLineString(output,
                     '⑤防御功能，在战斗设置中可设置防御的回合数，除设置以外的回合数将会执行攻击（普通攻击/必杀技），在同一回合同时设置了防御和对轴，会优先执行防御请注意！')
+    writeWriteSpace(output, 8)
+    writeLineString(output,
+                    '⑥模拟结果：角色完整名称[实时攻击力] 普攻/必杀/防御；中括号内的实时攻击力是计算伤害时使用的实时攻击力。')
+    writeWriteSpace(output, 31)
+    writeLineString(output,
+                    '而行动后实时攻击力，指的是计算完伤害后的实时攻击力（例如辅助行动后实时攻击力能吃到自己的增益），普攻时以攻击力造成150%治疗，就是用该实时攻击力计算。')
+    writeWriteSpace(output, 31)
+    writeLineString(output,
+                    '我方所有角色行动后的实时攻击力，用于参考部分副本，敌方可能会攻击实时攻击力最高的角色。')
+    writeWriteSpace(output, 8)
+    writeLineString(output,
+                    '⑦治疗量：吸血在模拟结果中显示在攻击的角色上，但在总治疗量统计的时候吸血会算在提供buff的角色上（例如奶狐）。')
+    writeWriteSpace(output, 8)
+    writeLineString(output,
+                    '⑧攻击时：当普攻/必杀时，伤害为0，那么就不算【攻击时】。因此火狐、奶、除瓜狼以外的辅助都无法触发【攻击时】类型的buff。'
+                    '反击也不算【攻击时】，所以不会反复触发反击（我方反击不会触发敌方反击，反过来也一样）。')
 
     writeLineString(output, '')
     writeLineString(output, 'HP、ATK计算公式：')
@@ -99,6 +115,8 @@ def getHelpContent():
                             '* 敌方受特定角色伤害加成（未验证是否为单独乘区）')
     writeLineString(output, '')
     writeWriteSpace(output, 8)
+    writeLineString(output, '吸血量 = 伤害 * 吸血倍率 * 受回复量加成')
+    writeWriteSpace(output, 8)
     writeLineString(output, '治疗量 = 基础攻击力/实时攻击力 * 倍率 * 造成回复量加成')
     writeWriteSpace(output, 8)
     writeLineString(output, '最终治疗量 = 治疗量 * 受回复量加成')
@@ -116,12 +134,30 @@ def getHelpContent():
 
 def getUpdateLogContent():
     output = io.StringIO()
+    getUpdateLogContent_2_0(output)
+    writeLineString(output, '')
     getUpdateLogContent_1_2(output)
     writeLineString(output, '')
     getUpdateLogContent_1_1(output)
     writeLineString(output, '')
     getUpdateLogContent_1_0(output)
     return output.getvalue()
+
+
+def getUpdateLogContent_2_0(_output: io.StringIO):
+    writeDashString(_output, 36)
+    writeString(_output, '2022.12.9')
+    writeDashString(_output, 36)
+    writeLineString(_output, '')
+    writeLineString(_output, 'v2.0:')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '①优化伤害记录处理逻辑')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '②增加实时攻击力数值用于参考')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '③增加盾量、治疗量用于参考')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '④增加活动计算，可以得出到目标积分需要碎钻多少，以及不碎钻的情况下能刷取多少积分')
 
 
 def getUpdateLogContent_1_2(_output: io.StringIO):

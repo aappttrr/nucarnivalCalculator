@@ -49,9 +49,9 @@ def simulationCombat(filePath, cardHelper: CardHelper, helper: NucarnivalHelper,
         if x.rarity == CardRarity.N:
             continue
 
-        if x.occupation == CardOccupation.Support or x.occupation == CardOccupation.Guardian \
-                or x.occupation == CardOccupation.Healer:
-            continue
+        # if x.occupation == CardOccupation.Support or x.occupation == CardOccupation.Guardian \
+        #         or x.occupation == CardOccupation.Healer:
+        #     continue
 
         needTeamMate = True
         if x.ped == PassiveEffectivenessDifficulty.difficult or x.ped == PassiveEffectivenessDifficulty.veryDifficult:
@@ -448,7 +448,7 @@ if __name__ == '__main__':
 
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
-    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
-    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
-    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True)
-    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)
+    simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
+    simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
+    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True)
+    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)

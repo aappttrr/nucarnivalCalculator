@@ -32,31 +32,37 @@ class CrimsonPhantom(SSRCard):
     # 嘲讽（1）
     # 被攻击时，基础攻击力51%/60%/68%反击（2）
     # 转防御
-    def skill(self, enemy):
+    def skillBefore(self, enemies):
         buff = Buff('CrimsonPhantom_skill', 1, 1, BuffType.BloodSucking)
         self.addBuff(buff)
 
-        currentAtk = self.getCurrentAtk()
+    def skill(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 0.5, False, True)
+        return damage
 
+    def skillAfter(self, enemies):
         ma = self.getMagnification(0.51, 0.6, 0.68)
         buff2 = Buff('CrimsonPhantom_skill_2', ma, 2, BuffType.CounterAttack)
         buff2.conditionType = ConditionType.WhenBeAttacked
         buff2.useBaseAtk = True
         buff2.seeAsSkill = True
         self.addBuff(buff2)
-        return damage
+
+        self.defense = True
 
     # 吸血效果50%(1)
     # 攻击力50%
     # 转防御
-    def attack(self, enemy):
+    def attackBefore(self, enemies):
         buff = Buff('CrimsonPhantom_skill', 0.5, 1, BuffType.BloodSucking)
         self.addBuff(buff)
 
-        currentAtk = self.getCurrentAtk()
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 0.5, True, False)
         return damage
+
+    def attackAfter(self, enemies):
+        self.defense = True
 
     # 守护<=1，受到回复量+30%
     def passive_star_3(self):

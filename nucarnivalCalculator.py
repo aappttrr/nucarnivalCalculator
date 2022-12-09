@@ -30,16 +30,6 @@ nucarnivalHelper = NucarnivalHelper()
 nucarnivalHelper.monsters.append(CommonMonster())
 activityRewardHelper = ActivityRewardHelper()
 
-def exportExcel():
-    filepath = tkinter.filedialog.asksaveasfilename(
-        defaultextension='.xls',
-        filetypes=[('XLS 工作表', '.xls'), ('XLSX 工作表', '.xlsx'), ('所有文件', '.*')],
-        initialdir='C:\\',
-        initialfile='伤害模拟结果.xls',
-        title='导出伤害模拟结果Excel'
-    )
-    if len(filepath) != 0:
-        nucarnivalHelper.exportExcel(filepath)
 
 
 def exportCardList():
@@ -233,7 +223,7 @@ class MainWindow(QMainWindow):
         self.ui.team3.clicked.connect(partial(self.clickTeamBtn, 2))
         self.ui.team4.clicked.connect(partial(self.clickTeamBtn, 3))
         self.ui.team5.clicked.connect(partial(self.clickTeamBtn, 4))
-        self.ui.exportExcelBtn.clicked.connect(exportExcel)
+        self.ui.exportExcelBtn.clicked.connect(self.exportExcel)
         self.ui.clearBattleSetBtn.clicked.connect(self.clearBattleSet)
         self.ui.filterRoleComboBox.currentIndexChanged.connect(partial(setFilterRole, self.filterModel))
         self.ui.filterRoleComboBox_2.currentIndexChanged.connect(partial(setFilterRole, self.filterModel2))
@@ -321,6 +311,18 @@ class MainWindow(QMainWindow):
         self.ui.loadCardListBtn.clicked.connect(self.loadCardList)
 
         self.ui.calActivityBtn.clicked.connect(self.calActivity)
+
+    def exportExcel(self):
+        filepath = tkinter.filedialog.asksaveasfilename(
+            defaultextension='.xls',
+            filetypes=[('XLS 工作表', '.xls'), ('XLSX 工作表', '.xlsx'), ('所有文件', '.*')],
+            initialdir='C:\\',
+            initialfile='伤害模拟结果.xls',
+            title='导出伤害模拟结果Excel'
+        )
+        if len(filepath) != 0:
+            if nucarnivalHelper.exportExcel(filepath):
+                self.ui.exportExcelBtn.setEnabled(False)
 
     def calActivity(self):
         activityRewardHelper.startDate = self.ui.startDateEdit.date().toPyDate()

@@ -31,7 +31,6 @@ class FallenLeaves(SSRCard):
     # 敌25%麻痹[4]
     def skill(self, enemies, currentAtk):
         magnification = self.getMagnification(1.24, 1.48, 1.73)
-        currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, magnification, False, True)
         return damage
 
@@ -45,7 +44,6 @@ class FallenLeaves(SSRCard):
     # 攻50%（群）
     # 敌回复量-50%
     def attack(self, enemies, currentAtk):
-        currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, 0.5, True, False)
         return damage
 

@@ -289,6 +289,12 @@ class ICard:
             eventManagerInstance.sendEvent(event)
 
         self.attackAfter(enemies)
+        currentAtk2 = self.getCurrentAtk()
+        event2 = Event(EventType.actionAfterAtk)
+        event2.data['source'] = self
+        event2.data['value'] = currentAtk2
+        event2.data['target'] = self
+        eventManagerInstance.sendEvent(event2)
 
     def doSkill(self, enemies):
         self.skillBefore(enemies)
@@ -336,6 +342,12 @@ class ICard:
             eventManagerInstance.sendEvent(event)
 
         self.skillAfter(enemies)
+        currentAtk2 = self.getCurrentAtk()
+        event2 = Event(EventType.actionAfterAtk)
+        event2.data['source'] = self
+        event2.data['value'] = currentAtk2
+        event2.data['target'] = self
+        eventManagerInstance.sendEvent(event2)
 
     def followUp(self, enemies, currentAtk, isAttack: bool):
         for buff in self.buffs:
@@ -429,7 +441,7 @@ class ICard:
                     continue
                 heal = damage * bs[temp]
                 heal = roundDown(heal)
-                heal = self.increaseHeal(heal)
+                heal = self.increaseBeHeal(heal)
                 totalHeal += heal
                 if heal > 0:
                     event = Event(EventType.bloodSucking)

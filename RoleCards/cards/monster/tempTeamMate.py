@@ -13,8 +13,8 @@ class TempTeamMate(NCard):
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
-    def skillHeal(self, enemy):
+    def skillHeal(self, enemies, currentAtk):
         return 2
 
-    def attackHeal(self, enemy, printInfo=False):
+    def attackHeal(self, enemies, currentAtk):
         return 2

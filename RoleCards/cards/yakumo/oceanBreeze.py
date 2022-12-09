@@ -30,7 +30,7 @@ class OceanBreeze(SSRCard):
     # 自基攻62%/74%/87%，全体攻击力增加（2）
     # 全体受到护盾+55%/65%/75%(2)，
     # 全体受到持续治疗+55%/65%/75%(3)
-    def skill(self, enemy, printInfo=False):
+    def skill(self, enemies, currentAtk):
         ma = self.getMagnification(0.62, 0.74, 0.87)
         ma2 = self.getMagnification(0.55, 0.65, 0.75)
 
@@ -46,10 +46,9 @@ class OceanBreeze(SSRCard):
 
             buff3 = Buff('OceanBreeze_skill_3', ma2, 3, BuffType.BeHotIncrease)
             role.addBuff(buff3, self)
-
         return 0
 
-    def skillAfter(self, enemy):
+    def skillAfter(self, enemies):
         for role in self.teamMate:
             # 5星被动
             # 攻击时，我方全体攻+2（max 6)
@@ -61,7 +60,7 @@ class OceanBreeze(SSRCard):
     # 自基攻25%，全体攻击力增加（1）
     # 全体护盾+25%(1)，
     # 全体持续治疗+25%(1)
-    def attack(self, enemy, printInfo=False):
+    def attack(self, enemies, currentAtk):
         actualDamageIncrease = self.atk * 0.25
         actualDamageIncrease = roundDown(actualDamageIncrease)
 
@@ -77,7 +76,7 @@ class OceanBreeze(SSRCard):
 
         return 0
 
-    def attackAfter(self, enemy):
+    def attackAfter(self, enemies):
         for role in self.teamMate:
             # 5星被动
             # 攻击时，我方全体攻+2（max 6)

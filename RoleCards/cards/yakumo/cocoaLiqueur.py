@@ -28,31 +28,29 @@ class CocoaLiqueur(SSRCard):
 
     # 敌受必杀伤 + 27 % (2)
     # 攻204%/238%/273 % [3]
-    def skill(self, enemy):
+    def skillBefore(self, enemies):
         buff = Buff('CocoaLiqueur_skill', 0.27, 2, BuffType.BeSkillIncrease)
-        enemy.buffs.append(buff)
+        enemies.buffs.append(buff)
 
+    def skill(self, enemies, currentAtk):
         magnification = self.getMagnification(2.04, 2.38, 2.73)
-        currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, magnification, False, True)
         return damage
 
     # 攻100 %
     # 必杀 + 3 % (max 6)
-    def attack(self, enemy):
-        currentAtk = self.getCurrentAtk()
-
+    def attack(self, enemies, currentAtk):
         damage = self.calDamage(currentAtk, 1, True, False)
         return damage
 
-    def attackAfter(self, enemy):
+    def attackAfter(self, enemies):
         if self.calBuffCount('CocoaLiqueur_attack') < 6:
             buff = Buff('CocoaLiqueur_attack', 0.03, 0, BuffType.SkillIncrease)
             buff.isPassive = True
             self.addBuff(buff)
 
-    def beAttacked(self, damage, seeAsBeAttacked):
-        super(CocoaLiqueur, self).beAttacked(damage, seeAsBeAttacked)
+    def beAttackedAfter(self, seeAsBeAttacked):
+        super(CocoaLiqueur, self).beAttackedAfter(seeAsBeAttacked)
         if seeAsBeAttacked and self.passive_star_3() and self.calBuffCount('CocoaLiqueur_passive_star_3') < 3:
             buff = Buff('CocoaLiqueur_passive_star_3', 0.09, 0, BuffType.AtkIncrease)
             buff.isPassive = True

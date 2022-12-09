@@ -135,8 +135,11 @@ class NucarnivalHelper:
                     tempMonster.calMaxHp()
                 continue
 
+            if turn > 1:
+                self.recordBattleMsg('')
             msg = '---------第{0}回合---------'.format(turn)
-            self.ws.cell(row, turn + 1, '第{0}回合'.format(turn))
+            self.ws.merge_cells(None, row, turn * 2, row, turn * 2 + 1)
+            self.ws.cell(row, turn * 2, '第{0}回合'.format(turn))
             self.recordBattleMsg(msg)
 
             # 我方行动
@@ -156,6 +159,8 @@ class NucarnivalHelper:
             # 下个回合
             tempRow = row + 1
             for role in self.team:
+                if tempRow > row + 1:
+                    self.recordBattleMsg('')
                 self.recordResult(role, turn, tempRow)
                 role.nextRound()
                 tempRow += 1
@@ -165,10 +170,10 @@ class NucarnivalHelper:
         msg = '-----------结束------------'
         self.recordBattleMsg(msg)
         self.totalDamage = 0
-        self.ws.cell(row, turn + 2, '总伤害')
-        self.ws.cell(row, turn + 3, '伤害占比')
-        self.ws.cell(row, turn + 4, '总治疗')
-        self.ws.cell(row, turn + 5, '治疗占比')
+        self.ws.cell(row, turn * 2 + 2, '总伤害')
+        self.ws.cell(row, turn * 2 + 3, '伤害占比')
+        self.ws.cell(row, turn * 2 + 4, '总治疗')
+        self.ws.cell(row, turn * 2 + 5, '治疗占比')
         temp = 1
         self.recordBattleMsg('总{}回合'.format(turn))
         totalDamage = 0
@@ -179,7 +184,7 @@ class NucarnivalHelper:
             totalDamage += self.recordTotalResult(role, turn, row + temp)
             temp += 1
         msg = '全队伤害：{}'.format(totalDamage)
-        self.ws.cell(row + temp, turn + 2, str(totalDamage))
+        self.ws.cell(row + temp,  turn * 2 + 2, str(totalDamage))
         self.recordBattleMsg(msg)
         if printInfo:
             print(self.output.getvalue())
@@ -189,6 +194,26 @@ class NucarnivalHelper:
         msg = role.cardInfo(False)
         msg2 = ''
         isDefense = False
+
+        turnAtk = role.getCurrentAtk()
+        eventAtk = Event(EventType.turnAtk)
+        eventAtk.data['source'] = role
+        eventAtk.data['value'] = turnAtk
+        eventAtk.data['target'] = role
+        eventManagerInstance.sendEvent(eventAtk)
+
+        atkMag = '行动实时攻击力：'
+        atkAfterMag = '行动后实时攻击力：'
+        atkTurnMag = '回合实时攻击力：{}'.format(turnAtk)
+
+        if len(self.battleListener.findSourceEvent(role, EventType.actionAtk)) > 0:
+            try:
+                actionAtk = self.battleListener.findSourceEvent(role, EventType.actionAtk)[0].value
+                msg += '[{}]'.format(actionAtk)
+                atkMag += str(actionAtk)
+            except:
+                print('获取行动实时攻击力记录出错')
+
         if len(self.battleListener.findSourceEvent(role, EventType.defense)) > 0:
             msg += '  防御'
             if len(msg2) > 0:
@@ -279,6 +304,11 @@ class NucarnivalHelper:
                 if len(msg2) > 0:
                     msg2 += '\n'
                 msg2 += '普攻：' + str(attackFU)
+        if counter > 0:
+            msg += '  反击造成伤害：' + str(counter)
+            if len(msg2) > 0:
+                msg2 += '\n'
+            msg2 += '反击伤害：' + str(counter)
         if skillDamage > 0:
             astr = str(skillDamage)
             if skillFU > 0:
@@ -345,7 +375,21 @@ class NucarnivalHelper:
                 msg2 = '必杀'
 
         self.recordBattleMsg(msg)
-        self.ws.cell(row, turn + 1, msg2)
+
+        if len(self.battleListener.findSourceEvent(role, EventType.actionAfterAtk)) > 0:
+            try:
+                actionAtk = self.battleListener.findSourceEvent(role, EventType.actionAfterAtk)[0].value
+                msg_atkAfter = '行动后实时攻击力[{}]'.format(actionAtk)
+                self.recordBattleMsg(msg_atkAfter)
+                atkAfterMag += str(actionAtk)
+            except:
+                print('获取行动后实时攻击力记录出错')
+        msg_turnAtk = '我方所有角色行动后，本回合实时攻击力[{}]'.format(turnAtk)
+        self.recordBattleMsg(msg_turnAtk)
+
+        msg3 = atkMag + '\n' + atkAfterMag + '\n' + atkTurnMag
+        self.ws.cell(row, turn * 2, msg3)
+        self.ws.cell(row, turn * 2 + 1, msg2)
 
     def getTotalResult(self, role: ICard):
         attackDamage = 0
@@ -449,15 +493,15 @@ class NucarnivalHelper:
         totalDamage = data['totalDamage']
         totalHeal = data['totalHeal']
 
-        self.ws.cell(row, turn + 2, str(totalDamage))
-        self.ws.cell(row, turn + 4, str(totalHeal))
+        self.ws.cell(row, turn * 2 + 2, str(totalDamage))
+        self.ws.cell(row, turn * 2 + 4, str(totalHeal))
         if totalDamage > 0:
             msg += '  总伤害：{}'.format(totalDamage)
         if totalHeal > 0:
             msg += '  总治疗：{}'.format(totalHeal)
         if shield > 0:
             msg += '  总护盾：{}'.format(shield)
-        if totalDamage > 0 or totalHeal > 0 or shield >0:
+        if totalDamage > 0 or totalHeal > 0 or shield > 0:
             self.recordBattleMsg(msg)
 
         msg2 = '伤害占比'
@@ -490,7 +534,7 @@ class NucarnivalHelper:
                 shzb += '反击({}%)'.format(proportion)
                 msg2 += '  反击({}%)'.format(proportion)
             self.recordBattleMsg(msg2)
-        self.ws.cell(row, turn + 3, str(shzb))
+        self.ws.cell(row, turn * 2 + 3, str(shzb))
         zlzb = ''
         msg2 = '治疗占比'
         if totalHeal > 0:
@@ -519,7 +563,7 @@ class NucarnivalHelper:
                 zlzb += '吸血({}%)'.format(proportion)
                 msg2 += '  吸血({}%)'.format(proportion)
             self.recordBattleMsg(msg2)
-        self.ws.cell(row, turn + 5, str(zlzb))
+        self.ws.cell(row, turn * 2 + 5, str(zlzb))
         return totalDamage
 
     # 行动
@@ -643,9 +687,16 @@ class NucarnivalHelper:
         return row
 
     def exportExcel(self, filePath):
-        self.wb.save(filePath)
-        self.wb.close()
-        self.wb = None
+        try:
+            if self.wb is not None:
+                self.wb.save(filePath)
+            success = True
+        except:
+            success = False
+        if success:
+            self.wb.close()
+            self.wb = None
+        return success
 
 
 class BattleRecordListener(EventListener):

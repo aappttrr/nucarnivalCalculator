@@ -30,7 +30,6 @@ class HowlingCyclone(SSRCard):
     # 攻击力100%
     # 基础攻击力62%/74%/87%，全体攻击力增加（2）
     def skill(self, enemies, currentAtk):
-        currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, 1, False,True)
 
         magnification = self.getMagnification(0.62, 0.74, 0.87)
@@ -55,7 +54,6 @@ class HowlingCyclone(SSRCard):
     # 攻击力100%
     # 基础攻击力30%，全体攻击力增加（1）
     def attack(self, enemies, currentAtk):
-        currentAtk = self.getCurrentAtk()
         damage = self.calDamage(currentAtk, 1, True, False)
 
         actualDamageIncrease = self.atk * 0.3

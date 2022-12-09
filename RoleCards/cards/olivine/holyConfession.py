@@ -45,16 +45,13 @@ class HolyConfession(SSRCard):
         for role in self.teamMate:
             buff = Buff('HolyConfession_skill', hotHeal, 4, BuffType.Hot)
             role.addBuff(buff, self)
-        return heal
 
-    def skillAfter(self, enemies):
         if self.passive_star_3():
             hpLowestRole = self
             for role in self.teamMate:
                 if role.hpCurrent < hpLowestRole.hpCurrent:
                     hpLowestRole = role
 
-            currentAtk = self.getCurrentAtk()
             heal = currentAtk * 0.75
             heal = roundDown(heal)
             heal = self.increaseHeal(heal)
@@ -65,6 +62,8 @@ class HolyConfession(SSRCard):
             event.data['value'] = heal2
             event.data['target'] = hpLowestRole
             eventManagerInstance.sendEvent(event)
+        return heal
+
 
     # 攻击力25%hot(3)
     def attackHeal(self, enemies, currentAtk):
@@ -75,16 +74,13 @@ class HolyConfession(SSRCard):
         for role in self.teamMate:
             buff = Buff('HolyConfession_attack', hotHeal, 3, BuffType.Hot)
             role.addBuff(buff, self)
-        return 0
 
-    def attackAfter(self, enemies):
         if self.passive_star_3():
             hpLowestRole = self
             for role in self.teamMate:
                 if role.hpCurrent < hpLowestRole.hpCurrent:
                     hpLowestRole = role
 
-            currentAtk = self.getCurrentAtk()
             heal = currentAtk * 0.75
             heal = roundDown(heal)
             heal = self.increaseHeal(heal)
@@ -95,6 +91,7 @@ class HolyConfession(SSRCard):
             event.data['value'] = heal2
             event.data['target'] = hpLowestRole
             eventManagerInstance.sendEvent(event)
+        return 0
 
     # 攻击时，以攻击力75%对Hp最低者进行治疗
     def passive_star_3(self):
