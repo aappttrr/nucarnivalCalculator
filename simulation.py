@@ -257,7 +257,7 @@ def exportTitle(ws: Worksheet, row):
 
 # 配置模拟队友
 def similationTeamMate(helper: NucarnivalHelper, x: ICard):
-    if x.cardName == '爵士册封之夜' or x.cardName == '追逐悠远之约':
+    if x.cardName == '爵士册封之夜' or x.cardName == '追逐悠远之约' or x.cardName == '守望者的冬季馈礼':
         mate = TempTeamMate()
         mate.occupation = CardOccupation.Striker
         helper.team.append(mate)

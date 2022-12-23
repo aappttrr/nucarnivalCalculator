@@ -575,6 +575,9 @@ class NucarnivalHelper:
             if role in self.defenseTurn and turn in self.defenseTurn[role]:
                 role.defense = True
                 event = Event(EventType.defense)
+                event.data['source'] = role
+                event.data['value'] = 0
+                event.data['target'] = role
                 eventManagerInstance.sendEvent(event)
 
             if role.defense:

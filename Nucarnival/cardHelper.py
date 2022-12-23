@@ -9,6 +9,7 @@ from RoleCards.cards.blade.explosiveRecall import ExplosiveRecall
 from RoleCards.cards.blade.idolApprentice import IdolApprentice
 from RoleCards.cards.dante.blazingColiseum import BlazingColiseum
 from RoleCards.cards.dante.eternalHanabi import EternalHanabi
+from RoleCards.cards.dante.icyEquilibrium import IcyEquilibrium
 from RoleCards.cards.dante.n_Dante import NDante
 from RoleCards.cards.dante.r_Dante import RDante
 from RoleCards.cards.dante.sr_Dante import SRDante
@@ -34,6 +35,7 @@ from RoleCards.cards.kuya.lakesideSpark import LakesideSpark
 from RoleCards.cards.morvay.n_morvay import NMorvay
 from RoleCards.cards.morvay.r_morvay import RMorvay
 from RoleCards.cards.morvay.sr_morvay import SRMorvay
+from RoleCards.cards.olivine.FrostedVirtue import FrostedVirtue
 from RoleCards.cards.olivine.aquaBloom import AquaBloom
 from RoleCards.cards.olivine.holyConfession import HolyConfession
 from RoleCards.cards.olivine.n_Olivine import NOlivine
@@ -41,6 +43,7 @@ from RoleCards.cards.olivine.r_Olivine import ROlivine
 from RoleCards.cards.olivine.sr_Olivine import SROlivine
 from RoleCards.cards.olivine.radiantAdmiral import RadiantAdmiral
 from RoleCards.cards.quincy.ancientCeremony import AncientCeremony
+from RoleCards.cards.quincy.arcticWarden import ArcticWarden
 from RoleCards.cards.quincy.buckeyeMiracle import BuckeyeMiracle
 from RoleCards.cards.quincy.distantPromise import DistantPromise
 from RoleCards.cards.quincy.n_Quincy import NQuincy
@@ -100,6 +103,7 @@ class CardHelper:
         ssrO = HolyConfession()
         hO = AquaBloom()
         xO = RadiantAdmiral()
+        dO = FrostedVirtue()
 
         # 昆西
         srKX = SRQuincy()
@@ -108,6 +112,7 @@ class CardHelper:
         ssrKx = AncientCeremony()
         dKX = BuckeyeMiracle()
         yKX = DistantPromise()
+        dongKX = ArcticWarden()
 
         # 玖夜
         srHL = SRKuya()
@@ -139,6 +144,7 @@ class CardHelper:
         nDT = NDante()
         ssrDT = BlazingColiseum()
         hhDT = EternalHanabi()
+        shengDT = IcyEquilibrium()
 
         # 根据官方回廊顺序添加卡牌：
         # 艾斯特 墨菲 八云 副团 奥利文 昆西 玖夜 小狼 布儡 蛋总
@@ -170,12 +176,15 @@ class CardHelper:
         self.cardList.append(naiHL)
         self.cardList.append(guaL)
         self.cardList.append(npBL)
+        self.cardList.append(shengDT)
 
-        # 第三轮限定 23
+        # 第三轮限定 24
         self.cardList.append(dB)
         self.cardList.append(anFT)
+        self.cardList.append(dO)
+        self.cardList.append(dongKX)
 
-        # sr 25
+        # sr 28
         self.cardList.append(srA)
         self.cardList.append(srM)
         self.cardList.append(srB)
@@ -186,7 +195,7 @@ class CardHelper:
         self.cardList.append(srL)
         self.cardList.append(srBL)
         self.cardList.append(srDT)
-        # r 35
+        # r 38
         self.cardList.append(rA)
         self.cardList.append(rM)
         self.cardList.append(rB)

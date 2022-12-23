@@ -67,7 +67,7 @@ class SRYakumo(SRCard):
             for role in self.teamMate:
                 buff = Buff('SRYakumo_passive_star_5', 0.06, 0, BuffType.HpIncrease)
                 buff.isPassive = True
-                role.addBuff(buff,self)
+                role.addBuff(buff, self)
 
     # 攻+10%
     def passive_tier_6(self):
