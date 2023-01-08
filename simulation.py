@@ -5,6 +5,7 @@ from Nucarnival.cardHelper import CardHelper
 from Nucarnival.nucarnivalHelper import NucarnivalHelper, roundHalfEven
 from RoleCards.cards.monster.commonMonster import CommonMonster
 from RoleCards.cards.monster.tempTeamMate import TempTeamMate
+from RoleCards.cards.olivine.sr_Olivine import SROlivine
 from RoleCards.common.card import ICard, writeCardInfoTitleInExcel
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRarityEnum import CardRarity
@@ -64,26 +65,132 @@ def simulationCombat(filePath, cardHelper: CardHelper, helper: NucarnivalHelper,
             row2 += 1
             if x.rarity == CardRarity.SSR:
                 # 1星6潜
-                simulation(helper, needTeamMate, ws1, x, row1, 1, 6)
+                simulation(helper, needTeamMate, None, ws1, None, x, row1, 1, 5, 6)
 
                 # 3星满潜
-                simulation(helper, needTeamMate, ws2, x, row2, 3, 12)
+                simulation(helper, needTeamMate, None, ws2, None, x, row2, 3, 5, 12)
 
                 row3 += 1
                 # 5星满潜
-                simulation(helper, needTeamMate, ws3, x, row3, 5, 12)
+                simulation(helper, needTeamMate, None, ws3, None, x, row3, 5, 5, 12)
             elif x.rarity == CardRarity.SR:
                 # 3星6潜
-                simulation(helper, needTeamMate, ws1, x, row1, 3, 6)
+                simulation(helper, needTeamMate, None, ws1, None, x, row1, 3, 5, 6)
 
                 # 5星满潜
-                simulation(helper, needTeamMate, ws2, x, row2, 5, 12)
+                simulation(helper, needTeamMate, None, ws2, None, x, row2, 5, 5, 12)
             else:
                 # 3星3潜
-                simulation(helper, needTeamMate, ws1, x, row1, 3, 3)
+                simulation(helper, needTeamMate, None, ws1, None, x, row1, 3, 5, 3)
 
                 # 5星满潜
-                simulation(helper, needTeamMate, ws2, x, row2, 5, 6)
+                simulation(helper, needTeamMate, None, ws2, None, x, row2, 5, 5, 6)
+
+    wb.save(filePath)
+
+
+def simulationCombat2(filePath, cardHelper: CardHelper, helper: NucarnivalHelper, calGroupRole: bool,
+                     forceTeamMate: bool = False):
+    wb = Workbook()
+
+    column = 16
+    ws1 = wb.create_sheet('伤害模拟结果_低练度', 0)
+    ws1_ws = wb.create_sheet('伤害模拟结果_低练度_带同练度SR奥', 0)
+    ws2 = wb.create_sheet('伤害模拟结果_中练度', 0)
+    ws2_ws = wb.create_sheet('伤害模拟结果_中练度_带同练度SR奥', 0)
+    ws3 = wb.create_sheet('伤害模拟结果_顶配', 0)
+    ws3_ws = wb.create_sheet('伤害模拟结果_顶配_带同练度SR奥', 0)
+
+    ws1.merge_cells(None, 1, 1, 1, column)
+    ws2.merge_cells(None, 1, 1, 1, column)
+    ws3.merge_cells(None, 1, 1, 1, column)
+    ws1_ws.merge_cells(None, 1, 1, 1, column)
+    ws2_ws.merge_cells(None, 1, 1, 1, column)
+    ws3_ws.merge_cells(None, 1, 1, 1, column)
+    title = ''
+    title2 = ''
+    if calGroupRole:
+        title2 = '带同练度SR奥13回合期望伤害模拟_群体'
+        title = '单人13回合期望伤害模拟_群体'
+    else:
+        title2 = '带同练度SR奥13回合期望伤害模拟_单体'
+        title = '单人13回合期望伤害模拟_单体'
+    ws1.cell(1, 1, title)
+    ws2.cell(1, 1, title)
+    ws3.cell(1, 1, title)
+    ws1_ws.cell(1, 1, title2)
+    ws2_ws.cell(1, 1, title2)
+    ws3_ws.cell(1, 1, title2)
+    comment = Comment('如果三星被动实战吃满难易程度是中等及以下，则会配置虚拟队友让其吃满被动；否则将吃不满'
+                      '\n但类似HP>90%的被动则都会吃满', '纳萨尔')
+    comment2 = Comment('3CD输出对轴SR奥同时必杀，4CD输出和SR奥同时必杀，6CD输出SR奥对轴在输出前一回合必杀', '纳萨尔')
+    ws1.cell(1, 1).comment = comment
+    ws2.cell(1, 1).comment = comment
+    ws3.cell(1, 1).comment = comment
+    ws1_ws.cell(1, 1).comment = comment2
+    ws2_ws.cell(1, 1).comment = comment2
+    ws3_ws.cell(1, 1).comment = comment2
+
+    row1 = 2
+    row2 = 2
+    row3 = 2
+    exportTitle(ws1, row1)
+    exportTitle(ws2, row2)
+    exportTitle(ws3, row3)
+    exportTitle(ws1_ws, row1)
+    exportTitle(ws2_ws, row2)
+    exportTitle(ws3_ws, row3)
+
+    srO = SROlivine()
+    for x in cardHelper.cardList:
+        if x.rarity == CardRarity.N:
+            continue
+
+        if x.occupation == CardOccupation.Support or x.occupation == CardOccupation.Guardian \
+                or x.occupation == CardOccupation.Healer:
+            continue
+
+        needTeamMate = True
+        if x.ped == PassiveEffectivenessDifficulty.difficult or x.ped == PassiveEffectivenessDifficulty.veryDifficult:
+            needTeamMate = False
+        if forceTeamMate:
+            needTeamMate = True
+
+        if x.isGroup == calGroupRole:
+            row1 += 1
+            row2 += 1
+
+            # 低练：SSR1星，SR2星，R3星，蜜话统一4，潜力统一3，等级统一60
+            # 中练：SSR2星4房，SR3星5房，R4星5房，潜力统一6，等级统一60
+            if x.rarity == CardRarity.SSR:
+                # 1星3潜
+                srO.setProperties(60, 2, 4, 3)
+                simulation(helper, needTeamMate, srO, ws1, ws1_ws, x, row1, 1, 4, 3)
+
+                # 2星4房
+                srO.setProperties(60, 3, 5, 6)
+                simulation(helper, needTeamMate, srO, ws2, ws2_ws, x, row2, 2, 4, 6)
+
+                row3 += 1
+                # 5星满潜
+                srO.setProperties(60, 5, 5, 12)
+                simulation(helper, needTeamMate, srO, ws3, ws3_ws, x, row3, 5, 5, 12)
+            elif x.rarity == CardRarity.SR:
+                # 2星3潜
+                srO.setProperties(60, 2, 4, 3)
+                simulation(helper, needTeamMate, srO, ws1, ws1_ws, x, row1, 2, 4, 3)
+
+                # 3星5房
+                srO.setProperties(60, 3, 5, 6)
+                simulation(helper, needTeamMate, srO, ws2, ws2_ws, x, row2, 3, 5, 6)
+            else:
+                # 3星3潜
+                srO.setProperties(60, 2, 4, 3)
+                simulation(helper, needTeamMate, srO, ws1, ws1_ws, x, row1, 3, 4, 3)
+
+                # 4星5房
+                srO.setProperties(60, 3, 5, 6)
+                simulation(helper, needTeamMate, srO, ws2, ws2_ws, x, row2, 4, 5, 6)
 
     wb.save(filePath)
 
@@ -197,10 +304,15 @@ def getRank(x: ICard, damage=0):
     return rank
 
 
-def simulation(helper: NucarnivalHelper, needTeamMate: bool, ws: Worksheet, x: ICard, row, _star, _tier):
-    x.setProperties(60, _star, 5, _tier)
+def simulation(helper: NucarnivalHelper, needTeamMate: bool, srO: ICard, ws: Worksheet, ws2: Worksheet, x: ICard,
+               row, _star, _bond, _tier):
+    x.setProperties(60, _star, _bond, _tier)
     x.calHpAtk()
+    if srO is not None:
+        srO.calHpAtk()
     export(ws, x, row)
+    if ws2 is not None:
+        export(ws2, x, row)
 
     helper.clearUp()
     if needTeamMate:
@@ -217,6 +329,27 @@ def simulation(helper: NucarnivalHelper, needTeamMate: bool, ws: Worksheet, x: I
     ws.cell(row, column, getDamageProportion(helper, x, data))
     column += 1
     ws.cell(row, column, getRank(x, data['totalDamage']))
+
+    if srO is not None and ws2 is not None:
+        helper.clearUp()
+        if needTeamMate:
+            similationTeamMate(helper, x)
+        helper.team.append(srO)
+        if x.skillCD == 3:
+            helper.skillTurn[x] = [5, 9, 13]
+        elif x.skillCD == 6:
+            helper.skillTurn[srO] = [6, 12]
+        helper.team.append(x)
+        helper.monsters.append(CommonMonster())
+        helper.maxTurn = 13
+        helper.battleStart(False)
+        data = helper.getTotalResult(x)
+        column = 14
+        ws2.cell(row, column, data['totalDamage'])
+        column += 1
+        ws2.cell(row, column, getDamageProportion(helper, x, data))
+        column += 1
+        ws2.cell(row, column, getRank(x, data['totalDamage']))
 
 
 # 导出
