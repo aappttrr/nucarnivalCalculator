@@ -19,7 +19,7 @@ def getWelcomeContent():
 
 def getHelpContent():
     output = io.StringIO()
-    writeLineString(output, '当前版本：v2.0-2022-12-9')
+    writeLineString(output, '当前版本：v2.1-2023-1-8')
     writeLineString(output, '有任何问题、Bug都可以给我留言~~')
     writeLineString(output, 'B站：纳萨尔')
     writeLineString(output, '')
@@ -134,6 +134,8 @@ def getHelpContent():
 
 def getUpdateLogContent():
     output = io.StringIO()
+    getUpdateLogContent_2_1(output)
+    writeLineString(output, '')
     getUpdateLogContent_2_0(output)
     writeLineString(output, '')
     getUpdateLogContent_1_2(output)
@@ -142,6 +144,18 @@ def getUpdateLogContent():
     writeLineString(output, '')
     getUpdateLogContent_1_0(output)
     return output.getvalue()
+
+
+def getUpdateLogContent_2_1(_output: io.StringIO):
+    writeDashString(_output, 36)
+    writeString(_output, '2023.1.8')
+    writeDashString(_output, 36)
+    writeLineString(_output, '')
+    writeLineString(_output, 'v2.1:')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '①新增圣夜微光限定卡：祝祷者的霜夜心愿（奥利文）、权衡者的雪藏初心（啖天）、守望者的冬季馈礼（昆西）')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '②修复了一些BUG')
 
 
 def getUpdateLogContent_2_0(_output: io.StringIO):
