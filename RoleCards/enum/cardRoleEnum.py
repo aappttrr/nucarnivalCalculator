@@ -12,3 +12,4 @@ class CardRole(enum.Enum):
     Garu = '可尔'
     Blade = '布儡'
     Dante = '啖天'
+    Eiden = '伊得'

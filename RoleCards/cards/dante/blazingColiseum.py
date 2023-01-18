@@ -38,6 +38,7 @@ class BlazingColiseum(SSRCard):
         shield = self.maxHp * ma
         shield = roundDown(shield)
         shield = self.increaseShield(shield)
+        shield = self.increaseDamage(shield, False, True)
 
         for role in self.teamMate:
             tempShield = role.increaseBeShield(shield)
@@ -55,6 +56,7 @@ class BlazingColiseum(SSRCard):
         shield = self.maxHp * 0.06
         shield = roundDown(shield)
         shield = self.increaseShield(shield)
+        shield = self.increaseDamage(shield, True, False)
 
         for role in self.teamMate:
             tempShield = role.increaseBeShield(shield)

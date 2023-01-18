@@ -146,6 +146,7 @@ class MainWindow(QMainWindow):
         self.ui.filterRoleComboBox.addItem(_translate("MainWindow", CardRole.Garu.value), CardRole.Garu)
         self.ui.filterRoleComboBox.addItem(_translate("MainWindow", CardRole.Blade.value), CardRole.Blade)
         self.ui.filterRoleComboBox.addItem(_translate("MainWindow", CardRole.Dante.value), CardRole.Dante)
+        self.ui.filterRoleComboBox.addItem(_translate("MainWindow", CardRole.Eiden.value), CardRole.Eiden)
 
         self.ui.filterRoleComboBox_2.addItem(_translate("MainWindow", "全部"))
         self.ui.filterRoleComboBox_2.addItem(_translate("MainWindow", CardRole.Aster.value), CardRole.Aster)
@@ -158,6 +159,7 @@ class MainWindow(QMainWindow):
         self.ui.filterRoleComboBox_2.addItem(_translate("MainWindow", CardRole.Garu.value), CardRole.Garu)
         self.ui.filterRoleComboBox_2.addItem(_translate("MainWindow", CardRole.Blade.value), CardRole.Blade)
         self.ui.filterRoleComboBox_2.addItem(_translate("MainWindow", CardRole.Dante.value), CardRole.Dante)
+        self.ui.filterRoleComboBox_2.addItem(_translate("MainWindow", CardRole.Eiden.value), CardRole.Eiden)
 
         for i in reversed(range(1, 61)):
             self.ui.lvComboBox.addItem(_translate("MainWindow", str(i)), i)

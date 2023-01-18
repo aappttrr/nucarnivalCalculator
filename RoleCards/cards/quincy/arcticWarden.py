@@ -38,6 +38,8 @@ class ArcticWarden(SSRCard):
         heal = self.maxHp * 0.2
         heal = roundDown(heal)
         heal = self.increaseHeal(heal)
+
+        heal = self.increaseDamage(heal, False, True)
         return heal
 
     # 攻100%
@@ -50,6 +52,7 @@ class ArcticWarden(SSRCard):
         heal = self.maxHp * 0.1
         heal = roundDown(heal)
         heal = self.increaseHeal(heal)
+        heal = self.increaseDamage(heal, True, False)
         return heal
 
     # 队伍攻击每1位，必杀+13%(max 3）

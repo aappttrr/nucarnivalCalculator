@@ -20,6 +20,7 @@ from RoleCards.cards.edmond.r_Edmond import REdmond
 from RoleCards.cards.edmond.sweetAroma import SweetAroma
 from RoleCards.cards.edmond.sr_Edmond import SREdmond
 from RoleCards.cards.edmond.whiteLover import WhiteLover
+from RoleCards.cards.eiden.galacticMist import GalacticMist
 from RoleCards.cards.garu.endlessBanquet import EndlessBanquet
 from RoleCards.cards.garu.howlingCyclone import HowlingCyclone
 from RoleCards.cards.garu.mastersGift import MastersGift
@@ -146,8 +147,11 @@ class CardHelper:
         hhDT = EternalHanabi()
         shengDT = IcyEquilibrium()
 
+        # 伊得
+        hYD = GalacticMist()
+
         # 根据官方回廊顺序添加卡牌：
-        # 艾斯特 墨菲 八云 副团 奥利文 昆西 玖夜 小狼 布儡 蛋总
+        # 艾斯特 墨菲 八云 副团 奥利文 昆西 玖夜 小狼 布儡 蛋总 伊得
         # 普ssr 0
         self.cardList.append(ssrB)
         self.cardList.append(ssrFT)
@@ -157,8 +161,9 @@ class CardHelper:
         self.cardList.append(ssrL)
         self.cardList.append(ssrBL)
         self.cardList.append(ssrDT)
+        self.cardList.append(hYD)
 
-        # 第一轮限定 8
+        # 第一轮限定 9
         self.cardList.append(bqB)
         self.cardList.append(bqFT)
         self.cardList.append(hO)
@@ -168,7 +173,7 @@ class CardHelper:
         self.cardList.append(xBL)
         self.cardList.append(hhDT)
 
-        # 第二轮限定 16
+        # 第二轮限定 17
         self.cardList.append(xB)
         self.cardList.append(hhFT)
         self.cardList.append(xO)
@@ -178,13 +183,13 @@ class CardHelper:
         self.cardList.append(npBL)
         self.cardList.append(shengDT)
 
-        # 第三轮限定 24
+        # 第三轮限定 25
         self.cardList.append(dB)
         self.cardList.append(anFT)
         self.cardList.append(dO)
         self.cardList.append(dongKX)
 
-        # sr 28
+        # sr 29
         self.cardList.append(srA)
         self.cardList.append(srM)
         self.cardList.append(srB)
@@ -195,7 +200,7 @@ class CardHelper:
         self.cardList.append(srL)
         self.cardList.append(srBL)
         self.cardList.append(srDT)
-        # r 38
+        # r 39
         self.cardList.append(rA)
         self.cardList.append(rM)
         self.cardList.append(rB)
