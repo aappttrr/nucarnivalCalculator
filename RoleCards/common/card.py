@@ -770,18 +770,12 @@ class ICard:
     def increaseShield(self, shield):
         result = shield
         increase = 0
-        effectIncrease = 0
         for buff in self.buffs:
-            if buff.buffType == BuffType.ShieldIncrease:
+            if buff.buffType == BuffType.ShieldIncrease or buff.buffType == BuffType.ShieldEffectIncrease:
                 increase += buff.value
-            if buff.buffType == BuffType.ShieldEffectIncrease:
-                effectIncrease += buff.value
 
         if increase != 0:
             result = result * (1 + increase)
-            result = roundDown(result)
-        if effectIncrease != 0:
-            result = result * (1 + effectIncrease)
             result = roundDown(result)
 
         if result < 0:

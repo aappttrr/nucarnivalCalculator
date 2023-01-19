@@ -126,7 +126,7 @@ def getHelpContent():
     writeLineString(output, '最终Hot量 = Hot * 受回复量加成 * 受持续治疗量加成【夏八】')
     writeLineString(output, '')
     writeWriteSpace(output, 8)
-    writeLineString(output, '护盾 = 最大HP * 倍率 * 造成护盾加成 * 护盾效果加成【三星普啖和三星水啖，未验证是否为乘算】')
+    writeLineString(output, '护盾 = 最大HP * 倍率 * (造成护盾加成 + 护盾效果加成)')
     writeWriteSpace(output, 8)
     writeLineString(output, '最终护盾 = 护盾 * 受护盾效果加成【夏八】')
     return output.getvalue()
