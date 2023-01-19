@@ -98,7 +98,7 @@ class ICard:
         self.rarity: CardRarity = None
 
         # 属性
-        self.cardType: CardType = None
+        self.cardType: CardType = CardType.Unset
 
         # 职业定位
         self.occupation: CardOccupation = None
@@ -862,6 +862,14 @@ class ICard:
         if printInfo:
             print(infoStr, end='')
         return infoStr
+
+    def exportCardInfo(self):
+        infoStr = self.nickName
+        infoStr2 = self.cardName
+        if self.role is not None:
+            infoStr2 = '{} - {}'.format(self.cardName, self.role.value)
+        info = infoStr + '\n' + infoStr2
+        return info
 
     def cardDetail(self):
         self.cardInfo()

@@ -7,6 +7,7 @@ class CardType(enum.Enum):
     Fire = '火', '克制木属性，被水属性克制'
     Water = '水', '克制火属性，被木属性克制'
     Wood = '木', '克制水属性，被火属性克制'
+    Unset = '无属性', '无属性'
 
     def __init__(self, typeName, des):
         self._typeName = typeName
@@ -21,6 +22,9 @@ class CardType(enum.Enum):
         return self._des
 
     def isRestrained(self, para):
+        if self == CardType.Unset or para == CardType.Unset:
+            return False
+
         if self == CardType.Fire and para == CardType.Wood:
             return True
 
@@ -33,6 +37,8 @@ class CardType(enum.Enum):
         return False
 
     def isBeRestrained(self, para):
+        if self == CardType.Unset or para == CardType.Unset:
+            return False
         if self == CardType.Light and para == CardType.Dark:
             return True
         if self == CardType.Dark and para == CardType.Light:

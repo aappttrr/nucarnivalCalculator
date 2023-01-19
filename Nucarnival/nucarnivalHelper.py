@@ -112,12 +112,12 @@ class NucarnivalHelper:
             role.calHpAtk()
             self.columnMark[role] = column
             self.ws.merge_cells(None, 1, column, 1, column + 2)
-            self.ws.cell(1, column, role.cardInfo(False))
-            self.ws.cell(1, column).alignment = Alignment(wrapText=True)
+            self.ws.cell(1, column, role.exportCardInfo())
+            self.ws.cell(1, column).alignment = Alignment(horizontal='left', vertical='center', wrapText=True)
 
             self.ws.merge_cells(None, 2, column, 3, column)
             self.ws.cell(2, column, '实时攻击力')
-            self.ws.cell(2, column).alignment = Alignment(wrapText=True)
+            self.ws.cell(2, column).alignment = Alignment(horizontal='left', vertical='center', wrapText=True)
 
             self.ws.merge_cells(None, 2, column + 1, 2, column + 2)
             self.ws.cell(2, column + 1, '回合行动')
@@ -189,7 +189,8 @@ class NucarnivalHelper:
         self.totalDamage = 0
         self.ws.cell(row + turn + 1, 1, '统计')
         self.ws.cell(row + turn + 2, 1, '占比')
-        self.ws.cell(row + turn + 3, 1, '全队总伤害')
+        self.ws.cell(row + turn + 3, 1, '总{}回合\n全队总伤害'.format(turn))
+        self.ws.cell(row + turn + 3, 1,).alignment = Alignment(horizontal='left', vertical='center', wrapText=True)
         self.recordBattleMsg('总{}回合'.format(turn))
         totalDamage = 0
         temp = 0
@@ -203,7 +204,8 @@ class NucarnivalHelper:
                 maxColumn = self.columnMark[role]
         msg = '全队伤害：{}'.format(totalDamage)
         self.ws.merge_cells(None, row + turn + 3, 2, row + turn + 3, maxColumn + 2)
-        self.ws.cell(row + turn + 3,  2, str(totalDamage))
+        self.ws.cell(row + turn + 3, 2, totalDamage)
+        self.ws.cell(row + turn + 3, 2).alignment = Alignment(horizontal='left', vertical='center', wrapText=True)
         self.recordBattleMsg(msg)
         if printInfo:
             print(self.output.getvalue())
@@ -419,11 +421,11 @@ class NucarnivalHelper:
         column = self.columnMark[role]
         msg3 = atkMag + '\n' + atkAfterMag + '\n' + atkTurnMag
         self.ws.cell(row + turn, column, msg3)
-        self.ws.cell(row + turn, column).alignment = Alignment(wrapText=True)
+        self.ws.cell(row + turn, column).alignment = Alignment(horizontal='left', vertical='center', wrapText=True)
         self.ws.cell(row + turn, column + 1, wsMsgD)
-        self.ws.cell(row + turn, column + 1).alignment = Alignment(wrapText=True)
+        self.ws.cell(row + turn, column + 1).alignment = Alignment(horizontal='left', vertical='center', wrapText=True)
         self.ws.cell(row + turn, column + 2, wsMsgH)
-        self.ws.cell(row + turn, column + 2).alignment = Alignment(wrapText=True)
+        self.ws.cell(row + turn, column + 2).alignment = Alignment(horizontal='left', vertical='center', wrapText=True)
 
     def getTotalResult(self, role: ICard):
         attackDamage = 0
@@ -528,8 +530,10 @@ class NucarnivalHelper:
         totalHeal = data['totalHeal']
 
         column = self.columnMark[role]
-        self.ws.cell(row + turn + 1, column + 1, str(totalDamage))
-        self.ws.cell(row + turn + 1, column + 2, str(totalHeal))
+        self.ws.cell(row + turn + 1, column + 1, totalDamage)
+        self.ws.cell(row + turn + 1, column + 1).alignment = Alignment(horizontal='left', vertical='center', wrapText=True)
+        self.ws.cell(row + turn + 1, column + 2, totalHeal)
+        self.ws.cell(row + turn + 1, column + 2).alignment = Alignment(horizontal='left', vertical='center', wrapText=True)
         if totalDamage > 0:
             msg += '  总伤害：{}'.format(totalDamage)
         if totalHeal > 0:
@@ -570,7 +574,7 @@ class NucarnivalHelper:
                 msg2 += '  反击({}%)'.format(proportion)
             self.recordBattleMsg(msg2)
         self.ws.cell(row + turn + 2, column + 1, str(shzb))
-        self.ws.cell(row + turn + 2, column + 1).alignment = Alignment(wrapText=True)
+        self.ws.cell(row + turn + 2, column + 1).alignment = Alignment(horizontal='left', vertical='center', wrapText=True)
         zlzb = ''
         msg2 = '治疗占比'
         if totalHeal > 0:
@@ -600,7 +604,7 @@ class NucarnivalHelper:
                 msg2 += '  吸血({}%)'.format(proportion)
             self.recordBattleMsg(msg2)
         self.ws.cell(row + turn + 2, column + 2, str(zlzb))
-        self.ws.cell(row + turn + 2, column + 2).alignment = Alignment(wrapText=True)
+        self.ws.cell(row + turn + 2, column + 2).alignment = Alignment(horizontal='left', vertical='center', wrapText=True)
         return totalDamage
 
     # 行动

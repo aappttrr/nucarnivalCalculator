@@ -574,14 +574,65 @@ def saveBattleResult(targetWs: Worksheet, helper: NucarnivalHelper, row: int):
     return row
 
 
+def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
+    for role in _cardHelper.cardList:
+        _star = 5
+        _tier = 12
+        _bond = 5
+        if role.rarity == CardRarity.SSR:
+            _star = 3
+        if role.rarity == CardRarity.R or role.rarity == CardRarity.N:
+            _tier = 6
+        if role.rarity == CardRarity.N:
+            _bond = 0
+        role.setProperties(60, _star, _bond, _tier)
+
+    # 辅助
+    huaAo = _cardHelper.filterCard('AquaBloom')[0]
+    xiaBa = _cardHelper.filterCard('OceanBreeze')[0]
+    guaLang = _cardHelper.filterCard('HowlingCyclone')[0]
+    shengDan = _cardHelper.filterCard('IcyEquilibrium')[0]
+    yiDe = _cardHelper.filterCard('GalacticMist')[0]
+    srAo = _cardHelper.filterCard('SROlivine')[0]
+
+    # 普攻
+    puTuan = _cardHelper.filterCard('KnightlyNight')[0]
+    huoTuan = _cardHelper.filterCard('SweetAroma')[0]
+    anTuan = _cardHelper.filterCard('EliteInstructor')[0]
+    anKun = _cardHelper.filterCard('DistantPromise')[0]
+    srAi = _cardHelper.filterCard('SRAster')[0]
+
+    # 必杀
+    puKun = _cardHelper.filterCard('AncientCeremony')[0]
+    srKun = _cardHelper.filterCard('SRQuincy')[0]
+    rKun = _cardHelper.filterCard('RQuincy')[0]
+    shuiDan = _cardHelper.filterCard('EternalHanabi')[0]
+
+    _helper.maxTurn = 13
+    _helper.monsters.append(CommonMonster())
+    _helper.team.clear()
+    _helper.team.append(yiDe)
+    _helper.team.append(huaAo)
+    _helper.team.append(shuiDan)
+    _helper.team.append(srKun)
+
+    _helper.skillTurn[huaAo] = [6,11,16,21,26]
+    _helper.skillTurn[srAo] = [5,10,15,20,25]
+    _helper.battleStart(True)
+    name = '第四组-③-花奥伊得-{}.xls'.format(_helper.maxTurn)
+    _helper.exportExcel('E:\\新世界\\攻略\\银羽奇迹\\伊得队伍模拟\\' + name)
+
+
 if __name__ == '__main__':
     _helper = NucarnivalHelper()
 
     _cardHelper = CardHelper()
 
+    tempSimulation(_helper, _cardHelper)
+
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
-    simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
-    simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
+    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
+    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)
