@@ -1,5 +1,7 @@
 import io
 from openpyxl import Workbook
+from openpyxl.comments import Comment
+from openpyxl.styles import Alignment
 from openpyxl.worksheet.worksheet import Worksheet
 
 from Common.nvEventManager import EventListener, Event, EventType, eventManagerInstance
@@ -57,8 +59,8 @@ class NucarnivalHelper:
         self.output = io.StringIO()
         self.wb: Workbook = None
         self.ws: Worksheet = None
-        self.markBattleResult = False
-        self.sheetCount = 0
+        self.roleWS: Worksheet = None
+        self.columnMark = {}
         self.battleListener = BattleRecordListener()
         eventManagerInstance.addListener(self.battleListener)
 
@@ -76,17 +78,10 @@ class NucarnivalHelper:
         self.totalDamage = 0
         self.output.close()
         self.output = io.StringIO()
-        self.sheetCount += 1
-        if self.wb is not None and self.ws is not None and self.markBattleResult is False:
-            self.wb.remove_sheet(self.ws)
-            self.sheetCount -= 1
-            self.ws = None
-        if self.wb is None:
-            self.wb = Workbook()
-            self.ws = self.wb.active
-            self.ws.title = '伤害模拟结果' + str(self.sheetCount)
-        if self.ws is None:
-            self.ws = self.wb.create_sheet('伤害模拟结果' + str(self.sheetCount), 0)
+        self.wb = Workbook()
+        self.ws = self.wb.active
+        self.ws.title = '伤害模拟结果'
+        self.roleWS = self.wb.create_sheet('角色属性', 1)
 
     def recordBattleMsg(self, msg: str):
         self.output.seek(0, 2)
@@ -101,17 +96,39 @@ class NucarnivalHelper:
     def battleStart(self, printInfo=False):
         self.clearUpBattleResult()
 
+        self.ws.merge_cells(None, 1, 1, 3, 1)
+        self.ws.cell(1, 1, '回合')
+
+        comment = Comment('为了简略Excel，部分行动将用缩写'
+                          '\n持续伤害=dot'
+                          '\n持续治疗=hot', '纳萨尔')
+        self.ws.cell(1, 1).comment = comment
+
+        column = 2
         for role in self.team:
             role.teamMate = self.team
             role.enemies = self.monsters
             role.clearUp()
             role.calHpAtk()
+            self.columnMark[role] = column
+            self.ws.merge_cells(None, 1, column, 1, column + 2)
+            self.ws.cell(1, column, role.cardInfo(False))
+            self.ws.cell(1, column).alignment = Alignment(wrapText=True)
+
+            self.ws.merge_cells(None, 2, column, 3, column)
+            self.ws.cell(2, column, '实时攻击力')
+            self.ws.cell(2, column).alignment = Alignment(wrapText=True)
+
+            self.ws.merge_cells(None, 2, column + 1, 2, column + 2)
+            self.ws.cell(2, column + 1, '回合行动')
+            self.ws.cell(3, column + 1, '伤害')
+            self.ws.cell(3, column + 2, '治疗')
+            column += 3
         for monster in self.monsters:
             monster.teamMate = self.monsters
             monster.enemies = self.team
             monster.clearUp()
-        row = self.writeCardInfoInExcel()
-        row += 1
+        self.writeCardInfoInExcel()
 
         if self.maxTurn > 50:
             self.maxTurn = 50
@@ -138,8 +155,8 @@ class NucarnivalHelper:
             if turn > 1:
                 self.recordBattleMsg('')
             msg = '---------第{0}回合---------'.format(turn)
-            self.ws.merge_cells(None, row, turn * 2, row, turn * 2 + 1)
-            self.ws.cell(row, turn * 2, '第{0}回合'.format(turn))
+            row = 3
+            self.ws.cell(row + turn, 1, '{0}'.format(turn))
             self.recordBattleMsg(msg)
 
             # 我方行动
@@ -157,34 +174,36 @@ class NucarnivalHelper:
                 role.settleHot()
 
             # 下个回合
-            tempRow = row + 1
+            temp = 0
             for role in self.team:
-                if tempRow > row + 1:
+                if temp != 0:
                     self.recordBattleMsg('')
-                self.recordResult(role, turn, tempRow)
+                self.recordResult(role, turn, row)
                 role.nextRound()
-                tempRow += 1
+                temp += 1
             for monster in self.monsters:
                 monster.nextRound()
 
         msg = '-----------结束------------'
         self.recordBattleMsg(msg)
         self.totalDamage = 0
-        self.ws.cell(row, turn * 2 + 2, '总伤害')
-        self.ws.cell(row, turn * 2 + 3, '伤害占比')
-        self.ws.cell(row, turn * 2 + 4, '总治疗')
-        self.ws.cell(row, turn * 2 + 5, '治疗占比')
-        temp = 1
+        self.ws.cell(row + turn + 1, 1, '统计')
+        self.ws.cell(row + turn + 2, 1, '占比')
+        self.ws.cell(row + turn + 3, 1, '全队总伤害')
         self.recordBattleMsg('总{}回合'.format(turn))
         totalDamage = 0
+        temp = 0
+        maxColumn = 0
         for role in self.team:
-            self.ws.cell(row + temp, 1, role.cardInfo(False))
-            if temp != 1:
+            if temp != 0:
                 self.recordBattleMsg('')
-            totalDamage += self.recordTotalResult(role, turn, row + temp)
             temp += 1
+            totalDamage += self.recordTotalResult(role, turn, row)
+            if maxColumn < self.columnMark[role]:
+                maxColumn = self.columnMark[role]
         msg = '全队伤害：{}'.format(totalDamage)
-        self.ws.cell(row + temp,  turn * 2 + 2, str(totalDamage))
+        self.ws.merge_cells(None, row + turn + 3, 2, row + turn + 3, maxColumn + 2)
+        self.ws.cell(row + turn + 3,  2, str(totalDamage))
         self.recordBattleMsg(msg)
         if printInfo:
             print(self.output.getvalue())
@@ -192,7 +211,8 @@ class NucarnivalHelper:
     # 获取本回合总伤害
     def recordResult(self, role: ICard, turn, row):
         msg = role.cardInfo(False)
-        msg2 = ''
+        wsMsgD = ''
+        wsMsgH = ''
         isDefense = False
 
         turnAtk = role.getCurrentAtk()
@@ -202,9 +222,9 @@ class NucarnivalHelper:
         eventAtk.data['target'] = role
         eventManagerInstance.sendEvent(eventAtk)
 
-        atkMag = '行动实时攻击力：'
-        atkAfterMag = '行动后实时攻击力：'
-        atkTurnMag = '回合实时攻击力：{}'.format(turnAtk)
+        atkMag = '行动前：'
+        atkAfterMag = '行动后：'
+        atkTurnMag = '回合：{}'.format(turnAtk)
 
         if len(self.battleListener.findSourceEvent(role, EventType.actionAtk)) > 0:
             try:
@@ -216,9 +236,12 @@ class NucarnivalHelper:
 
         if len(self.battleListener.findSourceEvent(role, EventType.defense)) > 0:
             msg += '  防御'
-            if len(msg2) > 0:
-                msg2 += '\n'
-            msg2 = '防御'
+            if len(wsMsgD) > 0:
+                wsMsgD += '\n'
+            wsMsgD = '防御'
+            if len(wsMsgH) > 0:
+                wsMsgH += '\n'
+            wsMsgH = '防御'
             isDefense = True
 
         attackDamage = 0
@@ -295,84 +318,90 @@ class NucarnivalHelper:
             if attackFU > 0:
                 astr += '(' + str(attackFU) + ')'
             msg += '  普攻造成伤害：' + astr
-            if len(msg2) > 0:
-                msg2 += '\n'
-            msg2 += '普攻：' + astr
+            if len(wsMsgD) > 0:
+                wsMsgD += '\n'
+            wsMsgD += '普攻：' + astr
         else:
             if attackFU > 0:
                 msg += '  普攻造成伤害：' + str(attackFU)
-                if len(msg2) > 0:
-                    msg2 += '\n'
-                msg2 += '普攻：' + str(attackFU)
+                if len(wsMsgD) > 0:
+                    wsMsgD += '\n'
+                wsMsgD += '普攻：' + str(attackFU)
         if counter > 0:
             msg += '  反击造成伤害：' + str(counter)
-            if len(msg2) > 0:
-                msg2 += '\n'
-            msg2 += '反击伤害：' + str(counter)
+            if len(wsMsgD) > 0:
+                wsMsgD += '\n'
+            wsMsgD += '反击：' + str(counter)
         if skillDamage > 0:
             astr = str(skillDamage)
             if skillFU > 0:
                 astr += '(' + str(skillFU) + ')'
             msg += '  必杀造成伤害：' + astr
-            if len(msg2) > 0:
-                msg2 += '\n'
-            msg2 += '必杀：' + astr
+            if len(wsMsgD) > 0:
+                wsMsgD += '\n'
+            wsMsgD += '必杀：' + astr
         else:
             if skillFU > 0:
                 msg += '  必杀造成伤害：' + str(skillFU)
-                if len(msg2) > 0:
-                    msg2 += '\n'
-                msg2 += '必杀：' + str(skillFU)
+                if len(wsMsgD) > 0:
+                    wsMsgD += '\n'
+                wsMsgD += '必杀：' + str(skillFU)
         if attackHeal > 0:
             msg += '  普攻造成治疗：' + str(attackHeal)
-            if len(msg2) > 0:
-                msg2 += '\n'
-            msg2 += '普攻治疗：' + str(attackHeal)
+            if len(wsMsgH) > 0:
+                wsMsgH += '\n'
+            wsMsgH += '普攻：' + str(attackHeal)
         if skillHeal > 0:
             msg += '  必杀造成治疗：' + str(skillHeal)
-            if len(msg2) > 0:
-                msg2 += '\n'
-            msg2 += '必杀治疗：' + str(skillHeal)
+            if len(wsMsgH) > 0:
+                wsMsgH += '\n'
+            wsMsgH += '必杀：' + str(skillHeal)
         if bloodSuck > 0:
             msg += '  吸血造成治疗：' + str(bloodSuck)
-            if len(msg2) > 0:
-                msg2 += '\n'
-            msg2 += '吸血：' + str(bloodSuck)
+            if len(wsMsgH) > 0:
+                wsMsgH += '\n'
+            wsMsgH += '吸血：' + str(bloodSuck)
         if dot > 0:
             msg += '  造成持续伤害：' + str(dot)
-            if len(msg2) > 0:
-                msg2 += '\n'
-            msg2 += '持续伤害：' + str(dot)
+            if len(wsMsgD) > 0:
+                wsMsgD += '\n'
+            wsMsgD += 'dot：' + str(dot)
         if hot > 0:
             msg += '  造成持续治疗：' + str(hot)
-            if len(msg2) > 0:
-                msg2 += '\n'
-            msg2 += '持续治疗：' + str(hot)
+            if len(wsMsgH) > 0:
+                wsMsgH += '\n'
+            wsMsgH += 'hot：' + str(hot)
         if shield > 0:
             msg += '  造成护盾：' + str(shield)
-            if len(msg2) > 0:
-                msg2 += '\n'
-            msg2 += '护盾：' + str(shield)
+            if len(wsMsgH) > 0:
+                wsMsgH += '\n'
+            wsMsgH += '护盾：' + str(shield)
         if turnDamage > 0:
-            if len(msg2) > 0:
-                msg2 += '\n'
-            msg2 += '回合总伤害：' + str(turnDamage)
+            if len(wsMsgD) > 0:
+                wsMsgD += '\n'
+            wsMsgD += '总伤：' + str(turnDamage)
         if turnHeal > 0:
-            if len(msg2) > 0:
-                msg2 += '\n'
-            msg2 += '回合总治疗：' + str(turnHeal)
+            if len(wsMsgH) > 0:
+                wsMsgH += '\n'
+            wsMsgH += '总治：' + str(turnHeal)
 
         if turnDamage <= 0 and turnHeal <= 0 and isDefense is False:
             if len(self.battleListener.findSourceEvent(role, EventType.attack)) > 0:
                 msg += '  普攻'
-                if len(msg2) > 0:
-                    msg2 += '\n'
-                msg2 = '普攻'
+                if len(wsMsgD) > 0:
+                    wsMsgD += '\n'
+                wsMsgD = '普攻'
+                if len(wsMsgH) > 0:
+                    wsMsgH += '\n'
+                wsMsgH = '普攻'
             if len(self.battleListener.findSourceEvent(role, EventType.skill)) > 0:
                 msg += '  必杀'
-                if len(msg2) > 0:
-                    msg2 += '\n'
-                msg2 = '必杀'
+                if len(wsMsgD) > 0:
+                    wsMsgD += '\n'
+                wsMsgD = '必杀'
+                if len(wsMsgH) > 0:
+                    wsMsgH += '\n'
+                wsMsgH = '必杀'
 
         self.recordBattleMsg(msg)
 
@@ -387,9 +416,14 @@ class NucarnivalHelper:
         msg_turnAtk = '我方所有角色行动后，本回合实时攻击力[{}]'.format(turnAtk)
         self.recordBattleMsg(msg_turnAtk)
 
+        column = self.columnMark[role]
         msg3 = atkMag + '\n' + atkAfterMag + '\n' + atkTurnMag
-        self.ws.cell(row, turn * 2, msg3)
-        self.ws.cell(row, turn * 2 + 1, msg2)
+        self.ws.cell(row + turn, column, msg3)
+        self.ws.cell(row + turn, column).alignment = Alignment(wrapText=True)
+        self.ws.cell(row + turn, column + 1, wsMsgD)
+        self.ws.cell(row + turn, column + 1).alignment = Alignment(wrapText=True)
+        self.ws.cell(row + turn, column + 2, wsMsgH)
+        self.ws.cell(row + turn, column + 2).alignment = Alignment(wrapText=True)
 
     def getTotalResult(self, role: ICard):
         attackDamage = 0
@@ -493,8 +527,9 @@ class NucarnivalHelper:
         totalDamage = data['totalDamage']
         totalHeal = data['totalHeal']
 
-        self.ws.cell(row, turn * 2 + 2, str(totalDamage))
-        self.ws.cell(row, turn * 2 + 4, str(totalHeal))
+        column = self.columnMark[role]
+        self.ws.cell(row + turn + 1, column + 1, str(totalDamage))
+        self.ws.cell(row + turn + 1, column + 2, str(totalHeal))
         if totalDamage > 0:
             msg += '  总伤害：{}'.format(totalDamage)
         if totalHeal > 0:
@@ -525,7 +560,7 @@ class NucarnivalHelper:
                 proportion = roundHalfEven(dot / totalDamage * 100)
                 if len(shzb) > 0:
                     shzb += '\n'
-                shzb += '持续伤害({}%)'.format(proportion)
+                shzb += 'dot({}%)'.format(proportion)
                 msg2 += '  持续伤害({}%)'.format(proportion)
             if counter > 0:
                 proportion = roundHalfEven(counter / totalDamage * 100)
@@ -534,7 +569,8 @@ class NucarnivalHelper:
                 shzb += '反击({}%)'.format(proportion)
                 msg2 += '  反击({}%)'.format(proportion)
             self.recordBattleMsg(msg2)
-        self.ws.cell(row, turn * 2 + 3, str(shzb))
+        self.ws.cell(row + turn + 2, column + 1, str(shzb))
+        self.ws.cell(row + turn + 2, column + 1).alignment = Alignment(wrapText=True)
         zlzb = ''
         msg2 = '治疗占比'
         if totalHeal > 0:
@@ -554,7 +590,7 @@ class NucarnivalHelper:
                 proportion = roundHalfEven(hot / totalHeal * 100)
                 if len(zlzb) > 0:
                     zlzb += '\n'
-                zlzb += '持续治疗({}%)'.format(proportion)
+                zlzb += 'hot({}%)'.format(proportion)
                 msg2 += '  持续治疗({}%)'.format(proportion)
             if bloodSuck > 0:
                 proportion = roundHalfEven(bloodSuck / totalHeal * 100)
@@ -563,7 +599,8 @@ class NucarnivalHelper:
                 zlzb += '吸血({}%)'.format(proportion)
                 msg2 += '  吸血({}%)'.format(proportion)
             self.recordBattleMsg(msg2)
-        self.ws.cell(row, turn * 2 + 5, str(zlzb))
+        self.ws.cell(row + turn + 2, column + 2, str(zlzb))
+        self.ws.cell(row + turn + 2, column + 2).alignment = Alignment(wrapText=True)
         return totalDamage
 
     # 行动
@@ -679,13 +716,13 @@ class NucarnivalHelper:
                     enemy.beAttacked(enemiesBeAttacked[enemy], True)
 
     def writeCardInfoInExcel(self):
-        writeCardInfoTitleInExcel(self.ws)
+        writeCardInfoTitleInExcel(self.roleWS)
 
         row = 2
         for role in self.team:
             if role.cardName == '临时队友':
                 continue
-            role.writeCardInfoInExcel(self.ws, row)
+            role.writeCardInfoInExcel(self.roleWS, row)
             row += 1
         return row
 
