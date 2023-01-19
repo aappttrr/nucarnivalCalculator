@@ -19,7 +19,7 @@ def getWelcomeContent():
 
 def getHelpContent():
     output = io.StringIO()
-    writeLineString(output, '当前版本：v2.1-2023-1-8')
+    writeLineString(output, '当前版本：v2.2-2023-1-19')
     writeLineString(output, '有任何问题、Bug都可以给我留言~~')
     writeLineString(output, 'B站：纳萨尔')
     writeLineString(output, '')
@@ -134,6 +134,8 @@ def getHelpContent():
 
 def getUpdateLogContent():
     output = io.StringIO()
+    getUpdateLogContent_2_2(output)
+    writeLineString(output, '')
     getUpdateLogContent_2_1(output)
     writeLineString(output, '')
     getUpdateLogContent_2_0(output)
@@ -144,6 +146,22 @@ def getUpdateLogContent():
     writeLineString(output, '')
     getUpdateLogContent_1_0(output)
     return output.getvalue()
+
+
+def getUpdateLogContent_2_2(_output: io.StringIO):
+    writeDashString(_output, 36)
+    writeString(_output, '2023.1.19')
+    writeDashString(_output, 36)
+    writeLineString(_output, '')
+    writeLineString(_output, 'v2.2:')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '①新增银羽奇迹限定卡：夜雾银星（伊得）')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '②更正护盾计算公式')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '③冬昆和普啖的治疗、护盾能够吃普攻和必杀加成')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '④优化了Excel导出')
 
 
 def getUpdateLogContent_2_1(_output: io.StringIO):
