@@ -47,12 +47,14 @@ def calStar(lv60s5=1, _star=5):
         #     temp = 1.167
         result = result / temp
         # result = roundCeiling(result)
+    print(result)
     return result
 
 
 def calTier(lv60s5=1, _tierValue=0.0):
     result = lv60s5 * (1 + _tierValue)
     # result = roundCeiling(result)
+    print(result)
     return result
 
 
@@ -63,6 +65,7 @@ def calLv(lv60s5=1, _lv=60):
     for i in reversed(range(_lv, 60)):
         result = result / 1.05
         # result = roundCeiling(result)
+    print(result)
     return result
 
 

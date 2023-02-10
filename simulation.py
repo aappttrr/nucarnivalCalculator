@@ -611,15 +611,20 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(yiDe)
-    _helper.team.append(huaAo)
-    _helper.team.append(shuiDan)
+    # _helper.team.append(huaAo)
+    # _helper.team.append(puKun)
     _helper.team.append(srKun)
+    _helper.team.append(rKun)
 
-    _helper.skillTurn[huaAo] = [6,11,16,21,26]
-    _helper.skillTurn[srAo] = [5,10,15,20,25]
+    _helper.skillTurn[huaAo] = [7,13,19,25]
+    # _helper.skillTurn[yiDe] = [6,11,16,21,26]
+    # _helper.skillTurn[srAo] = [6,11,16,21,26]
+    # _helper.skillTurn[huaAo] = [7,12,17,22,27]
+    # _helper.skillTurn[shuiDan] = [4,7,10,12,15,17,20,22,25,27]
+    # _helper.skillTurn[srKun] = [7,12,17,22,27]
+    # _helper.skillTurn[rKun] = [7,12,17,22,27]
     _helper.battleStart(True)
-    name = '第四组-③-花奥伊得-{}.xls'.format(_helper.maxTurn)
+    name = '二昆-{}.xls'.format(_helper.maxTurn)
     _helper.exportExcel('E:\\新世界\\攻略\\银羽奇迹\\伊得队伍模拟\\' + name)
 
 
