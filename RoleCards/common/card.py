@@ -298,6 +298,18 @@ class ICard:
         event2.data['value'] = currentAtk2
         event2.data['target'] = self
         eventManagerInstance.sendEvent(event2)
+        if damage > 0:
+            for buff in self.buffs:
+                if buff.conditionType != ConditionType.WhenAttack:
+                    continue
+
+                if buff.buffType == BuffType.AddDamageIncrease:
+                    newBuff = Buff(buff.buffId, buff.value, buff.addBuffTurn, BuffType.BeDamageIncrease)
+                    if isinstance(enemies, list):
+                        for enemy in enemies:
+                            enemy.addBuff(newBuff, buff.source)
+                    else:
+                        enemies.addBuff(newBuff, buff.source)
 
     def doSkill(self, enemies):
         self.skillBefore(enemies)
@@ -351,6 +363,18 @@ class ICard:
         event2.data['value'] = currentAtk2
         event2.data['target'] = self
         eventManagerInstance.sendEvent(event2)
+        if damage > 0:
+            for buff in self.buffs:
+                if buff.conditionType != ConditionType.WhenAttack:
+                    continue
+
+                if buff.buffType == BuffType.AddDamageIncrease:
+                    newBuff = Buff(buff.buffId, buff.value, buff.addBuffTurn, BuffType.BeDamageIncrease)
+                    if isinstance(enemies, list):
+                        for enemy in enemies:
+                            enemy.addBuff(newBuff, buff.source)
+                    else:
+                        enemies.addBuff(newBuff, buff.source)
 
     def followUp(self, enemies, currentAtk, isAttack: bool):
         for buff in self.buffs:

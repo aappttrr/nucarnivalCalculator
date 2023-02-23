@@ -27,6 +27,7 @@ from RoleCards.cards.garu.mastersGift import MastersGift
 from RoleCards.cards.garu.n_Garu import NGaru
 from RoleCards.cards.garu.r_Garu import RGaru
 from RoleCards.cards.garu.sr_Garu import SRGaru
+from RoleCards.cards.kuya.afternoonDaze import AfternoonDaze
 from RoleCards.cards.kuya.fallenLeaves import FallenLeaves
 from RoleCards.cards.kuya.n_Kuya import NKuya
 from RoleCards.cards.kuya.r_Kuya import RKuya
@@ -122,6 +123,7 @@ class CardHelper:
         ssrHL = FallenLeaves()
         hHL = KitsuneDream()
         naiHL = LakesideSpark()
+        shuiHL = AfternoonDaze()
 
         # 可尔
         srL = SRGaru()
@@ -188,6 +190,9 @@ class CardHelper:
         self.cardList.append(anFT)
         self.cardList.append(dO)
         self.cardList.append(dongKX)
+        self.cardList.append(shuiHL)
+
+        # 第四轮限定
 
         # sr 29
         self.cardList.append(srA)
