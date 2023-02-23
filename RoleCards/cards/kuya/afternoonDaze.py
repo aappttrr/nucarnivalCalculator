@@ -63,13 +63,13 @@ class AfternoonDaze(SSRCard):
     # 玖夜在场时，持续伤害增加50%
     def passive_star_3(self):
         if super(AfternoonDaze, self).passive_star_3():
+            buff2 = Buff('AfternoonDaze_passive_star_3_2', 0.5, 0, BuffType.DotIncrease)
+            buff2.isPassive = True
+            self.addBuff(buff2)
             count = 0
-            count2 = 0
             for mate in self.teamMate:
                 if mate.occupation == CardOccupation.Saboteur:
                     count += 1
-                if mate.role == CardRole.Kuya:
-                    count2 += 1
 
             if count > 2:
                 count = 2
@@ -78,11 +78,6 @@ class AfternoonDaze(SSRCard):
                 buff = Buff('AfternoonDaze_passive_star_3', 0.135 * count, 0, BuffType.AtkIncrease)
                 buff.isPassive = True
                 self.addBuff(buff)
-
-            if count2 > 1:
-                buff2 = Buff('AfternoonDaze_passive_star_3_2', 0.5, 0, BuffType.DotIncrease)
-                buff2.isPassive = True
-                self.addBuff(buff2)
 
     # Hp>99%，攻击力+33%
     def passive_star_5(self):

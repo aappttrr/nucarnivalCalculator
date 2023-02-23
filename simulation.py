@@ -595,6 +595,10 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     yiDe = _cardHelper.filterCard('GalacticMist')[0]
     srAo = _cardHelper.filterCard('SROlivine')[0]
 
+    # 半拐
+    guangLang = _cardHelper.filterCard('EndlessBanquet')[0]
+    shuiHL = _cardHelper.filterCard('AfternoonDaze')[0]
+
     # 普攻
     puTuan = _cardHelper.filterCard('KnightlyNight')[0]
     huoTuan = _cardHelper.filterCard('SweetAroma')[0]
@@ -608,24 +612,22 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     rKun = _cardHelper.filterCard('RQuincy')[0]
     shuiDan = _cardHelper.filterCard('EternalHanabi')[0]
 
+    # 持续伤害
+    huoHL = _cardHelper.filterCard('KitsuneDream')[0]
+
+    # _helper.skillTurn[srAo] = [6,12]
+    # _helper.skillTurn[huaAo] = [7,13]
+
     _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    # _helper.team.append(huaAo)
-    # _helper.team.append(puKun)
-    _helper.team.append(srKun)
-    _helper.team.append(rKun)
+    _helper.team.append(srAo)
+    _helper.team.append(shuiHL)
+    _helper.team.append(huoHL)
 
-    _helper.skillTurn[huaAo] = [7,13,19,25]
-    # _helper.skillTurn[yiDe] = [6,11,16,21,26]
-    # _helper.skillTurn[srAo] = [6,11,16,21,26]
-    # _helper.skillTurn[huaAo] = [7,12,17,22,27]
-    # _helper.skillTurn[shuiDan] = [4,7,10,12,15,17,20,22,25,27]
-    # _helper.skillTurn[srKun] = [7,12,17,22,27]
-    # _helper.skillTurn[rKun] = [7,12,17,22,27]
     _helper.battleStart(True)
-    name = '二昆-{}.xls'.format(_helper.maxTurn)
-    _helper.exportExcel('E:\\新世界\\攻略\\银羽奇迹\\伊得队伍模拟\\' + name)
+    name = 'sr奥+水狐+火狐-{}.xls'.format(_helper.maxTurn)
+    _helper.exportExcel('E:\\新世界\\攻略\\【2023.2.23】春林狂欢宴\\水狐模拟\\' + name)
 
 
 if __name__ == '__main__':

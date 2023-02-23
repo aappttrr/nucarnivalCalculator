@@ -47,14 +47,12 @@ def calStar(lv60s5=1, _star=5):
         #     temp = 1.167
         result = result / temp
         # result = roundCeiling(result)
-    print(result)
     return result
 
 
 def calTier(lv60s5=1, _tierValue=0.0):
     result = lv60s5 * (1 + _tierValue)
     # result = roundCeiling(result)
-    print(result)
     return result
 
 
@@ -65,7 +63,6 @@ def calLv(lv60s5=1, _lv=60):
     for i in reversed(range(_lv, 60)):
         result = result / 1.05
         # result = roundCeiling(result)
-    print(result)
     return result
 
 
@@ -291,13 +288,6 @@ class ICard:
             event.data['target'] = self
             eventManagerInstance.sendEvent(event)
 
-        self.attackAfter(enemies)
-        currentAtk2 = self.getCurrentAtk()
-        event2 = Event(EventType.actionAfterAtk)
-        event2.data['source'] = self
-        event2.data['value'] = currentAtk2
-        event2.data['target'] = self
-        eventManagerInstance.sendEvent(event2)
         if damage > 0:
             for buff in self.buffs:
                 if buff.conditionType != ConditionType.WhenAttack:
@@ -310,6 +300,14 @@ class ICard:
                             enemy.addBuff(newBuff, buff.source)
                     else:
                         enemies.addBuff(newBuff, buff.source)
+
+        self.attackAfter(enemies)
+        currentAtk2 = self.getCurrentAtk()
+        event2 = Event(EventType.actionAfterAtk)
+        event2.data['source'] = self
+        event2.data['value'] = currentAtk2
+        event2.data['target'] = self
+        eventManagerInstance.sendEvent(event2)
 
     def doSkill(self, enemies):
         self.skillBefore(enemies)
@@ -356,13 +354,6 @@ class ICard:
             event.data['target'] = self
             eventManagerInstance.sendEvent(event)
 
-        self.skillAfter(enemies)
-        currentAtk2 = self.getCurrentAtk()
-        event2 = Event(EventType.actionAfterAtk)
-        event2.data['source'] = self
-        event2.data['value'] = currentAtk2
-        event2.data['target'] = self
-        eventManagerInstance.sendEvent(event2)
         if damage > 0:
             for buff in self.buffs:
                 if buff.conditionType != ConditionType.WhenAttack:
@@ -375,6 +366,14 @@ class ICard:
                             enemy.addBuff(newBuff, buff.source)
                     else:
                         enemies.addBuff(newBuff, buff.source)
+
+        self.skillAfter(enemies)
+        currentAtk2 = self.getCurrentAtk()
+        event2 = Event(EventType.actionAfterAtk)
+        event2.data['source'] = self
+        event2.data['value'] = currentAtk2
+        event2.data['target'] = self
+        eventManagerInstance.sendEvent(event2)
 
     def followUp(self, enemies, currentAtk, isAttack: bool):
         for buff in self.buffs:
@@ -895,6 +894,10 @@ class ICard:
         infoStr2 = self.cardName
         if self.role is not None:
             infoStr2 = '{} - {}'.format(self.cardName, self.role.value)
+        if infoStr is None:
+            infoStr = ''
+        if infoStr2 is None:
+            infoStr2 = ''
         info = infoStr + '\n' + infoStr2
         return info
 

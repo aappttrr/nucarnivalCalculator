@@ -15,7 +15,7 @@ class SpringChaos(SSRCard):
         super(SpringChaos, self).__init__()
         self.cardId = 'SpringChaos'
         self.cardName = '春日迷乱'
-        self.nickName = '盾团'
+        self.nickName = '花团'
         self.role = CardRole.Edmond
         self.cardType = CardType.Wood
         self.occupation = CardOccupation.Guardian

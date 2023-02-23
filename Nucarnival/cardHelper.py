@@ -17,6 +17,7 @@ from RoleCards.cards.edmond.eliteInstructor import EliteInstructor
 from RoleCards.cards.edmond.knightlyNight import KnightlyNight
 from RoleCards.cards.edmond.n_Edmond import NEdmond
 from RoleCards.cards.edmond.r_Edmond import REdmond
+from RoleCards.cards.edmond.springChaos import SpringChaos
 from RoleCards.cards.edmond.sweetAroma import SweetAroma
 from RoleCards.cards.edmond.sr_Edmond import SREdmond
 from RoleCards.cards.edmond.whiteLover import WhiteLover
@@ -97,6 +98,7 @@ class CardHelper:
         bqFT = WhiteLover()
         hhFT = SweetAroma()
         anFT = EliteInstructor()
+        huaFT = SpringChaos()
 
         # 奥利文
         srO = SROlivine()
@@ -193,6 +195,7 @@ class CardHelper:
         self.cardList.append(shuiHL)
 
         # 第四轮限定
+        self.cardList.append(huaFT)
 
         # sr 29
         self.cardList.append(srA)
