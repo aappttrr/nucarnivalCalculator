@@ -615,18 +615,19 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     # 持续伤害
     huoHL = _cardHelper.filterCard('KitsuneDream')[0]
 
-    # _helper.skillTurn[srAo] = [6,12]
+    _helper.skillTurn[shuiDan] = [5, 9, 13]
     # _helper.skillTurn[huaAo] = [7,13]
 
-    _helper.maxTurn = 13
+    _helper.maxTurn = 14
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
     _helper.team.append(srAo)
     _helper.team.append(shuiHL)
-    _helper.team.append(huoHL)
+    _helper.team.append(huoTuan)
+    _helper.team.append(anKun)
 
     _helper.battleStart(True)
-    name = 'sr奥+水狐+火狐-{}.xls'.format(_helper.maxTurn)
+    name = 'sr奥+水狐+火团+暗昆-{}.xls'.format(_helper.maxTurn)
     _helper.exportExcel('E:\\新世界\\攻略\\【2023.2.23】春林狂欢宴\\水狐模拟\\' + name)
 
 
