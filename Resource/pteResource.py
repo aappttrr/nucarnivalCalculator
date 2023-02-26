@@ -158,6 +158,8 @@ def getUpdateLogContent_2_3(_output: io.StringIO):
     writeLineString(_output, 'v2.3:')
     writeWriteSpace(_output, 8)
     writeLineString(_output, '①新增春林狂欢宴限定卡：午夜醺然（玖夜）、春日迷乱（艾德蒙特）')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '②修复普奥3星后必杀治疗量不对的问题')
 
 
 def getUpdateLogContent_2_2(_output: io.StringIO):
