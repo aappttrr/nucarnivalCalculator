@@ -52,10 +52,10 @@ class HolyConfession(SSRCard):
                 if role.hpCurrent < hpLowestRole.hpCurrent:
                     hpLowestRole = role
 
-            heal = currentAtk * 0.75
-            heal = roundDown(heal)
-            heal = self.increaseHeal(heal)
-            heal2 = hpLowestRole.increaseBeHeal(heal)
+            heal2 = currentAtk * 0.75
+            heal2 = roundDown(heal2)
+            heal2 = self.increaseHeal(heal2)
+            heal2 = hpLowestRole.increaseBeHeal(heal2)
 
             event = Event(EventType.skillHeal)
             event.data['source'] = self
@@ -63,7 +63,6 @@ class HolyConfession(SSRCard):
             event.data['target'] = hpLowestRole
             eventManagerInstance.sendEvent(event)
         return heal
-
 
     # 攻击力25%hot(3)
     def attackHeal(self, enemies, currentAtk):
