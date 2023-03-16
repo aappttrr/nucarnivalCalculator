@@ -36,6 +36,7 @@ def PropTypes():
     pl.append(PropType.ssr_Fragment)
     pl.append(PropType.ssr_Role)
     pl.append(PropType.background)
+    pl.append(PropType.voice)
     return pl
 
 
@@ -74,6 +75,7 @@ class PropType(enum.Enum):
     ssr_Fragment = 'SSR碎片', '无法衡量'
     ssr_Role = 'SSR角色', '无法衡量'
     background = '背景图', '无法衡量'
+    voice = '限定语音', '无法衡量'
 
     def __init__(self, _value, des):
         self._typeName = _value
