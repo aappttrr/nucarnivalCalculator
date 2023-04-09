@@ -222,10 +222,17 @@ class NucarnivalHelper:
                 attackFU += record.value
             except:
                 print('获取普攻追击记录出错')
+        attackHeals = {}
+        for healRole in self.team:
+            attackHeals[healRole] = 0
         attackHeal = 0
         for record in self.battleListener.findSourceEvent(role, EventType.attackHeal):
             try:
                 attackHeal += record.value
+                if record.target is not None and record.target in self.team:
+                    attackHeal2 = attackHeals[record.target]
+                    attackHeal2 += record.value
+                    attackHeals[record.target] = attackHeal2
             except:
                 print('获取普攻治疗记录出错')
         skillDamage = 0
@@ -240,10 +247,17 @@ class NucarnivalHelper:
                 skillFU += record.value
             except:
                 print('获取必杀追击记录出错')
+        skillHeals = {}
+        for healRole in self.team:
+            skillHeals[healRole] = 0
         skillHeal = 0
         for record in self.battleListener.findSourceEvent(role, EventType.skillHeal):
             try:
                 skillHeal += record.value
+                if record.target is not None and record.target in self.team:
+                    skillHeal2 = skillHeals[record.target]
+                    skillHeal2 += record.value
+                    skillHeals[record.target] = skillHeal2
             except:
                 print('获取必杀治疗记录出错')
         dot = 0
@@ -252,10 +266,17 @@ class NucarnivalHelper:
                 dot += record.value
             except:
                 print('获取持续伤害记录出错')
+        hotHeals = {}
+        for healRole in self.team:
+            hotHeals[healRole] = 0
         hot = 0
         for record in self.battleListener.findSourceEvent(role, EventType.hot):
             try:
                 hot += record.value
+                if record.target is not None and record.target in self.team:
+                    hotHeal = hotHeals[record.target]
+                    hotHeal += record.value
+                    hotHeals[record.target] = hotHeal
             except:
                 print('获取持续治疗记录出错')
         bloodSuck = 0
@@ -264,10 +285,17 @@ class NucarnivalHelper:
                 bloodSuck += record.value
             except:
                 print('获取吸血记录出错')
+        shields = {}
+        for healRole in self.team:
+            shields[healRole] = 0
         shield = 0
         for record in self.battleListener.findSourceEvent(role, EventType.shield):
             try:
                 shield += record.value
+                if record.target is not None and record.target in self.team:
+                    shield2 = shields[record.target]
+                    shield2 += record.value
+                    shields[record.target] = shield2
             except:
                 print('获取护盾记录出错')
         counter = 0
@@ -293,11 +321,6 @@ class NucarnivalHelper:
                 if len(wsMsgD) > 0:
                     wsMsgD += '\n'
                 wsMsgD += '普攻：' + str(attackFU)
-        if counter > 0:
-            msg += '  反击造成伤害：' + str(counter)
-            if len(wsMsgD) > 0:
-                wsMsgD += '\n'
-            wsMsgD += '反击：' + str(counter)
         if skillDamage > 0:
             astr = str(skillDamage)
             if skillFU > 0:
@@ -312,13 +335,42 @@ class NucarnivalHelper:
                 if len(wsMsgD) > 0:
                     wsMsgD += '\n'
                 wsMsgD += '必杀：' + str(skillFU)
+        if counter > 0:
+            msg += '  反击造成伤害：' + str(counter)
+            if len(wsMsgD) > 0:
+                wsMsgD += '\n'
+            wsMsgD += '反击：' + str(counter)
         if attackHeal > 0:
+            healRoleCount = 0
+            attackHealsMsg = ' ('
+            for healRole in self.team:
+                attackHeal2 = attackHeals[healRole]
+                if attackHeal2 > 0:
+                    if healRoleCount > 0:
+                        attackHealsMsg += ','
+                    healRoleCount += 1
+                    attackHealsMsg += str(attackHeal2)
+            attackHealsMsg += ') '
             msg += '  普攻造成治疗：' + str(attackHeal)
+            if healRoleCount > 1:
+                msg += attackHealsMsg
             if len(wsMsgH) > 0:
                 wsMsgH += '\n'
             wsMsgH += '普攻：' + str(attackHeal)
         if skillHeal > 0:
+            healRoleCount = 0
+            skillHealsMsg = ' ('
+            for healRole in self.team:
+                skillHeal2 = skillHeals[healRole]
+                if skillHeal2 > 0:
+                    if healRoleCount > 0:
+                        skillHealsMsg += ','
+                    healRoleCount += 1
+                    skillHealsMsg += str(skillHeal2)
+            skillHealsMsg += ') '
             msg += '  必杀造成治疗：' + str(skillHeal)
+            if healRoleCount > 1:
+                msg += skillHealsMsg
             if len(wsMsgH) > 0:
                 wsMsgH += '\n'
             wsMsgH += '必杀：' + str(skillHeal)
@@ -333,12 +385,36 @@ class NucarnivalHelper:
                 wsMsgD += '\n'
             wsMsgD += 'dot：' + str(dot)
         if hot > 0:
+            healRoleCount = 0
+            hotHealsMsg = ' ('
+            for healRole in self.team:
+                hotHeal = hotHeals[healRole]
+                if hotHeal > 0:
+                    if healRoleCount > 0:
+                        hotHealsMsg += ','
+                    healRoleCount += 1
+                    hotHealsMsg += str(hotHeal)
+            hotHealsMsg += ') '
             msg += '  造成持续治疗：' + str(hot)
+            if healRoleCount > 1:
+                msg += hotHealsMsg
             if len(wsMsgH) > 0:
                 wsMsgH += '\n'
             wsMsgH += 'hot：' + str(hot)
         if shield > 0:
+            healRoleCount = 0
+            shieldMsg = ' ('
+            for healRole in self.team:
+                shield2 = shields[healRole]
+                if shield2 > 0:
+                    if healRoleCount > 0:
+                        shieldMsg += ','
+                    healRoleCount += 1
+                    shieldMsg += str(shield2)
+            shieldMsg += ') '
             msg += '  造成护盾：' + str(shield)
+            if healRoleCount > 1:
+                msg += shieldMsg
             if len(wsMsgH) > 0:
                 wsMsgH += '\n'
             wsMsgH += '护盾：' + str(shield)
