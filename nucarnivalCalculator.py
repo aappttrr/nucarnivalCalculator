@@ -58,6 +58,41 @@ def getIntList(pte: str):
     return intList
 
 
+def getSequenceIntList(pte: str):
+    count = 0
+    intList: list[int] = []
+    if pte is None or len(pte) <= 0:
+        return intList
+    for temp in pte.split('\n'):
+        for temp2 in temp.split(' '):
+            if count > 5:
+                break
+            try:
+                temp3 = int(temp2)
+                if 1 <= temp3 <= 5 and temp3 not in intList:
+                    intList.append(temp3)
+                    count += 1
+            except:
+                print('转Int出错')
+    return intList
+
+
+def getSequenceMap(pte: str):
+    sequenceMap = {}
+    for temp in pte.split('\n'):
+        temp2 = temp.split(':')
+        if len(temp2) == 2:
+            try:
+                turn = int(temp2[0])
+            except:
+                print('转Int出错')
+                continue
+            intList: list[int] = getSequenceIntList(temp2[1])
+            if len(intList) > 0:
+                sequenceMap[turn] = intList
+    return sequenceMap
+
+
 def setFilterRole(fm: FilterCardModel, index: int):
     if fm is not None:
         match index:
@@ -426,6 +461,7 @@ class MainWindow(QMainWindow):
         self.ui.skillPTE3.setPlainText('')
         self.ui.skillPTE4.setPlainText('')
         self.ui.skillPTE5.setPlainText('')
+        self.ui.actionSequencePTE.setPlainText('')
 
     def setBattleInfo(self):
         turn = int(self.ui.battleRoundLineEdit.text())
@@ -442,6 +478,9 @@ class MainWindow(QMainWindow):
         for monster in nucarnivalHelper.monsters:
             monster.cardType = monsterType
 
+        nucarnivalHelper.defenseTurn = {}
+        nucarnivalHelper.skillTurn = {}
+        nucarnivalHelper.actionSequence = {}
         dpte1 = getIntList(self.ui.defensePTE1.toPlainText())
         spte1 = getIntList(self.ui.skillPTE1.toPlainText())
         if len(nucarnivalHelper.team) >= 1:
@@ -476,11 +515,14 @@ class MainWindow(QMainWindow):
 
         dpte5 = getIntList(self.ui.defensePTE5.toPlainText())
         spte5 = getIntList(self.ui.skillPTE5.toPlainText())
-        if len(nucarnivalHelper.team) >= 1:
+        if len(nucarnivalHelper.team) >= 5:
             if len(dpte5) > 0:
                 nucarnivalHelper.defenseTurn[nucarnivalHelper.team[4]] = dpte5
             if len(spte5) > 0:
                 nucarnivalHelper.skillTurn[nucarnivalHelper.team[4]] = spte5
+        aspte = getSequenceMap(self.ui.actionSequencePTE.toPlainText())
+        if len(aspte) > 0:
+            nucarnivalHelper.actionSequence = aspte
 
     def calCard(self):
         uev = self.ui.useExpectedValueCheckBox.isChecked()

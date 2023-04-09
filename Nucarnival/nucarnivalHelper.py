@@ -18,6 +18,7 @@ class NucarnivalHelper:
         self.maxTurn = 50
         self.defenseTurn = {}
         self.skillTurn = {}
+        self.actionSequence = {}
         self.currentTurn = 0
         self.totalDamage = 0
         self.output = io.StringIO()
@@ -34,6 +35,7 @@ class NucarnivalHelper:
         self.maxTurn = 50
         self.defenseTurn = {}
         self.skillTurn = {}
+        self.actionSequence = {}
         self.clearUpBattleResult()
 
     def clearUpBattleResult(self):
@@ -124,7 +126,7 @@ class NucarnivalHelper:
             self.recordBattleMsg(msg)
 
             # 我方行动
-            self.action(turn, self.team, self.monsters)
+            self.action(turn, self.getSequenceCardList(turn, self.team), self.monsters)
 
             for role in self.team:
                 role.settleDot()
@@ -139,7 +141,7 @@ class NucarnivalHelper:
 
             # 下个回合
             temp = 0
-            for role in self.team:
+            for role in self.getSequenceCardList(turn, self.team):
                 if temp != 0:
                     self.recordBattleMsg('')
                 self.recordResult(role, turn, row)
@@ -646,6 +648,23 @@ class NucarnivalHelper:
         self.ws.cell(row + turn + 2, column + 2, str(zlzb))
         self.ws.cell(row + turn + 2, column + 2).alignment = Alignment(horizontal='left', vertical='center', wrapText=True)
         return totalDamage
+
+    def getSequenceCardList(self, turn=0, cardList: list[ICard] = []):
+        sequenceCardList: list[ICard] = []
+        if turn in self.actionSequence and len(cardList) > 1:
+            # [5,3,4,1]
+            sequenceList: list[int] = self.actionSequence[turn]
+            for sequenceIndex in sequenceList:
+                if sequenceIndex <= len(cardList) and cardList[sequenceIndex - 1] is not None and \
+                        cardList[sequenceIndex - 1] not in sequenceCardList:
+                    sequenceCardList.append(cardList[sequenceIndex - 1])
+
+            for index in range(0, len(cardList)):
+                if cardList[index] is not None and cardList[index] not in sequenceCardList:
+                    sequenceCardList.append(cardList[index])
+        else:
+            sequenceCardList = cardList
+        return sequenceCardList
 
     # 行动
     # 防御/普攻/必杀

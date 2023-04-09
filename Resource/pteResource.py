@@ -39,7 +39,7 @@ def getHelpContent():
     writeWriteSpace(output, 8)
     writeLineString(output, '②在战斗设置中设置战斗回合数（1-50），默认为13。默认怪物是群攻，所以夏布的反击是能吃满的。')
     writeWriteSpace(output, 8)
-    writeLineString(output, '③在不设置对轴、防御的情况下会模拟自动战斗，会严格按照队伍卡牌顺序行动，自动释放必杀技。')
+    writeLineString(output, '③在不设置对轴、防御、行动顺序的情况下会模拟自动战斗，按照队伍卡牌顺序行动，自动释放必杀技。')
     writeWriteSpace(output, 8)
     writeLineString(output,
                     '④对轴功能，在战斗设置中设置释放必杀技的回合数，除设置以外的回合数将不会释放必杀技，仍会按照卡牌顺序行动，仍需要计算必杀技cd。')
@@ -62,6 +62,9 @@ def getHelpContent():
     writeLineString(output,
                     '⑧攻击时：当普攻/必杀时，伤害为0，那么就不算【攻击时】。因此火狐、奶、除瓜狼以外的辅助都无法触发【攻击时】类型的buff。'
                     '反击也不算【攻击时】，所以不会反复触发反击（我方反击不会触发敌方反击，反过来也一样）。')
+    writeWriteSpace(output, 8)
+    writeLineString(output,
+                    '⑨行动顺序功能，在行动顺序中可设置任意回合的角色行动顺序，除设置以外的回合、角色将会按原顺序行动。')
 
     writeLineString(output, '')
     writeLineString(output, 'HP、ATK计算公式：')
@@ -167,6 +170,8 @@ def getUpdateLogContent_2_4(_output: io.StringIO):
                              '多名敌方，所以没有问题）')
     writeWriteSpace(_output, 8)
     writeLineString(_output, '⑤优化护盾、治疗统计，现在把对每个角色单独的护盾、治疗和总护盾、治疗列出')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '⑥增加行动顺序设置')
 
 
 def getUpdateLogContent_2_3(_output: io.StringIO):

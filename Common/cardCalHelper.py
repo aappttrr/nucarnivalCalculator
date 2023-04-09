@@ -45,4 +45,3 @@ def calDamageOrHeal(_atk, _magnification):
     damageOrHeal = _atk * _magnification
     damageOrHeal = roundDown(damageOrHeal)
     return damageOrHeal
-
