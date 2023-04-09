@@ -26,6 +26,13 @@ class CrimsonPhantom(SSRCard):
         self.lv60s5Atk = 1316
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        # 攻击力50%
+        self.attackMagnification = 0.5
+
+        # 攻击力50%
+        self.skillMagnificationLv1 = 0.5
+        self.skillMagnificationLv2 = 0.5
+        self.skillMagnificationLv3 = 0.5
 
     # 吸血效果100%（1）
     # 攻击力50%
@@ -35,10 +42,6 @@ class CrimsonPhantom(SSRCard):
     def skillBefore(self, enemies):
         buff = Buff('CrimsonPhantom_skill', 1, 1, BuffType.BloodSucking)
         self.addBuff(buff)
-
-    def skill(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 0.5, False, True)
-        return damage
 
     def skillAfter(self, enemies):
         ma = self.getMagnification(0.51, 0.6, 0.68)
@@ -56,10 +59,6 @@ class CrimsonPhantom(SSRCard):
     def attackBefore(self, enemies):
         buff = Buff('CrimsonPhantom_skill', 0.5, 1, BuffType.BloodSucking)
         self.addBuff(buff)
-
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 0.5, True, False)
-        return damage
 
     def attackAfter(self, enemies):
         self.defense = True

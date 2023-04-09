@@ -18,7 +18,6 @@ class FallenLeaves(SSRCard):
         self.cardType = CardType.Dark
         self.occupation = CardOccupation.Saboteur
         self.tierType = TierType.Balance
-        self.isGroup = True
         self.skillCD = 4
         self.ped = PassiveEffectivenessDifficulty.difficult
 
@@ -26,14 +25,19 @@ class FallenLeaves(SSRCard):
         self.lv60s5Atk = 2028
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        self.isAttackGroup = True
+        self.isSkillGroup = True
+
+        # 攻50%（群）
+        self.attackMagnification = 0.5
+
+        # 攻124%/148%/173%（群）
+        self.skillMagnificationLv1 = 1.24
+        self.skillMagnificationLv2 = 1.48
+        self.skillMagnificationLv3 = 1.73
 
     # 攻124%/148%/173%（群）
     # 敌25%麻痹[4]
-    def skill(self, enemies, currentAtk):
-        magnification = self.getMagnification(1.24, 1.48, 1.73)
-        damage = self.calDamage(currentAtk, magnification, False, True)
-        return damage
-
     def skillAfter(self, enemies):
         for enemy in self.enemies:
             if self.passive_star_5() and enemy.calBuffCount('FallenLeaves_passive_star_5') < 1:
@@ -43,10 +47,6 @@ class FallenLeaves(SSRCard):
 
     # 攻50%（群）
     # 敌回复量-50%
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 0.5, True, False)
-        return damage
-
     def attackAfter(self, enemies):
         for monster in enemies:
             buff = Buff('FallenLeaves_attack', -0.5, 0, BuffType.BeHealIncrease)

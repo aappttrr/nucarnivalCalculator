@@ -23,24 +23,22 @@ class RKuya(RCard):
         self.lv60s5Atk = 1316
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        # 攻100%
+        self.attackMagnification = 1
+
+        # 攻247%/296%/345%
+        self.skillMagnificationLv1 = 2.47
+        self.skillMagnificationLv2 = 2.96
+        self.skillMagnificationLv3 = 3.45
 
     # 攻247%/296%/345%
     # 目标受回复量-100%（2）
-    def skill(self, enemies, currentAtk):
-        magnification = self.getMagnification(2.47, 2.96, 3.45)
-        damage = self.calDamage(currentAtk, magnification, False, True)
-        return damage
-
     def skillAfter(self, enemies):
         buff = Buff('RKuya_skill', -1, 2, BuffType.BeHealIncrease)
         enemies.addBuff(buff, self)
 
     # 攻100%
     # 目标受回复量-50%（1）
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1, True, False)
-        return damage
-
     def attackAfter(self, enemies):
         buff = Buff('RKuya_attack', -0.5, 1, BuffType.BeHealIncrease)
         enemies.addBuff(buff, self)

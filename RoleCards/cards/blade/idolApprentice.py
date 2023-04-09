@@ -26,15 +26,20 @@ class IdolApprentice(SSRCard):
         self.lv60s5Atk = 2241
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
-        self.isGroup = True
+        self.isAttackGroup = True
+        self.isSkillGroup = True
+
+        # 攻击力40%（群）
+        self.attackMagnification = 0.4
+
+        # 攻击力50%（群）
+        self.skillMagnificationLv1 = 0.5
+        self.skillMagnificationLv2 = 0.5
+        self.skillMagnificationLv3 = 0.5
 
     # 攻击力50%（群）
     # 被攻击时，攻击力49%/65%/81%（群）反击（2）
     # 嘲讽（1），被攻击时解除嘲讽（1）
-    def skill(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 0.5, False, True)
-        return damage
-
     def skillAfter(self, enemies):
         ma = self.getMagnification(0.48, 0.65, 0.81)
         buff = Buff('IdolApprentice_skill', ma, 2, BuffType.CounterAttack)
@@ -54,10 +59,6 @@ class IdolApprentice(SSRCard):
     # 攻击力40%（群）
     # 被攻击时，攻击力23%（群）造成伤害（1）
     # 嘲讽（1），被攻击时解除嘲讽（1）
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 0.4, True, False)
-        return damage
-
     def attackAfter(self, enemies):
         buff = Buff('IdolApprentice_attack', 0.23, 1, BuffType.CounterAttack)
         buff.conditionType = ConditionType.WhenBeAttacked

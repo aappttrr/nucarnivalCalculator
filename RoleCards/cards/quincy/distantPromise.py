@@ -26,6 +26,13 @@ class DistantPromise(SSRCard):
         self.lv60s5Atk = 2383
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        # 攻125%
+        self.attackMagnification = 1.25
+
+        # 攻125%
+        self.skillMagnificationLv1 = 1.25
+        self.skillMagnificationLv2 = 1.25
+        self.skillMagnificationLv3 = 1.25
 
     # 自伤+40%（2）
     # 攻125%
@@ -34,10 +41,6 @@ class DistantPromise(SSRCard):
         buff = Buff('DistantPromise_skill', 0.4, 2, BuffType.DamageIncrease)
         self.addBuff(buff)
 
-    def skill(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1.25, False, True)
-        return damage
-
     def skillAfter(self, enemies):
         magnification_fu = self.getMagnification(1.35, 1.89, 2.42)
         buff2 = Buff('DistantPromise_skill_2', magnification_fu, 2, BuffType.FollowUpAttack)
@@ -45,11 +48,6 @@ class DistantPromise(SSRCard):
         buff2.useBaseAtk = False
         buff2.seeAsAttack = True
         self.addBuff(buff2)
-
-    # 攻击力125%造成伤害
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1.25, True, False)
-        return damage
 
     # 队伍攻击每1位，伤+8%(max 3)
     def passive_star_3(self):

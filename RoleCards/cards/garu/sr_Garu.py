@@ -19,13 +19,22 @@ class SRGaru(SRCard):
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
         self.skillCD = 4
-        self.isGroup = True
         self.ped = PassiveEffectivenessDifficulty.difficult
 
         self.lv60s5Hp = 5799
         self.lv60s5Atk = 1707
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        self.isAttackGroup = True
+        self.isSkillGroup = True
+
+        # 攻50%（群）
+        self.attackMagnification = 0.5
+
+        # 攻124%/148%/173%（群）
+        self.skillMagnificationLv1 = 1.24
+        self.skillMagnificationLv2 = 1.48
+        self.skillMagnificationLv3 = 1.73
 
     # 敌全体受伤+8%（1）
     # 攻124%/148%/173%（群）
@@ -34,21 +43,12 @@ class SRGaru(SRCard):
             buff = Buff('SRGaru_skill', 0.08, 1, BuffType.BeDamageIncrease)
             monster.addBuff(buff, self)
 
-    def skill(self, enemies, currentAtk):
-        magnification = self.getMagnification(1.24, 1.48, 1.73)
-        damage = self.calDamage(currentAtk, magnification, False, True)
-        return damage
-
     # 敌全体受伤+4%（2）
     # 攻50%（群）
     def attackBefore(self, enemies):
         for monster in enemies:
             buff = Buff('SRGaru_attack', 0.04, 2, BuffType.BeDamageIncrease)
             monster.addBuff(buff, self)
-
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 0.5, True, False)
-        return damage
 
     def nextRound(self):
         super(SRGaru, self).nextRound()

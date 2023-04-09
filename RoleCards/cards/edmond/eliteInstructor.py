@@ -26,6 +26,13 @@ class EliteInstructor(SSRCard):
         self.lv60s5Atk = 1992
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        # 攻125%
+        self.attackMagnification = 1.25
+
+        # 攻击力204%/238%/273%
+        self.skillMagnificationLv1 = 2.04
+        self.skillMagnificationLv2 = 2.38
+        self.skillMagnificationLv3 = 2.73
 
     # 目标获得【被攻击时，自身受伤增加3.5%(3)】(3)
     # 攻204%/238%/273%
@@ -34,16 +41,6 @@ class EliteInstructor(SSRCard):
         buff.addBuffTurn = 3
         buff.conditionType = ConditionType.WhenBeAttacked
         enemies.addBuff(buff, self)
-
-    def skill(self, enemies, currentAtk):
-        ma = self.getMagnification(2.04, 2.38, 2.73)
-        damage = self.calDamage(currentAtk, ma, False, True)
-        return damage
-
-    # 攻击力125%造成伤害
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1.25, True, False)
-        return damage
 
     # 队伍艾德蒙特每1位，自攻+9%(max 3)
     def passive_star_3(self):

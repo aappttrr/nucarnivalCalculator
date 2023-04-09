@@ -28,13 +28,16 @@ class KnightlyNight(SSRCard):
         self.lv60s5Atk = 2134
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        # 攻125%
+        self.attackMagnification = 1.25
 
-    # 攻击力125%造成伤害
+        # 攻125%
+        self.skillMagnificationLv1 = 1.25
+        self.skillMagnificationLv2 = 1.25
+        self.skillMagnificationLv3 = 1.25
+
+    # 攻125%
     # 普攻时，78%/111%/143%攻击力追击(3)
-    def skill(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1.25, False, True)
-        return damage
-
     def skillAfter(self, enemies):
         ma = self.getMagnification(0.78, 1.11, 1.43)
         buff = Buff('KnightlyNight_skill', ma, 3, BuffType.FollowUpAttack)
@@ -42,11 +45,6 @@ class KnightlyNight(SSRCard):
         buff.seeAsAttack = True
         buff.conditionType = ConditionType.WhenAttack
         self.addBuff(buff)
-
-    # 攻击力125%造成伤害
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1.25, True, False)
-        return damage
 
     # 队伍攻击每1位，普攻+17%(max 3）
     def passive_star_3(self):

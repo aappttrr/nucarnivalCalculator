@@ -26,17 +26,20 @@ class LovableEnforcer(SSRCard):
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
+        # 攻100%
+        self.attackMagnification = 1
+
+        # 攻247%/296%/345%
+        self.skillMagnificationLv1 = 2.47
+        self.skillMagnificationLv2 = 2.96
+        self.skillMagnificationLv3 = 3.45
+
     # 自伤+20%（3）
     # 攻247%/296%/345%
     # 50%沉默
     def skillBefore(self, enemies):
         buff = Buff('LovableEnforcer_skill', 0.2, 3, BuffType.DamageIncrease)
         self.addBuff(buff)
-
-    def skill(self, enemies, currentAtk):
-        ma = self.getMagnification(2.47, 2.96, 3.45)
-        damage = self.calDamage(currentAtk, ma, False, True)
-        return damage
 
     def skillAfter(self, enemies):
         if self.passive_star_5() and enemies.calBuffCount('LovableEnforcer_passive_star_5') < 5:
@@ -47,10 +50,6 @@ class LovableEnforcer(SSRCard):
 
     # 攻100%
     # 目标伤害-10%（1）
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1, True, False)
-        return damage
-
     def attackAfter(self, enemies):
         buff = Buff('LovableEnforcer_attack', -0.1, 1, BuffType.DamageIncrease)
         enemies.addBuff(buff, self)

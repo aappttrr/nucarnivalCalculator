@@ -29,6 +29,13 @@ class Homecoming(SSRCard):
         self.lv60s5Atk = 2099
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        # 攻100%
+        self.attackMagnification = 1
+
+        # 攻247%/296%/345%
+        self.skillMagnificationLv1 = 2.47
+        self.skillMagnificationLv2 = 2.96
+        self.skillMagnificationLv3 = 3.45
 
     # 攻击力+25%（3）
     # 攻击力247%/296%/345%造成伤害
@@ -36,20 +43,11 @@ class Homecoming(SSRCard):
         buff = Buff('Homecoming_skill', 0.25, 3, BuffType.AtkIncrease)
         self.addBuff(buff)
 
-    def skill(self, enemies, currentAtk):
-        magnification = self.getMagnification(2.47, 2.96, 3.45)
-        damage = self.calDamage(currentAtk, magnification, False, True)
-        return damage
-
     # 攻击力+10%（3）
     # 攻击力100%造成伤害
     def attackBefore(self, enemies):
         buff = Buff('Homecoming_attack', 0.1, 3, BuffType.AtkIncrease)
         self.addBuff(buff)
-
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1, True, False)
-        return damage
 
     # HP>75%时，攻击力+25%（被动）
     def passive_star_3(self):

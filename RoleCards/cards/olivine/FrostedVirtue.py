@@ -26,6 +26,13 @@ class FrostedVirtue(SSRCard):
         self.lv60s5Atk = 2134
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        # 攻25%全体治
+        self.attackHealMagnification = 0.25
+
+        # 攻100%全体治
+        self.skillHealMagnificationLv1 = 1
+        self.skillHealMagnificationLv2 = 1
+        self.skillHealMagnificationLv3 = 1
 
     # 攻100%全体治
     # 持续治疗攻22%/34%/45%（3）
@@ -34,9 +41,7 @@ class FrostedVirtue(SSRCard):
         ma_atk = self.getMagnification(0.13, 0.15, 0.17)
         ma_hot = self.getMagnification(0.22, 0.34, 0.45)
 
-        heal = currentAtk * 1
-        heal = roundDown(heal)
-        heal = self.increaseHeal(heal)
+        heal = super(FrostedVirtue, self).skillHeal(enemies, currentAtk)
 
         hotHeal = currentAtk * ma_hot
         hotHeal = roundDown(hotHeal)
@@ -51,15 +56,12 @@ class FrostedVirtue(SSRCard):
 
             buff2 = Buff('FrostedVirtue_skill_2', actualDamageIncrease, 4, BuffType.AtkIncreaseByActualValue)
             role.addBuff(buff2, self)
-
         return heal
 
     # 攻25%全体治
     # 持续治疗攻25%（2）
     def attackHeal(self, enemies, currentAtk):
-        heal = currentAtk * 0.25
-        heal = roundDown(heal)
-        heal = self.increaseHeal(heal)
+        heal = super(FrostedVirtue, self).attackHeal(enemies, currentAtk)
 
         hotHeal = currentAtk * 0.25
         hotHeal = roundDown(hotHeal)
@@ -67,7 +69,6 @@ class FrostedVirtue(SSRCard):
         for role in self.teamMate:
             buff = Buff('FrostedVirtue_attack', hotHeal, 2, BuffType.Hot)
             role.addBuff(buff, self)
-
         return heal
 
     # 队伍有啖天，攻+14%

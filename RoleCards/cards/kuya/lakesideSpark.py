@@ -27,15 +27,16 @@ class LakesideSpark(SSRCard):
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
+        # 攻击力68%治疗
+        self.attackHealMagnification = 0.68
+
+        # 攻击力133%/157%/182%治疗
+        self.skillHealMagnificationLv1 = 1.33
+        self.skillHealMagnificationLv2 = 1.57
+        self.skillHealMagnificationLv3 = 1.82
+
     # 攻击力133%/157%/182%治疗
     # 我方全体吸血效果15%（4）
-    def skillHeal(self, enemies, currentAtk):
-        ma = self.getMagnification(1.33, 1.57, 1.82)
-        heal = currentAtk * ma
-        heal = roundDown(heal)
-        heal = self.increaseHeal(heal)
-        return heal
-
     def skillAfter(self, enemies):
         for role in self.teamMate:
             buff = Buff('LakesideSpark_skill', 0.15, 4, BuffType.BloodSucking)
@@ -43,11 +44,6 @@ class LakesideSpark(SSRCard):
 
     # 攻击力68%治疗
     # 我方全体吸血效果15%（1）
-    def attackHeal(self, enemies, currentAtk):
-        heal = currentAtk * 0.68
-        heal = roundDown(heal)
-        return heal
-
     def attackAfter(self, enemies):
         for role in self.teamMate:
             buff = Buff('LakesideSpark_attack', 0.15, 1, BuffType.BloodSucking)

@@ -25,12 +25,13 @@ class AncientCeremony(SSRCard):
         self.lv60s5Atk = 2205
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        # 以攻击力125%造成伤害
+        self.attackMagnification = 1.25
 
-    # 以攻击力434%/546%/657%造成伤害
-    def skill(self, enemies, currentAtk):
-        magnification = self.getMagnification(4.34, 5.46, 6.57)
-        damage = self.calDamage(currentAtk, magnification, False, True)
-        return damage
+        # 以攻击力434%/546%/657%
+        self.skillMagnificationLv1 = 4.34
+        self.skillMagnificationLv2 = 5.46
+        self.skillMagnificationLv3 = 6.57
 
     def skillAfter(self, enemies):
         # 3星被动
@@ -39,11 +40,6 @@ class AncientCeremony(SSRCard):
             buff = Buff('AncientCeremony_passive_star_3', 0.05, 0, BuffType.AtkIncrease)
             buff.isPassive = True
             self.addBuff(buff)
-
-    # 以攻击力125%造成伤害
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1.25, True, False)
-        return damage
 
     def attackAfter(self, enemies):
         # 3星被动

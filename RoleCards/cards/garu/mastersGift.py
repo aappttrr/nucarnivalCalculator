@@ -18,7 +18,6 @@ class MastersGift(SSRCard):
         self.cardType = CardType.Dark
         self.occupation = CardOccupation.Striker
         self.tierType = TierType.Attack
-        self.isGroup = True
         self.skillCD = 4
         self.ped = PassiveEffectivenessDifficulty.difficult
 
@@ -26,17 +25,16 @@ class MastersGift(SSRCard):
         self.lv60s5Atk = 2170
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        self.isAttackGroup = True
+        self.isSkillGroup = True
 
-    # 攻142%/173%/203%（群）[4]
-    def skill(self, enemies, currentAtk):
-        magnification = self.getMagnification(1.42, 1.73, 2.03)
-        damage = self.calDamage(currentAtk, magnification, False, True)
-        return damage
+        # 攻63%（群）
+        self.attackMagnification = 0.63
 
-    # 攻63%（群）
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 0.63, True, False)
-        return damage
+        # 攻142%/173%/203%（群）
+        self.skillMagnificationLv1 = 1.42
+        self.skillMagnificationLv2 = 1.73
+        self.skillMagnificationLv3 = 2.03
 
     # 队伍可尔每1位，自攻+8%(max 3)
     def passive_star_3(self):

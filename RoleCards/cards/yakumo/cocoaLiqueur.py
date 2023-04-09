@@ -25,6 +25,13 @@ class CocoaLiqueur(SSRCard):
         self.lv60s5Atk = 2241
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        # 攻100 %
+        self.attackMagnification = 1
+
+        # 攻击力204%/238%/273%
+        self.skillMagnificationLv1 = 2.04
+        self.skillMagnificationLv2 = 2.38
+        self.skillMagnificationLv3 = 2.73
 
     # 敌受必杀伤 + 27 % (2)
     # 攻204%/238%/273 % [3]
@@ -32,17 +39,8 @@ class CocoaLiqueur(SSRCard):
         buff = Buff('CocoaLiqueur_skill', 0.27, 2, BuffType.BeSkillIncrease)
         enemies.buffs.append(buff)
 
-    def skill(self, enemies, currentAtk):
-        magnification = self.getMagnification(2.04, 2.38, 2.73)
-        damage = self.calDamage(currentAtk, magnification, False, True)
-        return damage
-
     # 攻100 %
     # 必杀 + 3 % (max 6)
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1, True, False)
-        return damage
-
     def attackAfter(self, enemies):
         if self.calBuffCount('CocoaLiqueur_attack') < 6:
             buff = Buff('CocoaLiqueur_attack', 0.03, 0, BuffType.SkillIncrease)

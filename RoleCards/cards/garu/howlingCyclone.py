@@ -26,11 +26,18 @@ class HowlingCyclone(SSRCard):
         self.lv60s5Atk = 2028
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        # 攻击力100%
+        self.attackMagnification = 1
+
+        # 攻击力100%
+        self.skillMagnificationLv1 = 1
+        self.skillMagnificationLv2 = 1
+        self.skillMagnificationLv3 = 1
 
     # 攻击力100%
     # 基础攻击力62%/74%/87%，全体攻击力增加（2）
     def skill(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1, False,True)
+        damage = super(HowlingCyclone, self).skill(enemies, currentAtk)
 
         magnification = self.getMagnification(0.62, 0.74, 0.87)
         actualDamageIncrease = self.atk * magnification
@@ -39,7 +46,6 @@ class HowlingCyclone(SSRCard):
         for role in self.teamMate:
             buff = Buff('HowlingCyclone_skill', actualDamageIncrease, 2, BuffType.AtkIncreaseByActualValue)
             role.addBuff(buff, self)
-
         return damage
 
     def skillAfter(self, enemy):
@@ -54,7 +60,7 @@ class HowlingCyclone(SSRCard):
     # 攻击力100%
     # 基础攻击力30%，全体攻击力增加（1）
     def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1, True, False)
+        damage = super(HowlingCyclone, self).attack(enemies, currentAtk)
 
         actualDamageIncrease = self.atk * 0.3
         actualDamageIncrease = roundDown(actualDamageIncrease)
@@ -62,7 +68,6 @@ class HowlingCyclone(SSRCard):
         for role in self.teamMate:
             buff = Buff('HowlingCyclone_skill', actualDamageIncrease, 1, BuffType.AtkIncreaseByActualValue)
             role.addBuff(buff, self)
-
         return damage
 
     # 必杀时，触发全体攻击力+6%（max 2

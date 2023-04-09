@@ -28,14 +28,18 @@ class SpringChaos(SSRCard):
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
+        # 攻击力100%
+        self.attackMagnification = 1
+
+        # 攻击力100%
+        self.skillMagnificationLv1 = 1
+        self.skillMagnificationLv2 = 1
+        self.skillMagnificationLv3 = 1
+
     # 攻击力100%
     # 目标造成伤害-10%（3）
     # 自身受到伤害-5%/6.75%/7.5%（最多2层）永久？
     # 以最大HP 7.5%/10%/12.5%对自身进行持续治疗（4）
-    def skill(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1.25, False, True)
-        return damage
-
     def skillAfter(self, enemies):
         buff1 = Buff('SpringChaos_skill', -0.1, 3, BuffType.DamageIncrease)
         enemies.addBuff(buff1, self)
@@ -56,10 +60,6 @@ class SpringChaos(SSRCard):
     # 攻击力100%
     # 嘲讽（1）
     # 自身转防御
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1, True, False)
-        return damage
-
     def attackAfter(self, enemies):
         buff = Buff('SpringChaos_attack', 0, 1, BuffType.Taunt)
         self.addBuff(buff)

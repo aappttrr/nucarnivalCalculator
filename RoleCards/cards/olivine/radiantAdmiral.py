@@ -26,22 +26,19 @@ class RadiantAdmiral(SSRCard):
         self.lv60s5Atk = 2348
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        # 攻击力50%对1、3、5造成伤害
+        self.attackMagnification = 0.5
+
+        # 攻击力107%/132%/156%
+        self.skillMagnificationLv1 = 1.07
+        self.skillMagnificationLv2 = 1.32
+        self.skillMagnificationLv3 = 1.56
 
     # 必杀+27%（2）
     # 攻击力107%/132%/156%对1、3、5造成伤害
     def skillBefore(self, enemies):
         buff = Buff('RadiantAdmiral_skill', 0.27, 2, BuffType.SkillIncrease)
         self.addBuff(buff)
-
-    def skill(self, enemies, currentAtk):
-        ma = self.getMagnification(1.07, 1.32, 1.56)
-        damage = self.calDamage(currentAtk, ma, False, True)
-        return damage
-
-    # 攻击力50%对1、3、5造成伤害
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 0.5, True, False)
-        return damage
 
     # hp>90,攻击力+30%
     def passive_star_3(self):
@@ -65,3 +62,20 @@ class RadiantAdmiral(SSRCard):
             buff = Buff('RadiantAdmiral_passive_tier_6', 0.1, 0, BuffType.AtkIncrease)
             buff.isPassive = True
             self.addBuff(buff)
+
+    def seizeEnemy(self, isAtk: bool):
+        enemies = self.enemies
+        if len(enemies) == 1:
+            temp1 = [enemies[0], enemies[0], enemies[0]]
+            return temp1
+        elif len(enemies) == 2:
+            temp1 = [enemies[0], enemies[0], enemies[1]]
+            return temp1
+        elif len(enemies) == 3:
+            return enemies
+        elif len(enemies) == 4:
+            temp1 = [enemies[0], enemies[2], enemies[3]]
+            return temp1
+        elif len(enemies) == 5:
+            temp1 = [enemies[0], enemies[2], enemies[4]]
+            return temp1

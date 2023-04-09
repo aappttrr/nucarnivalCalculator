@@ -25,13 +25,16 @@ class RMorvay(RCard):
         self.lv60s5Atk = 889
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        # 攻100 %
+        self.attackMagnification = 1
+
+        # 攻100 %
+        self.skillMagnificationLv1 = 1
+        self.skillMagnificationLv2 = 1
+        self.skillMagnificationLv3 = 1
 
     # 攻100%
     # 最大HP20%/30%/40%护盾（1），防御减伤+10%（1），嘲讽（1），转防御
-    def skill(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1, False, True)
-        return damage
-
     def skillAfter(self, enemies):
         ma = self.getMagnification(0.2, 0.3, 0.4)
         shield = self.maxHp * ma
@@ -51,10 +54,6 @@ class RMorvay(RCard):
         self.defense = True
 
     # 攻100%，转防御
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1, True, False)
-        return damage
-
     def attackAfter(self, enemies):
         self.defense = True
 

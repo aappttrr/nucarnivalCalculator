@@ -25,22 +25,21 @@ class SRQuincy(SRCard):
         self.lv60s5Atk = 1743
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        # 攻100%
+        self.attackMagnification = 1
+
+        # 攻409%/513%/616%
+        self.skillMagnificationLv1 = 4.09
+        self.skillMagnificationLv2 = 5.13
+        self.skillMagnificationLv3 = 6.16
 
     # 目标解除防御
     # 攻409%/513%/616%
     def skillBefore(self, enemies):
         enemies.defense = False
 
-    def skill(self, enemies, currentAtk):
-        magnification = self.getMagnification(4.09, 5.13, 6.16)
-        damage = self.calDamage(currentAtk, magnification, False, True)
-        return damage
-
-    # 攻100%，攻+5%（6）
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1, True, False)
-        return damage
-
+    # 攻100%
+    # 攻+5%（6）
     def attackAfter(self, enemies):
         buff = Buff('SRQuincy_attack', 0.05, 6, BuffType.AtkIncrease)
         self.addBuff(buff)

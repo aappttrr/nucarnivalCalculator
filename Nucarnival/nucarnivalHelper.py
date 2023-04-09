@@ -11,42 +11,6 @@ from RoleCards.enum.conditionTypeEnum import ConditionType
 from Common.ncRound import roundHalfEven, roundDown
 
 
-# 索敌
-def seizeEnemy(role: ICard, enemies: list[ICard], targetEnemy: ICard = None):
-    if role.cardId == 'RadiantAdmiral':
-        if len(enemies) == 1:
-            temp1 = [enemies[0], enemies[0], enemies[0]]
-            return temp1
-        elif len(enemies) == 2:
-            temp1 = [enemies[0], enemies[0], enemies[1]]
-            return temp1
-        elif len(enemies) == 3:
-            return enemies
-        elif len(enemies) == 4:
-            temp1 = [enemies[0], enemies[2], enemies[3]]
-            return temp1
-        elif len(enemies) == 5:
-            temp1 = [enemies[0], enemies[2], enemies[4]]
-            return temp1
-    if role.isGroup:
-        return enemies
-    else:
-        enemy = enemies[0]
-        temp1 = [x for x in enemies if x.isTaunt()]
-        if len(temp1) > 0:
-            enemy = temp1[0]
-            for temp in temp1:
-                if temp.hpCurrent > enemy.hpCurrent:
-                    enemy = temp
-        else:
-            if targetEnemy is not None:
-                return targetEnemy
-            for temp in enemies:
-                if temp.hpCurrent > enemy.hpCurrent:
-                    enemy = temp
-        return enemy
-
-
 class NucarnivalHelper:
     def __init__(self):
         self.team: list[ICard] = []
@@ -640,7 +604,7 @@ class NucarnivalHelper:
 
     # 反击
     def doCounter(self, role: ICard, monster: ICard, cardList2: list[ICard] = []):
-        role.doCounter(seizeEnemy(role, cardList2, monster))
+        role.doCounter(monster)
         totalDamage = 0
         enemiesBeAttacked = {}
         for record in self.battleListener.findSourceEvent(role, EventType.counter):
@@ -660,8 +624,7 @@ class NucarnivalHelper:
 
     # 必杀
     def doSkill(self, role: ICard, cardList: list[ICard] = [], cardList2: list[ICard] = []):
-        role.skillCount = 0
-        role.doSkill(seizeEnemy(role, cardList2))
+        role.doSkill()
         totalDamage = 0
         enemiesBeAttacked = {}
         for record in self.battleListener.findSourceEvent(role, EventType.skillDamage):
@@ -691,7 +654,7 @@ class NucarnivalHelper:
 
     # 普攻
     def doAttack(self, role: ICard, cardList: list[ICard] = [], cardList2: list[ICard] = []):
-        role.doAttack(seizeEnemy(role, cardList2))
+        role.doAttack()
         totalDamage = 0
         enemiesBeAttacked = {}
         for record in self.battleListener.findSourceEvent(role, EventType.attackDamage):

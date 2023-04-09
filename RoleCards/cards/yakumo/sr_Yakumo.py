@@ -27,15 +27,19 @@ class SRYakumo(SRCard):
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
+        # 攻75%全体治
+        self.attackHealMagnification = 0.75
+
+        # 攻133%/157%/182%全体治
+        self.skillHealMagnificationLv1 = 1.33
+        self.skillHealMagnificationLv2 = 1.57
+        self.skillHealMagnificationLv3 = 1.82
+
     # 攻133%/157%/182%全体治
     # 攻34%/41%/47%全体hot(2)
     def skillHeal(self, enemies, currentAtk):
-        ma = self.getMagnification(1.33, 1.57, 1.82)
+        heal = super(SRYakumo, self).skillHeal(enemies, currentAtk)
         ma_hot = self.getMagnification(0.34, 0.41, 0.47)
-
-        heal = currentAtk * ma
-        heal = roundDown(heal)
-        heal = self.increaseHeal(heal)
 
         hotHeal = currentAtk * ma_hot
         hotHeal = roundDown(hotHeal)
@@ -45,13 +49,6 @@ class SRYakumo(SRCard):
             buff = Buff('SRYakumo_skill', hotHeal, 2, BuffType.Hot)
             role.addBuff(buff, self)
 
-        return heal
-
-    # 攻75%全体治
-    def attackHeal(self, enemies, currentAtk):
-        heal = currentAtk * 0.75
-        heal = roundDown(heal)
-        heal = self.increaseHeal(heal)
         return heal
 
     # 造成回复量+25%

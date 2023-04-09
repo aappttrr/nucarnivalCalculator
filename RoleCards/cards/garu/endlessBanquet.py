@@ -26,23 +26,22 @@ class EndlessBanquet(SSRCard):
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
+        # 攻击力100%
+        self.attackMagnification = 1
+
+        # 攻击力204%/238%/273%
+        self.skillMagnificationLv1 = 2.04
+        self.skillMagnificationLv2 = 2.38
+        self.skillMagnificationLv3 = 2.73
+
     # 攻击力204%/238%/273%
     # 目标受到伤害+10%（9）
-    def skill(self, enemies, currentAtk):
-        magnification = self.getMagnification(2.04, 2.38, 2.73)
-        damage = self.calDamage(currentAtk, magnification, False, True)
-        return damage
-
     def skillAfter(self, enemies):
         buff = Buff('EndlessBanquet_skill', 0.1, 9, BuffType.BeDamageIncrease)
         enemies.addBuff(buff, self)
 
     # 攻击力100%
     # 目标受到伤害+2%（7）
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1, True, False)
-        return damage
-
     def attackAfter(self, enemies):
         buff = Buff('EndlessBanquet_attack', 0.02, 7, BuffType.BeDamageIncrease)
         enemies.addBuff(buff, self)

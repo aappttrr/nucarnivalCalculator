@@ -28,17 +28,20 @@ class AfternoonDaze(SSRCard):
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
+        # 攻100%
+        self.attackMagnification = 1
+
+        # 攻247%/296%/345%
+        self.skillMagnificationLv1 = 2.47
+        self.skillMagnificationLv2 = 2.96
+        self.skillMagnificationLv3 = 3.45
+
     # 目标受到伤害增加15%（2）
     # 攻247%/296%/345%
     # 自身获得【攻击时，触发使目标受到伤害增加15%（2）】（4）
     def skillBefore(self, enemies):
         buff = Buff('AfternoonDaze_skill', 0.15, 2, BuffType.BeDamageIncrease)
         enemies.addBuff(buff, self)
-
-    def skill(self, enemies, currentAtk):
-        magnification = self.getMagnification(2.47, 2.96, 3.45)
-        damage = self.calDamage(currentAtk, magnification, False, True)
-        return damage
 
     def skillAfter(self, enemies):
         buff = Buff('AfternoonDaze_skill_2', 0.15, 4, BuffType.AddDamageIncrease)
@@ -49,7 +52,7 @@ class AfternoonDaze(SSRCard):
     # 攻100%
     # 攻20%持续伤害（2）
     def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1, True, False)
+        damage = super(AfternoonDaze, self).attack(enemies, currentAtk)
 
         dotDamage = currentAtk * 0.2
         dotDamage = roundDown(dotDamage)

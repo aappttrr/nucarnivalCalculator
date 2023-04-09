@@ -28,15 +28,17 @@ class HolyConfession(SSRCard):
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
+        # 攻击力133%/157%/182%全体治疗
+        self.skillHealMagnificationLv1 = 1.33
+        self.skillHealMagnificationLv2 = 1.57
+        self.skillHealMagnificationLv3 = 1.82
+
     # 攻击力133%/157%/182%全体治疗
     # 攻击力17%/20%/24%hot(4)
     def skillHeal(self, enemies, currentAtk):
-        ma = self.getMagnification(1.33, 1.57, 1.82)
         ma2 = self.getMagnification(0.17, 0.2, 0.24)
 
-        heal = currentAtk * ma
-        heal = roundDown(heal)
-        heal = self.increaseHeal(heal)
+        heal = super(HolyConfession, self).skillHeal(enemies, currentAtk)
 
         hotHeal = currentAtk * ma2
         hotHeal = roundDown(hotHeal)

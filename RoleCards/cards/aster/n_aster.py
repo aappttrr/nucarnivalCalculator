@@ -24,20 +24,17 @@ class NAster(NCard):
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
+        # 攻125%
+        self.attackMagnification = 1.25
+
+        self.skillMagnificationLv1 = 2.47
+        self.skillMagnificationLv2 = 2.96
+        self.skillMagnificationLv3 = 3.45
+
     # 吸血25%（4），攻247%/296%/345%
     def skillBefore(self, enemies):
         buff = Buff('NAster_skill', 0.25, 4, BuffType.BloodSucking)
         self.addBuff(buff)
-
-    def skill(self, enemies, currentAtk):
-        magnification = self.getMagnification(2.47, 2.96, 3.45)
-        damage = self.calDamage(currentAtk, magnification, False, True)
-        return damage
-
-    # 攻125%
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1.25, True, False)
-        return damage
 
     # 有墨菲，攻+10%
     # 队伍艾斯特每1位，自攻+5%(max 3)

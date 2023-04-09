@@ -1,5 +1,6 @@
 from openpyxl.worksheet.worksheet import Worksheet
 
+from Common.cardCalHelper import calBond, calTier, calStar, calLv, calDamageOrHeal
 from Common.nvEventManager import eventManagerInstance, EventType, Event
 from RoleCards.buff.buff import Buff
 from RoleCards.enum.buffTypeEnum import BuffType
@@ -14,58 +15,6 @@ from RoleCards.tier.tierData import getTierData
 from Common.ncRound import roundDown, roundCeiling
 
 
-def calBond(lv60s5=1, _bond=0):
-    result = lv60s5
-    match _bond:
-        case 1:
-            result = result * 1.05
-        case 2:
-            result = result * 1.1
-        case 3:
-            result = result * 1.2
-        case 4:
-            result = result * 1.3
-        case 5:
-            result = result * 1.5
-    # result = roundCeiling(result)
-    return result
-
-
-def calStar(lv60s5=1, _star=5):
-    if _star == 5 or _star <= 0:
-        return lv60s5
-    result = lv60s5
-    for i in reversed(range(_star, 5)):
-        temp = 1 + (1 / (5 + i))
-        # if i == 4:
-        #     temp = 1.111
-        # elif i == 3:
-        #     temp = 1.125
-        # elif i == 2:
-        #     temp = 1.1428
-        # elif i == 1:
-        #     temp = 1.167
-        result = result / temp
-        # result = roundCeiling(result)
-    return result
-
-
-def calTier(lv60s5=1, _tierValue=0.0):
-    result = lv60s5 * (1 + _tierValue)
-    # result = roundCeiling(result)
-    return result
-
-
-def calLv(lv60s5=1, _lv=60):
-    if _lv == 60 or _lv <= 0:
-        return lv60s5
-    result = lv60s5
-    for i in reversed(range(_lv, 60)):
-        result = result / 1.05
-        # result = roundCeiling(result)
-    return result
-
-
 def writeCardInfoTitleInExcel(ws: Worksheet):
     ws.cell(1, 1, '名称')
     ws.cell(1, 2, '昵称')
@@ -78,6 +27,8 @@ def writeCardInfoTitleInExcel(ws: Worksheet):
     ws.cell(1, 9, '星级')
     ws.cell(1, 10, '潜能')
     ws.cell(1, 11, '蜜话')
+
+
 
 
 class ICard:
@@ -103,8 +54,11 @@ class ICard:
         # 职业定位
         self.occupation: CardOccupation = None
 
-        # 是否为群体攻击
-        self.isGroup = False
+        # 普通攻击是否为群体攻击
+        self.isAttackGroup = False
+
+        # 群体攻击是否为群体攻击
+        self.isSkillGroup = False
 
         # 等级(1-60)
         self.lv = 60
@@ -160,6 +114,18 @@ class ICard:
 
         # 被动吃满难易程度
         self.ped: PassiveEffectivenessDifficulty = None
+
+        # 普攻倍率
+        self.attackMagnification = 0
+        self.attackHealMagnification = 0
+
+        # 必杀倍率（三个等级）
+        self.skillMagnificationLv1 = 0
+        self.skillMagnificationLv2 = 0
+        self.skillMagnificationLv3 = 0
+        self.skillHealMagnificationLv1 = 0
+        self.skillHealMagnificationLv2 = 0
+        self.skillHealMagnificationLv3 = 0
 
     def clearUp(self):
         self.skillCount = 0
@@ -242,7 +208,8 @@ class ICard:
     def setAtkDirect(self, _atk):
         self.atk = _atk
 
-    def doAttack(self, enemies):
+    def doAttack(self):
+        enemies = self.seizeEnemy(True)
         self.attackBefore(enemies)
         currentAtk = self.getCurrentAtk()
         event1 = Event(EventType.actionAtk)
@@ -269,8 +236,6 @@ class ICard:
                 event.data['target'] = enemies
                 eventManagerInstance.sendEvent(event)
 
-        self.followUp(enemies, currentAtk, True)
-
         heal = self.attackHeal(enemies, currentAtk)
         if heal > 0:
             for mate in self.teamMate:
@@ -289,17 +254,8 @@ class ICard:
             eventManagerInstance.sendEvent(event)
 
         if damage > 0:
-            for buff in self.buffs:
-                if buff.conditionType != ConditionType.WhenAttack:
-                    continue
-
-                if buff.buffType == BuffType.AddDamageIncrease:
-                    newBuff = Buff(buff.buffId, buff.value, buff.addBuffTurn, BuffType.BeDamageIncrease)
-                    if isinstance(enemies, list):
-                        for enemy in enemies:
-                            enemy.addBuff(newBuff, buff.source)
-                    else:
-                        enemies.addBuff(newBuff, buff.source)
+            self.triggerWhenAttackOrSkill(enemies, True)
+            self.followUp(currentAtk, True)
 
         self.attackAfter(enemies)
         currentAtk2 = self.getCurrentAtk()
@@ -309,7 +265,9 @@ class ICard:
         event2.data['target'] = self
         eventManagerInstance.sendEvent(event2)
 
-    def doSkill(self, enemies):
+    def doSkill(self):
+        self.skillCount = 0
+        enemies = self.seizeEnemy(True)
         self.skillBefore(enemies)
         currentAtk = self.getCurrentAtk()
         event1 = Event(EventType.actionAtk)
@@ -317,6 +275,7 @@ class ICard:
         event1.data['value'] = currentAtk
         event1.data['target'] = self
         eventManagerInstance.sendEvent(event1)
+
         damage = self.skill(enemies, currentAtk)
         if damage > 0:
             if isinstance(enemies, list):
@@ -334,8 +293,6 @@ class ICard:
                 event.data['value'] = damage2
                 event.data['target'] = enemies
                 eventManagerInstance.sendEvent(event)
-
-        self.followUp(enemies, currentAtk, False)
 
         heal = self.skillHeal(enemies, currentAtk)
         if heal > 0:
@@ -355,17 +312,8 @@ class ICard:
             eventManagerInstance.sendEvent(event)
 
         if damage > 0:
-            for buff in self.buffs:
-                if buff.conditionType != ConditionType.WhenAttack:
-                    continue
-
-                if buff.buffType == BuffType.AddDamageIncrease:
-                    newBuff = Buff(buff.buffId, buff.value, buff.addBuffTurn, BuffType.BeDamageIncrease)
-                    if isinstance(enemies, list):
-                        for enemy in enemies:
-                            enemy.addBuff(newBuff, buff.source)
-                    else:
-                        enemies.addBuff(newBuff, buff.source)
+            self.triggerWhenAttackOrSkill(enemies, False)
+            self.followUp(currentAtk, False)
 
         self.skillAfter(enemies)
         currentAtk2 = self.getCurrentAtk()
@@ -375,7 +323,22 @@ class ICard:
         event2.data['target'] = self
         eventManagerInstance.sendEvent(event2)
 
-    def followUp(self, enemies, currentAtk, isAttack: bool):
+    def triggerWhenAttackOrSkill(self, enemies, isAttack: bool):
+        for buff in self.buffs:
+            if isAttack and buff.conditionType != ConditionType.WhenAttack:
+                continue
+            elif isAttack is False and buff.conditionType != ConditionType.WhenSkill:
+                continue
+
+            if buff.buffType == BuffType.AddDamageIncrease:
+                newBuff = Buff(buff.buffId, buff.value, buff.addBuffTurn, BuffType.BeDamageIncrease)
+                if isinstance(enemies, list):
+                    for enemy in enemies:
+                        enemy.addBuff(newBuff, buff.source)
+                else:
+                    enemies.addBuff(newBuff, buff.source)
+
+    def followUp(self, currentAtk, isAttack: bool):
         for buff in self.buffs:
             if buff.buffType != BuffType.FollowUpAttack:
                 continue
@@ -392,7 +355,9 @@ class ICard:
                 buffAtk = self.atk
             else:
                 buffAtk = currentAtk
-            followUpDamage = self.calDamage(buffAtk, buff.value, buff.seeAsAttack, buff.seeAsSkill)
+            followUpDamage = calDamageOrHeal(buffAtk, buff.value)
+            followUpDamage = self.increaseDamage(followUpDamage, buff.seeAsAttack, buff.seeAsSkill)
+            enemies = self.seizeEnemy2(buff.isGroup)
             if isinstance(enemies, list):
                 for enemy in enemies:
                     damage2 = enemy.increaseBeDamage(followUpDamage, self, buff.seeAsAttack, buff.seeAsSkill)
@@ -424,7 +389,7 @@ class ICard:
         return magnification
 
     # 反击
-    def doCounter(self, enemies):
+    def doCounter(self, targetEnemy):
         currentAtk = self.getCurrentAtk()
         for buff in self.buffs:
             if buff.buffType != BuffType.CounterAttack:
@@ -434,7 +399,9 @@ class ICard:
                 buffAtk = self.atk
             else:
                 buffAtk = currentAtk
-            counterDamage = self.calDamage(buffAtk, buff.value, buff.seeAsAttack, buff.seeAsSkill)
+            counterDamage = calDamageOrHeal(buffAtk, buff.value)
+            counterDamage = self.increaseDamage(counterDamage, buff.seeAsAttack, buff.seeAsSkill)
+            enemies = self.seizeEnemy2(buff.isGroup, targetEnemy)
             if isinstance(enemies, list):
                 for enemy in enemies:
                     damage2 = enemy.increaseBeDamage(counterDamage, self, buff.seeAsAttack, buff.seeAsSkill)
@@ -787,12 +754,6 @@ class ICard:
             result = 0
         return result
 
-    def calDamage(self, _atk, _magnification, seeAsAttack, seeAsSkill):
-        damage = _atk * _magnification
-        damage = roundDown(damage)
-        damage = self.increaseDamage(damage, seeAsAttack, seeAsSkill)
-        return damage
-
     def increaseShield(self, shield):
         result = shield
         increase = 0
@@ -846,10 +807,19 @@ class ICard:
     # 必杀技
     # 必杀伤害结算：攻击力*倍率*[造成伤害增加*必杀伤害增加(来源于自身)]*[目标受必杀伤害增加*目标受伤害增加*属性克制(1.2/1/0.8)(来源于敌方)]
     def skill(self, enemies, currentAtk):
-        return 0
+        magnification = self.getMagnification(self.skillMagnificationLv1, self.skillMagnificationLv2,
+                                              self.skillMagnificationLv3)
+        damage = calDamageOrHeal(currentAtk, magnification)
+        damage = self.increaseDamage(damage, False, True)
+        return damage
 
     def skillHeal(self, enemies, currentAtk):
-        return 0
+        magnification = self.getMagnification(self.skillHealMagnificationLv1, self.skillHealMagnificationLv2,
+                                              self.skillHealMagnificationLv3)
+        heal = calDamageOrHeal(currentAtk, magnification)
+        heal = self.increaseHeal(heal)
+        heal = self.increaseDamage(heal, False, True)
+        return heal
 
     def skillAfter(self, enemies):
         pass
@@ -860,10 +830,15 @@ class ICard:
     # 普攻
     # 普攻伤害结算：攻击力*倍率*[造成伤害增加*普攻伤害增加(来源于自身)]*[目标受普攻伤害增加*目标受伤害增加*属性克制(1.2/1/0.8)(来源于敌方)]
     def attack(self, enemies, currentAtk):
-        return 0
+        damage = calDamageOrHeal(currentAtk, self.attackMagnification)
+        damage = self.increaseDamage(damage, True, False)
+        return damage
 
     def attackHeal(self, enemies, currentAtk):
-        return 0
+        heal = calDamageOrHeal(currentAtk, self.attackHealMagnification)
+        heal = self.increaseHeal(heal)
+        heal = self.increaseDamage(heal, True, False)
+        return heal
 
     def attackAfter(self, enemies):
         pass
@@ -1002,3 +977,29 @@ class ICard:
         ws.cell(row, 9, self.star)
         ws.cell(row, 10, self.tier)
         ws.cell(row, 11, self.bond)
+
+    # 索敌
+    def seizeEnemy(self, isAttack: bool, targetEnemy=None):
+        isGroup = False
+        if isAttack and self.isAttackGroup:
+            isGroup = True
+        elif isAttack is False and self.isSkillGroup:
+            isGroup = True
+        return self.seizeEnemy2(isGroup, targetEnemy)
+
+    # 索敌2
+    def seizeEnemy2(self, isGroup: bool, targetEnemy=None):
+        if isGroup:
+            return self.enemies
+        else:
+            temp1 = [x for x in self.enemies if x.isTaunt()]
+            if len(temp1) > 0:
+                enemy = temp1[0]
+                for temp in temp1:
+                    if temp.hpCurrent > enemy.hpCurrent:
+                        enemy = temp
+                return enemy
+            else:
+                if targetEnemy is not None:
+                    return targetEnemy
+            return self.enemies[0]

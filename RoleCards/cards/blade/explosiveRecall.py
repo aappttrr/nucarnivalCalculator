@@ -26,6 +26,13 @@ class ExplosiveRecall(SSRCard):
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
+        # 攻125%
+        self.attackMagnification = 1.25
+
+        self.skillMagnificationLv1 = 2.04
+        self.skillMagnificationLv2 = 2.38
+        self.skillMagnificationLv3 = 2.73
+
     # 伤+12.5%(max 2)
     # 攻204%/238%/273%
     def skillBefore(self, enemies):
@@ -33,16 +40,6 @@ class ExplosiveRecall(SSRCard):
             buff = Buff('ExplosiveRecall_skill', 0.125, 0, BuffType.DamageIncrease)
             buff.isPassive = True
             self.addBuff(buff)
-
-    def skill(self, enemies, currentAtk):
-        magnification = self.getMagnification(2.04, 2.38, 2.73)
-        damage = self.calDamage(currentAtk, magnification, False, True)
-        return damage
-
-    # 攻125%
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1.25, True, False)
-        return damage
 
     # 队伍布儡每1位，自攻+8%(max 3)
     def passive_star_3(self):

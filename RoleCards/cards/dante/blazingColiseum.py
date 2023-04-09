@@ -27,12 +27,16 @@ class BlazingColiseum(SSRCard):
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
+        # 攻击力75%
+        self.attackMagnification = 0.75
+
+        # 攻击力100%
+        self.skillMagnificationLv1 = 1
+        self.skillMagnificationLv2 = 1
+        self.skillMagnificationLv3 = 1
+
     # 攻击力100%
     # 最大hp13%/15%/18%护盾(1)
-    def skill(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1, False, True)
-        return damage
-
     def skillAfter(self, enemies):
         ma = self.getMagnification(0.13, 0.15, 0.18)
         shield = self.maxHp * ma
@@ -48,10 +52,6 @@ class BlazingColiseum(SSRCard):
 
     # 攻击力75%
     # 最大hp6%护盾(1)
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 0.75, True, False)
-        return damage
-
     def attackAfter(self, enemies):
         shield = self.maxHp * 0.06
         shield = roundDown(shield)

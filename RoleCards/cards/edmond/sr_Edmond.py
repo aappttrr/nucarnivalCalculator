@@ -25,17 +25,13 @@ class SREdmond(SRCard):
         self.lv60s5Atk = 1672
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        # 攻125%
+        self.attackMagnification = 1.25
 
-    # 攻229%/273%/316%
-    def skill(self, enemies, currentAtk):
-        magnification = self.getMagnification(2.29, 2.73, 3.16)
-        damage = self.calDamage(currentAtk, magnification, False, True)
-        return damage
-
-    # 攻125%
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1.25, True, False)
-        return damage
+        # 攻229%/273%/316%
+        self.skillMagnificationLv1 = 2.29
+        self.skillMagnificationLv2 = 2.73
+        self.skillMagnificationLv3 = 3.16
 
     # 队伍艾德蒙特每1位，自攻+8%(max 3)
     def passive_star_3(self):

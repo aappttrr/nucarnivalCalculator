@@ -60,7 +60,7 @@ def simulationCombat(filePath, cardHelper: CardHelper, helper: NucarnivalHelper,
         if forceTeamMate:
             needTeamMate = True
 
-        if x.isGroup == calGroupRole:
+        if x.isAttackGroup == calGroupRole or x.isSkillGroup == calGroupRole:
             row1 += 1
             row2 += 1
             if x.rarity == CardRarity.SSR:
@@ -241,7 +241,7 @@ def getDamageProportion(helper: NucarnivalHelper, x: ICard, data):
 
 def getRank(x: ICard, damage=0):
     rank = ''
-    if x.isGroup:
+    if x.isAttackGroup or x.isSkillGroup:
         if x.rarity == CardRarity.SSR and x.star == 5:
             if damage >= 150000:
                 rank = 'T0'
@@ -640,7 +640,7 @@ if __name__ == '__main__':
 
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
-    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
-    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
+    simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
+    simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)

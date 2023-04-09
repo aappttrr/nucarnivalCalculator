@@ -26,28 +26,25 @@ class ArcticWarden(SSRCard):
         self.lv60s5Atk = 2205
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        # 攻100%
+        self.attackMagnification = 1
+
+        # 攻247%/296%/345%
+        self.skillMagnificationLv1 = 2.47
+        self.skillMagnificationLv2 = 2.96
+        self.skillMagnificationLv3 = 3.45
 
     # 攻247%/296%/345%
     # 自身最大HP20%全体治
-    def skill(self, enemies, currentAtk):
-        magnification = self.getMagnification(2.47, 2.96, 3.45)
-        damage = self.calDamage(currentAtk, magnification, False, True)
-        return damage
-
     def skillHeal(self, enemies, currentAtk):
         heal = self.maxHp * 0.2
         heal = roundDown(heal)
         heal = self.increaseHeal(heal)
-
         heal = self.increaseDamage(heal, False, True)
         return heal
 
     # 攻100%
     # 自身最大HP10%全体治
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1, True, False)
-        return damage
-
     def attackHeal(self, enemies, currentAtk):
         heal = self.maxHp * 0.1
         heal = roundDown(heal)

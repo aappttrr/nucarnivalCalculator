@@ -26,13 +26,21 @@ class WhiteLover(SSRCard):
         self.lv60s5Atk = 2312
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
-        self.isGroup = True
+        self.isAttackGroup = True
+        self.isSkillGroup = True
+
+        # 攻击力63%（群）
+        self.attackMagnification = 0.63
+
+        # 攻击力64%/77%/90%（群）
+        self.skillMagnificationLv1 = 0.64
+        self.skillMagnificationLv2 = 0.77
+        self.skillMagnificationLv3 = 0.9
 
     # 攻击力64%/77%/90%（群）
     # 攻击力21%/26%/30%持续伤害(群)（3）
     def skill(self, enemies, currentAtk):
-        ma = self.getMagnification(0.64, 0.77, 0.9)
-        damage = self.calDamage(currentAtk, ma, False, True)
+        damage = super(WhiteLover, self).skill(enemies, currentAtk)
 
         ma_dot = self.getMagnification(0.21, 0.26, 0.3)
         dotDamage = currentAtk * ma_dot
@@ -41,11 +49,6 @@ class WhiteLover(SSRCard):
         for monster in self.enemies:
             buff = Buff('WhiteLover_skill', dotDamage, 3, BuffType.Dot)
             monster.addBuff(buff, self)
-        return damage
-
-    # 攻击力63%（群）
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 0.63, True, False)
         return damage
 
     # 八云在场，攻击力+27%

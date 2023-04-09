@@ -26,6 +26,13 @@ class BuckeyeMiracle(SSRCard):
         self.lv60s5Atk = 1352
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
+        # 攻100%
+        self.attackMagnification = 1
+
+        # 攻击力100%
+        self.skillMagnificationLv1 = 1
+        self.skillMagnificationLv2 = 1
+        self.skillMagnificationLv3 = 1
 
     # 攻击力100%
     # 嘲讽（2）
@@ -33,10 +40,6 @@ class BuckeyeMiracle(SSRCard):
     # 受必杀伤害-40%（2）
     # 被攻击时，攻击力62%/74%/87%反击（2）
     # 转防御
-    def skill(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1, False, True)
-        return damage
-
     def skillAfter(self, enemies):
         ma_buff = self.getMagnification(0.62, 0.74, 0.87)
         buff = Buff('BuckeyeMiracle_skill', ma_buff, 2, BuffType.CounterAttack)
@@ -55,10 +58,6 @@ class BuckeyeMiracle(SSRCard):
 
     # 攻击力100%
     # 转防御
-    def attack(self, enemies, currentAtk):
-        damage = self.calDamage(currentAtk, 1, True, False)
-        return damage
-
     def attackAfter(self, enemies):
         self.defense = True
 
