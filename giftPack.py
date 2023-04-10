@@ -283,13 +283,13 @@ def chapterGiftPacks(gps: list[CostPerformanceHelper]):
 
 # 常见活动礼包
 def activityGiftPacks(gps: list[CostPerformanceHelper]):
-    cslcb = CostPerformanceHelper('春色里程碑')
-    cslcb.addGameProp(GameProp(PropType.essenceContract, 5))
-    cslcb.addGameProp(GameProp(PropType.coin, 30000))
-    cslcb.addGameProp(GameProp(PropType.basicBoost, 6))
-    cslcb.currencyType = CurrencyType.eCoin
-    cslcb.price = 425
-    gps.append(cslcb)
+    clothingLb = CostPerformanceHelper('服装礼包（凛风纹章）')
+    clothingLb.addGameProp(GameProp(PropType.clothing, 1))
+    clothingLb.addGameProp(GameProp(PropType.basicBoost, 20))
+    clothingLb.addGameProp(GameProp(PropType.crystalCore, 1))
+    clothingLb.currencyType = CurrencyType.eCoin
+    clothingLb.price = 5120
+    gps.append(clothingLb)
 
     # birthdaylb = CostPerformanceHelper('生日礼包（布儡）')
     # birthdaylb.addGameProp(GameProp(PropType.spiritGem, 1000))
@@ -299,7 +299,7 @@ def activityGiftPacks(gps: list[CostPerformanceHelper]):
     # birthdaylb.price = 1450
     # gps.append(birthdaylb)
 
-    birthdaylb_2 = CostPerformanceHelper('生日语音礼包（艾斯特）')
+    birthdaylb_2 = CostPerformanceHelper('生日语音礼包（墨菲）')
     birthdaylb_2.addGameProp(GameProp(PropType.sorceryGem, 10))
     birthdaylb_2.addGameProp(GameProp(PropType.ultraGift, 30))
     birthdaylb_2.addGameProp(GameProp(PropType.voice, 1))
@@ -307,28 +307,28 @@ def activityGiftPacks(gps: list[CostPerformanceHelper]):
     birthdaylb_2.price = 1450
     gps.append(birthdaylb_2)
 
-    # hdlb1 = CostPerformanceHelper('常见活动礼包1（春夜未央）')
-    # hdlb1.addGameProp(GameProp(PropType.essenceContract, 5))
-    # hdlb1.addGameProp(GameProp(PropType.coin, 50000))
-    # hdlb1.currencyType = CurrencyType.eCoin
-    # hdlb1.price = 345
-    # gps.append(hdlb1)
-    #
-    # hdlb2 = CostPerformanceHelper('常见活动礼包2（春雪初融）')
-    # hdlb2.addGameProp(GameProp(PropType.essenceContract, 15))
-    # hdlb2.addGameProp(GameProp(PropType.coin, 100000))
-    # hdlb2.addGameProp(GameProp(PropType.basicBoost, 20))
-    # hdlb2.currencyType = CurrencyType.eCoin
-    # hdlb2.price = 1450
-    # gps.append(hdlb2)
-    #
-    # hdlb3 = CostPerformanceHelper('常见活动礼包3（莺争暖树）')
-    # hdlb3.addGameProp(GameProp(PropType.spiritGem, 1000))
-    # hdlb3.addGameProp(GameProp(PropType.essenceContract, 30))
-    # hdlb3.addGameProp(GameProp(PropType.basicBoost, 30))
-    # hdlb3.currencyType = CurrencyType.eCoin
-    # hdlb3.price = 2979
-    # gps.append(hdlb3)
+    hdlb1 = CostPerformanceHelper('常见活动礼包1（辉煌信条）')
+    hdlb1.addGameProp(GameProp(PropType.essenceContract, 5))
+    hdlb1.addGameProp(GameProp(PropType.coin, 50000))
+    hdlb1.currencyType = CurrencyType.eCoin
+    hdlb1.price = 345
+    gps.append(hdlb1)
+
+    hdlb2 = CostPerformanceHelper('常见活动礼包2（荣耀征途）')
+    hdlb2.addGameProp(GameProp(PropType.essenceContract, 15))
+    hdlb2.addGameProp(GameProp(PropType.coin, 100000))
+    hdlb2.addGameProp(GameProp(PropType.basicBoost, 20))
+    hdlb2.currencyType = CurrencyType.eCoin
+    hdlb2.price = 1450
+    gps.append(hdlb2)
+
+    hdlb3 = CostPerformanceHelper('常见活动礼包3（凯旋战歌）')
+    hdlb3.addGameProp(GameProp(PropType.spiritGem, 1000))
+    hdlb3.addGameProp(GameProp(PropType.essenceContract, 30))
+    hdlb3.addGameProp(GameProp(PropType.basicBoost, 30))
+    hdlb3.currencyType = CurrencyType.eCoin
+    hdlb3.price = 2979
+    gps.append(hdlb3)
 
     # hdlb4 = CostPerformanceHelper('常见活动礼包4（星夜细语）')
     # hdlb4.addGameProp(GameProp(PropType.spiritGem, 1000))
@@ -346,21 +346,21 @@ def activityGiftPacks(gps: list[CostPerformanceHelper]):
     # hdlb5.price = 2979
     # gps.append(hdlb5)
 
-    # bglb = CostPerformanceHelper('背景图礼包（醉夜流春、烨煜春色）')
-    # bglb.addGameProp(GameProp(PropType.essenceContract, 10))
-    # bglb.addGameProp(GameProp(PropType.coin, 300000))
-    # bglb.addGameProp(GameProp(PropType.background, 1))
-    # bglb.currencyType = CurrencyType.eCoin
-    # bglb.price = 1660
-    # gps.append(bglb)
-    #
-    # rwlb = CostPerformanceHelper('晶花原石礼包（燕啄春泥）')
-    # rwlb.addGameProp(GameProp(PropType.essenceContract, 50))
-    # rwlb.addGameProp(GameProp(PropType.rawCrystal, 1))
-    # rwlb.currencyType = CurrencyType.eCoin
-    # rwlb.price = 6920
-    # gps.append(rwlb)
-    #
+    rwlb = CostPerformanceHelper('晶花原石礼包（歃血誓言）')
+    rwlb.addGameProp(GameProp(PropType.essenceContract, 50))
+    rwlb.addGameProp(GameProp(PropType.rawCrystal, 1))
+    rwlb.currencyType = CurrencyType.eCoin
+    rwlb.price = 6920
+    gps.append(rwlb)
+
+    bglb = CostPerformanceHelper('背景图礼包（专属统领、拷问游戏）')
+    bglb.addGameProp(GameProp(PropType.essenceContract, 10))
+    bglb.addGameProp(GameProp(PropType.coin, 300000))
+    bglb.addGameProp(GameProp(PropType.background, 1))
+    bglb.currencyType = CurrencyType.eCoin
+    bglb.price = 1660
+    gps.append(bglb)
+
     # xclb = CostPerformanceHelper('春报新愿')
     # xclb.addGameProp(GameProp(PropType.spiritGem, 2023))
     # xclb.addGameProp(GameProp(PropType.essenceContract, 10))
@@ -661,5 +661,5 @@ def exportAllGiftPacks(filePath):
 
 
 if __name__ == '__main__':
-    # exportAllGiftPacks('E:\\新世界\\性价比\\性价比计算.xls')
-    exportAllGiftPacks('D:\\性价比计算.xls')
+    exportAllGiftPacks('E:\\新世界\\性价比\\性价比计算.xls')
+    # exportAllGiftPacks('D:\\性价比计算.xls')
