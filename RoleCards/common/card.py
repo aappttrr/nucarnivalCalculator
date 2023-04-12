@@ -245,6 +245,7 @@ class ICard:
                 event.data['value'] = heal2
                 event.data['target'] = mate
                 eventManagerInstance.sendEvent(event)
+                mate.beHealed(heal2, True)
 
         if damage <= 0 and heal <= 0:
             event = Event(EventType.attack)
@@ -303,6 +304,7 @@ class ICard:
                 event.data['value'] = heal2
                 event.data['target'] = mate
                 eventManagerInstance.sendEvent(event)
+                mate.beHealed(heal2, True)
 
         if damage <= 0 and heal <= 0:
             event = Event(EventType.skill)

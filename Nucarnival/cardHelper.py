@@ -1,6 +1,7 @@
 from RoleCards.cards.aster.n_aster import NAster
 from RoleCards.cards.aster.r_aster import RAster
 from RoleCards.cards.aster.sr_aster import SRAster
+from RoleCards.cards.blade.crystalAwakening import CrystalAwakening
 from RoleCards.cards.blade.lovableEnforcer import LovableEnforcer
 from RoleCards.cards.blade.n_Blade import NBlade
 from RoleCards.cards.blade.r_Blade import RBlade
@@ -142,6 +143,7 @@ class CardHelper:
         ssrBL = ExplosiveRecall()
         xBL = IdolApprentice()
         npBL = LovableEnforcer()
+        junBl = CrystalAwakening()
 
         # 啖天
         srDT = SRDante()
@@ -193,6 +195,7 @@ class CardHelper:
         self.cardList.append(dO)
         self.cardList.append(dongKX)
         self.cardList.append(shuiHL)
+        self.cardList.append(junBl)
 
         # 第四轮限定
         self.cardList.append(huaFT)
