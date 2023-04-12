@@ -619,20 +619,30 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     # 持续伤害
     huoHL = _cardHelper.filterCard('KitsuneDream')[0]
 
-    _helper.skillTurn[shuiDan] = [5, 9, 13]
+    srBayun = _cardHelper.filterCard('SRYakumo')[0]
+    srMofei = _cardHelper.filterCard('SRMorvay')[0]
+    dunLang = _cardHelper.filterCard('ForgottenFruit')[0]
+    huoBu = _cardHelper.filterCard('CrystalAwakening')[0]
+    huoBu.setProperties(60, 1, 5, 12)
+
+    _helper.skillTurn[shuiDan] = [6, 10, 14]
+    _helper.skillTurn[huaAo] = [6, 10, 14]
+    _helper.skillTurn[huoBu] = [6, 10, 14]
     # _helper.skillTurn[huaAo] = [7,13]
 
     _helper.maxTurn = 14
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(srAo)
+    _helper.team.append(huaAo)
+    _helper.team.append(srBayun)
+    _helper.team.append(srMofei)
     _helper.team.append(shuiHL)
-    _helper.team.append(huoTuan)
-    _helper.team.append(anKun)
+    _helper.team.append(huoBu)
 
     _helper.battleStart(True)
-    name = 'sr奥+水狐+火团+暗昆-{}.xls'.format(_helper.maxTurn)
-    _helper.exportExcel('E:\\新世界\\攻略\\【2023.2.23】春林狂欢宴\\水狐模拟\\' + name)
+    name = '花奥+SR八+墨菲+水狐+火布-1星-{}.xls'.format(_helper.maxTurn)
+    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.2.23】春林狂欢宴\\水狐模拟\\' + name)
+    _helper.exportExcel('C:\\fhs\\python\\【2023.4.12】\\火布模拟\\' + name)
 
 
 if __name__ == '__main__':
@@ -640,11 +650,11 @@ if __name__ == '__main__':
 
     _cardHelper = CardHelper()
 
-    # tempSimulation(_helper, _cardHelper)
+    tempSimulation(_helper, _cardHelper)
 
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
-    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True)
-    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)
+    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True)
+    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)

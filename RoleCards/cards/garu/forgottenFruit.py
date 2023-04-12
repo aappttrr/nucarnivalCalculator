@@ -14,7 +14,7 @@ class ForgottenFruit(SSRCard):
         super(ForgottenFruit, self).__init__()
         self.cardId = 'ForgottenFruit'
         self.cardName = '遗忘的甜蜜果'
-        self.nickName = '水狼'
+        self.nickName = '盾狼'
         self.role = CardRole.Garu
         self.cardType = CardType.Water
         self.occupation = CardOccupation.Guardian

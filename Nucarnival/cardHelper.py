@@ -138,7 +138,7 @@ class CardHelper:
         ssrL = MastersGift()
         gL = EndlessBanquet()
         guaL = HowlingCyclone()
-        shuiL = ForgottenFruit()
+        dunL = ForgottenFruit()
 
         # 布儡
         srBL = SRBlade()
@@ -199,7 +199,7 @@ class CardHelper:
         self.cardList.append(dO)
         self.cardList.append(dongKX)
         self.cardList.append(shuiHL)
-        self.cardList.append(shuiL)
+        self.cardList.append(dunL)
         self.cardList.append(junBl)
 
         # 第四轮限定
