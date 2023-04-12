@@ -24,6 +24,7 @@ from RoleCards.cards.edmond.sr_Edmond import SREdmond
 from RoleCards.cards.edmond.whiteLover import WhiteLover
 from RoleCards.cards.eiden.galacticMist import GalacticMist
 from RoleCards.cards.garu.endlessBanquet import EndlessBanquet
+from RoleCards.cards.garu.forgottenFruit import ForgottenFruit
 from RoleCards.cards.garu.howlingCyclone import HowlingCyclone
 from RoleCards.cards.garu.mastersGift import MastersGift
 from RoleCards.cards.garu.n_Garu import NGaru
@@ -52,6 +53,7 @@ from RoleCards.cards.quincy.buckeyeMiracle import BuckeyeMiracle
 from RoleCards.cards.quincy.distantPromise import DistantPromise
 from RoleCards.cards.quincy.n_Quincy import NQuincy
 from RoleCards.cards.quincy.r_Quincy import RQuincy
+from RoleCards.cards.quincy.smokedTimber import SmokedTimber
 from RoleCards.cards.quincy.sr_Quincy import SRQuincy
 from RoleCards.cards.yakumo.cocoaLiqueur import CocoaLiqueur
 from RoleCards.cards.yakumo.crimsonPhantom import CrimsonPhantom
@@ -118,6 +120,7 @@ class CardHelper:
         dKX = BuckeyeMiracle()
         yKX = DistantPromise()
         dongKX = ArcticWarden()
+        srShuiKX = SmokedTimber()
 
         # 玖夜
         srHL = SRKuya()
@@ -135,6 +138,7 @@ class CardHelper:
         ssrL = MastersGift()
         gL = EndlessBanquet()
         guaL = HowlingCyclone()
+        shuiL = ForgottenFruit()
 
         # 布儡
         srBL = SRBlade()
@@ -195,6 +199,7 @@ class CardHelper:
         self.cardList.append(dO)
         self.cardList.append(dongKX)
         self.cardList.append(shuiHL)
+        self.cardList.append(shuiL)
         self.cardList.append(junBl)
 
         # 第四轮限定
@@ -211,6 +216,9 @@ class CardHelper:
         self.cardList.append(srL)
         self.cardList.append(srBL)
         self.cardList.append(srDT)
+
+        self.cardList.append(srShuiKX)
+
         # r 39
         self.cardList.append(rA)
         self.cardList.append(rM)
