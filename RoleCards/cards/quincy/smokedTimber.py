@@ -7,12 +7,13 @@ from RoleCards.enum.cardTypeEnum import CardType
 from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 from RoleCards.enum.tierType import TierType
 
+
 class SmokedTimber(SRCard):
     def __init__(self):
         super(SmokedTimber, self).__init__()
         self.cardId = 'SmokedTimber'
         self.cardName = '沉郁的熏灼木'
-        self.nickName = '限SR昆'
+        self.nickName = '水昆'
         self.role = CardRole.Quincy
         self.cardType = CardType.Water
         self.occupation = CardOccupation.Saboteur

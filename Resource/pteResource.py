@@ -19,7 +19,7 @@ def getWelcomeContent():
 
 def getHelpContent():
     output = io.StringIO()
-    writeLineString(output, '当前版本：v2.3-2023-2-26')
+    writeLineString(output, '当前版本：v2.4-2023-4-22')
     writeLineString(output, '有任何问题、Bug都可以给我留言~~')
     writeLineString(output, 'B站：纳萨尔')
     writeLineString(output, '')
@@ -137,6 +137,8 @@ def getHelpContent():
 
 def getUpdateLogContent():
     output = io.StringIO()
+    getUpdateLogContent_2_4(output)
+    writeLineString(output, '')
     getUpdateLogContent_2_3(output)
     writeLineString(output, '')
     getUpdateLogContent_2_2(output)
@@ -155,19 +157,19 @@ def getUpdateLogContent():
 
 def getUpdateLogContent_2_4(_output: io.StringIO):
     writeDashString(_output, 36)
-    writeString(_output, '2023.4.15')
+    writeString(_output, '2023.4.22')
     writeDashString(_output, 36)
     writeLineString(_output, '')
     writeLineString(_output, 'v2.4:')
     writeWriteSpace(_output, 8)
     writeLineString(_output, '①修复春日迷乱（艾德蒙特）攻击倍率错误问题，原125%，现修正为100%')
     writeWriteSpace(_output, 8)
-    writeLineString(_output, '②修复治疗量错误问题，原无法吃到普攻/必杀提升，现修正为可吃到普攻/必杀提升，具体请看计算公式')
+    writeLineString(_output, '②修复治疗量错误问题，原无法吃到普攻/必杀提升，现修正为可吃到普攻/必杀提升，具体请看计算公式，影响火团')
     writeWriteSpace(_output, 8)
     writeLineString(_output, '③提升默认敌方攻击力，原过低的攻击力，导致盾昆和盾八防御状态受伤害位0无法触发反击')
     writeWriteSpace(_output, 8)
     writeLineString(_output, '④优化索敌方法，追击将单独判断索敌，原圣啖追击增加后，会导致群攻角色进行多次追击（目前软件尚未能配置'
-                             '多名敌方，所以没有问题）')
+                             '多名敌方，所以不会影响旧角色）')
     writeWriteSpace(_output, 8)
     writeLineString(_output, '⑤优化护盾、治疗统计，现在把对每个角色单独的护盾、治疗和总护盾、治疗列出')
     writeWriteSpace(_output, 8)
