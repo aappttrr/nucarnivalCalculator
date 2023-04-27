@@ -13,3 +13,4 @@ class CardRole(enum.Enum):
     Blade = '布儡'
     Dante = '啖天'
     Eiden = '伊得'
+    Rei = '敛'

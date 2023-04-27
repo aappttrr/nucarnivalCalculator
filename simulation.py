@@ -615,6 +615,7 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     srKun = _cardHelper.filterCard('SRQuincy')[0]
     rKun = _cardHelper.filterCard('RQuincy')[0]
     shuiDan = _cardHelper.filterCard('EternalHanabi')[0]
+    anAo = _cardHelper.filterCard('RadiantAdmiral')[0]
 
     # 持续伤害
     huoHL = _cardHelper.filterCard('KitsuneDream')[0]
@@ -623,30 +624,27 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     srMofei = _cardHelper.filterCard('SRMorvay')[0]
     dunLang = _cardHelper.filterCard('ForgottenFruit')[0]
     huoBu = _cardHelper.filterCard('CrystalAwakening')[0]
-    anKun.setProperties(60, 3, 5, 12)
+    # anKun.setProperties(60, 3, 5, 12)
 
-    _helper.skillTurn[shuiDan] = [6, 10, 14]
+    # _helper.skillTurn[shuiDan] = [6, 10, 14]
     # _helper.skillTurn[huaAo] = [6, 10, 14]
-    _helper.skillTurn[huoBu] = [6, 10, 14]
-    # _helper.skillTurn[srAo] = [5, 9, 13]
+    # _helper.skillTurn[huoBu] = [6, 10, 14]
+    _helper.skillTurn[shengDan] = [4]
 
-    _helper.defenseTurn[anKun] = [1, 2, 7, 8]
-    _helper.defenseTurn[srKun] = [1, 2, 8, 9]
-    _helper.defenseTurn[puKun] = [1, 2, 8, 9]
-    _helper.defenseTurn[huoBu] = [1, 2, 8, 9]
+    # _helper.defenseTurn[anKun] = [1, 2, 7, 8]
+    # _helper.defenseTurn[srKun] = [1, 2, 8, 9]
+    # _helper.defenseTurn[puKun] = [1, 2, 8, 9]
+    # _helper.defenseTurn[huoBu] = [1, 2, 8, 9]
 
     _helper.maxTurn = 14
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(srAo)
-    _helper.team.append(srBayun)
-    _helper.team.append(srMofei)
-    _helper.team.append(shuiHL)
-    _helper.team.append(anKun)
+    _helper.team.append(shengDan)
+    _helper.team.append(anAo)
 
     _helper.battleStart(True)
     name = '队伍-防-暗昆-3星-{}.xls'.format(_helper.maxTurn)
-    _helper.exportExcel('E:\\新世界\\攻略\\【2023.4.12】誓约\\火布模拟\\' + name)
+    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.4.12】誓约\\火布模拟\\' + name)
     # _helper.exportExcel('C:\\fhs\\python\\【2023.4.12】\\火布模拟\\' + name)
 
 
@@ -655,11 +653,11 @@ if __name__ == '__main__':
 
     _cardHelper = CardHelper()
 
-    tempSimulation(_helper, _cardHelper)
+    # tempSimulation(_helper, _cardHelper)
 
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True)
-    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)
+    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)

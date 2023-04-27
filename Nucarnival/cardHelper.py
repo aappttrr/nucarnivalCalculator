@@ -55,6 +55,10 @@ from RoleCards.cards.quincy.n_Quincy import NQuincy
 from RoleCards.cards.quincy.r_Quincy import RQuincy
 from RoleCards.cards.quincy.smokedTimber import SmokedTimber
 from RoleCards.cards.quincy.sr_Quincy import SRQuincy
+from RoleCards.cards.rei.midnightOwl import MidnightOwl
+from RoleCards.cards.rei.n_Rei import NRei
+from RoleCards.cards.rei.r_Rei import RRei
+from RoleCards.cards.rei.sr_Rei import SRRei
 from RoleCards.cards.yakumo.cocoaLiqueur import CocoaLiqueur
 from RoleCards.cards.yakumo.crimsonPhantom import CrimsonPhantom
 from RoleCards.cards.yakumo.homecoming import Homecoming
@@ -149,6 +153,12 @@ class CardHelper:
         npBL = LovableEnforcer()
         junBl = CrystalAwakening()
 
+        # 敛
+        ssrLian = MidnightOwl()
+        srLian = SRRei()
+        rLian = RRei()
+        nLian = NRei()
+
         # 啖天
         srDT = SRDante()
         rDT = RDante()
@@ -161,7 +171,7 @@ class CardHelper:
         hYD = GalacticMist()
 
         # 根据官方回廊顺序添加卡牌：
-        # 艾斯特 墨菲 八云 副团 奥利文 昆西 玖夜 小狼 布儡 蛋总 伊得
+        # 艾斯特 墨菲 八云 副团 奥利文 昆西 玖夜 小狼 布儡 敛 蛋总 伊得
         # 普ssr 0
         self.cardList.append(ssrB)
         self.cardList.append(ssrFT)
@@ -170,6 +180,7 @@ class CardHelper:
         self.cardList.append(ssrHL)
         self.cardList.append(ssrL)
         self.cardList.append(ssrBL)
+        self.cardList.append(ssrLian)
         self.cardList.append(ssrDT)
         self.cardList.append(hYD)
 
@@ -215,6 +226,7 @@ class CardHelper:
         self.cardList.append(srHL)
         self.cardList.append(srL)
         self.cardList.append(srBL)
+        self.cardList.append(srLian)
         self.cardList.append(srDT)
 
         self.cardList.append(srShuiKX)
@@ -229,6 +241,7 @@ class CardHelper:
         self.cardList.append(rHL)
         self.cardList.append(rL)
         self.cardList.append(rBL)
+        self.cardList.append(rLian)
         self.cardList.append(rDT)
         # n
         self.cardList.append(nA)
@@ -240,6 +253,7 @@ class CardHelper:
         self.cardList.append(nHL)
         self.cardList.append(nL)
         self.cardList.append(nBL)
+        self.cardList.append(nLian)
         self.cardList.append(nDT)
 
     def filterCard(self, _cardId):

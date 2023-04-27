@@ -29,7 +29,7 @@ class RadiantAdmiral(SSRCard):
         # 攻击力50%对1、3、5造成伤害
         self.attackMagnification = 0.5
 
-        # 攻击力107%/132%/156%
+        # 攻击力107%/132%/156%对1、3、5造成伤害
         self.skillMagnificationLv1 = 1.07
         self.skillMagnificationLv2 = 1.32
         self.skillMagnificationLv3 = 1.56
