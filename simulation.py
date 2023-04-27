@@ -628,31 +628,28 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     puLian = _cardHelper.filterCard('MidnightOwl')[0]
     puBa = _cardHelper.filterCard('Homecoming')[0]
     puBu = _cardHelper.filterCard('ExplosiveRecall')[0]
+    srLian = _cardHelper.filterCard('SRRei')[0]
+    srHL = _cardHelper.filterCard('SRKuya')[0]
+    nvpuBu = _cardHelper.filterCard('LovableEnforcer')[0]
 
     # anKun.setProperties(60, 3, 5, 12)
 
-    # _helper.skillTurn[shuiDan] = [6, 10, 14]
-    # _helper.skillTurn[huaAo] = [7, 13]
-    _helper.skillTurn[huaAo] = [4, 7,10, 13]
-    # _helper.skillTurn[shengDan] = [3, 7, 11, 15]
+    _helper.skillTurn[shengDan] = [3, 7, 11, 15]
 
     # _helper.defenseTurn[anKun] = [1, 2, 7, 8]
-    # _helper.defenseTurn[srKun] = [1, 2, 8, 9]
-    # _helper.defenseTurn[puKun] = [1, 2, 8, 9]
-    # _helper.defenseTurn[huoBu] = [1, 2, 8, 9]
 
     _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(huaAo)
-    _helper.team.append(baiBa)
-    _helper.team.append(puBu)
+    _helper.team.append(shengDan)
+    _helper.team.append(huoTuan)
+    _helper.team.append(srLian)
 
     _helper.battleStart(True)
-    name = '队伍-sr敛-S2-{}.xls'.format(_helper.maxTurn)
-    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.4.12】誓约\\火布模拟\\' + name)
-    _helper.exportExcel('C:\\fhs\\python\\【2023.4.27】\\sr敛模拟\\' + name)
-    # 普布、普八、普敛
+    name = '队伍-SR敛-A-{}.xls'.format(_helper.maxTurn)
+    _helper.exportExcel('E:\\新世界\\攻略\\【2023.4.27】\\sr敛模拟\\' + name)
+    # _helper.exportExcel('C:\\fhs\\python\\【2023.4.27】\\sr敛模拟\\' + name)
+    # sr狐狸、女仆布、sr敛
 
 
 if __name__ == '__main__':
