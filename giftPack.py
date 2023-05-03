@@ -120,7 +120,7 @@ def chapterGiftPacks(gps: list[CostPerformanceHelper]):
     c3lb.addGameProp(GameProp(PropType.essenceContract, 5))
     c3lb.addGameProp(GameProp(PropType.spiritGem, 150))
     c3lb.addGameProp(GameProp(PropType.holyWater_M, 10))
-    c3lb.addGameProp(GameProp(PropType.intermediatePotential, 5))
+    c3lb.addGameProp(GameProp(PropType.basicPotential, 5))
     c3lb.currencyType = CurrencyType.eCoin
     c3lb.price = 674
     gps.append(c3lb)

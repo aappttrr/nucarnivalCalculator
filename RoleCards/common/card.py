@@ -458,7 +458,7 @@ class ICard:
         event.data['target'] = target
         eventManagerInstance.sendEvent(event)
 
-    # dot伤害结算：攻击力*倍率*[造成伤害增加*持续伤害增加(来源于自身，挂上dot的那一刻已确定该伤害)]*[(目标受持续伤害增加+目标受伤害增加)(来源于敌方，在敌方结算dot时计算)]
+    # dot伤害结算：攻击力*倍率*[持续伤害增加(来源于自身，挂上dot的那一刻已确定该伤害)]*[(目标受持续伤害增加+目标受伤害增加)(来源于敌方，在敌方结算dot时计算)]
     # 结算dot，dot是锁面板技能
     def settleDot(self):
         dotDamages = {}
@@ -571,18 +571,12 @@ class ICard:
         dotIncrease = 0
 
         # 由自身提升的造成伤害增加
-        damageIncrease = 0
         for buff in self.buffs:
             if buff.buffType == BuffType.DotIncrease:
                 dotIncrease += buff.value
-            if buff.buffType == BuffType.DamageIncrease:
-                damageIncrease += buff.value
 
         if dotIncrease != 0:
             result = result * (1 + dotIncrease)
-            result = roundDown(result)
-        if damageIncrease != 0:
-            result = result * (1 + damageIncrease)
             result = roundDown(result)
 
         return result
