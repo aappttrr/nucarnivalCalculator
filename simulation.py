@@ -599,6 +599,7 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     shengDan = _cardHelper.filterCard('IcyEquilibrium')[0]
     yiDe = _cardHelper.filterCard('GalacticMist')[0]
     srAo = _cardHelper.filterCard('SROlivine')[0]
+    miAo = _cardHelper.filterCard('SROlivine')[0]
 
     # 半拐
     guangLang = _cardHelper.filterCard('EndlessBanquet')[0]
@@ -610,6 +611,7 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     anTuan = _cardHelper.filterCard('EliteInstructor')[0]
     anKun = _cardHelper.filterCard('DistantPromise')[0]
     srAi = _cardHelper.filterCard('SRAster')[0]
+    zaoBa = _cardHelper.filterCard('DarkNova')[0]
 
     # 必杀
     puKun = _cardHelper.filterCard('AncientCeremony')[0]
@@ -635,22 +637,56 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
 
     # anKun.setProperties(60, 3, 5, 12)
 
-    _helper.skillTurn[shengDan] = [3, 7, 11, 15]
+    _helper.skillTurn[anAo] = [6, 10, 14]
 
-    # _helper.defenseTurn[anKun] = [1, 2, 7, 8]
+    _helper.defenseTurn[srAi] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    _helper.defenseTurn[puTuan] = [1, 2, 6, 8, 11, 9]
 
-    _helper.maxTurn = 13
+    _helper.maxTurn = 14
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(shengDan)
-    _helper.team.append(huoTuan)
-    _helper.team.append(srLian)
+    _helper.team.append(srAo)
+    _helper.team.append(guangLang)
+    _helper.team.append(srAi)
+    _helper.team.append(puTuan)
 
     _helper.battleStart(True)
-    name = '队伍-SR敛-A-{}.xls'.format(_helper.maxTurn)
-    _helper.exportExcel('E:\\新世界\\攻略\\【2023.4.27】\\sr敛模拟\\' + name)
-    # _helper.exportExcel('C:\\fhs\\python\\【2023.4.27】\\sr敛模拟\\' + name)
-    # sr狐狸、女仆布、sr敛
+    name = '队伍-普团-防-{}.xls'.format(_helper.maxTurn)
+    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.4.27】\\sr敛模拟\\' + name)
+    _helper.exportExcel('C:\\fhs\\python\\【2023.5.4】\\早八模拟\\' + name)
+
+
+def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, cardId, turn = 13):
+    role = _cardHelper.filterCard(cardId)[0]
+
+    name = '{}-星级对比.xls'.format(role.nickName)
+    name2 = '{}回合单人模拟伤害'.format(turn)
+
+    wb = Workbook()
+    ws = wb.create_sheet('星级对比', 0)
+    ws.cell(1, 1, '星级')
+    ws.cell(1, 2, 'Hp')
+    ws.cell(1, 3, 'Atk')
+    ws.cell(1, 4, name2)
+
+    for star in range(1, 6):
+        _helper.clearUp()
+        role.setProperties(60, star, 5, 12)
+        role.calHpAtk()
+        ws.cell(1+star, 1, star)
+        ws.cell(1+star, 2, role.hp)
+        ws.cell(1+star, 3, role.atk)
+
+        similationTeamMate(_helper, role)
+        _helper.maxTurn = turn
+        _helper.monsters.append(CommonMonster())
+        _helper.team.append(role)
+        _helper.battleStart(True)
+        data = _helper.getTotalResult(role)
+        ws.cell(1+star, 4, data['totalDamage'])
+
+    filePath = 'C:\\fhs\\python\\【2023.5.4】\\' + name
+    wb.save(filePath)
 
 
 if __name__ == '__main__':
@@ -658,11 +694,13 @@ if __name__ == '__main__':
 
     _cardHelper = CardHelper()
 
-    # tempSimulation(_helper, _cardHelper)
+    tempSimulation(_helper, _cardHelper)
+
+    # starCompareSimulation(_helper, _cardHelper, 'DarkNova', 13)
 
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True)
-    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)
+    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)
