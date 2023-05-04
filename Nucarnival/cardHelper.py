@@ -42,6 +42,7 @@ from RoleCards.cards.morvay.r_morvay import RMorvay
 from RoleCards.cards.morvay.sr_morvay import SRMorvay
 from RoleCards.cards.olivine.FrostedVirtue import FrostedVirtue
 from RoleCards.cards.olivine.aquaBloom import AquaBloom
+from RoleCards.cards.olivine.captiveStar import CaptiveStar
 from RoleCards.cards.olivine.holyConfession import HolyConfession
 from RoleCards.cards.olivine.n_Olivine import NOlivine
 from RoleCards.cards.olivine.r_Olivine import ROlivine
@@ -61,6 +62,7 @@ from RoleCards.cards.rei.r_Rei import RRei
 from RoleCards.cards.rei.sr_Rei import SRRei
 from RoleCards.cards.yakumo.cocoaLiqueur import CocoaLiqueur
 from RoleCards.cards.yakumo.crimsonPhantom import CrimsonPhantom
+from RoleCards.cards.yakumo.darkNova import DarkNova
 from RoleCards.cards.yakumo.homecoming import Homecoming
 from RoleCards.cards.yakumo.n_Yakumo import NYakumo
 from RoleCards.cards.yakumo.oceanBreeze import OceanBreeze
@@ -96,6 +98,7 @@ class CardHelper:
         bqB = CocoaLiqueur()
         xB = OceanBreeze()
         dB = CrimsonPhantom()
+        zaoBa = DarkNova()
 
         # 艾德蒙特
         srFT = SREdmond()
@@ -115,6 +118,7 @@ class CardHelper:
         hO = AquaBloom()
         xO = RadiantAdmiral()
         dO = FrostedVirtue()
+        miAo = CaptiveStar()
 
         # 昆西
         srKX = SRQuincy()
@@ -214,7 +218,9 @@ class CardHelper:
         self.cardList.append(junBl)
 
         # 第四轮限定
+        self.cardList.append(zaoBa)
         self.cardList.append(huaFT)
+        self.cardList.append(miAo)
 
         # sr 29
         self.cardList.append(srA)

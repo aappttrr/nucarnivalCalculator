@@ -390,7 +390,8 @@ def exportTitle(ws: Worksheet, row):
 
 # 配置模拟队友
 def similationTeamMate(helper: NucarnivalHelper, x: ICard):
-    if x.cardName == '爵士册封之夜' or x.cardName == '追逐悠远之约' or x.cardName == '守望者的冬季馈礼':
+    if x.cardName == '爵士册封之夜' or x.cardName == '追逐悠远之约' \
+            or x.cardName == '守望者的冬季馈礼' or x.cardName == '幽暧新星的祷词':
         mate = TempTeamMate()
         mate.occupation = CardOccupation.Striker
         helper.team.append(mate)
@@ -657,11 +658,11 @@ if __name__ == '__main__':
 
     _cardHelper = CardHelper()
 
-    tempSimulation(_helper, _cardHelper)
+    # tempSimulation(_helper, _cardHelper)
 
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True)
-    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)
+    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)
