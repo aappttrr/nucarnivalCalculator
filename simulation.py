@@ -599,7 +599,7 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     shengDan = _cardHelper.filterCard('IcyEquilibrium')[0]
     yiDe = _cardHelper.filterCard('GalacticMist')[0]
     srAo = _cardHelper.filterCard('SROlivine')[0]
-    miAo = _cardHelper.filterCard('SROlivine')[0]
+    miAo = _cardHelper.filterCard('CaptiveStar')[0]
 
     # 半拐
     guangLang = _cardHelper.filterCard('EndlessBanquet')[0]
@@ -637,23 +637,23 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
 
     # anKun.setProperties(60, 3, 5, 12)
 
-    _helper.skillTurn[anAo] = [6, 10, 14]
+    _helper.skillTurn[guaLang] = [6, 12]
 
-    _helper.defenseTurn[srAi] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-    _helper.defenseTurn[puTuan] = [1, 2, 6, 8, 11, 9]
+    # _helper.defenseTurn[srAi] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
+    # _helper.defenseTurn[puTuan] = [1, 2, 6, 8, 11, 9]
 
-    _helper.maxTurn = 14
+    _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(srAo)
-    _helper.team.append(guangLang)
-    _helper.team.append(srAi)
-    _helper.team.append(puTuan)
+    _helper.team.append(guaLang)
+    _helper.team.append(shuiDan)
+    _helper.team.append(puKun)
+    _helper.team.append(srKun)
 
     _helper.battleStart(True)
-    name = '队伍-普团-防-{}.xls'.format(_helper.maxTurn)
-    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.4.27】\\sr敛模拟\\' + name)
-    _helper.exportExcel('C:\\fhs\\python\\【2023.5.4】\\早八模拟\\' + name)
+    name = '队伍-瓜狼-S-{}.xls'.format(_helper.maxTurn)
+    _helper.exportExcel('E:\\新世界\\攻略\\【2023.5.4】\\晚奥模拟\\' + name)
+    # _helper.exportExcel('C:\\fhs\\python\\【2023.5.4】\\早八模拟\\' + name)
 
 
 def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, cardId, turn = 13):

@@ -9,12 +9,16 @@ class TempTeamMate(NCard):
         self.skillCD = 4
 
         self.lv60s5Hp = 10000000
-        self.lv60s5Atk = 1
+        self.lv60s5Atk = 10000
         self.hp = self.lv60s5Hp
         self.atk = self.lv60s5Atk
 
-    def skillHeal(self, enemies, currentAtk):
-        return 2
+        self.isSkillGroup = True
+        self.isAttackGroup = True
 
-    def attackHeal(self, enemies, currentAtk):
-        return 2
+        self.attackHealMagnification = 1
+
+        self.skillHealMagnificationLv1 = 1
+        self.skillHealMagnificationLv2 = 1
+        self.skillHealMagnificationLv3 = 1
+

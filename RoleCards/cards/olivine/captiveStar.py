@@ -14,7 +14,7 @@ class CaptiveStar(SSRCard):
         super(CaptiveStar, self).__init__()
         self.cardId = 'CaptiveStar'
         self.cardName = '囹圄之星的秘闻'
-        self.nickName = '秘奥'
+        self.nickName = '秘奥/晚奥'
         self.role = CardRole.Olivine
         self.cardType = CardType.Dark
         self.occupation = CardOccupation.Support
@@ -33,6 +33,8 @@ class CaptiveStar(SSRCard):
         damage = self.hpCurrent * 0.2
         damage = roundDown(damage)
         self.hpCurrent -= damage
+
+        self.doBloodSuck(damage)
 
         if self.star >= 2:
             for mate in self.teamMate:
@@ -63,6 +65,8 @@ class CaptiveStar(SSRCard):
         damage = self.hpCurrent * 0.05
         damage = roundDown(damage)
         self.hpCurrent -= damage
+
+        self.doBloodSuck(damage)
 
     # 基础攻击力35%，提升全体攻击力（1）
     def attack(self, enemies, currentAtk):
