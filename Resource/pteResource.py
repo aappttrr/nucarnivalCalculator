@@ -19,7 +19,7 @@ def getWelcomeContent():
 
 def getHelpContent():
     output = io.StringIO()
-    writeLineString(output, '当前版本：v2.4-2023-4-22')
+    writeLineString(output, '当前版本：v2.5-2023-5-10')
     writeLineString(output, '有任何问题、Bug都可以给我留言~~')
     writeLineString(output, 'B站：纳萨尔')
     writeLineString(output, '')
@@ -159,12 +159,16 @@ def getUpdateLogContent():
 
 def getUpdateLogContent_2_5(_output: io.StringIO):
     writeDashString(_output, 36)
-    writeString(_output, '2023.4.22')
+    writeString(_output, '2023.5.10')
     writeDashString(_output, 36)
     writeLineString(_output, '')
     writeLineString(_output, 'v2.5:')
     writeWriteSpace(_output, 8)
     writeLineString(_output, '①修复dot伤害计算公式，经验证，dot伤害不吃“伤害加成”')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '②增加早八、晚奥两张新卡')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '③由于不可设置敌方属性，血量限制条件buff不好查看是否触发，因此所有血量限制条件均不判断，默认触发')
 
 
 def getUpdateLogContent_2_4(_output: io.StringIO):
