@@ -29,8 +29,6 @@ def writeCardInfoTitleInExcel(ws: Worksheet):
     ws.cell(1, 11, '蜜话')
 
 
-
-
 class ICard:
     def __init__(self):
         # id
@@ -188,7 +186,7 @@ class ICard:
     def cal(self, lv60s5=1, isAtk=True):
         result = lv60s5
 
-        result = calBond(result, self.bond)
+        result = calBond(result, self.bond, self.rarity)
 
         tierValue = getTierData(self.tierType, self.tier, isAtk)
 

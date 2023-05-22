@@ -327,8 +327,8 @@ def simulation(helper: NucarnivalHelper, needTeamMate: bool, srO: ICard, ws: Wor
     ws.cell(row, column, data['totalDamage'])
     column += 1
     ws.cell(row, column, getDamageProportion(helper, x, data))
-    column += 1
-    ws.cell(row, column, getRank(x, data['totalDamage']))
+    # column += 1
+    # ws.cell(row, column, getRank(x, data['totalDamage']))
 
     if srO is not None and ws2 is not None:
         helper.clearUp()
@@ -348,8 +348,8 @@ def simulation(helper: NucarnivalHelper, needTeamMate: bool, srO: ICard, ws: Wor
         ws2.cell(row, column, data['totalDamage'])
         column += 1
         ws2.cell(row, column, getDamageProportion(helper, x, data))
-        column += 1
-        ws2.cell(row, column, getRank(x, data['totalDamage']))
+        # column += 1
+        # ws2.cell(row, column, getRank(x, data['totalDamage']))
 
 
 # 导出
@@ -385,7 +385,7 @@ def exportTitle(ws: Worksheet, row):
     ws.cell(row, 13, '三星被动实战吃满难易程度')
     ws.cell(row, 14, '13回合单人输出')
     ws.cell(row, 15, '输出占比')
-    ws.cell(row, 16, '梯度')
+    # ws.cell(row, 16, '梯度')
 
 
 # 配置模拟队友
@@ -694,13 +694,13 @@ if __name__ == '__main__':
 
     _cardHelper = CardHelper()
 
-    tempSimulation(_helper, _cardHelper)
+    # tempSimulation(_helper, _cardHelper)
 
     # starCompareSimulation(_helper, _cardHelper, 'DarkNova', 13)
 
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
-    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
-    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
+    simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
+    simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)

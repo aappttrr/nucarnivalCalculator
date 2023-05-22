@@ -1,7 +1,8 @@
 from Common.ncRound import roundDown
+from RoleCards.enum.cardRarityEnum import CardRarity
 
 
-def calBond(lv60s5=1, _bond=0):
+def calBond(lv60s5=1, _bond=0, _rarity: CardRarity = CardRarity.N):
     result = lv60s5
     match _bond:
         case 1:
@@ -11,9 +12,15 @@ def calBond(lv60s5=1, _bond=0):
         case 3:
             result = result * 1.2
         case 4:
-            result = result * 1.3
+            if _rarity == CardRarity.SSR:
+                result = result * 1.35
+            else:
+                result = result * 1.3
         case 5:
-            result = result * 1.5
+            if _rarity == CardRarity.SSR:
+                result = result * 1.6
+            else:
+                result = result * 1.5
     return result
 
 
