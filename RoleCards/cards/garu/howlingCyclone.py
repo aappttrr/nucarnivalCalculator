@@ -13,6 +13,7 @@ class HowlingCyclone(SSRCard):
     def __init__(self):
         super(HowlingCyclone, self).__init__()
         self.cardId = 'HowlingCyclone'
+        self.round = 8
         self.cardName = '诡夜疾风'
         self.nickName = '瓜狼'
         self.role = CardRole.Garu

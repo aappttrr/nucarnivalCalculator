@@ -12,6 +12,7 @@ class EternalHanabi(SSRCard):
     def __init__(self):
         super(EternalHanabi, self).__init__()
         self.cardId = 'EternalHanabi'
+        self.round = 6
         self.cardName = '永不消散的焰火'
         self.nickName = '水啖'
         self.role = CardRole.Dante

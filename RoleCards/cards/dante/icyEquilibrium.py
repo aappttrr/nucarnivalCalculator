@@ -14,6 +14,7 @@ class IcyEquilibrium(SSRCard):
     def __init__(self):
         super(IcyEquilibrium, self).__init__()
         self.cardId = 'IcyEquilibrium'
+        self.round = 10
         self.cardName = '权衡者的雪藏初心'
         self.nickName = '圣蛋'
         self.role = CardRole.Dante

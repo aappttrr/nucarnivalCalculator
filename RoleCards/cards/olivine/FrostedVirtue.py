@@ -13,6 +13,7 @@ class FrostedVirtue(SSRCard):
     def __init__(self):
         super(FrostedVirtue, self).__init__()
         self.cardId = 'FrostedVirtue'
+        self.round = 10
         self.cardName = '祝祷者的霜夜心愿'
         self.nickName = '冬奥'
         self.role = CardRole.Olivine

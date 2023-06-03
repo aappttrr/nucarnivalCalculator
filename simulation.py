@@ -1,6 +1,7 @@
 from openpyxl.comments import Comment
 from openpyxl.worksheet.worksheet import Worksheet
 
+from Common.ncRound import roundDown
 from Nucarnival.cardHelper import CardHelper
 from Nucarnival.nucarnivalHelper import NucarnivalHelper, roundHalfEven
 from RoleCards.cards.monster.commonMonster import CommonMonster
@@ -656,37 +657,87 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     # _helper.exportExcel('C:\\fhs\\python\\【2023.5.4】\\早八模拟\\' + name)
 
 
-def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, cardId, turn = 13):
-    role = _cardHelper.filterCard(cardId)[0]
-
-    name = '{}-星级对比.xls'.format(role.nickName)
-    name2 = '{}回合单人模拟伤害'.format(turn)
-
+def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, turn=13):
     wb = Workbook()
-    ws = wb.create_sheet('星级对比', 0)
-    ws.cell(1, 1, '星级')
-    ws.cell(1, 2, 'Hp')
-    ws.cell(1, 3, 'Atk')
-    ws.cell(1, 4, name2)
+    ws1 = wb.create_sheet('输出', 0)
 
+    name1 = '{}回合单人模拟伤害'.format(turn)
+    name2 = '{}回合模拟治疗（5人队取均值）'.format(turn)
+
+    ws1.cell(1, 1, '角色')
+    ws1.cell(1, 2, '星级')
+    ws1.cell(1, 3, 'Hp')
+    ws1.cell(1, 4, 'Atk')
+    ws1.cell(1, 5, name1)
+    ws1.cell(1, 6, '对比上一星级提升')
+
+    ws2 = wb.create_sheet('治疗', 1)
+    ws2.cell(1, 1, '角色')
+    ws2.cell(1, 2, '星级')
+    ws2.cell(1, 3, 'Hp')
+    ws2.cell(1, 4, 'Atk')
+    ws2.cell(1, 5, name2)
+    ws2.cell(1, 6, '对比上一星级提升')
+
+    healRow = 2
+    damageRow = 2
+    for role in _cardHelper.cardList:
+        if role.rarity == CardRarity.N or role.rarity == CardRarity.R:
+            continue
+        if role.occupation == CardOccupation.Support and role.cardName != '诡夜疾风':
+            continue
+        if role.occupation == CardOccupation.Healer or role.cardName == '守望者的冬季馈礼':
+            healRow = doStarCompareSimulation(role, ws2, _helper, turn, healRow, 1)
+            if role.occupation == CardOccupation.Healer:
+                continue
+        damageRow = doStarCompareSimulation(role, ws1, _helper, turn, damageRow, 0)
+
+    # filePath = 'C:\\fhs\\python\\【2023.5.4】\\星级对比.xls'
+    filePath = 'E:\\新世界\\战斗模拟\\全角色星级对比-伤害和治疗.xls'
+    wb.save(filePath)
+
+
+def doStarCompareSimulation(role: ICard, ws: Worksheet, _helper: NucarnivalHelper, turn=13, row=1, calType=0):
+    lastRow = row
+    ws.merge_cells(None, lastRow, 1, lastRow + 4, 1)
+    ws.cell(lastRow, 1, role.nickName)
+    lastData = None
     for star in range(1, 6):
         _helper.clearUp()
         role.setProperties(60, star, 5, 12)
         role.calHpAtk()
-        ws.cell(1+star, 1, star)
-        ws.cell(1+star, 2, role.hp)
-        ws.cell(1+star, 3, role.atk)
+        ws.cell(lastRow + star - 1, 2, star)
+        ws.cell(lastRow + star - 1, 3, role.hp)
+        ws.cell(lastRow + star - 1, 4, role.atk)
 
         similationTeamMate(_helper, role)
         _helper.maxTurn = turn
         _helper.monsters.append(CommonMonster())
         _helper.team.append(role)
-        _helper.battleStart(True)
-        data = _helper.getTotalResult(role)
-        ws.cell(1+star, 4, data['totalDamage'])
+        if calType == 0:
+            _helper.battleStart(False)
+            data = _helper.getTotalResult(role)
+            currentData = data['totalDamage']
+            ws.cell(lastRow + star - 1, 5, currentData)
+            if lastData is not None:
+                ws.cell(lastRow + star - 1, 6, currentData / lastData)
+            lastData = currentData
+        elif calType == 1:
+            _helper.team.append(TempTeamMate())
+            _helper.team.append(TempTeamMate())
+            _helper.team.append(TempTeamMate())
+            _helper.team.append(TempTeamMate())
+            _helper.battleStart(False)
+            data = _helper.getTotalResult(role)
+            currentData = data['totalHeal']
+            currentData = roundDown(currentData / 5)
+            ws.cell(lastRow + star - 1, 5, currentData)
+            if lastData is not None:
+                ws.cell(lastRow + star - 1, 6, currentData / lastData)
+            lastData = currentData
 
-    filePath = 'C:\\fhs\\python\\【2023.5.4】\\' + name
-    wb.save(filePath)
+    lastRow += 5
+    return lastRow
 
 
 if __name__ == '__main__':
@@ -694,13 +745,16 @@ if __name__ == '__main__':
 
     _cardHelper = CardHelper()
 
+    for x in _cardHelper.cardList:
+        print(x.nickName)
+
     # tempSimulation(_helper, _cardHelper)
 
-    # starCompareSimulation(_helper, _cardHelper, 'DarkNova', 13)
+    # starCompareSimulation(_helper, _cardHelper, 13)
 
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
-    simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
-    simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
+    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
+    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)

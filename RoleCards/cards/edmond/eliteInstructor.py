@@ -13,6 +13,7 @@ class EliteInstructor(SSRCard):
     def __init__(self):
         super(EliteInstructor, self).__init__()
         self.cardId = 'EliteInstructor'
+        self.round = 9
         self.cardName = '专属指导'
         self.nickName = '暗团'
         self.role = CardRole.Edmond

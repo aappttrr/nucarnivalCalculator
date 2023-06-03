@@ -14,6 +14,7 @@ class SpringChaos(SSRCard):
     def __init__(self):
         super(SpringChaos, self).__init__()
         self.cardId = 'SpringChaos'
+        self.round = 12
         self.cardName = '春日迷乱'
         self.nickName = '花团'
         self.role = CardRole.Edmond

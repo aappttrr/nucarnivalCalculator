@@ -12,6 +12,7 @@ class SmokedTimber(SRCard):
     def __init__(self):
         super(SmokedTimber, self).__init__()
         self.cardId = 'SmokedTimber'
+        self.round = 13
         self.cardName = '沉郁的熏灼木'
         self.nickName = '水昆'
         self.role = CardRole.Quincy

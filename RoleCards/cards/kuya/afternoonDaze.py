@@ -14,6 +14,7 @@ class AfternoonDaze(SSRCard):
     def __init__(self):
         super(AfternoonDaze, self).__init__()
         self.cardId = 'AfternoonDaze'
+        self.round = 12
         self.cardName = '午后醺然'
         self.nickName = '水狐'
         self.role = CardRole.Kuya

@@ -13,6 +13,7 @@ class ArcticWarden(SSRCard):
     def __init__(self):
         super(ArcticWarden, self).__init__()
         self.cardId = 'ArcticWarden'
+        self.round = 10
         self.cardName = '守望者的冬季馈礼'
         self.nickName = '冬昆'
         self.role = CardRole.Quincy

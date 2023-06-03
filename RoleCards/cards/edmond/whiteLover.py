@@ -13,6 +13,7 @@ class WhiteLover(SSRCard):
     def __init__(self):
         super(WhiteLover, self).__init__()
         self.cardId = 'WhiteLover'
+        self.round = 2
         self.cardName = '白色恋人'
         self.nickName = '白团'
         self.role = CardRole.Edmond

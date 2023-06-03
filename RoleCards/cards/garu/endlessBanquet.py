@@ -12,6 +12,7 @@ class EndlessBanquet(SSRCard):
     def __init__(self):
         super(EndlessBanquet, self).__init__()
         self.cardId = 'EndlessBanquet'
+        self.round = 4
         self.cardName = '华宴夜未央'
         self.nickName = '光狼'
         self.role = CardRole.Garu

@@ -12,6 +12,7 @@ class CocoaLiqueur(SSRCard):
     def __init__(self):
         super(CocoaLiqueur, self).__init__()
         self.cardId = 'CocoaLiqueur'
+        self.round = 2
         self.cardName = '酒心可可'
         self.nickName = '白八/暗八'
         self.role = CardRole.Yakumo

@@ -13,6 +13,7 @@ class IdolApprentice(SSRCard):
     def __init__(self):
         super(IdolApprentice, self).__init__()
         self.cardId = 'IdolApprentice'
+        self.round = 5
         self.cardName = '偶像实习'
         self.nickName = '夏布'
         self.role = CardRole.Blade

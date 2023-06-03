@@ -13,6 +13,7 @@ class CaptiveStar(SSRCard):
     def __init__(self):
         super(CaptiveStar, self).__init__()
         self.cardId = 'CaptiveStar'
+        self.round = 14
         self.cardName = '囹圄之星的秘闻'
         self.nickName = '秘奥/晚奥'
         self.role = CardRole.Olivine

@@ -13,6 +13,7 @@ class ForgottenFruit(SSRCard):
     def __init__(self):
         super(ForgottenFruit, self).__init__()
         self.cardId = 'ForgottenFruit'
+        self.round = 13
         self.cardName = '遗忘的甜蜜果'
         self.nickName = '盾狼'
         self.role = CardRole.Garu

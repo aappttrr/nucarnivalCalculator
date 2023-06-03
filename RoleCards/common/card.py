@@ -34,6 +34,9 @@ class ICard:
         # id
         self.cardId = None
 
+        # 轮次
+        self.round = 1
+
         # 名称
         self.cardName = None
 

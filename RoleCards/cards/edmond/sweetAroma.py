@@ -13,6 +13,7 @@ class SweetAroma(SSRCard):
     def __init__(self):
         super(SweetAroma, self).__init__()
         self.cardId = 'SweetAroma'
+        self.round = 6
         self.cardName = '初露芬芳的甜味'
         self.nickName = '火团'
         self.role = CardRole.Edmond

@@ -13,6 +13,7 @@ class GalacticMist(SSRCard):
     def __init__(self):
         super(GalacticMist, self).__init__()
         self.cardId = 'GalacticMist'
+        self.round = 11
         self.cardName = '夜雾银星'
         self.nickName = '火伊'
         self.role = CardRole.Eiden

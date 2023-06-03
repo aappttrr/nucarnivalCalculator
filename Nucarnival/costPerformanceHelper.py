@@ -114,6 +114,12 @@ def converIntermediatePotentialToSpiritGem(_p):
     return round(result)
 
 
+# 1个中级潜力道具礼盒=5个中级潜力道具=200钻
+def converIntermediatePotentialPkgToSpiritGem(_p):
+    result = _p * 200
+    return round(result)
+
+
 # 1个高级潜力道具=80钻
 def converAdvancedPotentialToSpiritGem(_p):
     result = _p * 80
@@ -274,6 +280,8 @@ class CostPerformanceHelper:
                     return GameProp(PropType.spiritGem, converBasicPotentialToSpiritGem(_gp.number))
                 case PropType.intermediatePotential:
                     return GameProp(PropType.spiritGem, converIntermediatePotentialToSpiritGem(_gp.number))
+                case PropType.intermediatePotentialPkg:
+                    return GameProp(PropType.spiritGem, converIntermediatePotentialPkgToSpiritGem(_gp.number))
                 case PropType.advancedPotential:
                     return GameProp(PropType.spiritGem, converAdvancedPotentialToSpiritGem(_gp.number))
                 case PropType.advancedUpPotential:

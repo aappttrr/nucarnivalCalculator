@@ -13,6 +13,7 @@ class LakesideSpark(SSRCard):
     def __init__(self):
         super(LakesideSpark, self).__init__()
         self.cardId = 'LakesideSpark'
+        self.round = 7
         self.cardName = '穿梭盘月之煦'
         self.nickName = '奶狐'
         self.role = CardRole.Kuya

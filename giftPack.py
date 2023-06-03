@@ -377,6 +377,21 @@ def activityGiftPacks(gps: list[CostPerformanceHelper]):
     hdlb5.price = 2979
     gps.append(hdlb5)
 
+    hdlb6 = CostPerformanceHelper('常见活动礼包6')
+    hdlb6.addGameProp(GameProp(PropType.spiritGem, 3500))
+    hdlb6.addGameProp(GameProp(PropType.essenceContract, 6))
+    hdlb6.currencyType = CurrencyType.eCoin
+    hdlb6.price = 1245
+    gps.append(hdlb6)
+
+    hdlb7 = CostPerformanceHelper('常见活动礼包7')
+    hdlb7.addGameProp(GameProp(PropType.spiritGem, 10000))
+    hdlb7.addGameProp(GameProp(PropType.essenceContract, 15))
+    hdlb7.addGameProp(GameProp(PropType.intermediatePotentialPkg, 4))
+    hdlb7.currencyType = CurrencyType.eCoin
+    hdlb7.price = 2979
+    gps.append(hdlb7)
+
     rwlb = CostPerformanceHelper('晶花原石礼包')
     rwlb.addGameProp(GameProp(PropType.essenceContract, 50))
     rwlb.addGameProp(GameProp(PropType.rawCrystal, 1))

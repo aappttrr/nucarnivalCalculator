@@ -14,6 +14,7 @@ class KitsuneDream(SSRCard):
     def __init__(self):
         super(KitsuneDream, self).__init__()
         self.cardId = 'KitsuneDream'
+        self.round = 4
         self.cardName = '狐火映追忆'
         self.nickName = '火狐'
         self.role = CardRole.Kuya

@@ -13,6 +13,7 @@ class DarkNova(SSRCard):
     def __init__(self):
         super(DarkNova, self).__init__()
         self.cardId = 'DarkNova'
+        self.round = 14
         self.cardName = '幽暧新星的祷词'
         self.nickName = '早八'
         self.role = CardRole.Yakumo

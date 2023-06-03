@@ -13,6 +13,7 @@ class RadiantAdmiral(SSRCard):
     def __init__(self):
         super(RadiantAdmiral, self).__init__()
         self.cardId = 'RadiantAdmiral'
+        self.round = 5
         self.cardName = '闪耀领航'
         self.nickName = '暗奥/夏奥'
         self.role = CardRole.Olivine

@@ -13,6 +13,7 @@ class AquaBloom(SSRCard):
     def __init__(self):
         super(AquaBloom, self).__init__()
         self.cardId = 'AquaBloom'
+        self.round = 3
         self.cardName = '翠灿之水的花使'
         self.nickName = '花奥'
         self.role = CardRole.Olivine

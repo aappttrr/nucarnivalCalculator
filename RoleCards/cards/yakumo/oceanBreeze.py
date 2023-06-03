@@ -13,6 +13,7 @@ class OceanBreeze(SSRCard):
     def __init__(self):
         super(OceanBreeze, self).__init__()
         self.cardId = 'OceanBreeze'
+        self.round = 5
         self.cardName = '倾听海风'
         self.nickName = '夏八'
         self.role = CardRole.Yakumo

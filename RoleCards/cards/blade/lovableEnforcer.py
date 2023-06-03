@@ -12,6 +12,7 @@ class LovableEnforcer(SSRCard):
     def __init__(self):
         super(LovableEnforcer, self).__init__()
         self.cardId = 'LovableEnforcer'
+        self.round = 9
         self.cardName = '守护甜心'
         self.nickName = '女仆布'
         self.role = CardRole.Blade

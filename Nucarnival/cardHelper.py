@@ -84,11 +84,17 @@ class CardHelper:
         srA = SRAster()
         rA = RAster()
         nA = NAster()
+        self.cardList.append(srA)
+        self.cardList.append(rA)
+        self.cardList.append(nA)
 
         # 墨菲
         srM = SRMorvay()
         rM = RMorvay()
         nM = NMorvay()
+        self.cardList.append(srM)
+        self.cardList.append(rM)
+        self.cardList.append(nM)
 
         # 八云
         srB = SRYakumo()
@@ -99,6 +105,14 @@ class CardHelper:
         xB = OceanBreeze()
         dB = CrimsonPhantom()
         zaoBa = DarkNova()
+        self.cardList.append(srB)
+        self.cardList.append(rB)
+        self.cardList.append(nB)
+        self.cardList.append(ssrB)
+        self.cardList.append(bqB)
+        self.cardList.append(xB)
+        self.cardList.append(dB)
+        self.cardList.append(zaoBa)
 
         # 艾德蒙特
         srFT = SREdmond()
@@ -109,6 +123,14 @@ class CardHelper:
         hhFT = SweetAroma()
         anFT = EliteInstructor()
         huaFT = SpringChaos()
+        self.cardList.append(srFT)
+        self.cardList.append(rFT)
+        self.cardList.append(nFT)
+        self.cardList.append(ssrFT)
+        self.cardList.append(bqFT)
+        self.cardList.append(hhFT)
+        self.cardList.append(anFT)
+        self.cardList.append(huaFT)
 
         # 奥利文
         srO = SROlivine()
@@ -119,6 +141,14 @@ class CardHelper:
         xO = RadiantAdmiral()
         dO = FrostedVirtue()
         miAo = CaptiveStar()
+        self.cardList.append(srO)
+        self.cardList.append(rO)
+        self.cardList.append(nO)
+        self.cardList.append(ssrO)
+        self.cardList.append(hO)
+        self.cardList.append(xO)
+        self.cardList.append(dO)
+        self.cardList.append(miAo)
 
         # 昆西
         srKX = SRQuincy()
@@ -129,6 +159,14 @@ class CardHelper:
         yKX = DistantPromise()
         dongKX = ArcticWarden()
         srShuiKX = SmokedTimber()
+        self.cardList.append(srKX)
+        self.cardList.append(rKX)
+        self.cardList.append(nKX)
+        self.cardList.append(ssrKx)
+        self.cardList.append(dKX)
+        self.cardList.append(yKX)
+        self.cardList.append(dongKX)
+        self.cardList.append(srShuiKX)
 
         # 玖夜
         srHL = SRKuya()
@@ -138,6 +176,13 @@ class CardHelper:
         hHL = KitsuneDream()
         naiHL = LakesideSpark()
         shuiHL = AfternoonDaze()
+        self.cardList.append(srHL)
+        self.cardList.append(rHL)
+        self.cardList.append(nHL)
+        self.cardList.append(ssrHL)
+        self.cardList.append(hHL)
+        self.cardList.append(naiHL)
+        self.cardList.append(shuiHL)
 
         # 可尔
         srL = SRGaru()
@@ -147,6 +192,13 @@ class CardHelper:
         gL = EndlessBanquet()
         guaL = HowlingCyclone()
         dunL = ForgottenFruit()
+        self.cardList.append(srL)
+        self.cardList.append(rL)
+        self.cardList.append(nL)
+        self.cardList.append(ssrL)
+        self.cardList.append(gL)
+        self.cardList.append(guaL)
+        self.cardList.append(dunL)
 
         # 布儡
         srBL = SRBlade()
@@ -156,12 +208,13 @@ class CardHelper:
         xBL = IdolApprentice()
         npBL = LovableEnforcer()
         junBl = CrystalAwakening()
-
-        # 敛
-        ssrLian = MidnightOwl()
-        srLian = SRRei()
-        rLian = RRei()
-        nLian = NRei()
+        self.cardList.append(srBL)
+        self.cardList.append(rBL)
+        self.cardList.append(nBL)
+        self.cardList.append(ssrBL)
+        self.cardList.append(xBL)
+        self.cardList.append(npBL)
+        self.cardList.append(junBl)
 
         # 啖天
         srDT = SRDante()
@@ -170,97 +223,28 @@ class CardHelper:
         ssrDT = BlazingColiseum()
         hhDT = EternalHanabi()
         shengDT = IcyEquilibrium()
+        self.cardList.append(srDT)
+        self.cardList.append(rDT)
+        self.cardList.append(nDT)
+        self.cardList.append(ssrDT)
+        self.cardList.append(hhDT)
+        self.cardList.append(shengDT)
+
+        # 敛
+        srLian = SRRei()
+        rLian = RRei()
+        nLian = NRei()
+        ssrLian = MidnightOwl()
+        self.cardList.append(srLian)
+        self.cardList.append(rLian)
+        self.cardList.append(nLian)
+        self.cardList.append(ssrLian)
 
         # 伊得
         hYD = GalacticMist()
-
-        # 根据官方回廊顺序添加卡牌：
-        # 艾斯特 墨菲 八云 副团 奥利文 昆西 玖夜 小狼 布儡 敛 蛋总 伊得
-        # 普ssr 0
-        self.cardList.append(ssrB)
-        self.cardList.append(ssrFT)
-        self.cardList.append(ssrO)
-        self.cardList.append(ssrKx)
-        self.cardList.append(ssrHL)
-        self.cardList.append(ssrL)
-        self.cardList.append(ssrBL)
-        self.cardList.append(ssrLian)
-        self.cardList.append(ssrDT)
         self.cardList.append(hYD)
 
-        # 第一轮限定 9
-        self.cardList.append(bqB)
-        self.cardList.append(bqFT)
-        self.cardList.append(hO)
-        self.cardList.append(dKX)
-        self.cardList.append(hHL)
-        self.cardList.append(gL)
-        self.cardList.append(xBL)
-        self.cardList.append(hhDT)
-
-        # 第二轮限定 17
-        self.cardList.append(xB)
-        self.cardList.append(hhFT)
-        self.cardList.append(xO)
-        self.cardList.append(yKX)
-        self.cardList.append(naiHL)
-        self.cardList.append(guaL)
-        self.cardList.append(npBL)
-        self.cardList.append(shengDT)
-
-        # 第三轮限定 25
-        self.cardList.append(dB)
-        self.cardList.append(anFT)
-        self.cardList.append(dO)
-        self.cardList.append(dongKX)
-        self.cardList.append(shuiHL)
-        self.cardList.append(dunL)
-        self.cardList.append(junBl)
-
-        # 第四轮限定
-        self.cardList.append(zaoBa)
-        self.cardList.append(huaFT)
-        self.cardList.append(miAo)
-
-        # sr 29
-        self.cardList.append(srA)
-        self.cardList.append(srM)
-        self.cardList.append(srB)
-        self.cardList.append(srFT)
-        self.cardList.append(srO)
-        self.cardList.append(srKX)
-        self.cardList.append(srHL)
-        self.cardList.append(srL)
-        self.cardList.append(srBL)
-        self.cardList.append(srLian)
-        self.cardList.append(srDT)
-
-        self.cardList.append(srShuiKX)
-
-        # r 39
-        self.cardList.append(rA)
-        self.cardList.append(rM)
-        self.cardList.append(rB)
-        self.cardList.append(rFT)
-        self.cardList.append(rO)
-        self.cardList.append(rKX)
-        self.cardList.append(rHL)
-        self.cardList.append(rL)
-        self.cardList.append(rBL)
-        self.cardList.append(rLian)
-        self.cardList.append(rDT)
-        # n
-        self.cardList.append(nA)
-        self.cardList.append(nM)
-        self.cardList.append(nB)
-        self.cardList.append(nFT)
-        self.cardList.append(nO)
-        self.cardList.append(nKX)
-        self.cardList.append(nHL)
-        self.cardList.append(nL)
-        self.cardList.append(nBL)
-        self.cardList.append(nLian)
-        self.cardList.append(nDT)
+        self.cardList.sort(key=lambda x: (x.rarity, x.round, x.role))
 
     def filterCard(self, _cardId):
         return [x for x in self.cardList if x.cardId == _cardId]

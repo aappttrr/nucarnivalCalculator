@@ -13,6 +13,7 @@ class DistantPromise(SSRCard):
     def __init__(self):
         super(DistantPromise, self).__init__()
         self.cardId = 'DistantPromise'
+        self.round = 7
         self.cardName = '追逐悠远之约'
         self.nickName = '暗昆/月昆'
         self.role = CardRole.Quincy

@@ -1,5 +1,6 @@
 import enum
 
+
 def PropTypes():
     pl = []
     pl.append(PropType.spiritGem)
@@ -11,6 +12,7 @@ def PropTypes():
     pl.append(PropType.strongBoost)
     pl.append(PropType.basicPotential)
     pl.append(PropType.intermediatePotential)
+    pl.append(PropType.intermediatePotentialPkg)
     pl.append(PropType.advancedPotential)
     pl.append(PropType.advancedUpPotential)
     pl.append(PropType.legendaryPotential)
@@ -51,6 +53,7 @@ class PropType(enum.Enum):
     strongBoost = '上级日月精华（100体力）', '1体力=5/3钻（直接购买）'
     basicPotential = '初级潜力道具', '1个初级潜力道具=1/6个中级潜力道具（合成）'
     intermediatePotential = '中级潜力道具', '1个中级潜力道具=40钻（魔法师特权商店）'
+    intermediatePotentialPkg = '中级潜力道具礼盒', '1个中级潜力道具礼盒=5个中级潜力道具=200钻'
     advancedPotential = '高级潜力道具', '1个高级潜力道具=80钻（魔法师特权商店）'
     advancedUpPotential = '高级潜力道具（合成）', '1个高级合成潜力道具=600钻（魔法师特权商店）'
     legendaryPotential = '传说潜力道具', '传说潜力道具=2个高级合成+3个中级=1320钻（合成）'

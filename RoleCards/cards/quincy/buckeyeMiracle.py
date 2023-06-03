@@ -13,6 +13,7 @@ class BuckeyeMiracle(SSRCard):
     def __init__(self):
         super(BuckeyeMiracle, self).__init__()
         self.cardId = 'BuckeyeMiracle'
+        self.round = 3
         self.cardName = '七叶之花的奇迹'
         self.nickName = '盾昆/花昆'
         self.role = CardRole.Quincy

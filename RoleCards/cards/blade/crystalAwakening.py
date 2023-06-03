@@ -12,6 +12,7 @@ class CrystalAwakening(SSRCard):
     def __init__(self):
         super(CrystalAwakening, self).__init__()
         self.cardId = 'CrystalAwakening'
+        self.round = 13
         self.cardName = '觉醒的晶莹花'
         self.nickName = '火布'
         self.role = CardRole.Blade

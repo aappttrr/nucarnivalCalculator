@@ -13,6 +13,7 @@ class CrimsonPhantom(SSRCard):
     def __init__(self):
         super(CrimsonPhantom, self).__init__()
         self.cardId = 'CrimsonPhantom'
+        self.round = 8
         self.cardName = '殷红魅影'
         self.nickName = '盾八/伯爵八'
         self.role = CardRole.Yakumo
