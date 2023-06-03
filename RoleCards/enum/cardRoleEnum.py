@@ -24,6 +24,10 @@ class CardRole(enum.Enum):
         return self._roleName
 
     @property
+    def value(self):
+        return self._roleName
+
+    @property
     def roleIndex(self):
         return self._roleIndex
 

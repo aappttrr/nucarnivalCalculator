@@ -59,7 +59,7 @@ class NucarnivalHelper:
     # 我方行动：防御/普攻/必杀 -> 结算dot ->结算hot
     # 敌方行动：防御/普攻/必杀 -> 结算dot ->结算hot
     # 我方全部阵亡/敌方全部阵亡-> 退出战斗
-    def battleStart(self, printInfo=False):
+    def battleStart(self, printInfo=False, buff=None):
         self.clearUpBattleResult()
 
         self.ws.merge_cells(None, 1, 1, 3, 1)
@@ -90,6 +90,8 @@ class NucarnivalHelper:
             self.ws.cell(3, column + 1, '伤害')
             self.ws.cell(3, column + 2, '治疗')
             column += 3
+            if buff is not None:
+                role.addBuff(buff)
         for monster in self.monsters:
             monster.teamMate = self.monsters
             monster.enemies = self.team

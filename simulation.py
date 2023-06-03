@@ -4,10 +4,12 @@ from openpyxl.worksheet.worksheet import Worksheet
 from Common.ncRound import roundDown
 from Nucarnival.cardHelper import CardHelper
 from Nucarnival.nucarnivalHelper import NucarnivalHelper, roundHalfEven
+from RoleCards.buff.buff import Buff
 from RoleCards.cards.monster.commonMonster import CommonMonster
 from RoleCards.cards.monster.tempTeamMate import TempTeamMate
 from RoleCards.cards.olivine.sr_Olivine import SROlivine
 from RoleCards.common.card import ICard, writeCardInfoTitleInExcel
+from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRarityEnum import CardRarity
 from RoleCards.enum.cardRoleEnum import CardRole
@@ -357,8 +359,8 @@ def simulation(helper: NucarnivalHelper, needTeamMate: bool, srO: ICard, ws: Wor
 def export(ws: Worksheet, x: ICard, row):
     ws.cell(row, 1, x.cardName)
     ws.cell(row, 2, x.nickName)
-    ws.cell(row, 3, x.role.value)
-    ws.cell(row, 4, x.rarity.value)
+    ws.cell(row, 3, x.role.roleName)
+    ws.cell(row, 4, x.rarity.rarityName)
     ws.cell(row, 5, x.cardType.typeName)
     ws.cell(row, 6, x.occupation.occupationName)
     ws.cell(row, 7, x.lv)
@@ -670,6 +672,14 @@ def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, tu
     ws1.cell(1, 4, 'Atk')
     ws1.cell(1, 5, name1)
     ws1.cell(1, 6, '对比上一星级提升')
+    ws1.cell(1, 7, '增攻1152-相当于5星满潜SR奥普攻增攻')
+    ws1.cell(1, 8, '增攻提升')
+    # ws1.cell(1, 9, '增加造成伤害2%-相当于6潜伊得被动')
+    # ws1.cell(1, 10, '增伤提升')
+    # ws1.cell(1, 11, '增加必杀伤害17%-相当于3星6潜花奥被动')
+    # ws1.cell(1, 12, '增必杀提升')
+    # ws1.cell(1, 13, '增加普攻伤害20%-相当于3星圣啖被动')
+    # ws1.cell(1, 14, '增普攻提升')
 
     ws2 = wb.create_sheet('治疗', 1)
     ws2.cell(1, 1, '角色')
@@ -678,6 +688,14 @@ def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, tu
     ws2.cell(1, 4, 'Atk')
     ws2.cell(1, 5, name2)
     ws2.cell(1, 6, '对比上一星级提升')
+    ws2.cell(1, 7, '增攻1152-相当于5星满潜SR奥普攻增攻')
+    ws2.cell(1, 8, '增攻提升')
+    # ws2.cell(1, 9, '增加造成伤害2%-相当于6潜伊得被动')
+    # ws2.cell(1, 10, '增伤提升')
+    # ws2.cell(1, 11, '增加必杀伤害17%-相当于3星6潜花奥被动')
+    # ws2.cell(1, 12, '增必杀提升')
+    # ws2.cell(1, 13, '增加普攻伤害20%-相当于3星圣啖被动')
+    # ws2.cell(1, 14, '增普攻提升')
 
     healRow = 2
     damageRow = 2
@@ -693,7 +711,7 @@ def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, tu
         damageRow = doStarCompareSimulation(role, ws1, _helper, turn, damageRow, 0)
 
     # filePath = 'C:\\fhs\\python\\【2023.5.4】\\星级对比.xls'
-    filePath = 'E:\\新世界\\战斗模拟\\全角色星级对比-伤害和治疗.xls'
+    filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
     wb.save(filePath)
 
 
@@ -722,6 +740,38 @@ def doStarCompareSimulation(role: ICard, ws: Worksheet, _helper: NucarnivalHelpe
             if lastData is not None:
                 ws.cell(lastRow + star - 1, 6, currentData / lastData)
             lastData = currentData
+
+            buff = Buff('test1', 1152, 0, BuffType.AtkIncreaseByActualValue)
+            buff.isPassive = True
+            _helper.battleStart(False, buff)
+            data2 = _helper.getTotalResult(role)
+            currentData2 = data2['totalDamage']
+            ws.cell(lastRow + star - 1, 7, currentData2)
+            ws.cell(lastRow + star - 1, 8, currentData2 / currentData)
+
+            # buff = Buff('test2', 0.1, 0, BuffType.DamageIncrease)
+            # buff.isPassive = True
+            # _helper.battleStart(False, buff)
+            # data2 = _helper.getTotalResult(role)
+            # currentData2 = data2['totalDamage']
+            # ws.cell(lastRow + star - 1, 9, currentData2)
+            # ws.cell(lastRow + star - 1, 10, currentData2 / currentData)
+            #
+            # buff = Buff('test3', 0.1, 0, BuffType.SkillIncrease)
+            # buff.isPassive = True
+            # _helper.battleStart(False, buff)
+            # data2 = _helper.getTotalResult(role)
+            # currentData2 = data2['totalDamage']
+            # ws.cell(lastRow + star - 1, 11, currentData2)
+            # ws.cell(lastRow + star - 1, 12, currentData2 / currentData)
+            #
+            # buff = Buff('test4', 0.1, 0, BuffType.AttackIncrease)
+            # buff.isPassive = True
+            # _helper.battleStart(False, buff)
+            # data2 = _helper.getTotalResult(role)
+            # currentData2 = data2['totalDamage']
+            # ws.cell(lastRow + star - 1, 13, currentData2)
+            # ws.cell(lastRow + star - 1, 14, currentData2 / currentData)
         elif calType == 1:
             _helper.team.append(TempTeamMate())
             _helper.team.append(TempTeamMate())
@@ -736,6 +786,42 @@ def doStarCompareSimulation(role: ICard, ws: Worksheet, _helper: NucarnivalHelpe
                 ws.cell(lastRow + star - 1, 6, currentData / lastData)
             lastData = currentData
 
+            buff = Buff('test1', 1152, 0, BuffType.AtkIncreaseByActualValue)
+            buff.isPassive = True
+            _helper.battleStart(False, buff)
+            data2 = _helper.getTotalResult(role)
+            currentData2 = data2['totalHeal']
+            currentData2 = roundDown(currentData2 / 5)
+            ws.cell(lastRow + star - 1, 7, currentData2)
+            ws.cell(lastRow + star - 1, 8, currentData2 / currentData)
+
+            # buff = Buff('test2', 0.1, 0, BuffType.DamageIncrease)
+            # buff.isPassive = True
+            # _helper.battleStart(False, buff)
+            # data2 = _helper.getTotalResult(role)
+            # currentData2 = data2['totalHeal']
+            # currentData2 = roundDown(currentData2 / 5)
+            # ws.cell(lastRow + star - 1, 9, currentData2)
+            # ws.cell(lastRow + star - 1, 10, currentData2 / currentData)
+            #
+            # buff = Buff('test3', 0.1, 0, BuffType.SkillIncrease)
+            # buff.isPassive = True
+            # _helper.battleStart(False, buff)
+            # data2 = _helper.getTotalResult(role)
+            # currentData2 = data2['totalHeal']
+            # currentData2 = roundDown(currentData2 / 5)
+            # ws.cell(lastRow + star - 1, 11, currentData2)
+            # ws.cell(lastRow + star - 1, 12, currentData2 / currentData)
+            #
+            # buff = Buff('test4', 0.1, 0, BuffType.AttackIncrease)
+            # buff.isPassive = True
+            # _helper.battleStart(False, buff)
+            # data2 = _helper.getTotalResult(role)
+            # currentData2 = data2['totalHeal']
+            # currentData2 = roundDown(currentData2 / 5)
+            # ws.cell(lastRow + star - 1, 13, currentData2)
+            # ws.cell(lastRow + star - 1, 14, currentData2 / currentData)
+
     lastRow += 5
     return lastRow
 
@@ -745,12 +831,9 @@ if __name__ == '__main__':
 
     _cardHelper = CardHelper()
 
-    for x in _cardHelper.cardList:
-        print(x.nickName)
-
     # tempSimulation(_helper, _cardHelper)
 
-    # starCompareSimulation(_helper, _cardHelper, 13)
+    starCompareSimulation(_helper, _cardHelper, 13)
 
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 

@@ -857,7 +857,7 @@ class ICard:
     def cardInfo(self, printInfo=True):
         infoStr = self.cardName
         if self.role is not None:
-            infoStr = '{} - {}'.format(self.cardName, self.role.value)
+            infoStr = '{} - {}'.format(self.cardName, self.role.roleName)
         if printInfo:
             print(infoStr, end='')
         return infoStr
@@ -866,7 +866,7 @@ class ICard:
         infoStr = self.nickName
         infoStr2 = self.cardName
         if self.role is not None:
-            infoStr2 = '{} - {}'.format(self.cardName, self.role.value)
+            infoStr2 = '{} - {}'.format(self.cardName, self.role.roleName)
         if infoStr is None:
             infoStr = ''
         if infoStr2 is None:
@@ -966,7 +966,7 @@ class ICard:
     def writeCardInfoInExcel(self, ws: Worksheet, row: int):
         ws.cell(row, 1, self.cardName)
         ws.cell(row, 2, self.nickName)
-        ws.cell(row, 3, self.role.value)
+        ws.cell(row, 3, self.role.roleName)
         ws.cell(row, 4, self.cardType.typeName)
         ws.cell(row, 5, self.occupation.occupationName)
         ws.cell(row, 6, self.hp)

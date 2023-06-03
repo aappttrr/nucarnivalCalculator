@@ -16,6 +16,10 @@ class CardRarity(enum.Enum):
         return self._rarityName
 
     @property
+    def value(self):
+        return self._rarityName
+
+    @property
     def rarityIndex(self):
         return self._rarityIndex
 

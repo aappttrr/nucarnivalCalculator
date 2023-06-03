@@ -46,10 +46,10 @@ class FilterCardModel(QSortFilterProxyModel):
         columnOccupation = self.getColumnData(source_row, source_parent, indexOccupation)
         result = True
         if self.filterRole is not None:
-            if columnRole != self.filterRole.value:
+            if columnRole != self.filterRole.roleName:
                 result = False
         if self.filterRarity is not None:
-            if columnRarity != self.filterRarity.value:
+            if columnRarity != self.filterRarity.rarityName:
                 result = False
         if self.filterType is not None:
             if columnType != self.filterType.typeName:
