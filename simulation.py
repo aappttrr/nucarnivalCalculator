@@ -638,6 +638,9 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     srHL = _cardHelper.filterCard('SRKuya')[0]
     nvpuBu = _cardHelper.filterCard('LovableEnforcer')[0]
 
+    sanKX = _cardHelper.filterCard('BlossomingLegend')[0]
+    sanLian = _cardHelper.filterCard('RainyRebirth')[0]
+
     # anKun.setProperties(60, 3, 5, 12)
 
     _helper.skillTurn[guaLang] = [6, 12]
@@ -655,8 +658,8 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
 
     _helper.battleStart(True)
     name = '队伍-瓜狼-S-{}.xls'.format(_helper.maxTurn)
-    _helper.exportExcel('E:\\新世界\\攻略\\【2023.5.4】\\晚奥模拟\\' + name)
-    # _helper.exportExcel('C:\\fhs\\python\\【2023.5.4】\\早八模拟\\' + name)
+    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.5.4】\\晚奥模拟\\' + name)
+    _helper.exportExcel('C:\\fhs\\python\\【2023.6.8】\\伞昆模拟\\' + name)
 
 
 def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, turn=13):
@@ -710,8 +713,8 @@ def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, tu
                 continue
         damageRow = doStarCompareSimulation(role, ws1, _helper, turn, damageRow, 0)
 
-    # filePath = 'C:\\fhs\\python\\【2023.5.4】\\星级对比.xls'
-    filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
+    filePath = 'C:\\fhs\\python\\星级对比.xls'
+    # filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
     wb.save(filePath)
 
 
@@ -840,4 +843,4 @@ if __name__ == '__main__':
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True)
-    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)
+    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)

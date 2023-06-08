@@ -50,6 +50,7 @@ from RoleCards.cards.olivine.sr_Olivine import SROlivine
 from RoleCards.cards.olivine.radiantAdmiral import RadiantAdmiral
 from RoleCards.cards.quincy.ancientCeremony import AncientCeremony
 from RoleCards.cards.quincy.arcticWarden import ArcticWarden
+from RoleCards.cards.quincy.blossomingLegend import BlossomingLegend
 from RoleCards.cards.quincy.buckeyeMiracle import BuckeyeMiracle
 from RoleCards.cards.quincy.distantPromise import DistantPromise
 from RoleCards.cards.quincy.n_Quincy import NQuincy
@@ -59,6 +60,7 @@ from RoleCards.cards.quincy.sr_Quincy import SRQuincy
 from RoleCards.cards.rei.midnightOwl import MidnightOwl
 from RoleCards.cards.rei.n_Rei import NRei
 from RoleCards.cards.rei.r_Rei import RRei
+from RoleCards.cards.rei.rainyRebirth import RainyRebirth
 from RoleCards.cards.rei.sr_Rei import SRRei
 from RoleCards.cards.yakumo.cocoaLiqueur import CocoaLiqueur
 from RoleCards.cards.yakumo.crimsonPhantom import CrimsonPhantom
@@ -159,6 +161,7 @@ class CardHelper:
         yKX = DistantPromise()
         dongKX = ArcticWarden()
         srShuiKX = SmokedTimber()
+        sanKX = BlossomingLegend()
         self.cardList.append(srKX)
         self.cardList.append(rKX)
         self.cardList.append(nKX)
@@ -167,6 +170,7 @@ class CardHelper:
         self.cardList.append(yKX)
         self.cardList.append(dongKX)
         self.cardList.append(srShuiKX)
+        self.cardList.append(sanKX)
 
         # 玖夜
         srHL = SRKuya()
@@ -235,10 +239,12 @@ class CardHelper:
         rLian = RRei()
         nLian = NRei()
         ssrLian = MidnightOwl()
+        sanLian = RainyRebirth()
         self.cardList.append(srLian)
         self.cardList.append(rLian)
         self.cardList.append(nLian)
         self.cardList.append(ssrLian)
+        self.cardList.append(sanLian)
 
         # 伊得
         hYD = GalacticMist()

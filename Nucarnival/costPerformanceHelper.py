@@ -93,6 +93,12 @@ def converAdvancedGiftToSpiritGem(gift):
     return round(result)
 
 
+# 1个高级礼物礼盒=60高级礼物=600钻
+def converAdvancedGiftPkgToSpiritGem(giftPkg):
+    result = giftPkg * 600
+    return round(result)
+
+
 # 3个回忆图画=180钻
 # 1个回忆图画=60钻
 def converUltraGiftToSpiritGem(gift):
@@ -312,6 +318,9 @@ class CostPerformanceHelper:
                 case PropType.advancedGift:
                     return GameProp(PropType.spiritGem,
                                     converAdvancedGiftToSpiritGem(_gp.number))
+                case PropType.advancedGiftPkg:
+                    return GameProp(PropType.spiritGem,
+                            converAdvancedGiftPkgToSpiritGem(_gp.number))
                 case PropType.ultraGift:
                     return GameProp(PropType.spiritGem, converUltraGiftToSpiritGem(_gp.number))
                 case PropType.rawCrystal:

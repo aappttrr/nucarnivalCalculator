@@ -338,6 +338,14 @@ def activityGiftPacks(gps: list[CostPerformanceHelper]):
     birthdaylb_2.price = 1450
     gps.append(birthdaylb_2)
 
+    birthdaylb_3 = CostPerformanceHelper('生日语音礼包2')
+    birthdaylb_3.addGameProp(GameProp(PropType.sorceryGem, 20))
+    birthdaylb_3.addGameProp(GameProp(PropType.advancedGiftPkg, 3))
+    birthdaylb_3.addGameProp(GameProp(PropType.voice, 1))
+    birthdaylb_3.currencyType = CurrencyType.eCoin
+    birthdaylb_3.price = 1799
+    gps.append(birthdaylb_3)
+
     hdlb1 = CostPerformanceHelper('常见活动礼包1')
     hdlb1.addGameProp(GameProp(PropType.essenceContract, 5))
     hdlb1.addGameProp(GameProp(PropType.coin, 50000))
@@ -691,5 +699,5 @@ def exportAllGiftPacks(filePath):
 
 
 if __name__ == '__main__':
-    exportAllGiftPacks('E:\\新世界\\性价比\\性价比计算.xls')
-    # exportAllGiftPacks('D:\\性价比计算.xls')
+    # exportAllGiftPacks('E:\\新世界\\性价比\\性价比计算.xls')
+    exportAllGiftPacks('C:\\fhs\\python\\性价比计算.xls')
