@@ -18,7 +18,7 @@ from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivene
 
 
 def simulationCombat(filePath, cardHelper: CardHelper, helper: NucarnivalHelper, calGroupRole: bool,
-                     forceTeamMate: bool = False):
+                     forceTeamMate: bool = False, monsterCount: int = 1):
     wb = Workbook()
 
     column = 16
@@ -49,12 +49,17 @@ def simulationCombat(filePath, cardHelper: CardHelper, helper: NucarnivalHelper,
     exportTitle(ws2, row2)
     exportTitle(ws3, row3)
 
+    if monsterCount > 5:
+        monsterCount = 5
+    elif monsterCount < 1:
+        monsterCount = 1
+
     for x in cardHelper.cardList:
         if x.rarity == CardRarity.N:
             continue
 
-        if x.occupation != CardOccupation.Guardian:
-            continue
+        # if x.occupation != CardOccupation.Guardian:
+        #     continue
 
         needTeamMate = True
         if x.ped == PassiveEffectivenessDifficulty.difficult or x.ped == PassiveEffectivenessDifficulty.veryDifficult:
@@ -67,32 +72,32 @@ def simulationCombat(filePath, cardHelper: CardHelper, helper: NucarnivalHelper,
             row2 += 1
             if x.rarity == CardRarity.SSR:
                 # 1星6潜
-                simulation(helper, needTeamMate, None, ws1, None, x, row1, 1, 5, 6)
+                simulation(helper, needTeamMate, None, ws1, None, x, row1, 1, 5, 6, monsterCount)
 
                 # 3星满潜
-                simulation(helper, needTeamMate, None, ws2, None, x, row2, 3, 5, 12)
+                simulation(helper, needTeamMate, None, ws2, None, x, row2, 3, 5, 12, monsterCount)
 
                 row3 += 1
                 # 5星满潜
-                simulation(helper, needTeamMate, None, ws3, None, x, row3, 5, 5, 12)
+                simulation(helper, needTeamMate, None, ws3, None, x, row3, 5, 5, 12, monsterCount)
             elif x.rarity == CardRarity.SR:
                 # 3星6潜
-                simulation(helper, needTeamMate, None, ws1, None, x, row1, 3, 5, 6)
+                simulation(helper, needTeamMate, None, ws1, None, x, row1, 3, 5, 6, monsterCount)
 
                 # 5星满潜
-                simulation(helper, needTeamMate, None, ws2, None, x, row2, 5, 5, 12)
+                simulation(helper, needTeamMate, None, ws2, None, x, row2, 5, 5, 12, monsterCount)
             else:
                 # 3星3潜
-                simulation(helper, needTeamMate, None, ws1, None, x, row1, 3, 5, 3)
+                simulation(helper, needTeamMate, None, ws1, None, x, row1, 3, 5, 3, monsterCount)
 
                 # 5星满潜
-                simulation(helper, needTeamMate, None, ws2, None, x, row2, 5, 5, 6)
+                simulation(helper, needTeamMate, None, ws2, None, x, row2, 5, 5, 6, monsterCount)
 
     wb.save(filePath)
 
 
 def simulationCombat2(filePath, cardHelper: CardHelper, helper: NucarnivalHelper, calGroupRole: bool,
-                     forceTeamMate: bool = False):
+                     forceTeamMate: bool = False, monsterCount: int = 1):
     wb = Workbook()
 
     column = 16
@@ -167,32 +172,32 @@ def simulationCombat2(filePath, cardHelper: CardHelper, helper: NucarnivalHelper
             if x.rarity == CardRarity.SSR:
                 # 1星3潜
                 srO.setProperties(60, 2, 4, 3)
-                simulation(helper, needTeamMate, srO, ws1, ws1_ws, x, row1, 1, 4, 3)
+                simulation(helper, needTeamMate, srO, ws1, ws1_ws, x, row1, 1, 4, 3, monsterCount)
 
                 # 2星4房
                 srO.setProperties(60, 3, 5, 6)
-                simulation(helper, needTeamMate, srO, ws2, ws2_ws, x, row2, 2, 4, 6)
+                simulation(helper, needTeamMate, srO, ws2, ws2_ws, x, row2, 2, 4, 6, monsterCount)
 
                 row3 += 1
                 # 5星满潜
                 srO.setProperties(60, 5, 5, 12)
-                simulation(helper, needTeamMate, srO, ws3, ws3_ws, x, row3, 5, 5, 12)
+                simulation(helper, needTeamMate, srO, ws3, ws3_ws, x, row3, 5, 5, 12, monsterCount)
             elif x.rarity == CardRarity.SR:
                 # 2星3潜
                 srO.setProperties(60, 2, 4, 3)
-                simulation(helper, needTeamMate, srO, ws1, ws1_ws, x, row1, 2, 4, 3)
+                simulation(helper, needTeamMate, srO, ws1, ws1_ws, x, row1, 2, 4, 3, monsterCount)
 
                 # 3星5房
                 srO.setProperties(60, 3, 5, 6)
-                simulation(helper, needTeamMate, srO, ws2, ws2_ws, x, row2, 3, 5, 6)
+                simulation(helper, needTeamMate, srO, ws2, ws2_ws, x, row2, 3, 5, 6, monsterCount)
             else:
                 # 3星3潜
                 srO.setProperties(60, 2, 4, 3)
-                simulation(helper, needTeamMate, srO, ws1, ws1_ws, x, row1, 3, 4, 3)
+                simulation(helper, needTeamMate, srO, ws1, ws1_ws, x, row1, 3, 4, 3, monsterCount)
 
                 # 4星5房
                 srO.setProperties(60, 3, 5, 6)
-                simulation(helper, needTeamMate, srO, ws2, ws2_ws, x, row2, 4, 5, 6)
+                simulation(helper, needTeamMate, srO, ws2, ws2_ws, x, row2, 4, 5, 6, monsterCount)
 
     wb.save(filePath)
 
@@ -307,7 +312,7 @@ def getRank(x: ICard, damage=0):
 
 
 def simulation(helper: NucarnivalHelper, needTeamMate: bool, srO: ICard, ws: Worksheet, ws2: Worksheet, x: ICard,
-               row, _star, _bond, _tier):
+               row, _star, _bond, _tier, monsterCount: int):
     x.setProperties(60, _star, _bond, _tier)
     x.calHpAtk()
     if srO is not None:
@@ -321,7 +326,8 @@ def simulation(helper: NucarnivalHelper, needTeamMate: bool, srO: ICard, ws: Wor
         similationTeamMate(helper, x)
 
     helper.team.append(x)
-    helper.monsters.append(CommonMonster())
+    for mc in range(0, monsterCount):
+        helper.monsters.append(CommonMonster())
     helper.maxTurn = 13
     helper.battleStart(False)
     data = helper.getTotalResult(x)
@@ -835,11 +841,11 @@ if __name__ == '__main__':
 
     # tempSimulation(_helper, _cardHelper)
 
-    starCompareSimulation(_helper, _cardHelper, 13)
+    # starCompareSimulation(_helper, _cardHelper, 13)
 
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True)
-    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)
+    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False, False, 3)
