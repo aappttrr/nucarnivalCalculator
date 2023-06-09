@@ -11,6 +11,7 @@ class BuffType(enum.Enum):
     Shield = '护盾'
     Taunt = '嘲讽'
     DisTaunt = '解除嘲讽'
+    DisCounterAttack = '解除反击'
 
     # 基础数值增加
     AtkIncrease = '攻击力增加'

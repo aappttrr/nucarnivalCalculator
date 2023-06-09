@@ -53,9 +53,8 @@ def simulationCombat(filePath, cardHelper: CardHelper, helper: NucarnivalHelper,
         if x.rarity == CardRarity.N:
             continue
 
-        # if x.occupation == CardOccupation.Support or x.occupation == CardOccupation.Guardian \
-        #         or x.occupation == CardOccupation.Healer:
-        #     continue
+        if x.occupation != CardOccupation.Guardian:
+            continue
 
         needTeamMate = True
         if x.ped == PassiveEffectivenessDifficulty.difficult or x.ped == PassiveEffectivenessDifficulty.veryDifficult:

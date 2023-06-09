@@ -60,7 +60,7 @@ class RainyRebirth(SSRCard):
         buff2.seeAsSkill = True
         self.addBuff(buff2)
 
-        buff3 = Buff('RainyRebirth_skill_3', 0, 1, BuffType.DisTaunt)
+        buff3 = Buff('RainyRebirth_skill_3', 0, 1, BuffType.DisCounterAttack)
         buff3.conditionType = ConditionType.WhenBeAttacked
         self.addBuff(buff3)
 

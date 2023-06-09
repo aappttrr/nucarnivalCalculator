@@ -788,16 +788,28 @@ class ICard:
                 return True
         return False
 
-    def disTauntWhenBeAttacked(self):
-        tauntBuff = None
+    def disBuffWhenBeAttacked(self):
+        tauntBuff: list[Buff] = []
+        counterBuff: list[Buff] = []
         disTaunt = False
+        disCounter = False
         for buff in self.buffs:
             if buff.buffType == BuffType.Taunt:
-                tauntBuff = buff
-            elif buff.buffType == BuffType.DisTaunt and buff.conditionType == ConditionType.WhenBeAttacked:
-                disTaunt = True
-        if disTaunt and tauntBuff is not None:
-            self.buffs.remove(tauntBuff)
+                tauntBuff.append(buff)
+            elif buff.buffType == BuffType.CounterAttack:
+                counterBuff.append(buff)
+
+            if buff.conditionType == ConditionType.WhenBeAttacked:
+                if buff.buffType == BuffType.DisTaunt:
+                    disTaunt = True
+                elif buff.buffType == BuffType.DisCounterAttack:
+                    disCounter = True
+        if disTaunt:
+            for buff in tauntBuff:
+                self.buffs.remove(buff)
+        if disCounter:
+            for buff in counterBuff:
+                self.buffs.remove(buff)
 
     def skillBefore(self, enemies):
         pass
@@ -925,7 +937,7 @@ class ICard:
         for newBuff in newBuffs:
             self.addBuff(newBuff, newBuffs[newBuff])
         if seeAsBeAttacked:
-            self.disTauntWhenBeAttacked()
+            self.disBuffWhenBeAttacked()
 
     def beAttacked(self, damage, seeAsBeAttacked):
         if damage <= 0:
