@@ -643,7 +643,7 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
 
     # anKun.setProperties(60, 3, 5, 12)
 
-    _helper.skillTurn[guaLang] = [6, 12]
+    # _helper.skillTurn[miAo] = [7, 13]
 
     # _helper.defenseTurn[srAi] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     # _helper.defenseTurn[puTuan] = [1, 2, 6, 8, 11, 9]
@@ -651,15 +651,16 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(guaLang)
+    _helper.team.append(miAo)
+    _helper.team.append(sanKX)
     _helper.team.append(shuiDan)
     _helper.team.append(puKun)
     _helper.team.append(srKun)
 
     _helper.battleStart(True)
-    name = '队伍-瓜狼-S-{}.xls'.format(_helper.maxTurn)
-    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.5.4】\\晚奥模拟\\' + name)
-    _helper.exportExcel('C:\\fhs\\python\\【2023.6.8】\\伞昆模拟\\' + name)
+    name = '晚奥-伞昆-{}.xls'.format(_helper.maxTurn)
+    _helper.exportExcel('E:\\新世界\\攻略\\【2023.6.8】雨季\\伞昆模拟\\' + name)
+    # _helper.exportExcel('C:\\fhs\\python\\【2023.6.8】\\伞昆模拟\\' + name)
 
 
 def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, turn=13):
@@ -713,8 +714,8 @@ def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, tu
                 continue
         damageRow = doStarCompareSimulation(role, ws1, _helper, turn, damageRow, 0)
 
-    filePath = 'C:\\fhs\\python\\星级对比.xls'
-    # filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
+    # filePath = 'C:\\fhs\\python\\星级对比.xls'
+    filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
     wb.save(filePath)
 
 
@@ -834,13 +835,13 @@ if __name__ == '__main__':
 
     _cardHelper = CardHelper()
 
-    # tempSimulation(_helper, _cardHelper)
+    tempSimulation(_helper, _cardHelper)
 
-    starCompareSimulation(_helper, _cardHelper, 13)
+    # starCompareSimulation(_helper, _cardHelper, 13)
 
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True)
-    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)
+    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False)
