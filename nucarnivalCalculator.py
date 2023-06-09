@@ -27,9 +27,7 @@ from UiDesign.validator import IntValidator
 
 cardHelper = CardHelper()
 nucarnivalHelper = NucarnivalHelper()
-nucarnivalHelper.monsters.append(CommonMonster())
 activityRewardHelper = ActivityRewardHelper()
-
 
 
 def exportCardList():
@@ -471,6 +469,7 @@ class MainWindow(QMainWindow):
 
     def setBattleInfo(self):
         turn = int(self.ui.battleRoundLineEdit.text())
+        monsterCount = 1
         nucarnivalHelper.maxTurn = turn
         monsterType = CardType.Light
         if self.ui.monsterTypeRadioBtn_Dark.isChecked():
@@ -481,6 +480,10 @@ class MainWindow(QMainWindow):
             monsterType = CardType.Water
         elif self.ui.monsterTypeRadioBtn_Wood.isChecked():
             monsterType = CardType.Wood
+
+        nucarnivalHelper.monsters.clear()
+        for i in range(0, monsterCount):
+            nucarnivalHelper.monsters.append(CommonMonster())
         for monster in nucarnivalHelper.monsters:
             monster.cardType = monsterType
 
