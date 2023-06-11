@@ -21,7 +21,7 @@ def simulationCombat(filePath, cardHelper: CardHelper, helper: NucarnivalHelper,
                      forceTeamMate: bool = False, monsterCount: int = 1):
     wb = Workbook()
 
-    column = 16
+    column = 15
     ws1 = wb.create_sheet('伤害模拟结果_ssr1星', 0)
     ws2 = wb.create_sheet('伤害模拟结果_ssr3星', 0)
     ws3 = wb.create_sheet('伤害模拟结果_ssr5星', 0)
@@ -100,7 +100,7 @@ def simulationCombat2(filePath, cardHelper: CardHelper, helper: NucarnivalHelper
                      forceTeamMate: bool = False, monsterCount: int = 1):
     wb = Workbook()
 
-    column = 16
+    column = 15
     ws1 = wb.create_sheet('伤害模拟结果_低练度', 0)
     ws1_ws = wb.create_sheet('伤害模拟结果_低练度_带同练度SR奥', 0)
     ws2 = wb.create_sheet('伤害模拟结果_中练度', 0)
@@ -645,26 +645,32 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
 
     sanKX = _cardHelper.filterCard('BlossomingLegend')[0]
     sanLian = _cardHelper.filterCard('RainyRebirth')[0]
+    puAo = _cardHelper.filterCard('HolyConfession')[0]
+    dongAo = _cardHelper.filterCard('FrostedVirtue')[0]
 
     # anKun.setProperties(60, 3, 5, 12)
 
-    _helper.skillTurn[guaLang] = [6, 12]
+    # _helper.skillTurn[guaLang] = [6, 12]
 
     # _helper.defenseTurn[srAi] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-    # _helper.defenseTurn[puTuan] = [1, 2, 6, 8, 11, 9]
+    _helper.defenseTurn[sanKX] = [1, 2, 6, 8, 11, 9]
+    _helper.defenseTurn[srBayun] = [1, 2, 6, 8, 11, 9]
+    _helper.defenseTurn[puAo] = [1, 2, 6, 7, 11, 12]
+    _helper.defenseTurn[dongAo] = [1, 2, 6, 7, 11, 12]
 
     _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(guaLang)
-    _helper.team.append(shuiDan)
-    _helper.team.append(puKun)
-    _helper.team.append(srKun)
+    _helper.team.append(srAo)
+    _helper.team.append(puAo)
+    _helper.team.append(TempTeamMate())
+    _helper.team.append(TempTeamMate())
+    _helper.team.append(TempTeamMate())
 
     _helper.battleStart(True)
-    name = '队伍-瓜狼-S-{}.xls'.format(_helper.maxTurn)
-    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.5.4】\\晚奥模拟\\' + name)
-    _helper.exportExcel('C:\\fhs\\python\\【2023.6.8】\\伞昆模拟\\' + name)
+    name = 'sr奥-普奥-防-{}.xls'.format(_helper.maxTurn)
+    _helper.exportExcel('E:\\新世界\\攻略\\【2023.6.8】雨季\\伞昆模拟\\' + name)
+    # _helper.exportExcel('C:\\fhs\\python\\【2023.6.8】\\伞昆模拟\\' + name)
 
 
 def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, turn=13):
@@ -718,8 +724,8 @@ def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, tu
                 continue
         damageRow = doStarCompareSimulation(role, ws1, _helper, turn, damageRow, 0)
 
-    filePath = 'C:\\fhs\\python\\星级对比.xls'
-    # filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
+    # filePath = 'C:\\fhs\\python\\星级对比.xls'
+    filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
     wb.save(filePath)
 
 
@@ -841,11 +847,11 @@ if __name__ == '__main__':
 
     # tempSimulation(_helper, _cardHelper)
 
-    # starCompareSimulation(_helper, _cardHelper, 13)
+    starCompareSimulation(_helper, _cardHelper, 13)
 
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
-    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True)
-    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False)
-    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True)
-    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False, False, 3)
+    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True, False, 1)
+    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False, False, 1)
+    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True, False, 1)
+    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False, False, 1)
