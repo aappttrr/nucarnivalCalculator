@@ -19,7 +19,7 @@ def getWelcomeContent():
 
 def getHelpContent():
     output = io.StringIO()
-    writeLineString(output, '当前版本：v2.5-2023-5-10')
+    writeLineString(output, '当前版本：v2.6-2023-6-11')
     writeLineString(output, '有任何问题、Bug都可以给我留言~~')
     writeLineString(output, 'B站：纳萨尔')
     writeLineString(output, '')
@@ -137,6 +137,8 @@ def getHelpContent():
 
 def getUpdateLogContent():
     output = io.StringIO()
+    getUpdateLogContent_2_6(output)
+    writeLineString(output, '')
     getUpdateLogContent_2_5(output)
     writeLineString(output, '')
     getUpdateLogContent_2_4(output)
@@ -155,6 +157,22 @@ def getUpdateLogContent():
     writeLineString(output, '')
     getUpdateLogContent_1_0(output)
     return output.getvalue()
+
+
+def getUpdateLogContent_2_5(_output: io.StringIO):
+    writeDashString(_output, 36)
+    writeString(_output, '2023.6.11')
+    writeDashString(_output, 36)
+    writeLineString(_output, '')
+    writeLineString(_output, 'v2.6:')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '①更新蜜话调整后数据')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '②增加【虚实雨季】限定，伞敛、伞昆')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '③修正角色排序')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '④伞昆、普奥被动回血改为吃“必杀加成”')
 
 
 def getUpdateLogContent_2_5(_output: io.StringIO):
