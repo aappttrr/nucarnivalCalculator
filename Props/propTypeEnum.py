@@ -26,6 +26,7 @@ def PropTypes():
     pl.append(PropType.intermediateGift)
     pl.append(PropType.advancedGift)
     pl.append(PropType.advancedGiftPkg)
+    pl.append(PropType.advancedGiftPkgForC12)
     pl.append(PropType.ultraGift)
     pl.append(PropType.holyWater_S)
     pl.append(PropType.holyWater_M)
@@ -68,6 +69,7 @@ class PropType(enum.Enum):
     intermediateGift = '中级礼物', '1个中级礼物=10/3钻（魔法师特权商店）'
     advancedGift = '高级礼物', '1个高级礼物=10钻（魔法师特权商店）'
     advancedGiftPkg = '高级送礼道具礼盒', '60个高级礼物=600钻（魔法师特权商店）'
+    advancedGiftPkgForC12 = '12章上高级送礼道具礼盒', '20个高级礼物=200钻（魔法师特权商店）'
     ultraGift = '回忆图画', '1个回忆图画=60钻（魔法师特权商店）'
     holyWater_S = '小型祝福药水', '小型祝福药水：晶灵石=5：4（来源攻略组）'
     holyWater_M = '中型祝福药水', '中型祝福药水：晶灵石=5：8（来源攻略组）'

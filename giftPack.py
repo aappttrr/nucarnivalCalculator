@@ -302,6 +302,31 @@ def chapterGiftPacks(gps: list[CostPerformanceHelper]):
     c11lb3.currencyType = CurrencyType.eCoin
     c11lb3.price = 6000
     gps.append(c11lb3)
+
+    c12lb = CostPerformanceHelper('第12章释放礼包')
+    c12lb.addGameProp(GameProp(PropType.spiritGem, 3000))
+    c12lb.addGameProp(GameProp(PropType.essenceContract, 10))
+    c12lb.addGameProp(GameProp(PropType.coin, 150000))
+    c12lb.currencyType = CurrencyType.eCoin
+    c12lb.price = 1245
+    gps.append(c12lb)
+    
+    c12lbsp = CostPerformanceHelper('第12章释放礼包SP')
+    c12lbsp.addGameProp(GameProp(PropType.spiritGem, 5000))
+    c12lbsp.addGameProp(GameProp(PropType.essenceContract, 40))
+    c12lbsp.addGameProp(GameProp(PropType.intermediatePotentialPkg, 10))
+    c12lbsp.currencyType = CurrencyType.eCoin
+    c12lbsp.price = 6000
+    gps.append(c12lbsp)
+    
+    c12lb2 = CostPerformanceHelper('第12章释然礼包')
+    c12lb2.addGameProp(GameProp(PropType.essenceContract, 25))
+    c12lb2.addGameProp(GameProp(PropType.coin, 300000))
+    c12lb2.addGameProp(GameProp(PropType.intermediatePotentialPkg, 6))
+    c12lb2.currencyType = CurrencyType.eCoin
+    c12lb2.price = 2979
+    gps.append(c12lb2)
+
     return gps
 
 
@@ -436,6 +461,13 @@ def activityGiftPacks(gps: list[CostPerformanceHelper]):
     fklb2.currencyType = CurrencyType.eCoin
     fklb2.price = 6920
     gps.append(fklb2)
+
+    cxlcb = CostPerformanceHelper('初夏里程碑')
+    cxlcb.addGameProp(GameProp(PropType.essenceContract, 6))
+    cxlcb.addGameProp(GameProp(PropType.advancedGiftPkgForC12, 1))
+    cxlcb.currencyType = CurrencyType.eCoin
+    cxlcb.price = 599
+    gps.append(cxlcb)
 
 
 # 等级礼包
