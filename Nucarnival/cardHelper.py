@@ -13,8 +13,10 @@ from RoleCards.cards.dante.eternalHanabi import EternalHanabi
 from RoleCards.cards.dante.icyEquilibrium import IcyEquilibrium
 from RoleCards.cards.dante.n_Dante import NDante
 from RoleCards.cards.dante.r_Dante import RDante
+from RoleCards.cards.dante.scorchingSun import ScorchingSun
 from RoleCards.cards.dante.sr_Dante import SRDante
 from RoleCards.cards.edmond.eliteInstructor import EliteInstructor
+from RoleCards.cards.edmond.flamingSecret import FlamingSecret
 from RoleCards.cards.edmond.knightlyNight import KnightlyNight
 from RoleCards.cards.edmond.n_Edmond import NEdmond
 from RoleCards.cards.edmond.r_Edmond import REdmond
@@ -31,6 +33,7 @@ from RoleCards.cards.garu.n_Garu import NGaru
 from RoleCards.cards.garu.r_Garu import RGaru
 from RoleCards.cards.garu.sr_Garu import SRGaru
 from RoleCards.cards.kuya.afternoonDaze import AfternoonDaze
+from RoleCards.cards.kuya.aromaticExotica import AromaticExotica
 from RoleCards.cards.kuya.fallenLeaves import FallenLeaves
 from RoleCards.cards.kuya.n_Kuya import NKuya
 from RoleCards.cards.kuya.r_Kuya import RKuya
@@ -125,6 +128,7 @@ class CardHelper:
         hhFT = SweetAroma()
         anFT = EliteInstructor()
         huaFT = SpringChaos()
+        xiaFT = FlamingSecret()
         self.cardList.append(srFT)
         self.cardList.append(rFT)
         self.cardList.append(nFT)
@@ -133,6 +137,7 @@ class CardHelper:
         self.cardList.append(hhFT)
         self.cardList.append(anFT)
         self.cardList.append(huaFT)
+        self.cardList.append(xiaFT)
 
         # 奥利文
         srO = SROlivine()
@@ -180,6 +185,7 @@ class CardHelper:
         hHL = KitsuneDream()
         naiHL = LakesideSpark()
         shuiHL = AfternoonDaze()
+        xiaHL = AromaticExotica()
         self.cardList.append(srHL)
         self.cardList.append(rHL)
         self.cardList.append(nHL)
@@ -187,6 +193,7 @@ class CardHelper:
         self.cardList.append(hHL)
         self.cardList.append(naiHL)
         self.cardList.append(shuiHL)
+        self.cardList.append(xiaHL)
 
         # 可尔
         srL = SRGaru()
@@ -227,12 +234,14 @@ class CardHelper:
         ssrDT = BlazingColiseum()
         hhDT = EternalHanabi()
         shengDT = IcyEquilibrium()
+        xiaDT = ScorchingSun()
         self.cardList.append(srDT)
         self.cardList.append(rDT)
         self.cardList.append(nDT)
         self.cardList.append(ssrDT)
         self.cardList.append(hhDT)
         self.cardList.append(shengDT)
+        self.cardList.append(xiaDT)
 
         # 敛
         srLian = SRRei()

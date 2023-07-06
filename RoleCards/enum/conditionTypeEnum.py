@@ -11,3 +11,4 @@ class ConditionType(enum.Enum):
     WhenBeDamaged = '受到伤害时'
 
     WhenHpMoreThan = '当Hp大于xx时'
+    WhenHpLessThan = '当Hp低于xx时'

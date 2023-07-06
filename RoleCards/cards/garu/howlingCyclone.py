@@ -67,7 +67,7 @@ class HowlingCyclone(SSRCard):
         actualDamageIncrease = roundDown(actualDamageIncrease)
 
         for role in self.teamMate:
-            buff = Buff('HowlingCyclone_skill', actualDamageIncrease, 1, BuffType.AtkIncreaseByActualValue)
+            buff = Buff('HowlingCyclone_attack', actualDamageIncrease, 1, BuffType.AtkIncreaseByActualValue)
             role.addBuff(buff, self)
         return damage
 

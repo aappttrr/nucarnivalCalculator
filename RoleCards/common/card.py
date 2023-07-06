@@ -515,7 +515,7 @@ class ICard:
         for buff in self.buffs:
             # 如果当前buff条件时，当hp>xx时，当前生命值比例小于条件数值，则不判断该加成
             # 全都不判断，否则会很麻烦
-            # 普八、火狐、火团、暗奥
+            # 普八、火狐、火团、暗奥、夏狐
             # if buff.conditionType == ConditionType.WhenHpMoreThan:
             #     condition = self.hpCurrent / self.maxHp
             #     if condition <= buff.conditionValue:
