@@ -5,6 +5,7 @@ from RoleCards.enum.buffTypeEnum import BuffType
 from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 from RoleCards.enum.cardTypeEnum import CardType
+from RoleCards.enum.conditionTypeEnum import ConditionType
 from RoleCards.enum.passiveEffectivenessDifficultyEnum import PassiveEffectivenessDifficulty
 from RoleCards.enum.tierType import TierType
 
@@ -46,7 +47,9 @@ class FlamingSecret(SSRCard):
 
         magnification = self.getMagnification(1.02, 1.19, 1.37)
         buff2 = Buff('FlamingSecret_skll2', magnification, 2, BuffType.FollowUpAttack)
+        buff2.useBaseAtk = False
         buff2.seeAsAttack = True
+        buff2.conditionType = ConditionType.WhenAttack
         if len(self.teamMate) == 1:
             self.teamMate[0].addBuff(buff2, self)
         else:
@@ -54,8 +57,8 @@ class FlamingSecret(SSRCard):
 
         if self.passive_star_3():
             buff3 = Buff('FlamingSecret_passive_star_3', 0.12, 0, BuffType.BeAttackIncrease)
-            buff2.isPassive = True
-            if self.calBuffCount('FlamingSecret_passive_star_3') < 3:
+            buff3.isPassive = True
+            if enemies.calBuffCount('FlamingSecret_passive_star_3') < 3:
                 enemies.addBuff(buff3, self)
 
     def attackAfter(self, enemies):
@@ -69,7 +72,7 @@ class FlamingSecret(SSRCard):
         if self.passive_star_3():
             buff2 = Buff('FlamingSecret_passive_star_3', 0.12, 0, BuffType.BeAttackIncrease)
             buff2.isPassive = True
-            if self.calBuffCount('FlamingSecret_passive_star_3') < 3:
+            if enemies.calBuffCount('FlamingSecret_passive_star_3') < 3:
                 enemies.addBuff(buff2, self)
 
     def passive_star_5(self):
