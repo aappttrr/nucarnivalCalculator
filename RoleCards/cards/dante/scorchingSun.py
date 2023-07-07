@@ -14,7 +14,7 @@ class ScorchingSun(SSRCard):
         self.cardId = 'ScorchingSun'
         self.round = 16
         self.cardName = '烈日炎阳的戏语'
-        self.nickName = '夏啖'
+        self.nickName = '夏啖/沙啖'
         self.role = CardRole.Dante
         self.cardType = CardType.Fire
         self.occupation = CardOccupation.Striker

@@ -16,7 +16,7 @@ class AromaticExotica(SSRCard):
         self.cardId = 'AromaticExotica'
         self.round = 16
         self.cardName = '异域蜜香的艳闻'
-        self.nickName = '夏狐'
+        self.nickName = '夏狐/沙狐'
         self.role = CardRole.Kuya
         self.cardType = CardType.Light
         self.occupation = CardOccupation.Striker

@@ -674,6 +674,8 @@ class NucarnivalHelper:
     # 结算hot
     def action(self, turn=0, cardList: list[ICard] = [], cardList2: list[ICard] = []):
         for role in cardList:
+            for tempCard in cardList2:
+                tempCard.beDamageCount = {}
             if role in self.defenseTurn and turn in self.defenseTurn[role]:
                 role.defense = True
                 event = Event(EventType.defense)
@@ -717,7 +719,7 @@ class NucarnivalHelper:
         for enemy in cardList2:
             if enemy in enemiesBeAttacked:
                 if enemiesBeAttacked[enemy] > 0:
-                    enemy.beAttacked(enemiesBeAttacked[enemy], False)
+                    enemy.beAttacked(enemiesBeAttacked[enemy], False, role)
 
     # 必杀
     def doSkill(self, role: ICard, cardList: list[ICard] = [], cardList2: list[ICard] = []):
@@ -747,7 +749,7 @@ class NucarnivalHelper:
             if enemy in enemiesBeAttacked:
                 if enemiesBeAttacked[enemy] > 0:
                     self.doCounter(enemy, role, cardList)
-                    enemy.beAttacked(enemiesBeAttacked[enemy], True)
+                    enemy.beAttacked(enemiesBeAttacked[enemy], True, role)
 
     # 普攻
     def doAttack(self, role: ICard, cardList: list[ICard] = [], cardList2: list[ICard] = []):
@@ -777,7 +779,7 @@ class NucarnivalHelper:
             if enemy in enemiesBeAttacked:
                 if enemiesBeAttacked[enemy] > 0:
                     self.doCounter(enemy, role, cardList)
-                    enemy.beAttacked(enemiesBeAttacked[enemy], True)
+                    enemy.beAttacked(enemiesBeAttacked[enemy], True, role)
 
     def writeCardInfoInExcel(self):
         writeCardInfoTitleInExcel(self.roleWS)

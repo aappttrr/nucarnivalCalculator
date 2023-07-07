@@ -16,7 +16,7 @@ class FlamingSecret(SSRCard):
         self.cardId = 'FlamingSecret'
         self.round = 16
         self.cardName = '焰沙暗探的秘梦'
-        self.nickName = '夏团'
+        self.nickName = '夏团/沙团'
         self.role = CardRole.Edmond
         self.cardType = CardType.Fire
         self.occupation = CardOccupation.Support

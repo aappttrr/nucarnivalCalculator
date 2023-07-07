@@ -137,6 +137,8 @@ def getHelpContent():
 
 def getUpdateLogContent():
     output = io.StringIO()
+    getUpdateLogContent_2_7(output)
+    writeLineString(output, '')
     getUpdateLogContent_2_6(output)
     writeLineString(output, '')
     getUpdateLogContent_2_5(output)
@@ -157,6 +159,19 @@ def getUpdateLogContent():
     writeLineString(output, '')
     getUpdateLogContent_1_0(output)
     return output.getvalue()
+
+
+def getUpdateLogContent_2_7(_output: io.StringIO):
+    writeDashString(_output, 36)
+    writeString(_output, '2023.7.9')
+    writeDashString(_output, 36)
+    writeLineString(_output, '')
+    writeLineString(_output, 'v2.7:')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '①更新啖天、玖夜、副团夏活新卡')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '②暗团buff修改，多段攻击会进行多次触发，如暗奥、夏啖、火布的多段攻击'
+                             '，还有普团、暗昆、早八、圣啖的追击，有多少次追击算多少次')
 
 
 def getUpdateLogContent_2_6(_output: io.StringIO):

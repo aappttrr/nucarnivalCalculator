@@ -128,6 +128,9 @@ class ICard:
         self.skillHealMagnificationLv2 = 0
         self.skillHealMagnificationLv3 = 0
 
+        self.damageCount = {}
+        self.beDamageCount = {}
+
     def clearUp(self):
         self.skillCount = 0
         self.defense = False
@@ -209,6 +212,11 @@ class ICard:
     def setAtkDirect(self, _atk):
         self.atk = _atk
 
+    def addDamageCount(self, damage, enemy, isAttack = True):
+        if damage > 0:
+            self.damageCount[enemy] += 1
+            enemy.beDamageCount[self] += 1
+
     def doAttack(self):
         enemies = self.seizeEnemy(True)
         self.attackBefore(enemies)
@@ -219,11 +227,16 @@ class ICard:
         event1.data['target'] = self
         eventManagerInstance.sendEvent(event1)
 
+        self.damageCount = {}
+        for tempEnemy in self.enemies:
+            self.damageCount[tempEnemy] = 0
+            tempEnemy.beDamageCount[self] = 0
         damage = self.attack(enemies, currentAtk)
         if damage > 0:
             if isinstance(enemies, list):
                 for enemy in enemies:
                     damage2 = enemy.increaseBeDamage(damage, self, True, False)
+                    self.addDamageCount(damage2, enemy, True)
                     event = Event(EventType.attackDamage)
                     event.data['source'] = self
                     event.data['value'] = damage2
@@ -231,6 +244,7 @@ class ICard:
                     eventManagerInstance.sendEvent(event)
             else:
                 damage2 = enemies.increaseBeDamage(damage, self, True, False)
+                self.addDamageCount(damage2, enemies, True)
                 event = Event(EventType.attackDamage)
                 event.data['source'] = self
                 event.data['value'] = damage2
@@ -256,8 +270,8 @@ class ICard:
             eventManagerInstance.sendEvent(event)
 
         if damage > 0:
-            self.triggerWhenAttackOrSkill(enemies, True)
             self.followUp(currentAtk, True)
+            self.triggerWhenAttackOrSkill(enemies, True)
 
         self.attackAfter(enemies)
         currentAtk2 = self.getCurrentAtk()
@@ -278,11 +292,16 @@ class ICard:
         event1.data['target'] = self
         eventManagerInstance.sendEvent(event1)
 
+        self.damageCount = {}
+        for tempEnemy in self.enemies:
+            self.damageCount[tempEnemy] = 0
+            tempEnemy.beDamageCount[self] = 0
         damage = self.skill(enemies, currentAtk)
         if damage > 0:
             if isinstance(enemies, list):
                 for enemy in enemies:
                     damage2 = enemy.increaseBeDamage(damage, self, False, True)
+                    self.addDamageCount(damage2, enemy, False)
                     event = Event(EventType.skillDamage)
                     event.data['source'] = self
                     event.data['value'] = damage2
@@ -290,6 +309,7 @@ class ICard:
                     eventManagerInstance.sendEvent(event)
             else:
                 damage2 = enemies.increaseBeDamage(damage, self, False, True)
+                self.addDamageCount(damage2, enemies, False)
                 event = Event(EventType.skillDamage)
                 event.data['source'] = self
                 event.data['value'] = damage2
@@ -315,8 +335,8 @@ class ICard:
             eventManagerInstance.sendEvent(event)
 
         if damage > 0:
-            self.triggerWhenAttackOrSkill(enemies, False)
             self.followUp(currentAtk, False)
+            self.triggerWhenAttackOrSkill(enemies, False)
 
         self.skillAfter(enemies)
         currentAtk2 = self.getCurrentAtk()
@@ -364,6 +384,7 @@ class ICard:
             if isinstance(enemies, list):
                 for enemy in enemies:
                     damage2 = enemy.increaseBeDamage(followUpDamage, self, buff.seeAsAttack, buff.seeAsSkill)
+                    self.addDamageCount(damage2, enemy, isAttack)
                     if isAttack:
                         event = Event(EventType.attackFollowUp)
                     else:
@@ -374,6 +395,7 @@ class ICard:
                     eventManagerInstance.sendEvent(event)
             else:
                 damage2 = enemies.increaseBeDamage(followUpDamage, self, buff.seeAsAttack, buff.seeAsSkill)
+                self.addDamageCount(damage2, enemies, isAttack)
                 if isAttack:
                     event = Event(EventType.attackFollowUp)
                 else:
@@ -474,7 +496,7 @@ class ICard:
                     oldDamage = dotDamages.get(buff.source)
                 dotDamages[buff.source] = dotDamage + oldDamage
 
-        self.beAttacked(totalDamage, False)
+        self.beAttacked(totalDamage, False, None)
 
         for source in dotDamages:
             event = Event(EventType.dot)
@@ -907,6 +929,7 @@ class ICard:
     def nextRound(self):
         self.skillCount += 1
         self.defense = False
+        self.beDamageCount = {}
         removeBuffs: list[Buff] = []
         for buff in self.buffs:
             buff.nextRound()
@@ -925,21 +948,30 @@ class ICard:
             buff.source = self
         self.buffs.append(buff)
 
-    def beAttackedAfter(self, seeAsBeAttacked):
+    def beAttackedAfter(self, seeAsBeAttacked, source):
         newBuffs = {}
+        count = 0
+        if source is not None:
+            try:
+                count = self.beDamageCount[source]
+            except:
+                count = 0
+        if count <= 0:
+            count = 1
         if seeAsBeAttacked:
             for buff in self.buffs:
                 if buff.conditionType != ConditionType.WhenBeAttacked:
                     continue
                 if buff.buffType == BuffType.AddBeDamageIncrease:
-                    newBuff = Buff(buff.buffId, buff.value, buff.addBuffTurn, BuffType.BeDamageIncrease)
-                    newBuffs[newBuff] = buff.source
+                    for i in range(0, count):
+                        newBuff = Buff(buff.buffId, buff.value, buff.addBuffTurn, BuffType.BeDamageIncrease)
+                        newBuffs[newBuff] = buff.source
         for newBuff in newBuffs:
             self.addBuff(newBuff, newBuffs[newBuff])
         if seeAsBeAttacked:
             self.disBuffWhenBeAttacked()
 
-    def beAttacked(self, damage, seeAsBeAttacked):
+    def beAttacked(self, damage, seeAsBeAttacked, source):
         if damage <= 0:
             return 0
         removeBuffs: list[Buff] = []
@@ -960,7 +992,7 @@ class ICard:
             self.buffs.remove(buff)
 
         self.hpCurrent -= result
-        self.beAttackedAfter(seeAsBeAttacked)
+        self.beAttackedAfter(seeAsBeAttacked, source)
         return 0
 
     def beHealed(self, heal, seeAsHeal):

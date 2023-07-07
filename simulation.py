@@ -608,69 +608,49 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     yiDe = _cardHelper.filterCard('GalacticMist')[0]
     srAo = _cardHelper.filterCard('SROlivine')[0]
     miAo = _cardHelper.filterCard('CaptiveStar')[0]
+    shaTuan = _cardHelper.filterCard('FlamingSecret')[0]
 
-    # 半拐
-    guangLang = _cardHelper.filterCard('EndlessBanquet')[0]
-    shuiHL = _cardHelper.filterCard('AfternoonDaze')[0]
-
-    # 普攻
+    # 输出
     puTuan = _cardHelper.filterCard('KnightlyNight')[0]
-    huoTuan = _cardHelper.filterCard('SweetAroma')[0]
-    anTuan = _cardHelper.filterCard('EliteInstructor')[0]
     anKun = _cardHelper.filterCard('DistantPromise')[0]
-    srAi = _cardHelper.filterCard('SRAster')[0]
     zaoBa = _cardHelper.filterCard('DarkNova')[0]
-
-    # 必杀
-    puKun = _cardHelper.filterCard('AncientCeremony')[0]
+    puBa = _cardHelper.filterCard('Homecoming')[0]
     srKun = _cardHelper.filterCard('SRQuincy')[0]
     rKun = _cardHelper.filterCard('RQuincy')[0]
-    shuiDan = _cardHelper.filterCard('EternalHanabi')[0]
-    anAo = _cardHelper.filterCard('RadiantAdmiral')[0]
-    baiBa = _cardHelper.filterCard('CocoaLiqueur')[0]
+    huoTuan = _cardHelper.filterCard('SweetAroma')[0]
+    anTuan = _cardHelper.filterCard('EliteInstructor')[0]
+    srAi = _cardHelper.filterCard('SRAster')[0]
 
-    # 持续伤害
-    huoHL = _cardHelper.filterCard('KitsuneDream')[0]
-
-    srBayun = _cardHelper.filterCard('SRYakumo')[0]
-    srMofei = _cardHelper.filterCard('SRMorvay')[0]
-    dunLang = _cardHelper.filterCard('ForgottenFruit')[0]
-    huoBu = _cardHelper.filterCard('CrystalAwakening')[0]
-    puLian = _cardHelper.filterCard('MidnightOwl')[0]
-    puBa = _cardHelper.filterCard('Homecoming')[0]
-    puBu = _cardHelper.filterCard('ExplosiveRecall')[0]
-    srLian = _cardHelper.filterCard('SRRei')[0]
-    srHL = _cardHelper.filterCard('SRKuya')[0]
-    nvpuBu = _cardHelper.filterCard('LovableEnforcer')[0]
-
-    sanKX = _cardHelper.filterCard('BlossomingLegend')[0]
-    sanLian = _cardHelper.filterCard('RainyRebirth')[0]
+    # 治疗
     puAo = _cardHelper.filterCard('HolyConfession')[0]
-    dongAo = _cardHelper.filterCard('FrostedVirtue')[0]
+    sanKun = _cardHelper.filterCard('BlossomingLegend')[0]
+    srBa = _cardHelper.filterCard('SRYakumo')[0]
 
     # anKun.setProperties(60, 3, 5, 12)
 
-    # _helper.skillTurn[guaLang] = [6, 12]
+    # _helper.skillTurn[shaTuan] = [5,8,11,14]
+    # _helper.skillTurn[srAo] = [6,12]
+    # _helper.skillTurn[shengDan] = [3,7,11]
 
     # _helper.defenseTurn[srAi] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
-    _helper.defenseTurn[sanKX] = [1, 2, 6, 8, 11, 9]
-    _helper.defenseTurn[srBayun] = [1, 2, 6, 8, 11, 9]
-    _helper.defenseTurn[puAo] = [1, 2, 6, 7, 11, 12]
-    _helper.defenseTurn[dongAo] = [1, 2, 6, 7, 11, 12]
+    for i in range(1, 15):
+        # if i == 4 or i == 7 or i == 10 or i == 13:
+        #     _helper.actionSequence[i] = [4, 1, 3, 2]
+        # else:
+        _helper.actionSequence[i] = [1, 4, 3, 2]
 
     _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(srAo)
-    _helper.team.append(puAo)
-    _helper.team.append(TempTeamMate())
-    _helper.team.append(TempTeamMate())
-    _helper.team.append(TempTeamMate())
+    _helper.team.append(shengDan)
+    _helper.team.append(srAi)
+    _helper.team.append(puBa)
+    _helper.team.append(anTuan)
 
     _helper.battleStart(True)
-    name = 'sr奥-普奥-防-{}.xls'.format(_helper.maxTurn)
-    _helper.exportExcel('E:\\新世界\\攻略\\【2023.6.8】雨季\\伞昆模拟\\' + name)
-    # _helper.exportExcel('C:\\fhs\\python\\【2023.6.8】\\伞昆模拟\\' + name)
+    name = '沙团-SR艾-普八-圣啖-{}.xls'.format(_helper.maxTurn)
+    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.6.8】雨季\\伞昆模拟\\' + name)
+    _helper.exportExcel('C:\\fhs\\python\\【2023.7.7】\\沙团模拟\\' + name)
 
 
 def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, turn=13):
@@ -724,8 +704,8 @@ def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, tu
                 continue
         damageRow = doStarCompareSimulation(role, ws1, _helper, turn, damageRow, 0)
 
-    # filePath = 'C:\\fhs\\python\\星级对比.xls'
-    filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
+    filePath = 'C:\\fhs\\python\\星级对比.xls'
+    # filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
     wb.save(filePath)
 
 
@@ -845,13 +825,13 @@ if __name__ == '__main__':
 
     _cardHelper = CardHelper()
 
-    # tempSimulation(_helper, _cardHelper)
+    tempSimulation(_helper, _cardHelper)
 
     # starCompareSimulation(_helper, _cardHelper, 13)
 
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True, False, 1)
-    simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False, False, 1)
+    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False, False, 1)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True, False, 1)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False, False, 1)
