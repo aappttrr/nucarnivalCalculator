@@ -609,6 +609,7 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     srAo = _cardHelper.filterCard('SROlivine')[0]
     miAo = _cardHelper.filterCard('CaptiveStar')[0]
     shaTuan = _cardHelper.filterCard('FlamingSecret')[0]
+    wanAo = _cardHelper.filterCard('CaptiveStar')[0]
 
     # 输出
     puTuan = _cardHelper.filterCard('KnightlyNight')[0]
@@ -620,37 +621,43 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     huoTuan = _cardHelper.filterCard('SweetAroma')[0]
     anTuan = _cardHelper.filterCard('EliteInstructor')[0]
     srAi = _cardHelper.filterCard('SRAster')[0]
+    shuiHu = _cardHelper.filterCard('AfternoonDaze')[0]
+    huoHu = _cardHelper.filterCard('KitsuneDream')[0]
+    xiaHu = _cardHelper.filterCard('AromaticExotica')[0]
+    guangLang = _cardHelper.filterCard('EndlessBanquet')[0]
+    shuiDan = _cardHelper.filterCard('EternalHanabi')[0]
+    xiaDan = _cardHelper.filterCard('ScorchingSun')[0]
+    anAo = _cardHelper.filterCard('RadiantAdmiral')[0]
+    puKun = _cardHelper.filterCard('AncientCeremony')[0]
 
     # 治疗
     puAo = _cardHelper.filterCard('HolyConfession')[0]
     sanKun = _cardHelper.filterCard('BlossomingLegend')[0]
     srBa = _cardHelper.filterCard('SRYakumo')[0]
 
-    # anKun.setProperties(60, 3, 5, 12)
-
-    # _helper.skillTurn[shaTuan] = [5,8,11,14]
-    # _helper.skillTurn[srAo] = [6,12]
-    # _helper.skillTurn[shengDan] = [3,7,11]
-
-    # _helper.defenseTurn[srAi] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
     for i in range(1, 15):
-        # if i == 4 or i == 7 or i == 10 or i == 13:
-        #     _helper.actionSequence[i] = [4, 1, 3, 2]
-        # else:
-        _helper.actionSequence[i] = [1, 4, 3, 2]
+        if i == 4 or i == 7 or i == 10 or i == 13:
+            _helper.actionSequence[i] = [4, 1, 3, 2]
+        else:
+            _helper.actionSequence[i] = [1, 4, 3, 2]
+
+    # _helper.skillTurn[shaTuan] = [5,8,11]
+    _helper.skillTurn[srAo] = [6, 12]
+    _helper.skillTurn[guaLang] = [6, 12]
+    _helper.skillTurn[shaTuan] = [3, 8, 11]
 
     _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
     _helper.team.append(shengDan)
-    _helper.team.append(srAi)
-    _helper.team.append(puBa)
+    _helper.team.append(srKun)
+    _helper.team.append(puKun)
     _helper.team.append(anTuan)
 
     _helper.battleStart(True)
-    name = '沙团-SR艾-普八-圣啖-{}.xls'.format(_helper.maxTurn)
-    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.6.8】雨季\\伞昆模拟\\' + name)
-    _helper.exportExcel('C:\\fhs\\python\\【2023.7.7】\\沙团模拟\\' + name)
+    name = '必杀单段组③-暗团-{}.xls'.format(_helper.maxTurn)
+    _helper.exportExcel('E:\\新世界\\攻略\\【2023.7.7】\\沙团模拟\\' + name)
+    # _helper.exportExcel('C:\\fhs\\python\\【2023.7.7】\\沙团模拟\\' + name)
 
 
 def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, turn=13):
@@ -696,7 +703,7 @@ def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, tu
     for role in _cardHelper.cardList:
         if role.rarity == CardRarity.N or role.rarity == CardRarity.R:
             continue
-        if role.occupation == CardOccupation.Support and role.cardName != '诡夜疾风':
+        if role.occupation == CardOccupation.Support and role.cardName != '诡夜疾风' and role.cardName != '焰沙暗探的秘梦':
             continue
         if role.occupation == CardOccupation.Healer or role.cardName == '守望者的冬季馈礼':
             healRow = doStarCompareSimulation(role, ws2, _helper, turn, healRow, 1)
@@ -704,8 +711,8 @@ def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, tu
                 continue
         damageRow = doStarCompareSimulation(role, ws1, _helper, turn, damageRow, 0)
 
-    filePath = 'C:\\fhs\\python\\星级对比.xls'
-    # filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
+    # filePath = 'C:\\fhs\\python\\星级对比.xls'
+    filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
     wb.save(filePath)
 
 

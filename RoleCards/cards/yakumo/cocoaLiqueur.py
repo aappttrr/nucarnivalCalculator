@@ -48,8 +48,8 @@ class CocoaLiqueur(SSRCard):
             buff.isPassive = True
             self.addBuff(buff)
 
-    def beAttackedAfter(self, seeAsBeAttacked):
-        super(CocoaLiqueur, self).beAttackedAfter(seeAsBeAttacked)
+    def beAttackedAfter(self, seeAsBeAttacked, source):
+        super(CocoaLiqueur, self).beAttackedAfter(seeAsBeAttacked, source)
         if seeAsBeAttacked and self.passive_star_3() and self.calBuffCount('CocoaLiqueur_passive_star_3') < 3:
             buff = Buff('CocoaLiqueur_passive_star_3', 0.09, 0, BuffType.AtkIncrease)
             buff.isPassive = True

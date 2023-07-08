@@ -269,9 +269,8 @@ class ICard:
             event.data['target'] = self
             eventManagerInstance.sendEvent(event)
 
-        if damage > 0:
-            self.followUp(currentAtk, True)
-            self.triggerWhenAttackOrSkill(enemies, True)
+        self.followUp(currentAtk, True)
+        self.triggerWhenAttackOrSkill(enemies, True)
 
         self.attackAfter(enemies)
         currentAtk2 = self.getCurrentAtk()
@@ -334,9 +333,8 @@ class ICard:
             event.data['target'] = self
             eventManagerInstance.sendEvent(event)
 
-        if damage > 0:
-            self.followUp(currentAtk, False)
-            self.triggerWhenAttackOrSkill(enemies, False)
+        self.followUp(currentAtk, False)
+        self.triggerWhenAttackOrSkill(enemies, False)
 
         self.skillAfter(enemies)
         currentAtk2 = self.getCurrentAtk()

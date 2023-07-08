@@ -39,14 +39,14 @@ class SRGaru(SRCard):
     # 敌全体受伤+8%（1）
     # 攻124%/148%/173%（群）
     def skillBefore(self, enemies):
-        for monster in enemies:
+        for monster in self.enemies:
             buff = Buff('SRGaru_skill', 0.08, 1, BuffType.BeDamageIncrease)
             monster.addBuff(buff, self)
 
     # 敌全体受伤+4%（2）
     # 攻50%（群）
     def attackBefore(self, enemies):
-        for monster in enemies:
+        for monster in self.enemies:
             buff = Buff('SRGaru_attack', 0.04, 2, BuffType.BeDamageIncrease)
             monster.addBuff(buff, self)
 
