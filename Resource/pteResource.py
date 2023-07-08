@@ -172,6 +172,8 @@ def getUpdateLogContent_2_7(_output: io.StringIO):
     writeWriteSpace(_output, 8)
     writeLineString(_output, '②暗团buff修改，多段攻击会进行多次触发，如暗奥、夏啖、火布的多段攻击'
                              '，还有普团、暗昆、早八、圣啖的追击，有多少次追击算多少次')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '③现在普攻没有伤害也可以触发追击了')
 
 
 def getUpdateLogContent_2_6(_output: io.StringIO):
