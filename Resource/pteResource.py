@@ -19,7 +19,7 @@ def getWelcomeContent():
 
 def getHelpContent():
     output = io.StringIO()
-    writeLineString(output, '当前版本：v2.6-2023-6-11')
+    writeLineString(output, '当前版本：v2.7-2023-7-8')
     writeLineString(output, '有任何问题、Bug都可以给我留言~~')
     writeLineString(output, 'B站：纳萨尔')
     writeLineString(output, '')
@@ -163,7 +163,7 @@ def getUpdateLogContent():
 
 def getUpdateLogContent_2_7(_output: io.StringIO):
     writeDashString(_output, 36)
-    writeString(_output, '2023.7.9')
+    writeString(_output, '2023.7.8')
     writeDashString(_output, 36)
     writeLineString(_output, '')
     writeLineString(_output, 'v2.7:')
