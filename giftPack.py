@@ -347,6 +347,13 @@ def activityGiftPacks(gps: list[CostPerformanceHelper]):
     clothingLb.price = 5120
     gps.append(clothingLb)
 
+    clothingLb2 = CostPerformanceHelper('服装礼包2')
+    clothingLb2.addGameProp(GameProp(PropType.clothing, 1))
+    clothingLb2.addGameProp(GameProp(PropType.essenceContract, 20))
+    clothingLb2.currencyType = CurrencyType.eCoin
+    clothingLb2.price = 5120
+    gps.append(clothingLb2)
+
     birthdaylb = CostPerformanceHelper('生日礼包')
     birthdaylb.addGameProp(GameProp(PropType.spiritGem, 1000))
     birthdaylb.addGameProp(GameProp(PropType.bigEssenceVial, 20))
@@ -468,6 +475,21 @@ def activityGiftPacks(gps: list[CostPerformanceHelper]):
     cxlcb.currencyType = CurrencyType.eCoin
     cxlcb.price = 599
     gps.append(cxlcb)
+
+    fklb3 = CostPerformanceHelper('复刻礼包1')
+    fklb3.addGameProp(GameProp(PropType.essenceContract, 6))
+    fklb3.addGameProp(GameProp(PropType.basicBoost, 5))
+    fklb3.currencyType = CurrencyType.eCoin
+    fklb3.price = 480
+    gps.append(fklb3)
+
+    fklb4 = CostPerformanceHelper('复刻礼包2')
+    fklb4.addGameProp(GameProp(PropType.essenceContract, 10))
+    fklb4.addGameProp(GameProp(PropType.basicBoost, 15))
+    fklb4.addGameProp(GameProp(PropType.intermediatePotentialPkg, 2))
+    fklb4.currencyType = CurrencyType.eCoin
+    fklb4.price = 1245
+    gps.append(fklb4)
 
 
 # 等级礼包
@@ -731,5 +753,5 @@ def exportAllGiftPacks(filePath):
 
 
 if __name__ == '__main__':
-    # exportAllGiftPacks('E:\\新世界\\性价比\\性价比计算.xls')
-    exportAllGiftPacks('C:\\fhs\\python\\性价比计算.xls')
+    exportAllGiftPacks('E:\\新世界\\性价比\\性价比计算.xls')
+    # exportAllGiftPacks('C:\\fhs\\python\\性价比计算.xls')
