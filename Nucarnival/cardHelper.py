@@ -1,5 +1,6 @@
 from RoleCards.cards.aster.n_aster import NAster
 from RoleCards.cards.aster.r_aster import RAster
+from RoleCards.cards.aster.scarletFinesse import ScarletFinesse
 from RoleCards.cards.aster.sr_aster import SRAster
 from RoleCards.cards.blade.crystalAwakening import CrystalAwakening
 from RoleCards.cards.blade.lovableEnforcer import LovableEnforcer
@@ -40,6 +41,7 @@ from RoleCards.cards.kuya.r_Kuya import RKuya
 from RoleCards.cards.kuya.sr_Kuya import SRKuya
 from RoleCards.cards.kuya.kitsuneDream import KitsuneDream
 from RoleCards.cards.kuya.lakesideSpark import LakesideSpark
+from RoleCards.cards.morvay.mauveMayhem import MauveMayhem
 from RoleCards.cards.morvay.n_morvay import NMorvay
 from RoleCards.cards.morvay.r_morvay import RMorvay
 from RoleCards.cards.morvay.sr_morvay import SRMorvay
@@ -89,17 +91,21 @@ class CardHelper:
         srA = SRAster()
         rA = RAster()
         nA = NAster()
+        ssrA = ScarletFinesse()
         self.cardList.append(srA)
         self.cardList.append(rA)
         self.cardList.append(nA)
+        self.cardList.append(ssrA)
 
         # 墨菲
         srM = SRMorvay()
         rM = RMorvay()
         nM = NMorvay()
+        ssrM = MauveMayhem()
         self.cardList.append(srM)
         self.cardList.append(rM)
         self.cardList.append(nM)
+        self.cardList.append(ssrM)
 
         # 八云
         srB = SRYakumo()

@@ -484,6 +484,16 @@ def similationTeamMate(helper: NucarnivalHelper, x: ICard):
         mate = TempTeamMate()
         mate.occupation = CardOccupation.Guardian
         helper.team.append(mate)
+    elif x.cardName == '冷艳猩红':
+        mate = TempTeamMate()
+        mate.occupation = CardOccupation.Support
+        mate.role = CardRole.Morvay
+        helper.team.append(mate)
+    elif x.cardName == '狂傲紫魅':
+        mate = TempTeamMate()
+        mate.occupation = CardOccupation.Support
+        mate.role = CardRole.Aster
+        helper.team.append(mate)
 
 
 def banguaiSimulation(filepath, cardHelper: CardHelper, helper: NucarnivalHelper):
@@ -832,7 +842,7 @@ if __name__ == '__main__':
 
     _cardHelper = CardHelper()
 
-    tempSimulation(_helper, _cardHelper)
+    # tempSimulation(_helper, _cardHelper)
 
     # starCompareSimulation(_helper, _cardHelper, 13)
 
@@ -841,4 +851,4 @@ if __name__ == '__main__':
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True, False, 1)
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False, False, 1)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True, False, 1)
-    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False, False, 1)
+    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False, False, 1)
