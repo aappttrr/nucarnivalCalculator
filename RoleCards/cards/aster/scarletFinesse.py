@@ -15,7 +15,7 @@ class ScarletFinesse(SSRCard):
         self.cardId = 'ScarletFinesse'
         self.round = 17
         self.cardName = '冷艳猩红'
-        self.nickName = 'ssr艾'
+        self.nickName = '大艾'
         self.role = CardRole.Aster
         self.cardType = CardType.Light
         self.occupation = CardOccupation.Saboteur

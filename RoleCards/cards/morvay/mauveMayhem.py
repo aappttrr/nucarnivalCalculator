@@ -16,7 +16,7 @@ class MauveMayhem(SSRCard):
         self.cardId = 'MauveMayhem'
         self.round = 17
         self.cardName = '狂傲紫魅'
-        self.nickName = 'ssr墨'
+        self.nickName = '大墨'
         self.role = CardRole.Morvay
         self.cardType = CardType.Fire
         self.occupation = CardOccupation.Striker

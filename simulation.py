@@ -97,7 +97,7 @@ def simulationCombat(filePath, cardHelper: CardHelper, helper: NucarnivalHelper,
 
 
 def simulationCombat2(filePath, cardHelper: CardHelper, helper: NucarnivalHelper, calGroupRole: bool,
-                     forceTeamMate: bool = False, monsterCount: int = 1):
+                      forceTeamMate: bool = False, monsterCount: int = 1):
     wb = Workbook()
 
     column = 15
@@ -639,34 +639,37 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     xiaDan = _cardHelper.filterCard('ScorchingSun')[0]
     anAo = _cardHelper.filterCard('RadiantAdmiral')[0]
     puKun = _cardHelper.filterCard('AncientCeremony')[0]
+    daMo = _cardHelper.filterCard('MauveMayhem')[0]
+    daAi = _cardHelper.filterCard('ScarletFinesse')[0]
 
     # 治疗
     puAo = _cardHelper.filterCard('HolyConfession')[0]
     sanKun = _cardHelper.filterCard('BlossomingLegend')[0]
     srBa = _cardHelper.filterCard('SRYakumo')[0]
 
-    for i in range(1, 15):
-        if i == 4 or i == 7 or i == 10 or i == 13:
-            _helper.actionSequence[i] = [4, 1, 3, 2]
-        else:
-            _helper.actionSequence[i] = [1, 4, 3, 2]
+    # for i in range(1, 15):
+    #     if i == 4 or i == 7 or i == 10 or i == 13:
+    #         _helper.actionSequence[i] = [4, 1, 3, 2]
+    #     else:
+    #         _helper.actionSequence[i] = [1, 4, 3, 2]
 
     # _helper.skillTurn[shaTuan] = [5,8,11]
-    _helper.skillTurn[srAo] = [6, 12]
-    _helper.skillTurn[guaLang] = [6, 12]
-    _helper.skillTurn[shaTuan] = [3, 8, 11]
+    # _helper.skillTurn[srAo] = [6, 12]
+    # _helper.skillTurn[guaLang] = [6, 12]
+    # _helper.skillTurn[wanAo] = [5, 9, 13]
+    # _helper.skillTurn[shuiDan] = [5, 9, 13]
 
     _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(shengDan)
+    _helper.team.append(wanAo)
+    _helper.team.append(shuiHu)
     _helper.team.append(srKun)
-    _helper.team.append(puKun)
-    _helper.team.append(anTuan)
+    _helper.team.append(rKun)
 
     _helper.battleStart(True)
-    name = '必杀单段组③-暗团-{}.xls'.format(_helper.maxTurn)
-    _helper.exportExcel('E:\\新世界\\攻略\\【2023.7.7】\\沙团模拟\\' + name)
+    name = '⑤-{}.xls'.format(_helper.maxTurn)
+    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.8.10】黑街狂赌\\大墨模拟\\' + name)
     # _helper.exportExcel('C:\\fhs\\python\\【2023.7.7】\\沙团模拟\\' + name)
 
 
@@ -837,10 +840,23 @@ def doStarCompareSimulation(role: ICard, ws: Worksheet, _helper: NucarnivalHelpe
     return lastRow
 
 
+def singleRoleSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, roleId, turn=13, lv=60, star=1, bond=5,
+                         tier=12):
+    role = _cardHelper.filterCard(roleId)[0]
+    role.setProperties(lv, star, bond, tier)
+    similationTeamMate(_helper, role)
+    _helper.maxTurn = turn
+    _helper.monsters.append(CommonMonster())
+    _helper.team.append(role)
+    _helper.battleStart(True)
+
+
 if __name__ == '__main__':
     _helper = NucarnivalHelper()
 
     _cardHelper = CardHelper()
+
+    # singleRoleSimulation(_helper, _cardHelper, 'ScarletFinesse', 13, 60, 5)
 
     # tempSimulation(_helper, _cardHelper)
 
@@ -848,7 +864,7 @@ if __name__ == '__main__':
 
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
-    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True, False, 1)
-    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False, False, 1)
+    simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True, False, 1)
+    simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False, False, 1)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True, False, 1)
-    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False, False, 1)
+    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False, False, 1)

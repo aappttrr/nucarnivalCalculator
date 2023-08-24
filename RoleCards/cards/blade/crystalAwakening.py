@@ -34,14 +34,14 @@ class CrystalAwakening(SSRCard):
         self.skillMagnificationLv2 = 0.6 * 3 + 3.45
         self.skillMagnificationLv3 = 0.6 * 3 + 4.06
 
-    def addDamageCount(self, damage, enemy, isAttack = True):
-        if damage > 0:
-            if isAttack:
-                self.damageCount[enemy] += 1
-                enemy.beDamageCount[self] += 1
-            else:
-                self.damageCount[enemy] += 4
-                enemy.beDamageCount[self] += 4
+    # def addDamageCount(self, damage, enemy, isAttack = True):
+    #     if damage > 0:
+    #         if isAttack:
+    #             self.damageCount[enemy] += 1
+    #             enemy.beDamageCount[self] += 1
+    #         else:
+    #             self.damageCount[enemy] += 4
+    #             enemy.beDamageCount[self] += 4
 
     # 目标解除防御
     # 攻60%攻击3次

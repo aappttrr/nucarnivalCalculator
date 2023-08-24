@@ -214,8 +214,8 @@ class ICard:
 
     def addDamageCount(self, damage, enemy, isAttack = True):
         if damage > 0:
-            self.damageCount[enemy] += 1
-            enemy.beDamageCount[self] += 1
+            self.damageCount[enemy] = 1
+            enemy.beDamageCount[self] = 1
 
     def doAttack(self):
         enemies = self.seizeEnemy(True)

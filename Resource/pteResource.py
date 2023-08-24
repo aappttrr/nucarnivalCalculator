@@ -19,7 +19,7 @@ def getWelcomeContent():
 
 def getHelpContent():
     output = io.StringIO()
-    writeLineString(output, '当前版本：v2.7-2023-7-8')
+    writeLineString(output, '当前版本：v2.8-2023-8-24')
     writeLineString(output, '有任何问题、Bug都可以给我留言~~')
     writeLineString(output, 'B站：纳萨尔')
     writeLineString(output, '')
@@ -60,8 +60,8 @@ def getHelpContent():
                     '⑦治疗量：吸血在模拟结果中显示在攻击的角色上，但在总治疗量统计的时候吸血会算在提供buff的角色上（例如奶狐）。')
     writeWriteSpace(output, 8)
     writeLineString(output,
-                    '⑧攻击时：当普攻/必杀时，伤害为0，那么就不算【攻击时】。因此火狐、奶、除瓜狼以外的辅助都无法触发【攻击时】类型的buff。'
-                    '反击也不算【攻击时】，所以不会反复触发反击（我方反击不会触发敌方反击，反过来也一样）。')
+                    '⑧攻击时：当普攻/必杀时，伤害为0，那么就不算【被攻击时】。因此火狐、奶、除瓜狼以外的辅助都无法触发地方【被攻击时】类型的buff。'
+                    '反击也不算，所以不会反复触发反击（我方反击不会触发敌方反击，反过来也一样）。')
     writeWriteSpace(output, 8)
     writeLineString(output,
                     '⑨行动顺序功能，在行动顺序中可设置任意回合的角色行动顺序，除设置以外的回合、角色将会按原顺序行动。')
@@ -137,6 +137,8 @@ def getHelpContent():
 
 def getUpdateLogContent():
     output = io.StringIO()
+    getUpdateLogContent_2_8(output)
+    writeLineString(output, '')
     getUpdateLogContent_2_7(output)
     writeLineString(output, '')
     getUpdateLogContent_2_6(output)
@@ -159,6 +161,18 @@ def getUpdateLogContent():
     writeLineString(output, '')
     getUpdateLogContent_1_0(output)
     return output.getvalue()
+
+
+def getUpdateLogContent_2_8(_output: io.StringIO):
+    writeDashString(_output, 36)
+    writeString(_output, '2023.8.24')
+    writeDashString(_output, 36)
+    writeLineString(_output, '')
+    writeLineString(_output, 'v2.8:')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '①更新墨菲、艾斯特SSR新卡')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '②修复多段攻击，不再多次触发')
 
 
 def getUpdateLogContent_2_7(_output: io.StringIO):
