@@ -19,7 +19,7 @@ class EtherealGuardian(SSRCard):
         self.role = CardRole.Garu
         self.cardType = CardType.Wood
         self.occupation = CardOccupation.Healer
-        self.tierType = TierType.Defense
+        self.tierType = TierType.Balance
         self.skillCD = 3
         self.ped = PassiveEffectivenessDifficulty.veryEasy
 
@@ -51,7 +51,7 @@ class EtherealGuardian(SSRCard):
             buff = Buff('EtherealGuardian_skill', hotHeal, 3, BuffType.Hot)
             role.addBuff(buff, self)
 
-            if role.cardId != self.cardId and self.star > 2:
+            if role.cardId != self.cardId and self.star >= 2:
                 buff2 = Buff('EtherealGuardian_skill2', 0.27, 0, BuffType.AttackIncrease)
                 buff2.isPassive = True
                 role.addBuff(buff2, self)

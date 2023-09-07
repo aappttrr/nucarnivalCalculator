@@ -649,6 +649,9 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     daMo = _cardHelper.filterCard('MauveMayhem')[0]
     daAi = _cardHelper.filterCard('ScarletFinesse')[0]
     srTuan = _cardHelper.filterCard('SREdmond')[0]
+    yanBa = _cardHelper.filterCard('ShadowLineage')[0]
+    puLian = _cardHelper.filterCard('MidnightOwl')[0]
+    puBu = _cardHelper.filterCard('ExplosiveRecall')[0]
 
     # 治疗
     puAo = _cardHelper.filterCard('HolyConfession')[0]
@@ -668,21 +671,19 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     # _helper.skillTurn[wanAo] = [5, 9, 13]
     # _helper.skillTurn[shuiDan] = [5, 9, 13]
 
-    yanL.setProperties(60, 2, 5, 9)
-
     _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
     _helper.team.append(srAo)
-    _helper.team.append(yanL)
-    _helper.team.append(srAi)
-    _helper.team.append(srTuan)
-    _helper.team.append(srKun)
+    _helper.team.append(sanKun)
+    _helper.team.append(yanBa)
+    _helper.team.append(puBu)
+    _helper.team.append(puLian)
 
     _helper.battleStart(True)
-    name = '狼-2星5房9潜.xls'.format(_helper.maxTurn)
-    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.8.10】黑街狂赌\\大墨模拟\\' + name)
-    _helper.exportExcel('C:\\fhs\\python\\【2023.9.7】\\' + name)
+    name = '普通队增益对比-伞昆.xls'.format(_helper.maxTurn)
+    _helper.exportExcel('E:\\新世界\\攻略\\【2023.9.7】烟岚秘境\\烟狼模拟\\' + name)
+    # _helper.exportExcel('C:\\fhs\\python\\【2023.9.7】\\' + name)
 
 
 def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, turn=13):
@@ -736,8 +737,8 @@ def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, tu
                 continue
         damageRow = doStarCompareSimulation(role, ws1, _helper, turn, damageRow, 0)
 
-    filePath = 'C:\\fhs\\python\\星级对比.xls'
-    # filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
+    # filePath = 'C:\\fhs\\python\\星级对比.xls'
+    filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
     wb.save(filePath)
 
 
@@ -870,9 +871,9 @@ if __name__ == '__main__':
 
     # singleRoleSimulation(_helper, _cardHelper, 'ScarletFinesse', 13, 60, 5)
 
-    # tempSimulation(_helper, _cardHelper)
+    tempSimulation(_helper, _cardHelper)
 
-    starCompareSimulation(_helper, _cardHelper, 13)
+    # starCompareSimulation(_helper, _cardHelper, 13)
 
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
