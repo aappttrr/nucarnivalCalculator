@@ -494,6 +494,13 @@ def similationTeamMate(helper: NucarnivalHelper, x: ICard):
         mate.occupation = CardOccupation.Support
         mate.role = CardRole.Aster
         helper.team.append(mate)
+    elif x.cardName == '黔云之血脉':
+        mate = TempTeamMate()
+        mate.occupation = CardOccupation.Support
+        helper.team.append(mate)
+        mate2 = TempTeamMate()
+        mate2.occupation = CardOccupation.Healer
+        helper.team.append(mate2)
 
 
 def banguaiSimulation(filepath, cardHelper: CardHelper, helper: NucarnivalHelper):
@@ -641,11 +648,13 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     puKun = _cardHelper.filterCard('AncientCeremony')[0]
     daMo = _cardHelper.filterCard('MauveMayhem')[0]
     daAi = _cardHelper.filterCard('ScarletFinesse')[0]
+    srTuan = _cardHelper.filterCard('SREdmond')[0]
 
     # 治疗
     puAo = _cardHelper.filterCard('HolyConfession')[0]
     sanKun = _cardHelper.filterCard('BlossomingLegend')[0]
     srBa = _cardHelper.filterCard('SRYakumo')[0]
+    yanL = _cardHelper.filterCard('EtherealGuardian')[0]
 
     # for i in range(1, 15):
     #     if i == 4 or i == 7 or i == 10 or i == 13:
@@ -659,18 +668,21 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     # _helper.skillTurn[wanAo] = [5, 9, 13]
     # _helper.skillTurn[shuiDan] = [5, 9, 13]
 
+    yanL.setProperties(60, 2, 5, 9)
+
     _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(wanAo)
-    _helper.team.append(shuiHu)
+    _helper.team.append(srAo)
+    _helper.team.append(yanL)
+    _helper.team.append(srAi)
+    _helper.team.append(srTuan)
     _helper.team.append(srKun)
-    _helper.team.append(rKun)
 
     _helper.battleStart(True)
-    name = '⑤-{}.xls'.format(_helper.maxTurn)
+    name = '狼-2星5房9潜.xls'.format(_helper.maxTurn)
     # _helper.exportExcel('E:\\新世界\\攻略\\【2023.8.10】黑街狂赌\\大墨模拟\\' + name)
-    # _helper.exportExcel('C:\\fhs\\python\\【2023.7.7】\\沙团模拟\\' + name)
+    _helper.exportExcel('C:\\fhs\\python\\【2023.9.7】\\' + name)
 
 
 def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, turn=13):
@@ -724,8 +736,8 @@ def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, tu
                 continue
         damageRow = doStarCompareSimulation(role, ws1, _helper, turn, damageRow, 0)
 
-    # filePath = 'C:\\fhs\\python\\星级对比.xls'
-    filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
+    filePath = 'C:\\fhs\\python\\星级对比.xls'
+    # filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
     wb.save(filePath)
 
 
@@ -860,11 +872,11 @@ if __name__ == '__main__':
 
     # tempSimulation(_helper, _cardHelper)
 
-    # starCompareSimulation(_helper, _cardHelper, 13)
+    starCompareSimulation(_helper, _cardHelper, 13)
 
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
-    simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True, False, 1)
-    simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False, False, 1)
+    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True, False, 1)
+    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False, False, 1)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True, False, 1)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False, False, 1)

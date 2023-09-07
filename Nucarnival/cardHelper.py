@@ -27,6 +27,7 @@ from RoleCards.cards.edmond.sr_Edmond import SREdmond
 from RoleCards.cards.edmond.whiteLover import WhiteLover
 from RoleCards.cards.eiden.galacticMist import GalacticMist
 from RoleCards.cards.garu.endlessBanquet import EndlessBanquet
+from RoleCards.cards.garu.etherealGuardian import EtherealGuardian
 from RoleCards.cards.garu.forgottenFruit import ForgottenFruit
 from RoleCards.cards.garu.howlingCyclone import HowlingCyclone
 from RoleCards.cards.garu.mastersGift import MastersGift
@@ -74,6 +75,7 @@ from RoleCards.cards.yakumo.homecoming import Homecoming
 from RoleCards.cards.yakumo.n_Yakumo import NYakumo
 from RoleCards.cards.yakumo.oceanBreeze import OceanBreeze
 from RoleCards.cards.yakumo.r_Yakumo import RYakumo
+from RoleCards.cards.yakumo.shadowLineage import ShadowLineage
 from RoleCards.cards.yakumo.sr_Yakumo import SRYakumo
 from RoleCards.common.card import ICard
 import xml.dom.minidom
@@ -116,6 +118,7 @@ class CardHelper:
         xB = OceanBreeze()
         dB = CrimsonPhantom()
         zaoBa = DarkNova()
+        yanBa = ShadowLineage()
         self.cardList.append(srB)
         self.cardList.append(rB)
         self.cardList.append(nB)
@@ -124,6 +127,7 @@ class CardHelper:
         self.cardList.append(xB)
         self.cardList.append(dB)
         self.cardList.append(zaoBa)
+        self.cardList.append(yanBa)
 
         # 艾德蒙特
         srFT = SREdmond()
@@ -209,6 +213,7 @@ class CardHelper:
         gL = EndlessBanquet()
         guaL = HowlingCyclone()
         dunL = ForgottenFruit()
+        yanL = EtherealGuardian()
         self.cardList.append(srL)
         self.cardList.append(rL)
         self.cardList.append(nL)
@@ -216,6 +221,7 @@ class CardHelper:
         self.cardList.append(gL)
         self.cardList.append(guaL)
         self.cardList.append(dunL)
+        self.cardList.append(yanL)
 
         # 布儡
         srBL = SRBlade()

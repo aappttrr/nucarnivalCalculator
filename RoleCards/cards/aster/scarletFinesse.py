@@ -38,7 +38,7 @@ class ScarletFinesse(SSRCard):
     # 吸血50%（1）
     # 以攻击力 269%/325%/382%造成伤害
     # 目标造成伤伤害减少15%（2）(lv2)
-    # 100%机率 睡眠（2）
+    # 100%机率 睡眠（2）(lv2)
     def skillBefore(self, enemies):
         buff = Buff('ScarletFinesse_skill', 0.5, 1, BuffType.BloodSucking)
         self.addBuff(buff)
