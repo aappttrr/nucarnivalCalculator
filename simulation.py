@@ -669,21 +669,23 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     # _helper.skillTurn[srAo] = [6, 12]
     # _helper.skillTurn[guaLang] = [6, 12]
     # _helper.skillTurn[wanAo] = [5, 9, 13]
-    # _helper.skillTurn[shuiDan] = [5, 9, 13]
+    # _helper.skillTurn[srAo] = [6, 12]
+    # _helper.skillTurn[shaTuan] = [4,8,11,14,17]
+    # _helper.skillTurn[shaTuan] = [6,10]
 
     _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(srAo)
-    _helper.team.append(sanKun)
-    _helper.team.append(yanBa)
-    _helper.team.append(puBu)
-    _helper.team.append(puLian)
+    _helper.team.append(shaTuan)
+    _helper.team.append(yanL)
+    _helper.team.append(shuiHu)
+    _helper.team.append(huoTuan)
+    _helper.team.append(anKun)
 
     _helper.battleStart(True)
-    name = '普通队增益对比-伞昆.xls'.format(_helper.maxTurn)
-    _helper.exportExcel('E:\\新世界\\攻略\\【2023.9.7】烟岚秘境\\烟狼模拟\\' + name)
-    # _helper.exportExcel('C:\\fhs\\python\\【2023.9.7】\\' + name)
+    name = '普攻输出对比-暗昆.xls'.format(_helper.maxTurn)
+    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.9.7】烟岚秘境\\烟狼模拟\\' + name)
+    _helper.exportExcel('C:\\fhs\\python\\【2023.9.7】\\' + name)
 
 
 def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, turn=13):
@@ -737,8 +739,8 @@ def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, tu
                 continue
         damageRow = doStarCompareSimulation(role, ws1, _helper, turn, damageRow, 0)
 
-    # filePath = 'C:\\fhs\\python\\星级对比.xls'
-    filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
+    filePath = 'C:\\fhs\\python\\星级对比.xls'
+    # filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
     wb.save(filePath)
 
 

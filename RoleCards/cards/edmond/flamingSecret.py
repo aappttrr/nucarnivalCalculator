@@ -53,7 +53,7 @@ class FlamingSecret(SSRCard):
         if len(self.teamMate) == 1:
             self.teamMate[0].addBuff(buff2, self)
         else:
-            self.teamMate[4].addBuff(buff2, self)
+            self.teamMate[1].addBuff(buff2, self)
 
         if self.passive_star_3():
             buff3 = Buff('FlamingSecret_passive_star_3', 0.12, 0, BuffType.BeAttackIncrease)
