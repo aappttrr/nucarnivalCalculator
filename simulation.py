@@ -652,6 +652,7 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     yanBa = _cardHelper.filterCard('ShadowLineage')[0]
     puLian = _cardHelper.filterCard('MidnightOwl')[0]
     puBu = _cardHelper.filterCard('ExplosiveRecall')[0]
+    huoBu = _cardHelper.filterCard('CrystalAwakening')[0]
 
     # 治疗
     puAo = _cardHelper.filterCard('HolyConfession')[0]
@@ -670,22 +671,22 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     # _helper.skillTurn[guaLang] = [6, 12]
     # _helper.skillTurn[wanAo] = [5, 9, 13]
     # _helper.skillTurn[srAo] = [6, 12]
-    # _helper.skillTurn[shaTuan] = [4,8,11,14,17]
-    # _helper.skillTurn[shaTuan] = [6,10]
+    _helper.skillTurn[shaTuan] = [4,8,11,14,17]
+    # _helper.skillTurn[huoBu] = [7,13]
 
     _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
     _helper.team.append(shaTuan)
-    _helper.team.append(yanL)
-    _helper.team.append(shuiHu)
-    _helper.team.append(huoTuan)
-    _helper.team.append(anKun)
+    _helper.team.append(sanKun)
+    # _helper.team.append(shuiHu)
+    # _helper.team.append(zaoBa)
+    # _helper.team.append(puTuan)
 
     _helper.battleStart(True)
-    name = '普攻输出对比-暗昆.xls'.format(_helper.maxTurn)
-    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.9.7】烟岚秘境\\烟狼模拟\\' + name)
-    _helper.exportExcel('C:\\fhs\\python\\【2023.9.7】\\' + name)
+    name = '必杀队-sr昆-{}.xls'.format(_helper.maxTurn)
+    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.9.7】烟岚秘境\\烟八模拟\\' + name)
+    # _helper.exportExcel('C:\\fhs\\python\\【2023.9.7】\\' + name)
 
 
 def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, turn=13):
