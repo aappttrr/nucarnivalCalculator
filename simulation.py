@@ -677,8 +677,8 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(shaTuan)
-    _helper.team.append(sanKun)
+    _helper.team.append(yiDe)
+    _helper.team.append(yanL)
     # _helper.team.append(shuiHu)
     # _helper.team.append(zaoBa)
     # _helper.team.append(puTuan)

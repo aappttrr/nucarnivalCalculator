@@ -603,16 +603,29 @@ class ICard:
 
         return result
 
-    def increaseHeal(self, heal):
+    def increaseHeal(self, heal, seeAsAttack, seeAsSkill):
         result = heal
 
         # 由自身提升的造成回复量增加
         healIncrease = 0
+        # 由自身提升的普攻/必杀伤害增加
+        aIncrease = 0
+        sIncrease = 0
 
         for buff in self.buffs:
+            if seeAsAttack and buff.buffType == BuffType.AttackIncrease:
+                aIncrease += buff.value
+            elif seeAsSkill and buff.buffType == BuffType.SkillIncrease:
+                sIncrease += buff.value
             if buff.buffType == BuffType.HealIncrease:
                 healIncrease += buff.value
 
+        if aIncrease != 0:
+            result = result * (1 + aIncrease)
+            result = roundDown(result)
+        if sIncrease != 0:
+            result = result * (1 + sIncrease)
+            result = roundDown(result)
         if healIncrease != 0:
             result = result * (1 + healIncrease)
             result = roundDown(result)
@@ -642,20 +655,13 @@ class ICard:
 
         # 由自身提升的持续治疗增加
         hotIncrease = 0
-        # 由自身提升的造成回复量增加
-        healIncrease = 0
 
         for buff in self.buffs:
             if buff.buffType == BuffType.HotIncrease:
                 hotIncrease += buff.value
-            if buff.buffType == BuffType.HealIncrease:
-                hotIncrease += buff.value
 
         if hotIncrease != 0:
             result = result * (1 + hotIncrease)
-            result = roundDown(result)
-        if healIncrease != 0:
-            result = result * (1 + healIncrease)
             result = roundDown(result)
 
         if result < 0:
@@ -665,10 +671,8 @@ class ICard:
     def increaseBeHot(self, heal):
         result = heal
 
-        # 由自身提升的受持续治疗增加
+        # 由自身提升的受持续治疗增加和受回复量增加
         hotIncrease = 0
-        # 由自身提升的受回复量增加
-        healIncrease = 0
 
         for buff in self.buffs:
             if buff.buffType == BuffType.BeHotIncrease:
@@ -678,9 +682,6 @@ class ICard:
 
         if hotIncrease != 0:
             result = result * (1 + hotIncrease)
-            result = roundDown(result)
-        if healIncrease != 0:
-            result = result * (1 + healIncrease)
             result = roundDown(result)
 
         if result < 0:
@@ -847,8 +848,7 @@ class ICard:
         magnification = self.getMagnification(self.skillHealMagnificationLv1, self.skillHealMagnificationLv2,
                                               self.skillHealMagnificationLv3)
         heal = calDamageOrHeal(currentAtk, magnification)
-        heal = self.increaseHeal(heal)
-        heal = self.increaseDamage(heal, False, True)
+        heal = self.increaseHeal(heal, False, True)
         return heal
 
     def skillAfter(self, enemies):
@@ -866,8 +866,7 @@ class ICard:
 
     def attackHeal(self, enemies, currentAtk):
         heal = calDamageOrHeal(currentAtk, self.attackHealMagnification)
-        heal = self.increaseHeal(heal)
-        heal = self.increaseDamage(heal, True, False)
+        heal = self.increaseHeal(heal, True, False)
         return heal
 
     def attackAfter(self, enemies):
