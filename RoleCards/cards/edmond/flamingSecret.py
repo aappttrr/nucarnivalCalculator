@@ -37,23 +37,22 @@ class FlamingSecret(SSRCard):
         self.skillMagnificationLv2 = 1
         self.skillMagnificationLv3 = 1
 
+    def skillTarget(self):
+        if len(self.teamMate) == 1:
+            return 0
+        return 1
+
     def skillAfter(self, enemies):
         if self.star >= 2:
             buff = Buff('FlamingSecret_skll', 0.54, 2, BuffType.AttackIncrease)
-            if len(self.teamMate) == 1:
-                self.teamMate[0].addBuff(buff, self)
-            else:
-                self.teamMate[1].addBuff(buff, self)
+            self.teamMate[self.skillTarget()].addBuff(buff, self)
 
         magnification = self.getMagnification(1.02, 1.19, 1.37)
         buff2 = Buff('FlamingSecret_skll2', magnification, 2, BuffType.FollowUpAttack)
         buff2.useBaseAtk = False
         buff2.seeAsAttack = True
         buff2.conditionType = ConditionType.WhenAttack
-        if len(self.teamMate) == 1:
-            self.teamMate[0].addBuff(buff2, self)
-        else:
-            self.teamMate[1].addBuff(buff2, self)
+        self.teamMate[self.skillTarget()].addBuff(buff, self)
 
         if self.passive_star_3():
             buff3 = Buff('FlamingSecret_passive_star_3', 0.12, 0, BuffType.BeAttackIncrease)

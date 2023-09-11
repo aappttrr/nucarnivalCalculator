@@ -63,8 +63,7 @@ class BlossomingLegend(SSRCard):
 
             heal2 = currentAtk * 0.75
             heal2 = roundDown(heal2)
-            heal2 = self.increaseHeal(heal2)
-            heal2 = self.increaseDamage(heal2, False, True)
+            heal2 = self.increaseHeal(heal2, False, True)
             heal2 = hpLowestRole.increaseBeHeal(heal2)
 
             event = Event(EventType.skillHeal)
@@ -83,8 +82,7 @@ class BlossomingLegend(SSRCard):
 
             heal2 = currentAtk * 0.75
             heal2 = roundDown(heal2)
-            heal2 = self.increaseHeal(heal2)
-            heal2 = self.increaseDamage(heal2, False, True)
+            heal2 = self.increaseHeal(heal2, False, True)
             heal2 = hpLowestRole.increaseBeHeal(heal2)
 
             event = Event(EventType.attackHeal)

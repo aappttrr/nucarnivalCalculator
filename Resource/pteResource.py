@@ -19,7 +19,7 @@ def getWelcomeContent():
 
 def getHelpContent():
     output = io.StringIO()
-    writeLineString(output, '当前版本：v2.8-2023-8-24')
+    writeLineString(output, '当前版本：v2.9-2023-9-9')
     writeLineString(output, '有任何问题、Bug都可以给我留言~~')
     writeLineString(output, 'B站：纳萨尔')
     writeLineString(output, '')
@@ -137,6 +137,8 @@ def getHelpContent():
 
 def getUpdateLogContent():
     output = io.StringIO()
+    getUpdateLogContent_2_9(output)
+    writeLineString(output, '')
     getUpdateLogContent_2_8(output)
     writeLineString(output, '')
     getUpdateLogContent_2_7(output)
@@ -161,6 +163,16 @@ def getUpdateLogContent():
     writeLineString(output, '')
     getUpdateLogContent_1_0(output)
     return output.getvalue()
+
+
+def getUpdateLogContent_2_9(_output: io.StringIO):
+    writeDashString(_output, 36)
+    writeString(_output, '2023.9.9')
+    writeDashString(_output, 36)
+    writeLineString(_output, '')
+    writeLineString(_output, 'v2.9:')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '①更新烟岚秘境，八云可尔新卡')
 
 
 def getUpdateLogContent_2_8(_output: io.StringIO):

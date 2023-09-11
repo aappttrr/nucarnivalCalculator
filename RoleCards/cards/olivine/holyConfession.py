@@ -56,8 +56,7 @@ class HolyConfession(SSRCard):
 
             heal2 = currentAtk * 0.75
             heal2 = roundDown(heal2)
-            heal2 = self.increaseHeal(heal2)
-            heal2 = self.increaseDamage(heal2, False, True)
+            heal2 = self.increaseHeal(heal2, False, True)
             heal2 = hpLowestRole.increaseBeHeal(heal2)
 
             event = Event(EventType.skillHeal)
@@ -85,8 +84,7 @@ class HolyConfession(SSRCard):
 
             heal = currentAtk * 0.75
             heal = roundDown(heal)
-            heal = self.increaseHeal(heal)
-            heal = self.increaseDamage(heal, False, True)
+            heal = self.increaseHeal(heal, False, True)
             heal2 = hpLowestRole.increaseBeHeal(heal)
 
             event = Event(EventType.attackHeal)
