@@ -676,16 +676,16 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(shaTuan)
+    _helper.team.append(yiDe)
     _helper.team.append(yanL)
-    _helper.team.append(shuiHu)
-    _helper.team.append(huoTuan)
-    _helper.team.append(anKun)
+    _helper.team.append(anTuan)
+    _helper.team.append(zaoBa)
+    _helper.team.append(yanBa)
 
     _helper.battleStart(True)
     name = '普攻输出对比-暗昆.xls'.format(_helper.maxTurn)
     # _helper.exportExcel('E:\\新世界\\攻略\\【2023.9.7】烟岚秘境\\烟狼模拟\\' + name)
-    _helper.exportExcel('C:\\fhs\\python\\【2023.9.7】\\' + name)
+    # _helper.exportExcel('C:\\fhs\\python\\【2023.9.7】\\' + name)
 
 
 def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, turn=13):

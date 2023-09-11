@@ -52,8 +52,7 @@ class EtherealGuardian(SSRCard):
             role.addBuff(buff, self)
 
             if role.cardId != self.cardId and self.star >= 2:
-                buff2 = Buff('EtherealGuardian_skill2', 0.27, 0, BuffType.AttackIncrease)
-                buff2.isPassive = True
+                buff2 = Buff('EtherealGuardian_skill2', 0.27, 3, BuffType.AttackIncrease)
                 role.addBuff(buff2, self)
 
         return heal
