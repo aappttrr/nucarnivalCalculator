@@ -16,6 +16,7 @@ class ScarletFinesse(SSRCard):
         self.round = 17
         self.cardName = '冷艳猩红'
         self.nickName = '大艾'
+        self.des = '睡眠+生存，伤害不算高，2星可用，开荒不错'
         self.role = CardRole.Aster
         self.cardType = CardType.Light
         self.occupation = CardOccupation.Saboteur

@@ -15,6 +15,7 @@ class SRRei(SRCard):
         self.cardId = 'SRRei'
         self.cardName = '宝石专家'
         self.nickName = 'SR敛'
+        self.des = '睡眠，伤害不行，不建议使用'
         self.role = CardRole.Rei
         self.cardType = CardType.Dark
         self.occupation = CardOccupation.Saboteur

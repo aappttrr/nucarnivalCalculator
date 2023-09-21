@@ -52,7 +52,7 @@ class FlamingSecret(SSRCard):
         buff2.useBaseAtk = False
         buff2.seeAsAttack = True
         buff2.conditionType = ConditionType.WhenAttack
-        self.teamMate[self.skillTarget()].addBuff(buff, self)
+        self.teamMate[self.skillTarget()].addBuff(buff2, self)
 
         if self.passive_star_3():
             buff3 = Buff('FlamingSecret_passive_star_3', 0.12, 0, BuffType.BeAttackIncrease)

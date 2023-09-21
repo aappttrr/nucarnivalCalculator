@@ -15,6 +15,7 @@ class CrystalAwakening(SSRCard):
         self.round = 13
         self.cardName = '觉醒的晶莹花'
         self.nickName = '火布'
+        self.des = '必杀，普攻必杀均有破防，伤害中等偏上，防御越多收益越高，是不错的必杀主输出，3星可用'
         self.role = CardRole.Blade
         self.cardType = CardType.Fire
         self.occupation = CardOccupation.Striker

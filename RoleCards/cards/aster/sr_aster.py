@@ -14,6 +14,7 @@ class SRAster(SRCard):
         self.cardId = 'SRAster'
         self.cardName = '使魔-艾斯特'
         self.nickName = 'SR艾'
+        self.des = '普攻，初始送2星能快速到3星多一个被动，开荒好用，后期可在忘却上场'
         self.role = CardRole.Aster
         self.cardType = CardType.Water
         self.occupation = CardOccupation.Striker

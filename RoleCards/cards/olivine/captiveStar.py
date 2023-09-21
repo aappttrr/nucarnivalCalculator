@@ -16,6 +16,7 @@ class CaptiveStar(SSRCard):
         self.round = 14
         self.cardName = '囹圄之星的秘闻'
         self.nickName = '秘奥/晚奥'
+        self.des = '必杀辅助，数值给的超多，很优秀的辅助，即使不是必杀队伍也可以用，建议2星'
         self.role = CardRole.Olivine
         self.cardType = CardType.Dark
         self.occupation = CardOccupation.Support

@@ -15,6 +15,7 @@ class LovableEnforcer(SSRCard):
         self.round = 9
         self.cardName = '守护甜心'
         self.nickName = '女仆布'
+        self.des = '沉默+生存，伤害很低，辅助也不太行，不建议使用'
         self.role = CardRole.Blade
         self.cardType = CardType.Wood
         self.occupation = CardOccupation.Saboteur

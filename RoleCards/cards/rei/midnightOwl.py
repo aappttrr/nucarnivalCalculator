@@ -15,6 +15,7 @@ class MidnightOwl(SSRCard):
         self.cardId = 'MidnightOwl'
         self.cardName = '黑街潜行的夜鸮'
         self.nickName = '普敛'
+        self.des = '万金油输出，输出中等，不建议使用'
         self.role = CardRole.Rei
         self.cardType = CardType.Dark
         self.occupation = CardOccupation.Striker

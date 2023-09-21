@@ -14,6 +14,7 @@ class SRQuincy(SRCard):
         self.cardId = 'SRQuincy'
         self.cardName = '古森守护者'
         self.nickName = 'SR昆'
+        self.des = '必杀输出，伤害中等偏上，比很多SSR伤害都要更高，平民最适合练的输出，后期依然可以作为主力，建议5星'
         self.role = CardRole.Quincy
         self.cardType = CardType.Wood
         self.occupation = CardOccupation.Striker

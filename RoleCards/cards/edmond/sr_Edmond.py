@@ -14,6 +14,7 @@ class SREdmond(SRCard):
         self.cardId = 'SREdmond'
         self.cardName = '骑士副团长'
         self.nickName = 'SR团'
+        self.des = '万金油输出，SR中表现较好的输出，5星可用'
         self.role = CardRole.Edmond
         self.cardType = CardType.Water
         self.occupation = CardOccupation.Striker

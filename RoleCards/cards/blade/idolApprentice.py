@@ -16,6 +16,7 @@ class IdolApprentice(SSRCard):
         self.round = 5
         self.cardName = '偶像实习'
         self.nickName = '夏布'
+        self.des = '反击群攻，群攻里面伤害最高的但容易暴毙，用处不大，不建议使用'
         self.role = CardRole.Blade
         self.cardType = CardType.Water
         self.occupation = CardOccupation.Striker

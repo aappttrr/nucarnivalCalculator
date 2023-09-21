@@ -16,6 +16,7 @@ class ArcticWarden(SSRCard):
         self.round = 10
         self.cardName = '守望者的冬季馈礼'
         self.nickName = '冬昆'
+        self.des = '生存型输出，可治疗，唯一用处就是在缺奶的时候承担一部分治疗压力，开荒不错，实在缺治疗才会考虑练'
         self.role = CardRole.Quincy
         self.cardType = CardType.Light
         self.occupation = CardOccupation.Striker

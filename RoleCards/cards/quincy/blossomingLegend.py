@@ -17,6 +17,7 @@ class BlossomingLegend(SSRCard):
         self.round = 15
         self.cardName = '花期尽头的故闻'
         self.nickName = '伞昆'
+        self.des = '带必杀增益的治疗，没有hot，但总体治疗量很高，适合各种队伍，建议2星'
         self.role = CardRole.Quincy
         self.cardType = CardType.Water
         self.occupation = CardOccupation.Healer

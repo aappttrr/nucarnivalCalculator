@@ -15,6 +15,7 @@ class BlazingColiseum(SSRCard):
         self.cardId = 'BlazingColiseum'
         self.cardName = '赛兽场上的暖阳'
         self.nickName = '普啖'
+        self.des = '群体护盾，作为守护定位没有嘲讽，用处不大，不建议使用'
         self.role = CardRole.Dante
         self.cardType = CardType.Fire
         self.occupation = CardOccupation.Guardian

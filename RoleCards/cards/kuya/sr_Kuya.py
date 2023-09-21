@@ -14,6 +14,7 @@ class SRKuya(SRCard):
         self.cardId = 'SRKuya'
         self.cardName = '诡秘妖狐'
         self.nickName = 'SR狐'
+        self.des = '减疗，SR中的对策角色，没有普狐的话，建议练一个'
         self.role = CardRole.Kuya
         self.cardType = CardType.Dark
         self.occupation = CardOccupation.Saboteur

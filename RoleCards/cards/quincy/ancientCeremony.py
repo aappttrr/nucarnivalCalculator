@@ -14,6 +14,7 @@ class AncientCeremony(SSRCard):
         self.cardId = 'AncientCeremony'
         self.cardName = '古老祭祀的赌约'
         self.nickName = '普昆'
+        self.des = '必杀输出，伤害中等，被动和伤害都不如SR昆，不建议使用'
         self.role = CardRole.Quincy
         self.cardType = CardType.Wood
         self.occupation = CardOccupation.Striker

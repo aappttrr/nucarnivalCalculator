@@ -17,6 +17,7 @@ class RainyRebirth(SSRCard):
         self.round = 15
         self.cardName = '雨季终时的新生'
         self.nickName = '伞敛'
+        self.des = '目前伤害最高的反击守护，各方面都还行，可练，建议2星'
         self.role = CardRole.Rei
         self.cardType = CardType.Light
         self.occupation = CardOccupation.Guardian

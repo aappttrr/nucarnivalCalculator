@@ -43,6 +43,9 @@ class ICard:
         # 昵称
         self.nickName = None
 
+        # 简评
+        self.des = ''
+
         # 角色
         self.role: CardRole = None
 

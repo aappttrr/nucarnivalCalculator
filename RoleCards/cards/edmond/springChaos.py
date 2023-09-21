@@ -17,6 +17,7 @@ class SpringChaos(SSRCard):
         self.round = 12
         self.cardName = '春日迷乱'
         self.nickName = '花团'
+        self.des = '普攻嘲讽，很灵活，但容易站不住，建议3星'
         self.role = CardRole.Edmond
         self.cardType = CardType.Wood
         self.occupation = CardOccupation.Guardian

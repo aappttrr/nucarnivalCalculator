@@ -15,6 +15,7 @@ class SmokedTimber(SRCard):
         self.round = 13
         self.cardName = '沉郁的熏灼木'
         self.nickName = '水昆'
+        self.des = '生存型输出，伤害中等，可降低敌方攻击力，可惜是限定SR，5星太难了，不建议使用'
         self.role = CardRole.Quincy
         self.cardType = CardType.Water
         self.occupation = CardOccupation.Saboteur

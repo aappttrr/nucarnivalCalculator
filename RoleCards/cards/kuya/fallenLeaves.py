@@ -14,6 +14,7 @@ class FallenLeaves(SSRCard):
         self.cardId = 'FallenLeaves'
         self.cardName = '化形宴，飘落叶'
         self.nickName = '普狐'
+        self.des = '减疗麻痹群攻，功能性超多，缺点是伤害巨低，但依然是最值得培养的对策角色'
         self.role = CardRole.Kuya
         self.cardType = CardType.Dark
         self.occupation = CardOccupation.Saboteur

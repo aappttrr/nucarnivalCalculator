@@ -15,6 +15,7 @@ class EndlessBanquet(SSRCard):
         self.round = 4
         self.cardName = '华宴夜未央'
         self.nickName = '光狼'
+        self.des = '通用易伤，不错的伤害拐，可惜叠层叠满需要比较久，实战站不住再考虑升星'
         self.role = CardRole.Garu
         self.cardType = CardType.Light
         self.occupation = CardOccupation.Striker

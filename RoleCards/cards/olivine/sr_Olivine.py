@@ -15,6 +15,7 @@ class SROlivine(SRCard):
         self.cardId = 'SROlivine'
         self.cardName = '圣职祭司'
         self.nickName = 'SR奥'
+        self.des = '通用辅助，朴实无华的技能，除非已经拥有2-3个3星辅助，否则SR奥是必练的'
         self.role = CardRole.Olivine
         self.cardType = CardType.Light
         self.occupation = CardOccupation.Support

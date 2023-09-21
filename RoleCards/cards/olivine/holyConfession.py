@@ -16,6 +16,7 @@ class HolyConfession(SSRCard):
         self.cardId = 'HolyConfession'
         self.cardName = '向纯洁象征告解'
         self.nickName = '奶奥'
+        self.des = 'hot治疗，急救能力很差，治疗量总体也不高，总体而言不如冬奥烟狼，实在缺奶也不如R八云'
         self.role = CardRole.Olivine
         self.cardType = CardType.Light
         self.occupation = CardOccupation.Healer

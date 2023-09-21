@@ -16,6 +16,7 @@ class LakesideSpark(SSRCard):
         self.round = 7
         self.cardName = '穿梭盘月之煦'
         self.nickName = '奶狐'
+        self.des = '吸血治疗，吸血看队友本身伤害能力，急救能力较差，需要防御的时候治疗也不够，不建议使用'
         self.role = CardRole.Kuya
         self.cardType = CardType.Dark
         self.occupation = CardOccupation.Healer

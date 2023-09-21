@@ -15,6 +15,7 @@ class ScorchingSun(SSRCard):
         self.round = 16
         self.cardName = '烈日炎阳的戏语'
         self.nickName = '夏啖/沙啖'
+        self.des = '必杀，伤害高，是很好的必杀输出，缺点是怪多伤害分散，3星被动需要对轴，2星可用'
         self.role = CardRole.Dante
         self.cardType = CardType.Fire
         self.occupation = CardOccupation.Striker

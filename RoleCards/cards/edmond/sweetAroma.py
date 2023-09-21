@@ -16,6 +16,7 @@ class SweetAroma(SSRCard):
         self.round = 6
         self.cardName = '初露芬芳的甜味'
         self.nickName = '火团'
+        self.des = '普攻易伤，非常不错的普攻拐，实战站不住再考虑升星'
         self.role = CardRole.Edmond
         self.cardType = CardType.Fire
         self.occupation = CardOccupation.Striker

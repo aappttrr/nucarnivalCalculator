@@ -16,6 +16,7 @@ class FrostedVirtue(SSRCard):
         self.round = 10
         self.cardName = '祝祷者的霜夜心愿'
         self.nickName = '冬奥'
+        self.des = '带增益的治疗，增益和治疗都给的很少，已经比不上新的伞昆和烟狼，实在缺奶可用'
         self.role = CardRole.Olivine
         self.cardType = CardType.Wood
         self.occupation = CardOccupation.Healer

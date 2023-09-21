@@ -16,6 +16,7 @@ class EtherealGuardian(SSRCard):
         self.round = 18
         self.cardName = '缥缈之守候'
         self.nickName = '烟狼'
+        self.des = '带普攻增益的混合型治疗，hot占比较高，非常优秀，普攻队必备，2星可用'
         self.role = CardRole.Garu
         self.cardType = CardType.Wood
         self.occupation = CardOccupation.Healer

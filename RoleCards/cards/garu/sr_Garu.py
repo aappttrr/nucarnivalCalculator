@@ -14,6 +14,7 @@ class SRGaru(SRCard):
         self.cardId = 'SRGaru'
         self.cardName = '流浪小狼'
         self.nickName = 'SR狼'
+        self.des = '群体易伤，本身也是群攻，缺点是打单体伤害太低，后期可以练一只用来处理机制、割草'
         self.role = CardRole.Garu
         self.cardType = CardType.Dark
         self.occupation = CardOccupation.Striker

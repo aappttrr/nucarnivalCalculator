@@ -16,6 +16,7 @@ class HowlingCyclone(SSRCard):
         self.round = 8
         self.cardName = '诡夜疾风'
         self.nickName = '瓜狼'
+        self.des = '通用辅助，可攻击帮忙处理机制，不错的辅助，3星可用'
         self.role = CardRole.Garu
         self.cardType = CardType.Light
         self.occupation = CardOccupation.Support

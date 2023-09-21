@@ -16,6 +16,7 @@ class DistantPromise(SSRCard):
         self.round = 7
         self.cardName = '追逐悠远之约'
         self.nickName = '暗昆/月昆'
+        self.des = '普攻输出，偏爆发，伤害中等偏上，是不错的普攻输出，可练'
         self.role = CardRole.Quincy
         self.cardType = CardType.Dark
         self.occupation = CardOccupation.Striker
