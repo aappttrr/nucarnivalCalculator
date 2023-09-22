@@ -17,6 +17,7 @@ class GalacticMist(SSRCard):
         self.cardName = '夜雾银星'
         self.nickName = '火伊'
         self.des = '唯一减CD辅助，机制特殊，可惜数值给的比较少，适合搭配CD长或buff可以叠层的角色'
+        self.tag = '减CD'
         self.role = CardRole.Eiden
         self.cardType = CardType.Fire
         self.occupation = CardOccupation.Support

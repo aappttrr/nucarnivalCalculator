@@ -17,7 +17,8 @@ class AromaticExotica(SSRCard):
         self.round = 16
         self.cardName = '异域蜜香的艳闻'
         self.nickName = '夏狐/沙狐'
-        self.des = 'dot混伤输出，自带dot易伤，伤害很高，吃拐能力较低，适合搭配通用辅助和拐，2星可用'
+        self.des = 'dot混伤输出，带常驻通用易伤，伤害很高，吃拐能力较低，适合搭配通用辅助和拐，2星可用'
+        self.tag = 'dot混伤输出 / 通用易伤'
         self.role = CardRole.Kuya
         self.cardType = CardType.Light
         self.occupation = CardOccupation.Striker

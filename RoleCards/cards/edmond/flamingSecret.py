@@ -17,6 +17,7 @@ class FlamingSecret(SSRCard):
         self.round = 16
         self.cardName = '焰沙暗探的秘梦'
         self.nickName = '夏团/沙团'
+        self.tag = '普攻增益 / 2号位追击增益 / 普攻易伤 / 可攻击辅助'
         self.role = CardRole.Edmond
         self.cardType = CardType.Fire
         self.occupation = CardOccupation.Support

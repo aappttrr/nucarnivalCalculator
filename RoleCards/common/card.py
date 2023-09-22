@@ -46,6 +46,9 @@ class ICard:
         # 简评
         self.des = ''
 
+        # 标签
+        self.tag = ''
+
         # 角色
         self.role: CardRole = None
 

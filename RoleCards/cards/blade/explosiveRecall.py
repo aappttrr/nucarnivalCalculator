@@ -15,6 +15,7 @@ class ExplosiveRecall(SSRCard):
         self.cardName = '战斗人偶与回忆'
         self.nickName = '普布'
         self.des = '万金油输出，伤害不高，不建议使用'
+        self.tag = '万金油输出'
         self.role = CardRole.Blade
         self.cardType = CardType.Light
         self.occupation = CardOccupation.Striker

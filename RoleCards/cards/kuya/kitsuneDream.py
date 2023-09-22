@@ -18,6 +18,7 @@ class KitsuneDream(SSRCard):
         self.cardName = '狐火映追忆'
         self.nickName = '火狐'
         self.des = '纯dot输出，伤害高，有些机制无法处理，会被部分环境针对，总体而言也是可练的输出'
+        self.tag = 'dot输出 / dot易伤'
         self.role = CardRole.Kuya
         self.cardType = CardType.Fire
         self.occupation = CardOccupation.Saboteur

@@ -16,6 +16,7 @@ class SRMorvay(SRCard):
         self.cardName = '使魔-墨菲'
         self.nickName = 'SR墨'
         self.des = '守护角色中的唯一真神，抗伤能力强，CD短，便宜好练，必练角色'
+        self.tag = '嘲讽 / 护盾 / 防御减伤 / 通用减伤 / 回复增益'
         self.role = CardRole.Morvay
         self.cardType = CardType.Fire
         self.occupation = CardOccupation.Guardian

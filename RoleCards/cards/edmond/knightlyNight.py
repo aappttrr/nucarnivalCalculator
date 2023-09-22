@@ -18,6 +18,7 @@ class KnightlyNight(SSRCard):
         self.cardName = '爵士册封之夜'
         self.nickName = '普团/水团'
         self.des = '普攻输出，伤害中等偏上，必须3星'
+        self.tag = '普攻输出'
         self.role = CardRole.Edmond
         self.cardType = CardType.Water
         self.occupation = CardOccupation.Striker

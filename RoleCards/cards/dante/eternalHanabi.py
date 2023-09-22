@@ -16,6 +16,7 @@ class EternalHanabi(SSRCard):
         self.cardName = '永不消散的焰火'
         self.nickName = '水啖'
         self.des = '必杀易伤，伤害中等，是不错的必杀拐，实战站不住再考虑升星'
+        self.tag = '必杀易伤'
         self.role = CardRole.Dante
         self.cardType = CardType.Water
         self.occupation = CardOccupation.Striker

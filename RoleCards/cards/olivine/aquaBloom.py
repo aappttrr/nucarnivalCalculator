@@ -17,6 +17,7 @@ class AquaBloom(SSRCard):
         self.cardName = '翠灿之水的花使'
         self.nickName = '花奥'
         self.des = '必杀辅助，数值给的比较少，目前全方位被晚奥代替，不建议使用'
+        self.tag = '必杀辅助，必杀增益'
         self.role = CardRole.Olivine
         self.cardType = CardType.Water
         self.occupation = CardOccupation.Support

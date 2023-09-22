@@ -15,6 +15,7 @@ class SRBlade(SRCard):
         self.cardName = '魔人偶'
         self.nickName = 'SR布'
         self.des = '群攻，用处不大，不建议使用'
+        self.tag = '必杀输出 / 群攻'
         self.role = CardRole.Blade
         self.cardType = CardType.Light
         self.occupation = CardOccupation.Striker

@@ -17,6 +17,7 @@ class WhiteLover(SSRCard):
         self.cardName = '白色恋人'
         self.nickName = '白团'
         self.des = 'dot混伤群攻，用处不大，不建议使用'
+        self.tag = 'dot混伤 / 群攻'
         self.role = CardRole.Edmond
         self.cardType = CardType.Light
         self.occupation = CardOccupation.Striker

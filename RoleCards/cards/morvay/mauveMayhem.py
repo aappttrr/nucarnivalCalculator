@@ -18,6 +18,7 @@ class MauveMayhem(SSRCard):
         self.cardName = '狂傲紫魅'
         self.nickName = '大墨'
         self.des = '反击输出，伤害中等偏上，生存能力尚可，开荒可用，建议2星起步'
+        self.des = '必杀输出（反击） / 护盾'
         self.role = CardRole.Morvay
         self.cardType = CardType.Fire
         self.occupation = CardOccupation.Striker

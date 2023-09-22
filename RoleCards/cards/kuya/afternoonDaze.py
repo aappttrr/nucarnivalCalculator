@@ -18,6 +18,7 @@ class AfternoonDaze(SSRCard):
         self.cardName = '午后醺然'
         self.nickName = '水狐'
         self.des = '通用易伤，伤害中等偏上，目前最好用的通用拐，实战站不住再考虑升星'
+        self.tag = '叠层通用易伤'
         self.role = CardRole.Kuya
         self.cardType = CardType.Water
         self.occupation = CardOccupation.Striker

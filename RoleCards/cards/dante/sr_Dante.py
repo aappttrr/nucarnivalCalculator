@@ -15,6 +15,7 @@ class SRDante(SRCard):
         self.cardName = '太阳城主'
         self.nickName = 'SR啖'
         self.des = '通用易伤+普攻破防，SR中较为好用的拐，5星可用'
+        self.tag = '通用易伤 / 普攻破防'
         self.role = CardRole.Dante
         self.cardType = CardType.Fire
         self.occupation = CardOccupation.Striker

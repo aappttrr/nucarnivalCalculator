@@ -16,6 +16,7 @@ class LovableEnforcer(SSRCard):
         self.cardName = '守护甜心'
         self.nickName = '女仆布'
         self.des = '沉默+生存，伤害很低，辅助也不太行，不建议使用'
+        self.tag = '75%沉默 / 降低敌方伤害 / 布儡专属伤害增益'
         self.role = CardRole.Blade
         self.cardType = CardType.Wood
         self.occupation = CardOccupation.Saboteur
