@@ -16,6 +16,7 @@ class OceanBreeze(SSRCard):
         self.round = 5
         self.cardName = '倾听海风'
         self.nickName = '夏八'
+        self.des = '生存型辅助，增伤能力较低，适合搭配有HOT或群盾的角色，目前只推荐和烟狼一起使用'
         self.role = CardRole.Yakumo
         self.cardType = CardType.Wood
         self.occupation = CardOccupation.Support

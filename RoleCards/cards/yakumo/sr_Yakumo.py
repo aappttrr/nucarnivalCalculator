@@ -15,6 +15,7 @@ class SRYakumo(SRCard):
         self.cardId = 'SRYakumo'
         self.cardName = '隐异之蛇'
         self.nickName = '奶八/SR八'
+        self.des = '急救能力优秀也有HOT，必练角色'
         self.role = CardRole.Yakumo
         self.cardType = CardType.Fire
         self.occupation = CardOccupation.Healer

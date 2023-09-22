@@ -16,6 +16,7 @@ class DarkNova(SSRCard):
         self.round = 14
         self.cardName = '幽暧新星的祷词'
         self.nickName = '早八'
+        self.des = '普攻输出，有常驻的普攻易伤，伤害很高，非常推荐'
         self.role = CardRole.Yakumo
         self.cardType = CardType.Wood
         self.occupation = CardOccupation.Striker

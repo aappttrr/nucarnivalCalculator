@@ -16,6 +16,7 @@ class ShadowLineage(SSRCard):
         self.round = 18
         self.cardName = '黔云之血脉'
         self.nickName = '烟八/烟云'
+        self.des = '万金油输出，伤害高，CD6，不管普攻必杀队都能进，较为推荐'
         self.role = CardRole.Yakumo
         self.cardType = CardType.Wood
         self.occupation = CardOccupation.Striker

@@ -16,6 +16,7 @@ class CrimsonPhantom(SSRCard):
         self.round = 8
         self.cardName = '殷红魅影'
         self.nickName = '盾八/伯爵八'
+        self.des = '反击盾，抗伤能力低，各方面表现不如SR墨菲，不建议使用'
         self.role = CardRole.Yakumo
         self.cardType = CardType.Fire
         self.occupation = CardOccupation.Guardian

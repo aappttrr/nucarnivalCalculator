@@ -15,6 +15,7 @@ class CocoaLiqueur(SSRCard):
         self.round = 2
         self.cardName = '酒心可可'
         self.nickName = '白八/暗八'
+        self.des = '必杀易伤，伤害不如同定位的水啖，但血量更高，没那么容易暴毙'
         self.role = CardRole.Yakumo
         self.cardType = CardType.Dark
         self.occupation = CardOccupation.Striker
