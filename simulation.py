@@ -683,9 +683,14 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     _helper.team.append(yanBa)
 
     _helper.battleStart(True)
-    name = '普攻输出对比-暗昆.xls'.format(_helper.maxTurn)
+    teamName = ''
+    for x in _helper.team:
+        if len(teamName) > 0:
+            teamName += '_'
+        teamName += x.cardName
+    name = teamName +'-' + str(_helper.maxTurn) + '.xls'
     # _helper.exportExcel('E:\\新世界\\攻略\\【2023.9.7】烟岚秘境\\烟狼模拟\\' + name)
-    # _helper.exportExcel('C:\\fhs\\python\\【2023.9.7】\\' + name)
+    _helper.exportExcel('C:\\fhs\\python\\【2023.9.21】\\' + name)
 
 
 def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, turn=13):
