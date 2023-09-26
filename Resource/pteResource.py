@@ -167,7 +167,7 @@ def getUpdateLogContent():
     return output.getvalue()
 
 
-def getUpdateLogContent_2_9(_output: io.StringIO):
+def getUpdateLogContent_2_10(_output: io.StringIO):
     writeDashString(_output, 36)
     writeString(_output, '2023.9.13')
     writeDashString(_output, 36)
