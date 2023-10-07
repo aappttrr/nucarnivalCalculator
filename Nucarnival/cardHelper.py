@@ -2,6 +2,7 @@ from RoleCards.cards.aster.n_aster import NAster
 from RoleCards.cards.aster.r_aster import RAster
 from RoleCards.cards.aster.scarletFinesse import ScarletFinesse
 from RoleCards.cards.aster.sr_aster import SRAster
+from RoleCards.cards.blade.UniqueMission import UniqueMission
 from RoleCards.cards.blade.crystalAwakening import CrystalAwakening
 from RoleCards.cards.blade.lovableEnforcer import LovableEnforcer
 from RoleCards.cards.blade.n_Blade import NBlade
@@ -34,6 +35,7 @@ from RoleCards.cards.garu.mastersGift import MastersGift
 from RoleCards.cards.garu.n_Garu import NGaru
 from RoleCards.cards.garu.r_Garu import RGaru
 from RoleCards.cards.garu.sr_Garu import SRGaru
+from RoleCards.cards.kuya.ApatheticOutsider import ApatheticOutsider
 from RoleCards.cards.kuya.afternoonDaze import AfternoonDaze
 from RoleCards.cards.kuya.aromaticExotica import AromaticExotica
 from RoleCards.cards.kuya.fallenLeaves import FallenLeaves
@@ -63,6 +65,7 @@ from RoleCards.cards.quincy.n_Quincy import NQuincy
 from RoleCards.cards.quincy.r_Quincy import RQuincy
 from RoleCards.cards.quincy.smokedTimber import SmokedTimber
 from RoleCards.cards.quincy.sr_Quincy import SRQuincy
+from RoleCards.cards.rei.TruthSeeker import TruthSeeker
 from RoleCards.cards.rei.midnightOwl import MidnightOwl
 from RoleCards.cards.rei.n_Rei import NRei
 from RoleCards.cards.rei.r_Rei import RRei
@@ -196,6 +199,7 @@ class CardHelper:
         naiHL = LakesideSpark()
         shuiHL = AfternoonDaze()
         xiaHL = AromaticExotica()
+        qiangHl = ApatheticOutsider()
         self.cardList.append(srHL)
         self.cardList.append(rHL)
         self.cardList.append(nHL)
@@ -204,6 +208,7 @@ class CardHelper:
         self.cardList.append(naiHL)
         self.cardList.append(shuiHL)
         self.cardList.append(xiaHL)
+        self.cardList.append(qiangHl)
 
         # 可尔
         srL = SRGaru()
@@ -231,6 +236,7 @@ class CardHelper:
         xBL = IdolApprentice()
         npBL = LovableEnforcer()
         junBl = CrystalAwakening()
+        qiangBl = UniqueMission()
         self.cardList.append(srBL)
         self.cardList.append(rBL)
         self.cardList.append(nBL)
@@ -238,6 +244,7 @@ class CardHelper:
         self.cardList.append(xBL)
         self.cardList.append(npBL)
         self.cardList.append(junBl)
+        self.cardList.append(qiangBl)
 
         # 啖天
         srDT = SRDante()
@@ -261,11 +268,13 @@ class CardHelper:
         nLian = NRei()
         ssrLian = MidnightOwl()
         sanLian = RainyRebirth()
+        qiangLian = TruthSeeker()
         self.cardList.append(srLian)
         self.cardList.append(rLian)
         self.cardList.append(nLian)
         self.cardList.append(ssrLian)
         self.cardList.append(sanLian)
+        self.cardList.append(qiangLian)
 
         # 伊得
         hYD = GalacticMist()
