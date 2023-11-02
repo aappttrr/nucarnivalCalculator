@@ -399,7 +399,7 @@ def exportTitle(ws: Worksheet, row):
 # 配置模拟队友
 def similationTeamMate(helper: NucarnivalHelper, x: ICard):
     if x.cardName == '爵士册封之夜' or x.cardName == '追逐悠远之约' \
-            or x.cardName == '守望者的冬季馈礼' or x.cardName == '幽暧新星的祷词':
+            or x.cardName == '守望者的冬季馈礼' or x.cardName == '幽暧新星的祷词' or x.cardName == '银弹的告解者':
         mate = TempTeamMate()
         mate.occupation = CardOccupation.Striker
         helper.team.append(mate)
@@ -656,6 +656,8 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     qiangBl = _cardHelper.filterCard('UniqueMission')[0]
     qiangLian = _cardHelper.filterCard('TruthSeeker')[0]
     huoBu = _cardHelper.filterCard('CrystalAwakening')[0]
+    qiangAo = _cardHelper.filterCard('SilverConfessor')[0]
+    qiangDan = _cardHelper.filterCard('InfernalTreatymaker')[0]
 
     # 治疗
     puAo = _cardHelper.filterCard('HolyConfession')[0]
@@ -670,29 +672,25 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     #     else:
     #         _helper.actionSequence[i] = [1, 4, 3, 2]
 
-    _helper.skillTurn[qiangHl] = [6,10,14]
-    # _helper.skillTurn[qiangHl] = [5,9,13]
+    # _helper.skillTurn[qiangHl] = [6,10,14]
+    # _helper.skillTurn[srAo] = [5,10,14]
+    # _helper.skillTurn[shaTuan] = [5,8,11,14]
 
-    # qiangHl.setProperties(60, 4, 5, 12)
-    _helper.maxTurn = 14
+    _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(srAo)
-    _helper.team.append(srBa)
-    # _helper.team.append(yanL)
-    _helper.team.append(shuiHu)
-    _helper.team.append(zaoBa)
-    _helper.team.append(anKun)
+    _helper.team.append(qiangAo)
 
     _helper.battleStart(True)
+    # teamName = str(qiangHl.star) + 'x'
     teamName = ''
     for x in _helper.team:
         if len(teamName) > 0:
             teamName += '_'
         teamName += x.cardName
     name = teamName +'-' + str(_helper.maxTurn) + '.xls'
-    _helper.exportExcel('E:\\新世界\\攻略\\【2023.10.5】锖色国度\\模拟数据\\' + name)
-    # _helper.exportExcel('C:\\fhs\\python\\【2023.9.21】\\' + name)
+    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.10.5】锖色国度\\模拟数据\\' + name)
+    # _helper.exportExcel('C:\\fhs\\python\\【2023.10.8】\\' + name)
 
 
 def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, turn=13):
@@ -880,7 +878,7 @@ if __name__ == '__main__':
 
     # singleRoleSimulation(_helper, _cardHelper, 'ScarletFinesse', 13, 60, 5)
 
-    tempSimulation(_helper, _cardHelper)
+    # tempSimulation(_helper, _cardHelper)
 
     # starCompareSimulation(_helper, _cardHelper, 13)
 
@@ -889,4 +887,4 @@ if __name__ == '__main__':
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True, False, 1)
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False, False, 1)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True, False, 1)
-    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False, False, 1)
+    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False, False, 1)

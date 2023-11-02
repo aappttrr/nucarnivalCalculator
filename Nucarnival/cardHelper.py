@@ -13,6 +13,7 @@ from RoleCards.cards.blade.idolApprentice import IdolApprentice
 from RoleCards.cards.dante.blazingColiseum import BlazingColiseum
 from RoleCards.cards.dante.eternalHanabi import EternalHanabi
 from RoleCards.cards.dante.icyEquilibrium import IcyEquilibrium
+from RoleCards.cards.dante.infernalTreatymaker import InfernalTreatymaker
 from RoleCards.cards.dante.n_Dante import NDante
 from RoleCards.cards.dante.r_Dante import RDante
 from RoleCards.cards.dante.scorchingSun import ScorchingSun
@@ -54,6 +55,7 @@ from RoleCards.cards.olivine.captiveStar import CaptiveStar
 from RoleCards.cards.olivine.holyConfession import HolyConfession
 from RoleCards.cards.olivine.n_Olivine import NOlivine
 from RoleCards.cards.olivine.r_Olivine import ROlivine
+from RoleCards.cards.olivine.silverConfessor import SilverConfessor
 from RoleCards.cards.olivine.sr_Olivine import SROlivine
 from RoleCards.cards.olivine.radiantAdmiral import RadiantAdmiral
 from RoleCards.cards.quincy.ancientCeremony import AncientCeremony
@@ -161,6 +163,7 @@ class CardHelper:
         xO = RadiantAdmiral()
         dO = FrostedVirtue()
         miAo = CaptiveStar()
+        qiangAo = SilverConfessor()
         self.cardList.append(srO)
         self.cardList.append(rO)
         self.cardList.append(nO)
@@ -169,6 +172,7 @@ class CardHelper:
         self.cardList.append(xO)
         self.cardList.append(dO)
         self.cardList.append(miAo)
+        self.cardList.append(qiangAo)
 
         # 昆西
         srKX = SRQuincy()
@@ -254,6 +258,7 @@ class CardHelper:
         hhDT = EternalHanabi()
         shengDT = IcyEquilibrium()
         xiaDT = ScorchingSun()
+        qiangDT = InfernalTreatymaker()
         self.cardList.append(srDT)
         self.cardList.append(rDT)
         self.cardList.append(nDT)
@@ -261,6 +266,7 @@ class CardHelper:
         self.cardList.append(hhDT)
         self.cardList.append(shengDT)
         self.cardList.append(xiaDT)
+        self.cardList.append(qiangDT)
 
         # 敛
         srLian = SRRei()
