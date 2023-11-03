@@ -53,9 +53,18 @@ class InfernalTreatymaker(SSRCard):
 
     def skillAfter(self, enemies):
         if self.passive_star_3():
+            ps3CountMap = {}
+
             for monster in enemies:
+                ps3Count = 0
+                if monster in ps3CountMap:
+                    ps3Count = ps3CountMap[monster]
+                ps3Count += 1
+                ps3CountMap[monster] = ps3Count
+
+            for monster, ps3Count in ps3CountMap.items():
                 if monster.calBuffCount('InfernalTreatymaker_passive_star_3') < 3:
-                    buff2 = Buff('InfernalTreatymaker_passive_star_3', 0.025, 0, BuffType.BeDamageIncrease)
+                    buff2 = Buff('InfernalTreatymaker_passive_star_3', 0.025 * ps3Count, 0, BuffType.BeDamageIncrease)
                     buff2.isPassive = True
                     monster.addBuff(buff2, self)
 
