@@ -58,7 +58,7 @@ class EternalHanabi(SSRCard):
                 role.addBuff(buff, self)
 
     # 攻击时，造成护盾+5%(5)
-    # 队伍啖天每1位，自攻+8%(max 3)
+    # 队伍啖天每1位，自攻+9%(max 3)
     def passive_star_3(self):
         if super(EternalHanabi, self).passive_star_3():
             count = 0
@@ -70,7 +70,7 @@ class EternalHanabi(SSRCard):
                 count = 3
 
             if count > 0:
-                buff = Buff('EternalHanabi_passive_star_3_2', 0.08 * count, 0, BuffType.AtkIncrease)
+                buff = Buff('EternalHanabi_passive_star_3_2', 0.09 * count, 0, BuffType.AtkIncrease)
                 buff.isPassive = True
                 self.addBuff(buff)
 

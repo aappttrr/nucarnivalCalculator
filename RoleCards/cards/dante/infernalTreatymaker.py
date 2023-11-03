@@ -52,21 +52,7 @@ class InfernalTreatymaker(SSRCard):
                 monster.addBuff(buff2, self)
 
     def skillAfter(self, enemies):
-        if self.passive_star_3():
-            ps3CountMap = {}
-
-            for monster in enemies:
-                ps3Count = 0
-                if monster in ps3CountMap:
-                    ps3Count = ps3CountMap[monster]
-                ps3Count += 1
-                ps3CountMap[monster] = ps3Count
-
-            for monster, ps3Count in ps3CountMap.items():
-                if monster.calBuffCount('InfernalTreatymaker_passive_star_3') < 3:
-                    buff2 = Buff('InfernalTreatymaker_passive_star_3', 0.025 * ps3Count, 0, BuffType.BeDamageIncrease)
-                    buff2.isPassive = True
-                    monster.addBuff(buff2, self)
+        self.passive_star_3_buff(enemies)
 
     # 以攻击力45%对敌方站位2、3、4造成伤害，
     # 并使敌方站位2、3、4受到伤害增加2.5%(1回合)
@@ -75,25 +61,26 @@ class InfernalTreatymaker(SSRCard):
             buff = Buff('InfernalTreatymaker_attack', 0.025, 1, BuffType.BeDamageIncrease)
             monster.addBuff(buff, self)
 
-        if self.passive_star_3():
-            ps3CountMap = {}
-
-            for monster in enemies:
-                ps3Count = 0
-                if monster in ps3CountMap:
-                    ps3Count = ps3CountMap[monster]
-                ps3Count += 1
-                ps3CountMap[monster] = ps3Count
-
-            for monster, ps3Count in ps3CountMap.items():
-                if monster.calBuffCount('InfernalTreatymaker_passive_star_3') < 3:
-                    buff2 = Buff('InfernalTreatymaker_passive_star_3', 0.025 * ps3Count, 0, BuffType.BeDamageIncrease)
-                    buff2.isPassive = True
-                    monster.addBuff(buff2, self)
+        self.passive_star_3_buff(enemies)
 
     # 攻击时，触发使敌方站位2、3、4受到伤害增加2.5%(最多3层)
-    def passive_star_3(self):
-        return super(InfernalTreatymaker, self).passive_star_3()
+    def passive_star_3_buff(self, enemies):
+        if self.passive_star_3() is False:
+            return
+        ps3CountMap = {}
+
+        for monster in enemies:
+            ps3Count = 0
+            if monster in ps3CountMap:
+                ps3Count = ps3CountMap[monster]
+            ps3Count += 1
+            ps3CountMap[monster] = ps3Count
+
+        for monster, ps3Count in ps3CountMap.items():
+            if monster.calBuffCount('InfernalTreatymaker_passive_star_3') < 3:
+                buff2 = Buff('InfernalTreatymaker_passive_star_3', 0.025 * ps3Count, 0, BuffType.BeDamageIncrease)
+                buff2.isPassive = True
+                monster.addBuff(buff2, self)
 
     # 攻击力增加27%
     def passive_star_5(self):
