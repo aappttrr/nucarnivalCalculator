@@ -179,6 +179,8 @@ def getUpdateLogContent_2_12(_output: io.StringIO):
     writeLineString(_output, 'v2.12:')
     writeWriteSpace(_output, 8)
     writeLineString(_output, '①增加血之秘钥，奥利文、啖天的新卡')
+    writeWriteSpace(_output, 8)
+    writeLineString(_output, '②修复水啖3星被动加成不对的问题（原来一层8%，实际是一层9%）')
 
 
 def getUpdateLogContent_2_11(_output: io.StringIO):
