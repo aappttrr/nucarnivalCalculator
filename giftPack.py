@@ -343,6 +343,30 @@ def chapterGiftPacks(gps: list[CostPerformanceHelper]):
     c12lb3sp.price = 6000
     gps.append(c12lb3sp)
 
+    c13lb = CostPerformanceHelper('第13章礼包')
+    c13lb.addGameProp(GameProp(PropType.essenceContract, 15))
+    c13lb.addGameProp(GameProp(PropType.strongBoost, 10))
+    c13lb.addGameProp(GameProp(PropType.holyWater_L, 30))
+    c13lb.currencyType = CurrencyType.eCoin
+    c13lb.price = 1724
+    gps.append(c13lb)
+
+    c13lbsp = CostPerformanceHelper('第13章礼包SP')
+    c13lbsp.addGameProp(GameProp(PropType.essenceContract, 40))
+    c13lbsp.addGameProp(GameProp(PropType.crystalCore, 1))
+    c13lbsp.addGameProp(GameProp(PropType.strongBoost, 30))
+    c13lbsp.currencyType = CurrencyType.eCoin
+    c13lbsp.price = 6000
+    gps.append(c13lbsp)
+
+    c13lb1 = CostPerformanceHelper('第13章祈愿礼包')
+    c13lb1.addGameProp(GameProp(PropType.spiritGem, 6000))
+    c13lb1.addGameProp(GameProp(PropType.basicBoost, 20))
+    c13lb1.addGameProp(GameProp(PropType.intermediatePotentialPkg, 2))
+    c13lb1.currencyType = CurrencyType.eCoin
+    c13lb1.price = 1245
+    gps.append(c13lb1)
+
     return gps
 
 
@@ -513,6 +537,14 @@ def activityGiftPacks(gps: list[CostPerformanceHelper]):
     znlb.currencyType = CurrencyType.eCoin
     znlb.price = 139
     gps.append(znlb)
+
+    jflcb = CostPerformanceHelper('金风里程碑')
+    jflcb.addGameProp(GameProp(PropType.spiritGem, 2000))
+    jflcb.addGameProp(GameProp(PropType.basicBoost, 15))
+    jflcb.addGameProp(GameProp(PropType.coin, 100000))
+    jflcb.currencyType = CurrencyType.eCoin
+    jflcb.price = 480
+    gps.append(jflcb)
 
 
 # 等级礼包
@@ -776,5 +808,5 @@ def exportAllGiftPacks(filePath):
 
 
 if __name__ == '__main__':
-    exportAllGiftPacks('E:\\新世界\\性价比\\性价比计算.xls')
-    # exportAllGiftPacks('C:\\fhs\\python\\性价比计算.xls')
+    # exportAllGiftPacks('E:\\新世界\\性价比\\性价比计算.xls')
+    exportAllGiftPacks('C:\\fhs\\python\\性价比计算.xls')
