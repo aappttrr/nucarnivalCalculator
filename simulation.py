@@ -672,34 +672,31 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     cd4 = [5,9,13]
     cd5 = [6,11]
     cd6 = [7,13]
-    for i in range(1, 15):
-        if i in cd3:
-            _helper.actionSequence[i] = [1, 2, 4, 3, 5]
-        else:
-            _helper.actionSequence[i] = [1, 2, 3, 4, 5]
+    # for i in range(1, 15):
+    #     if i in cd3:
+    #         _helper.actionSequence[i] = [1, 2, 4, 3, 5]
+    #     else:
+    #         _helper.actionSequence[i] = [1, 2, 3, 4, 5]
 
     # _helper.skillTurn[qiangHl] = [6,10,14]
     # _helper.skillTurn[srAo] = [5,10,14]
-    # _helper.skillTurn[shaTuan] = [5,8,11,14]
+    _helper.skillTurn[shaTuan] = [5,8,11,14]
     # _helper.skillTurn[wanAo] = cd4
     # _helper.skillTurn[sanKun] = cd4
     # _helper.skillTurn[shengAo] = cd6
 
     _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
-    _helper.monsters.append(CommonMonster())
-    _helper.monsters.append(CommonMonster())
-    _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(wanAo)
-    _helper.team.append(sanKun)
-    _helper.team.append(qiangDan)
-    _helper.team.append(shuiDan)
-    _helper.team.append(xiaDan)
+    _helper.team.append(shaTuan)
+    _helper.team.append(yanL)
+    _helper.team.append(zaoBa)
+    _helper.team.append(yanBa)
+    _helper.team.append(qiangLian)
 
     _helper.battleStart(True)
     # teamName = str(qiangHl.star) + 'x'
-    teamName = '4'
+    teamName = ''
     for x in _helper.team:
         if len(teamName) > 0:
             teamName += '_'
@@ -894,13 +891,13 @@ if __name__ == '__main__':
 
     # singleRoleSimulation(_helper, _cardHelper, 'ScarletFinesse', 13, 60, 5)
 
-    # tempSimulation(_helper, _cardHelper)
+    tempSimulation(_helper, _cardHelper)
 
     # starCompareSimulation(_helper, _cardHelper, 13)
 
     # banguaiSimulation('C:\\fhs\\python\\半拐模拟2.xls', _cardHelper, _helper)
 
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True, False, 1)
-    simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False, False, 1)
+    # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False, False, 1)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True, False, 1)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False, False, 1)

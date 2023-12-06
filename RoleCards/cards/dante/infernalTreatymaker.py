@@ -15,8 +15,8 @@ class InfernalTreatymaker(SSRCard):
         self.round = 20
         self.cardName = '烈焰的缔约者'
         self.nickName = '枪啖'
-        self.des = ''
-        self.tag = ''
+        self.des = '单目标易伤最高'
+        self.tag = '通用叠层易伤/群体易伤/234索敌'
         self.role = CardRole.Dante
         self.cardType = CardType.Dark
         self.occupation = CardOccupation.Saboteur
