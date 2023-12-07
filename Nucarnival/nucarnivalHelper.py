@@ -744,7 +744,7 @@ class NucarnivalHelper:
                 enemiesBeAttacked[record.target] = tempDamage
             except:
                 print('获取必杀追击记录出错')
-        role.doBloodSuck(totalDamage)
+        # role.doBloodSuck(totalDamage)
         for enemy in cardList2:
             if enemy in enemiesBeAttacked:
                 if enemiesBeAttacked[enemy] > 0:
@@ -774,7 +774,7 @@ class NucarnivalHelper:
                 enemiesBeAttacked[record.target] = tempDamage
             except:
                 print('获取普攻追击记录出错')
-        role.doBloodSuck(totalDamage)
+        # role.doBloodSuck(totalDamage)
         for enemy in cardList2:
             if enemy in enemiesBeAttacked:
                 if enemiesBeAttacked[enemy] > 0:

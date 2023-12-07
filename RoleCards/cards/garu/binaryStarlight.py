@@ -105,10 +105,12 @@ class BinaryStarlight(SSRCard):
             self.damageCount[tempEnemy] = 0
             tempEnemy.beDamageCount[self] = 0
         damage = self.skill(enemies, currentAtk)
+        totalDamage = 0
         if damage > 0:
             if isinstance(enemies, list):
                 for enemy in enemies:
                     damage2 = enemy.increaseBeDamage(damage, self, False, True)
+                    totalDamage += damage2
                     self.addDamageCount(damage2, enemy, False)
                     event = Event(EventType.skillDamage)
                     event.data['source'] = self
@@ -117,6 +119,7 @@ class BinaryStarlight(SSRCard):
                     eventManagerInstance.sendEvent(event)
             else:
                 damage2 = enemies.increaseBeDamage(damage, self, False, True)
+                totalDamage += damage2
                 self.addDamageCount(damage2, enemies, False)
                 event = Event(EventType.skillDamage)
                 event.data['source'] = self
@@ -142,8 +145,9 @@ class BinaryStarlight(SSRCard):
             event.data['target'] = self
             eventManagerInstance.sendEvent(event)
 
-        self.followUp(currentAtk, False)
+        totalDamage += self.followUp(currentAtk, False)
         self.triggerWhenAttackOrSkill(enemies, False)
+        self.doBloodSuck(totalDamage)
 
         self.skillAfter(enemies)
         currentAtk2 = self.getCurrentAtk()

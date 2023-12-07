@@ -238,10 +238,12 @@ class ICard:
             self.damageCount[tempEnemy] = 0
             tempEnemy.beDamageCount[self] = 0
         damage = self.attack(enemies, currentAtk)
+        totalDamage = 0
         if damage > 0:
             if isinstance(enemies, list):
                 for enemy in enemies:
                     damage2 = enemy.increaseBeDamage(damage, self, True, False)
+                    totalDamage+=damage2
                     self.addDamageCount(damage2, enemy, True)
                     event = Event(EventType.attackDamage)
                     event.data['source'] = self
@@ -250,6 +252,7 @@ class ICard:
                     eventManagerInstance.sendEvent(event)
             else:
                 damage2 = enemies.increaseBeDamage(damage, self, True, False)
+                totalDamage += damage2
                 self.addDamageCount(damage2, enemies, True)
                 event = Event(EventType.attackDamage)
                 event.data['source'] = self
@@ -275,8 +278,9 @@ class ICard:
             event.data['target'] = self
             eventManagerInstance.sendEvent(event)
 
-        self.followUp(currentAtk, True)
+        totalDamage += self.followUp(currentAtk, True)
         self.triggerWhenAttackOrSkill(enemies, True)
+        self.doBloodSuck(totalDamage)
 
         self.attackAfter(enemies)
         currentAtk2 = self.getCurrentAtk()
@@ -302,10 +306,12 @@ class ICard:
             self.damageCount[tempEnemy] = 0
             tempEnemy.beDamageCount[self] = 0
         damage = self.skill(enemies, currentAtk)
+        totalDamage = 0
         if damage > 0:
             if isinstance(enemies, list):
                 for enemy in enemies:
                     damage2 = enemy.increaseBeDamage(damage, self, False, True)
+                    totalDamage += damage2
                     self.addDamageCount(damage2, enemy, False)
                     event = Event(EventType.skillDamage)
                     event.data['source'] = self
@@ -314,6 +320,7 @@ class ICard:
                     eventManagerInstance.sendEvent(event)
             else:
                 damage2 = enemies.increaseBeDamage(damage, self, False, True)
+                totalDamage += damage2
                 self.addDamageCount(damage2, enemies, False)
                 event = Event(EventType.skillDamage)
                 event.data['source'] = self
@@ -339,8 +346,9 @@ class ICard:
             event.data['target'] = self
             eventManagerInstance.sendEvent(event)
 
-        self.followUp(currentAtk, False)
+        totalDamage += self.followUp(currentAtk, False)
         self.triggerWhenAttackOrSkill(enemies, False)
+        self.doBloodSuck(totalDamage)
 
         self.skillAfter(enemies)
         currentAtk2 = self.getCurrentAtk()
@@ -366,6 +374,7 @@ class ICard:
                     enemies.addBuff(newBuff, buff.source)
 
     def followUp(self, currentAtk, isAttack: bool):
+        totalDamage = 0
         for buff in self.buffs:
             if buff.buffType != BuffType.FollowUpAttack:
                 continue
@@ -388,6 +397,7 @@ class ICard:
             if isinstance(enemies, list):
                 for enemy in enemies:
                     damage2 = enemy.increaseBeDamage(followUpDamage, self, buff.seeAsAttack, buff.seeAsSkill)
+                    totalDamage += damage2
                     self.addDamageCount(damage2, enemy, isAttack)
                     if isAttack:
                         event = Event(EventType.attackFollowUp)
@@ -399,6 +409,7 @@ class ICard:
                     eventManagerInstance.sendEvent(event)
             else:
                 damage2 = enemies.increaseBeDamage(followUpDamage, self, buff.seeAsAttack, buff.seeAsSkill)
+                totalDamage += damage2
                 self.addDamageCount(damage2, enemies, isAttack)
                 if isAttack:
                     event = Event(EventType.attackFollowUp)
@@ -408,6 +419,7 @@ class ICard:
                 event.data['value'] = damage2
                 event.data['target'] = enemies
                 eventManagerInstance.sendEvent(event)
+        return totalDamage
 
     def getMagnification(self, _s1, _s2, _s4):
         magnification = _s1
