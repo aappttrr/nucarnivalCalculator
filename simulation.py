@@ -399,7 +399,8 @@ def exportTitle(ws: Worksheet, row):
 # 配置模拟队友
 def similationTeamMate(helper: NucarnivalHelper, x: ICard):
     if x.cardName == '爵士册封之夜' or x.cardName == '追逐悠远之约' \
-            or x.cardName == '守望者的冬季馈礼' or x.cardName == '幽暧新星的祷词' or x.cardName == '银弹的告解者':
+            or x.cardName == '守望者的冬季馈礼' or x.cardName == '幽暧新星的祷词' \
+            or x.cardName == '银弹的告解者' or x.cardName == '双星辉映':
         mate = TempTeamMate()
         mate.occupation = CardOccupation.Striker
         helper.team.append(mate)
@@ -638,6 +639,7 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     huoTuan = _cardHelper.filterCard('SweetAroma')[0]
     anTuan = _cardHelper.filterCard('EliteInstructor')[0]
     srAi = _cardHelper.filterCard('SRAster')[0]
+    rAi = _cardHelper.filterCard('RAster')[0]
     shuiHu = _cardHelper.filterCard('AfternoonDaze')[0]
     huoHu = _cardHelper.filterCard('KitsuneDream')[0]
     xiaHu = _cardHelper.filterCard('AromaticExotica')[0]
@@ -668,6 +670,10 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     naiHl = _cardHelper.filterCard('LakesideSpark')[0]
     shengAo = _cardHelper.filterCard('FrostedVirtue')[0]
 
+    shuangLang = _cardHelper.filterCard('BinaryStarlight')[0]
+    shuangTuan = _cardHelper.filterCard('TranquilCloud')[0]
+    shuangKun = _cardHelper.filterCard('SnowPatrol')[0]
+
     cd3 = [4,7,10,13]
     cd4 = [5,9,13]
     cd5 = [6,11]
@@ -688,11 +694,9 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(shaTuan)
-    _helper.team.append(yanL)
-    _helper.team.append(zaoBa)
-    _helper.team.append(yanBa)
-    _helper.team.append(qiangLian)
+    _helper.team.append(shuangLang)
+    _helper.team.append(srAi)
+    _helper.team.append(rAi)
 
     _helper.battleStart(True)
     # teamName = str(qiangHl.star) + 'x'
@@ -702,7 +706,7 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
             teamName += '_'
         teamName += x.cardName
     name = teamName +'-' + str(_helper.maxTurn) + '.xls'
-    _helper.exportExcel('E:\\新世界\\攻略\\【2023.11.2】血之秘钥\\模拟数据\\' + name)
+    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.11.2】血之秘钥\\模拟数据\\' + name)
     # _helper.exportExcel('C:\\fhs\\python\\【2023.11.2】\\' + name)
 
 
@@ -753,7 +757,7 @@ def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, tu
             continue
         if role.occupation == CardOccupation.Healer or role.cardName == '守望者的冬季馈礼' or role.cardName == '银弹的告解者':
             healRow = doStarCompareSimulation(role, ws2, _helper, turn, healRow, 1)
-            if role.occupation == CardOccupation.Healer:
+            if role.occupation == CardOccupation.Healer and role.cardName != '清音流云' :
                 continue
         damageRow = doStarCompareSimulation(role, ws1, _helper, turn, damageRow, 0)
 

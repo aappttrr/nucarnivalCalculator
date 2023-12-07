@@ -26,8 +26,10 @@ from RoleCards.cards.edmond.r_Edmond import REdmond
 from RoleCards.cards.edmond.springChaos import SpringChaos
 from RoleCards.cards.edmond.sweetAroma import SweetAroma
 from RoleCards.cards.edmond.sr_Edmond import SREdmond
+from RoleCards.cards.edmond.tranquilCloud import TranquilCloud
 from RoleCards.cards.edmond.whiteLover import WhiteLover
 from RoleCards.cards.eiden.galacticMist import GalacticMist
+from RoleCards.cards.garu.binaryStarlight import BinaryStarlight
 from RoleCards.cards.garu.endlessBanquet import EndlessBanquet
 from RoleCards.cards.garu.etherealGuardian import EtherealGuardian
 from RoleCards.cards.garu.forgottenFruit import ForgottenFruit
@@ -66,6 +68,7 @@ from RoleCards.cards.quincy.distantPromise import DistantPromise
 from RoleCards.cards.quincy.n_Quincy import NQuincy
 from RoleCards.cards.quincy.r_Quincy import RQuincy
 from RoleCards.cards.quincy.smokedTimber import SmokedTimber
+from RoleCards.cards.quincy.snowPatrol import SnowPatrol
 from RoleCards.cards.quincy.sr_Quincy import SRQuincy
 from RoleCards.cards.rei.TruthSeeker import TruthSeeker
 from RoleCards.cards.rei.midnightOwl import MidnightOwl
@@ -144,6 +147,7 @@ class CardHelper:
         anFT = EliteInstructor()
         huaFT = SpringChaos()
         xiaFT = FlamingSecret()
+        shuangFT = TranquilCloud()
         self.cardList.append(srFT)
         self.cardList.append(rFT)
         self.cardList.append(nFT)
@@ -153,6 +157,7 @@ class CardHelper:
         self.cardList.append(anFT)
         self.cardList.append(huaFT)
         self.cardList.append(xiaFT)
+        self.cardList.append(shuangFT)
 
         # 奥利文
         srO = SROlivine()
@@ -184,6 +189,7 @@ class CardHelper:
         dongKX = ArcticWarden()
         srShuiKX = SmokedTimber()
         sanKX = BlossomingLegend()
+        shuangKX = SnowPatrol()
         self.cardList.append(srKX)
         self.cardList.append(rKX)
         self.cardList.append(nKX)
@@ -193,6 +199,7 @@ class CardHelper:
         self.cardList.append(dongKX)
         self.cardList.append(srShuiKX)
         self.cardList.append(sanKX)
+        self.cardList.append(shuangKX)
 
         # 玖夜
         srHL = SRKuya()
@@ -223,6 +230,7 @@ class CardHelper:
         guaL = HowlingCyclone()
         dunL = ForgottenFruit()
         yanL = EtherealGuardian()
+        shuangL = BinaryStarlight()
         self.cardList.append(srL)
         self.cardList.append(rL)
         self.cardList.append(nL)
@@ -231,6 +239,7 @@ class CardHelper:
         self.cardList.append(guaL)
         self.cardList.append(dunL)
         self.cardList.append(yanL)
+        self.cardList.append(shuangL)
 
         # 布儡
         srBL = SRBlade()

@@ -33,9 +33,9 @@ class InfernalTreatymaker(SSRCard):
         self.attackMagnification = 0.45
 
         # 攻击力43%/51%/60% 各造成两次伤害
-        self.skillMagnificationLv1 = 0.43 *2
-        self.skillMagnificationLv2 = 0.51 *2
-        self.skillMagnificationLv3 = 0.6 *2
+        self.skillMagnificationLv1 = 0.43 * 2
+        self.skillMagnificationLv2 = 0.51 * 2
+        self.skillMagnificationLv3 = 0.6 * 2
 
     #   解除敌方全体的防御状态
     #   使敌方全体受到伤害增加14%(3)
