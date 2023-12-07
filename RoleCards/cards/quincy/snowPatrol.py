@@ -37,7 +37,7 @@ class SnowPatrol(SSRCard):
         actualDamageIncrease = roundDown(actualDamageIncrease)
 
         for role in self.teamMate:
-            buff = Buff('SnowPatrol_skill', -12.5, 2, BuffType.BeDamageIncrease)
+            buff = Buff('SnowPatrol_skill', -0.125, 2, BuffType.BeDamageIncrease)
             role.addBuff(buff, self)
             if self.star >= 2:
                 buff2 = Buff('SnowPatrol_skill2', 0.27, 4, BuffType.BeHotIncrease)
@@ -59,23 +59,23 @@ class SnowPatrol(SSRCard):
         if super(SnowPatrol, self).passive_star_3():
             for role in self.teamMate:
                 if role.occupation == CardOccupation.Healer:
-                    buff = Buff('SnowPatrol_passive_star_3', 18, 50, BuffType.AtkIncrease)
+                    buff = Buff('SnowPatrol_passive_star_3', 0.18, 50, BuffType.AtkIncrease)
                     buff.isPassive = True
                     role.addBuff(buff, self)
-                buff2 = Buff('SnowPatrol_passive_star_32', 9, 50, BuffType.AtkIncrease)
+                buff2 = Buff('SnowPatrol_passive_star_32', 0.09, 50, BuffType.AtkIncrease)
                 buff2.isPassive = True
                 role.addBuff(buff2, self)
 
     def passive_star_5(self):
         if super(SnowPatrol, self).passive_star_5():
             for role in self.teamMate:
-                buff = Buff('SnowPatrol_passive_star_5', 14, 50, BuffType.AtkIncrease)
+                buff = Buff('SnowPatrol_passive_star_5', 0.14, 50, BuffType.AtkIncrease)
                 buff.isPassive = True
                 role.addBuff(buff, self)
 
     def passive_tier_6(self):
         if super(SnowPatrol, self).passive_tier_6():
             for role in self.teamMate:
-                buff = Buff('SnowPatrol_passive_tier_6', 3, 50, BuffType.AtkIncrease)
+                buff = Buff('SnowPatrol_passive_tier_6', 0.03, 50, BuffType.AtkIncrease)
                 buff.isPassive = True
                 role.addBuff(buff, self)
