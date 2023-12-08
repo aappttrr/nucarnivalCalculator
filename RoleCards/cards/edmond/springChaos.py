@@ -16,7 +16,7 @@ class SpringChaos(SSRCard):
         self.cardId = 'SpringChaos'
         self.round = 12
         self.cardName = '春日迷乱'
-        self.nickName = '花团'
+        self.nickName = '捧花团'
         self.des = '普攻嘲讽，很灵活，但容易站不住，建议3星'
         self.tag = '普攻嘲讽 / 降低敌方伤害 / 通用减伤 / 防御减伤 / Hot（仅自身）'
         self.role = CardRole.Edmond

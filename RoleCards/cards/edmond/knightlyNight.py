@@ -16,7 +16,7 @@ class KnightlyNight(SSRCard):
         super(KnightlyNight, self).__init__()
         self.cardId = 'KnightlyNight'
         self.cardName = '爵士册封之夜'
-        self.nickName = '普团/水团'
+        self.nickName = '普团'
         self.des = '普攻输出，伤害中等偏上，必须3星'
         self.tag = '普攻输出'
         self.role = CardRole.Edmond

@@ -38,7 +38,7 @@ from RoleCards.cards.garu.mastersGift import MastersGift
 from RoleCards.cards.garu.n_Garu import NGaru
 from RoleCards.cards.garu.r_Garu import RGaru
 from RoleCards.cards.garu.sr_Garu import SRGaru
-from RoleCards.cards.kuya.ApatheticOutsider import ApatheticOutsider
+from RoleCards.cards.kuya.apatheticOutsider import ApatheticOutsider
 from RoleCards.cards.kuya.afternoonDaze import AfternoonDaze
 from RoleCards.cards.kuya.aromaticExotica import AromaticExotica
 from RoleCards.cards.kuya.fallenLeaves import FallenLeaves

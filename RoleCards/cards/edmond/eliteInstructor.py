@@ -15,7 +15,7 @@ class EliteInstructor(SSRCard):
         self.cardId = 'EliteInstructor'
         self.round = 9
         self.cardName = '专属指导'
-        self.nickName = '暗团'
+        self.nickName = '镀金团'
         self.des = '通用易伤，反复横跳多次的技能，叠层比较麻烦，上限不算高，更适合普攻队，可用'
         self.tag = '叠层通用易伤'
         self.role = CardRole.Edmond

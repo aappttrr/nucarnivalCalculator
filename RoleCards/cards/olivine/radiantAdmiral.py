@@ -15,7 +15,7 @@ class RadiantAdmiral(SSRCard):
         self.cardId = 'RadiantAdmiral'
         self.round = 5
         self.cardName = '闪耀领航'
-        self.nickName = '暗奥/夏奥'
+        self.nickName = '夏奥'
         self.des = '必杀输出，伤害高，缺点是怪多伤害分散，3星可用'
         self.role = CardRole.Olivine
         self.cardType = CardType.Dark

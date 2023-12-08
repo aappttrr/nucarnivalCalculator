@@ -15,7 +15,7 @@ class ForgottenFruit(SSRCard):
         self.cardId = 'ForgottenFruit'
         self.round = 13
         self.cardName = '遗忘的甜蜜果'
-        self.nickName = '盾狼'
+        self.nickName = '制服狼'
         self.des = '群体护盾+减伤，也有嘲讽，实际抗伤量不低，非常不错的守护，缺点是CD4'
         self.tag = '群体护盾 / 群体通用减伤 / 群体必杀减伤 / 嘲讽'
         self.role = CardRole.Garu

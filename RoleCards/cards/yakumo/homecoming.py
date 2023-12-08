@@ -17,7 +17,7 @@ class Homecoming(SSRCard):
         super(Homecoming, self).__init__()
         self.cardId = 'Homecoming'
         self.cardName = '回到故乡的那日'
-        self.nickName = '普八/火八'
+        self.nickName = '普八'
         self.des = '万金油输出，伤害中等，被动拉跨，不建议使用'
         self.role = CardRole.Yakumo
         self.cardType = CardType.Fire

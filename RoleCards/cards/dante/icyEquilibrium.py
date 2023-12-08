@@ -16,7 +16,7 @@ class IcyEquilibrium(SSRCard):
         self.cardId = 'IcyEquilibrium'
         self.round = 10
         self.cardName = '权衡者的雪藏初心'
-        self.nickName = '圣蛋'
+        self.nickName = '圣啖'
         self.des = '追击普攻辅助，可惜数值给的太少，用处不大，不建议使用'
         self.tag = '普攻增益 / 攻击位追击增益'
         self.role = CardRole.Dante

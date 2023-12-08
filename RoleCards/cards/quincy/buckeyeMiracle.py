@@ -15,7 +15,7 @@ class BuckeyeMiracle(SSRCard):
         self.cardId = 'BuckeyeMiracle'
         self.round = 3
         self.cardName = '七叶之花的奇迹'
-        self.nickName = '盾昆/花昆'
+        self.nickName = '花昆'
         self.des = '伤害较高，4CD的嘲讽持续2回合，不是很灵活，减伤技能也比较少，抗伤能力一般，不建议使用'
         self.role = CardRole.Quincy
         self.cardType = CardType.Wood
