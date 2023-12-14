@@ -166,7 +166,8 @@ class BinaryStarlight(SSRCard):
             temp1 = [enemies[0], enemies[1], enemies[1]]
             return temp1
         elif len(enemies) == 3:
-            return enemies
+            temp1 = [enemies[0], enemies[1], enemies[2]]
+            return temp1
         elif len(enemies) == 4:
             temp1 = [enemies[0], enemies[1], enemies[2]]
             return temp1

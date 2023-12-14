@@ -677,27 +677,35 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     zhifuKun = _cardHelper.filterCard('SmokedTimber')[0]
 
     cd3 = [4,7,10,13]
+    cd3_2 = [5,8,11,14]
     cd4 = [5,9,13]
     cd4_1 = [6,10,14]
     cd5 = [6,11]
     cd6 = [7,13]
-    # for i in range(1, 15):
-    #     if i in cd3:
-    #         _helper.actionSequence[i] = [3,1,2,4,5]
-    #     else:
-    #         _helper.actionSequence[i] = [1, 2, 3, 4, 5]
+    for i in range(1, 15):
+        if i in cd4:
+            _helper.actionSequence[i] = [1,2,4,3,5]
+        else:
+            _helper.actionSequence[i] = [1, 2, 3, 4, 5]
 
-    _helper.skillTurn[sanKun] = cd4
     _helper.skillTurn[wanAo] = cd4
+    _helper.skillTurn[sanKun] = cd4
+    _helper.skillTurn[qiangDan] = cd4
+    _helper.skillTurn[shuiDan] = cd4
 
     _helper.maxTurn = 13
     _helper.monsters.append(CommonMonster())
+    _helper.monsters.append(CommonMonster())
+    _helper.monsters.append(CommonMonster())
+    _helper.monsters.append(CommonMonster())
+    _helper.monsters.append(CommonMonster())
     _helper.team.clear()
-    _helper.team.append(shuangKun)
-    _helper.team.append(yanL)
-    _helper.team.append(shuiHu)
-    _helper.team.append(huoHu)
-    _helper.team.append(xiaHu)
+    _helper.team.append(wanAo)
+    _helper.team.append(sanKun)
+    _helper.team.append(qiangDan)
+    _helper.team.append(shuiDan)
+    _helper.team.append(shuangLang)
+
     # qiangHl.setProperties(60,3,5,12)
     _helper.battleStart(True)
     # teamName = str(qiangHl.star) + 'x'
@@ -707,8 +715,8 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
             teamName += '_'
         teamName += x.cardName
     name = teamName +'-' + str(_helper.maxTurn) + '.xls'
-    # _helper.exportExcel('E:\\新世界\\攻略\\【2023.12.7】晶霜回声\\模拟数据\\' + name)
-    _helper.exportExcel('C:\\fhs\\python\\模拟数据\\' + name)
+    _helper.exportExcel('E:\\新世界\\攻略\\【2023.12.7】晶霜回声\\模拟数据\\' + name)
+    # _helper.exportExcel('C:\\fhs\\python\\模拟数据\\' + name)
 
 
 def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, turn=13):
