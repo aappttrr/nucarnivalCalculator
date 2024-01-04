@@ -400,7 +400,8 @@ def exportTitle(ws: Worksheet, row):
 def similationTeamMate(helper: NucarnivalHelper, x: ICard):
     if x.cardName == '爵士册封之夜' or x.cardName == '追逐悠远之约' \
             or x.cardName == '守望者的冬季馈礼' or x.cardName == '幽暧新星的祷词' \
-            or x.cardName == '银弹的告解者' or x.cardName == '双星辉映':
+            or x.cardName == '银弹的告解者' or x.cardName == '双星辉映'\
+            or x.cardName == '深欲暗王':
         mate = TempTeamMate()
         mate.occupation = CardOccupation.Striker
         helper.team.append(mate)
@@ -904,7 +905,7 @@ if __name__ == '__main__':
 
     # singleRoleSimulation(_helper, _cardHelper, 'ScarletFinesse', 13, 60, 5)
 
-    tempSimulation(_helper, _cardHelper)
+    # tempSimulation(_helper, _cardHelper)
 
     # starCompareSimulation(_helper, _cardHelper, 13)
 
@@ -913,4 +914,4 @@ if __name__ == '__main__':
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True, False, 1)
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False, False, 1)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True, False, 1)
-    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False, False, 1)
+    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False, False, 1)

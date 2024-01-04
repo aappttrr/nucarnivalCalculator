@@ -1,4 +1,5 @@
 from RoleCards.enum.buffTypeEnum import BuffType
+from RoleCards.enum.cardOccupationEnum import CardOccupation
 from RoleCards.enum.cardRoleEnum import CardRole
 
 
@@ -42,6 +43,7 @@ class Buff:
 
         self.addBuffTurn = 0
         self.targetRole: CardRole = None
+        self.targetOccupation: CardOccupation = None
 
     def nextRound(self):
         if self.round > 0:

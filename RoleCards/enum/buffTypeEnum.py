@@ -43,3 +43,4 @@ class BuffType(enum.Enum):
     AddBeDamageIncrease = '获得受到伤害增加'
     AddDamageIncrease = '使目标受到伤害增加'
     BeDamageIncreaseByRole = '受到xx伤害增加'
+    BeDamageIncreaseByOccupation = '受到xx定位伤害增加'

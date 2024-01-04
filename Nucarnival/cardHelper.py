@@ -29,6 +29,7 @@ from RoleCards.cards.edmond.sr_Edmond import SREdmond
 from RoleCards.cards.edmond.tranquilCloud import TranquilCloud
 from RoleCards.cards.edmond.whiteLover import WhiteLover
 from RoleCards.cards.eiden.galacticMist import GalacticMist
+from RoleCards.cards.eiden.salaciousKing import SalaciousKing
 from RoleCards.cards.garu.binaryStarlight import BinaryStarlight
 from RoleCards.cards.garu.endlessBanquet import EndlessBanquet
 from RoleCards.cards.garu.etherealGuardian import EtherealGuardian
@@ -292,7 +293,9 @@ class CardHelper:
         self.cardList.append(qiangLian)
 
         # 伊得
-        hYD = GalacticMist()
+        yYD = GalacticMist()
+        hYD = SalaciousKing()
+        self.cardList.append(yYD)
         self.cardList.append(hYD)
 
         self.cardList.sort(key=lambda x: (x.rarity, x.round, x.role))
