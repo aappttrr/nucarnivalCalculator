@@ -763,7 +763,10 @@ class ICard:
                 damageIncreaseByRole += buff.value
             if buff.buffType == BuffType.BeDamageIncreaseByOccupation \
                     and enemy.occupation == buff.targetOccupation:
-                damageIncreaseByRole += buff.value
+                if seeAsAttack:
+                    aIncrease += buff.value
+                elif seeAsSkill:
+                    sIncrease += buff.value
 
         if aIncrease != 0:
             result = result * (1 + aIncrease)
