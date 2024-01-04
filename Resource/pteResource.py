@@ -94,7 +94,7 @@ def getHelpContent():
     writeWriteSpace(output, 8)
     writeLineString(output, '普攻/必杀伤害 = 基础攻击力/实时攻击力 * 倍率 * 普攻/必杀加成 * 伤害加成')
     writeWriteSpace(output, 8)
-    writeLineString(output, '最终普攻/必杀伤害 = 普攻/必杀伤害 * 敌方受普攻/必杀加成 * 敌方受伤害加成 * 属性压制 '
+    writeLineString(output, '最终普攻/必杀伤害 = 普攻/必杀伤害 * （敌方受普攻/必杀加成 + 定位易伤） * 敌方受伤害加成 * 属性压制 '
                             '* 敌方受特定角色伤害加成（未验证是否为单独乘区）')
     writeLineString(output, '')
     writeWriteSpace(output, 8)
