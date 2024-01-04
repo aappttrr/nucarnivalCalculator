@@ -15,13 +15,13 @@ class SalaciousKing(SSRCard):
         self.cardId = 'SalaciousKing'
         self.round = 17
         self.cardName = '深欲暗王'
-        self.nickName = '黑伊'
+        self.nickName = '暗伊'
         self.des = ''
-        self.tag = ''
+        self.tag = '减CD，定位易伤'
         self.role = CardRole.Eiden
         self.cardType = CardType.Dark
         self.occupation = CardOccupation.Striker
-        self.tierType = TierType.Attack
+        self.tierType = TierType.Balance
         self.skillCD = 3
         self.ped = PassiveEffectivenessDifficulty.easy
 
