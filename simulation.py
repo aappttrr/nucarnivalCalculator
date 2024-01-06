@@ -676,6 +676,7 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     shuangKun = _cardHelper.filterCard('SnowPatrol')[0]
     baiBa =  _cardHelper.filterCard('CocoaLiqueur')[0]
     zhifuKun = _cardHelper.filterCard('SmokedTimber')[0]
+    anyi = _cardHelper.filterCard('SalaciousKing')[0]
 
     cd3 = [4,7,10,13]
     cd3_2 = [5,8,11,14]
@@ -683,40 +684,42 @@ def tempSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper):
     cd4_1 = [6,10,14]
     cd5 = [6,11]
     cd6 = [7,13]
-    for i in range(1, 15):
-        if i in cd4:
-            _helper.actionSequence[i] = [1,2,4,3,5]
-        else:
-            _helper.actionSequence[i] = [1, 2, 3, 4, 5]
+    cd3_anyi_1 = [3,5,7,10,13,16,19] # 伊得必杀后再必杀
+    cd3_anyi_2 = [3,5,7,10,12,14,16,19] # 伊得必杀前必杀
+    cd3_anyi_action = [10,19] # 伊得必杀前必杀，调整行动顺序
+    cd6_anyi = [5,10,15,19] # 伊得必杀前必杀
+
+    # for i in range(1, 15):
+    #     if i in cd4:
+    #         _helper.actionSequence[i] = [1,2,4,3,5]
+    #     else:
+    #         _helper.actionSequence[i] = [1, 2, 3, 4, 5]
 
     _helper.skillTurn[wanAo] = cd4
     _helper.skillTurn[sanKun] = cd4
-    _helper.skillTurn[qiangDan] = cd4
-    _helper.skillTurn[shuiDan] = cd4
+    _helper.skillTurn[anyi] = cd4
+    _helper.skillTurn[guangLang] = cd4
+    # _helper.skillTurn[shaTuan] = cd3_2
 
     _helper.maxTurn = 13
-    _helper.monsters.append(CommonMonster())
-    _helper.monsters.append(CommonMonster())
-    _helper.monsters.append(CommonMonster())
-    _helper.monsters.append(CommonMonster())
     _helper.monsters.append(CommonMonster())
     _helper.team.clear()
     _helper.team.append(wanAo)
     _helper.team.append(sanKun)
-    _helper.team.append(qiangDan)
-    _helper.team.append(shuiDan)
-    _helper.team.append(shuangLang)
+    _helper.team.append(anyi)
+    _helper.team.append(guangLang)
+    _helper.team.append(xiaHu)
 
-    # qiangHl.setProperties(60,3,5,12)
+    anyi.setProperties(60,1,5,12)
     _helper.battleStart(True)
-    # teamName = str(qiangHl.star) + 'x'
-    teamName = ''
+    teamName = str(anyi.star) + 'x'
+    # teamName = ''
     for x in _helper.team:
         if len(teamName) > 0:
             teamName += '_'
         teamName += x.cardName
     name = teamName +'-' + str(_helper.maxTurn) + '.xls'
-    _helper.exportExcel('E:\\新世界\\攻略\\【2023.12.7】晶霜回声\\模拟数据\\' + name)
+    _helper.exportExcel('E:\\新世界\\攻略\\【2024.1.4】勇闯新世界\\模拟数据\\' + name)
     # _helper.exportExcel('C:\\fhs\\python\\模拟数据\\' + name)
 
 
@@ -771,8 +774,8 @@ def starCompareSimulation(_helper: NucarnivalHelper, _cardHelper: CardHelper, tu
                 continue
         damageRow = doStarCompareSimulation(role, ws1, _helper, turn, damageRow, 0)
 
-    filePath = 'C:\\fhs\\python\\星级对比.xls'
-    # filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
+    # filePath = 'C:\\fhs\\python\\星级对比.xls'
+    filePath = 'E:\\新世界\\战斗模拟\\全角色星级和增攻对比-伤害和治疗.xls'
     wb.save(filePath)
 
 
@@ -905,7 +908,7 @@ if __name__ == '__main__':
 
     # singleRoleSimulation(_helper, _cardHelper, 'ScarletFinesse', 13, 60, 5)
 
-    # tempSimulation(_helper, _cardHelper)
+    tempSimulation(_helper, _cardHelper)
 
     # starCompareSimulation(_helper, _cardHelper, 13)
 
@@ -914,4 +917,4 @@ if __name__ == '__main__':
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_群体_模拟实战.xls', _cardHelper, _helper, True, False, 1)
     # simulationCombat('E:\\新世界\\战斗模拟\\单人13回合期望伤害模拟_单体_模拟实战.xls', _cardHelper, _helper, False, False, 1)
     # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_群体_模拟实战2.xls', _cardHelper, _helper, True, False, 1)
-    simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False, False, 1)
+    # simulationCombat('C:\\fhs\\python\\单人13回合期望伤害模拟_单体_模拟实战2.xls', _cardHelper, _helper, False, False, 1)
